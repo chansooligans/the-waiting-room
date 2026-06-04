@@ -95,7 +95,12 @@ export class PrototypeIframeScene extends Phaser.Scene {
     this.overlay = overlay
 
     const enc = ENCOUNTERS[this.encounterId]
-    const url = `${enc.prototypeIframeUrl!}?embedded=1`
+    // Prefix with the runtime base URL so the iframe resolves correctly
+    // on GitHub Pages (/the-waiting-room/) as well as locally (/).
+    // BASE_URL ends with '/' and prototypeIframeUrl starts with '/', so
+    // strip the trailing slash from base to avoid a double slash.
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+    const url = `${base}${enc.prototypeIframeUrl!}?embedded=1`
 
     overlay.innerHTML = ''
     const iframe = document.createElement('iframe')
