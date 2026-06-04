@@ -785,6 +785,30 @@ export class HospitalScene extends Phaser.Scene {
       activeNpcs.push('anjali')
     }
 
+    // Evict NPC sprites placed from a stale level-filtered placement.
+    // Example: Kim is placed in the lobby at L1 (levels:[1,2]); when
+    // the player reaches L3 she should move to Registration. Without
+    // this pass the lobby sprite persists, blocks the registration
+    // placement via placedSoFar, and the player descends from the lobby
+    // (wrong spawn tile → outside REGISTRATION_BOUNDS in the WR).
+    const staleIds = new Set<string>()
+    for (const ns of this.npcSprites) {
+      const src = this.mapDef.npcPlacements.find(
+        p => p.npcId === ns.npc.id && p.tileX === ns.tileX && p.tileY === ns.tileY
+      )
+      if (src?.levels && !src.levels.includes(state.currentLevel)) {
+        staleIds.add(ns.npc.id)
+      }
+    }
+    if (staleIds.size > 0) {
+      this.npcSprites = this.npcSprites.filter(ns => {
+        if (!staleIds.has(ns.npc.id)) return true
+        ns.sprite.destroy()
+        ns.label.destroy()
+        return false
+      })
+    }
+
     // De-dupe NPCs that have multiple placements (different rooms per
     // level) so each NPC is placed exactly once. Per-NPC, prefer a
     // placement whose `levels` filter matches the current level; fall
