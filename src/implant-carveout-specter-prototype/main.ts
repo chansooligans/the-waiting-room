@@ -801,7 +801,10 @@ function applyAppend(id: string) {
 }
 
 function attemptSubmit() {
-  if (issues.every(i => state.resolvedIssues.has(i.id))) state.packetSubmitted = true; notifyParentVictory('implant-carveout-specter')
+  if (issues.every(i => state.resolvedIssues.has(i.id))) {
+    state.packetSubmitted = true
+    notifyParentVictory('implant-carveout-specter')
+  }
 }
 
 function reset() {

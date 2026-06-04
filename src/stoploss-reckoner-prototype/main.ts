@@ -733,7 +733,10 @@ function pickAppeal(idx: number) {
 }
 
 function attemptSubmit() {
-  if (issues.every(i => state.resolvedIssues.has(i.id))) state.packetSubmitted = true; notifyParentVictory('stoploss-reckoner')
+  if (issues.every(i => state.resolvedIssues.has(i.id))) {
+    state.packetSubmitted = true
+    notifyParentVictory('stoploss-reckoner')
+  }
 }
 
 function reset() {

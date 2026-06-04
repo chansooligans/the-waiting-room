@@ -681,7 +681,10 @@ function applyResolution(id: string) {
 }
 
 function attemptSubmit() {
-  if (issues.every(i => state.resolvedIssues.has(i.id))) state.packetSubmitted = true; notifyParentVictory('three-forty-b-specter')
+  if (issues.every(i => state.resolvedIssues.has(i.id))) {
+    state.packetSubmitted = true
+    notifyParentVictory('three-forty-b-specter')
+  }
 }
 
 function reset() {

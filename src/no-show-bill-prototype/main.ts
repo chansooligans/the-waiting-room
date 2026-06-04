@@ -565,7 +565,10 @@ function applyResolution(id: string) {
 }
 
 function attemptSubmit() {
-  if (issues.every(i => state.resolvedIssues.has(i.id))) state.packetSubmitted = true; notifyParentVictory('no-show-bill')
+  if (issues.every(i => state.resolvedIssues.has(i.id))) {
+    state.packetSubmitted = true
+    notifyParentVictory('no-show-bill')
+  }
 }
 
 function reset() {

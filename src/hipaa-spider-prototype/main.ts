@@ -560,7 +560,10 @@ function applyNotify(id: string) {
 }
 
 function attemptSubmit() {
-  if (issues.every(i => state.resolvedIssues.has(i.id))) state.packetSubmitted = true; notifyParentVictory('hipaa-spider')
+  if (issues.every(i => state.resolvedIssues.has(i.id))) {
+    state.packetSubmitted = true
+    notifyParentVictory('hipaa-spider')
+  }
 }
 
 function reset() {

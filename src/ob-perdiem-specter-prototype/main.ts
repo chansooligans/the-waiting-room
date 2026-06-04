@@ -722,7 +722,10 @@ function pickAppeal(idx: number) {
 }
 
 function attemptSubmit() {
-  if (issues.every(i => state.resolvedIssues.has(i.id))) state.packetSubmitted = true; notifyParentVictory('ob-perdiem-specter')
+  if (issues.every(i => state.resolvedIssues.has(i.id))) {
+    state.packetSubmitted = true
+    notifyParentVictory('ob-perdiem-specter')
+  }
 }
 
 function reset() {

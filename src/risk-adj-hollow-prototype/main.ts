@@ -669,7 +669,10 @@ function applyQuery(id: string) {
 }
 
 function attemptSubmit() {
-  if (issues.every(i => state.resolvedIssues.has(i.id))) state.packetSubmitted = true; notifyParentVictory('risk-adj-hollow')
+  if (issues.every(i => state.resolvedIssues.has(i.id))) {
+    state.packetSubmitted = true
+    notifyParentVictory('risk-adj-hollow')
+  }
 }
 
 function reset() {

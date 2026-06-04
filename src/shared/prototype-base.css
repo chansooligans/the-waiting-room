@@ -57,6 +57,23 @@
     margin: 0 auto;
     width: 100%;
   }
+  /* In embedded mode, hide the "Run it again" reset button and the
+     back-to-catalog link on the victory screen — the parent game
+     auto-advances after 2 s. Show a small "Returning to game…"
+     label in their place so the player knows what's happening. */
+  body.embedded [data-action="reset"],
+  body.embedded .victory .back-link.inline {
+    display: none !important;
+  }
+  body.embedded .victory::after {
+    content: 'Returning to game\2026';
+    display: block;
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--ink-dim, #5a6a7a);
+    font-style: italic;
+    letter-spacing: 0.04em;
+  }
   body::before {
     content: ""; position: fixed; inset: 0; pointer-events: none;
     background:

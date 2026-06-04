@@ -581,7 +581,10 @@ function applyBackdate(id: string) {
 }
 
 function attemptSubmit() {
-  if (issues.every(i => state.resolvedIssues.has(i.id))) state.packetSubmitted = true; notifyParentVictory('credentialing-lattice')
+  if (issues.every(i => state.resolvedIssues.has(i.id))) {
+    state.packetSubmitted = true
+    notifyParentVictory('credentialing-lattice')
+  }
 }
 
 function reset() {
