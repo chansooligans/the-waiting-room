@@ -43,6 +43,9 @@
 //     - LOUNGE_2F (staff break room east of Payer; mirrors the LAB's
 //             placement on 1F and gives the upstairs staff somewhere
 //             to take ten minutes without going downstairs)
+//     - DATA_SANDBOX (R&D bullpen at the SE corner of 2F; the four-
+//             person data/product team that ships the tools the
+//             rest of the hospital pretends not to need)
 //     - TURQUOISE_LOUNGE (partner-vendor break room north of the
 //             trunk; converted hallway holding Turquoise Health's
 //             two embedded staff)
@@ -177,6 +180,11 @@ const PAYER       = { x: 36, y: 100, w: 18, h: 10 } // Aetna/Anthem-equivalent o
 // downstairs. Sits east of PAYER along the same y as AUDIT/PAYER and
 // hooks into the 2F east-west trunk extended east past PAYER.
 const LOUNGE_2F   = { x: 56, y: 100, w: 12, h: 8  } // 2F staff lounge
+// Data Sandbox — the R&D bullpen east of LOUNGE_2F, mirrors the LAB's
+// SE-corner placement on 1F. Houses the four-person data/product
+// team (Chansoo, Nicole, Nick, Monika). North door opens onto the
+// 2F trunk (extended east past LOUNGE_2F to reach this room).
+const DATA_SANDBOX = { x: 68, y: 100, w: 12, h: 8 } // R&D bullpen
 // Turquoise Lounge — partner-vendor break room for Turquoise Health's
 // two embedded staff (Chris on the business side, Adam on engineering).
 // Sits north of the trunk corridor in the empty band between
@@ -1011,6 +1019,37 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
       ],
     },
     {
+      id: 'dataSandbox',
+      ...DATA_SANDBOX,
+      // North door at offset 4 → world (72, 100). Opens onto the 2F
+      // trunk corridor extended east past LOUNGE_2F to reach this
+      // room. Interior 10×6 (dx 0..9, dy 0..5); door entry on
+      // interior dx=3 dy=0 stays open.
+      doors: [{ side: 'N', offset: 4 }],
+      // R&D bullpen: row of standing desks across the middle, server
+      // rack + utility column along the south wall, big shared
+      // whiteboard at the north (visible from the door so the room
+      // reads as "engineering team" the moment you walk in).
+      items: [
+        // North wall: whiteboard + plants. dx=3 dy=0 is door entry.
+        { dx: 0, dy: 0, ch: 'P' },
+        { dx: 6, dy: 0, ch: 'B' },                              // shared monitor / whiteboard
+        { dx: 9, dy: 0, ch: 'P' },
+        // Workstation row — 4 desks paired with chairs (one per
+        // R&D teammate). Chairs are dy=3 (south of desks at dy=2).
+        { dx: 0, dy: 2, ch: 'c' }, { dx: 0, dy: 3, ch: 'h' },   // Chansoo
+        { dx: 3, dy: 2, ch: 'c' }, { dx: 3, dy: 3, ch: 'h' },   // Monika
+        { dx: 6, dy: 2, ch: 'c' }, { dx: 6, dy: 3, ch: 'h' },   // Nick
+        { dx: 9, dy: 2, ch: 'c' }, { dx: 9, dy: 3, ch: 'h' },   // Nicole
+        // South wall — server rack, multi-function printer, water
+        // cooler, plant.
+        { dx: 1, dy: 5, ch: 'F' },                              // server rack
+        { dx: 4, dy: 5, ch: 'X' },                              // MFP (fax/printer/scanner)
+        { dx: 7, dy: 5, ch: 'w' },                              // water cooler
+        { dx: 9, dy: 5, ch: 'P' },
+      ],
+    },
+    {
       id: 'compliance',
       lockedUntilLevel: 32,
       ...COMPLIANCE,
@@ -1140,12 +1179,15 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
       width: 1,
     },
     // East-west trunk on 2F at y=99 connecting AUDIT-N + PAYER-N +
-    // LOUNGE_2F-N doors, plus passing under TURQUOISE_LOUNGE's south
-    // door at (49, 98).
+    // LOUNGE_2F-N + DATA_SANDBOX-N doors, plus passing under
+    // TURQUOISE_LOUNGE's south door at (49, 98). Extended east past
+    // LOUNGE_2F to reach the data-sandbox bullpen at the SE corner
+    // of 2F (mirrors the SW-trough extension on 1F that reaches
+    // the LAB).
     {
       points: [
-        [AUDIT.x + 22,          AUDIT.y - 1],              // (26, 99)
-        [LOUNGE_2F.x + LOUNGE_2F.w - 1, LOUNGE_2F.y - 1], // (67, 99)
+        [AUDIT.x + 22,        AUDIT.y - 1],        // (26, 99)
+        [DATA_SANDBOX.x + 4,  DATA_SANDBOX.y - 1], // (72, 99)
       ],
       width: 1,
     },
@@ -1215,6 +1257,7 @@ export const LEVEL_1_MAP: MapDef = {
     { name: 'AUDIT CONFERENCE', shortName: 'AUD',  ...AUDIT },
     { name: 'PAYER OFFICE',     shortName: 'PAY',  ...PAYER },
     { name: 'STAFF LOUNGE 2F',  shortName: 'LN2',  ...LOUNGE_2F },
+    { name: 'DATA SANDBOX',     shortName: 'R&D',  ...DATA_SANDBOX },
     { name: 'TURQUOISE LOUNGE', shortName: 'TQ',   ...TURQUOISE_LOUNGE },
     { name: 'COMPLIANCE',       shortName: 'CMP',  ...COMPLIANCE },
   ],
@@ -1395,6 +1438,18 @@ export const LEVEL_1_MAP: MapDef = {
     // and third microscope desks (interior dx=5, dy=2 — clear floor
     // tile), facing 'right' toward the desk + sample binders.
     { npcId: 'lab_tech', tileX: LAB.x + 6, tileY: LAB.y + 3, facing: 'right', ambient: true },
+
+    // Data Sandbox — R&D bullpen on 2F. Four-person team standing
+    // in a row on the open floor south of the workstation row.
+    // All four default to 'down' (front-facing the camera) — read
+    // as "team meeting facing the door" rather than internal
+    // sub-conversations. Editor-confirmed pose: 2026-05-09.
+    { npcId: 'chansoo', tileX: DATA_SANDBOX.x + 1,  tileY: DATA_SANDBOX.y + 5, ambient: true },
+    { npcId: 'monika',  tileX: DATA_SANDBOX.x + 4,  tileY: DATA_SANDBOX.y + 5, ambient: true },
+    { npcId: 'nick',    tileX: DATA_SANDBOX.x + 7,  tileY: DATA_SANDBOX.y + 5, ambient: true },
+    // Nicole gated [1-8] so she falls through to LOUNGE_2F at L9+
+    // (2F break room opens then).
+    { npcId: 'nicole',  tileX: DATA_SANDBOX.x + 10, tileY: DATA_SANDBOX.y + 5, ambient: true, levels: [1, 2, 3, 4, 5, 6, 7, 8] },
 
     // Turquoise Lounge — partner-vendor break room. Chris and Adam
     // standing on the couch row at dy=1; both default 'down' so
