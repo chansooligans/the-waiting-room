@@ -869,6 +869,18 @@ export class WaitingRoomScene extends Phaser.Scene {
     this.engagePrompt.setVisible(false)
     saveGame()
 
+    // Snap the red-room ambience to full volume before handing off to
+    // the puzzle scene. The WR fades ambience in over 2 s; if the
+    // player engages quickly, scene.start kills that tween mid-fade
+    // and the sound stays silent for the entire puzzle session.
+    for (const key of ['red_room_1', 'red_room_2', 'red_room_3']) {
+      const s = this.sound.get(key)
+      if (s && s.isPlaying) {
+        this.tweens.killTweensOf(s)
+        ;(s as Phaser.Sound.BaseSound & { volume: number }).volume = 0.45
+      }
+    }
+
     // NPC-triggered sessions return to the Hospital after the puzzle
     // (the player wakes up next to whoever handed them the case).
     // Free-roam sessions return to the WR so the player can wander
