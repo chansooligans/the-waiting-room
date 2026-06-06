@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import { addFullscreenButton } from './fullscreenButton'
 import { addMuteButton } from './muteButton'
 import { BEATS, type SceneActionId } from './introBeats'
+import { debugEvent } from './debugRibbon'
 
 export class IntroScene extends Phaser.Scene {
   private currentBeat = 0
@@ -385,13 +386,14 @@ export class IntroScene extends Phaser.Scene {
    *  pre-narration hold silent. */
   private fadeInIntroSong() {
     if (!this.cache.audio.exists('intro_song')) return
-    // volume: 0 in the config ensures the sound starts silently even
-    // when played from Phaser's locked-audio queue on mobile.
+    // volume: 0 in the config so the sound starts silently regardless
+    // of when Phaser's internal queue actually plays it.
     this.introSong = this.sound.add('intro_song', { volume: 0 })
 
     const start = () => {
       if (!this.introSong || this.done) return
-      this.introSong.play()
+      const result = this.introSong.play()
+      debugEvent(`intro-song play=${result}`)
       this.tweens.add({
         targets: this.introSong,
         volume: 0.15,
@@ -399,13 +401,19 @@ export class IntroScene extends Phaser.Scene {
       })
     }
 
-    // On mobile the first tap triggers AudioContext.resume() which is
-    // async — sm.locked is still true synchronously in this handler.
-    // Defer play + tween until the 'unlocked' event so the GainNode
-    // exists when the tween starts animating volume.
-    const sm = this.sound as Phaser.Sound.BaseSoundManager & { locked?: boolean }
-    if (sm.locked) {
-      this.sound.once('unlocked', start)
+    // On mobile (iOS especially) the AudioContext starts in 'suspended'
+    // state. ctx.resume() was already called by our global unlockAudio
+    // listener, but it's async. Wait for the context to actually be
+    // 'running' before calling play() — AudioBufferSourceNode.start()
+    // fails silently on a suspended context. We don't need to be inside
+    // a user-gesture callback at this point; we only need the context running.
+    const sm = this.sound as Phaser.Sound.BaseSoundManager & {
+      context?: AudioContext
+    }
+    const ctx = sm.context
+    debugEvent(`intro-song ctx=${ctx?.state ?? 'none'}`)
+    if (ctx && ctx.state !== 'running') {
+      ctx.resume().then(start).catch(start)
     } else {
       start()
     }
