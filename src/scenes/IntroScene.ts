@@ -386,14 +386,23 @@ export class IntroScene extends Phaser.Scene {
    *  pre-narration hold silent. */
   private fadeInIntroSong() {
     if (!this.cache.audio.exists('intro_song')) return
-    // volume: 0 in the config so the sound starts silently regardless
-    // of when Phaser's internal queue actually plays it.
-    this.introSong = this.sound.add('intro_song', { volume: 0 })
+
+    const sm = this.sound as Phaser.Sound.BaseSoundManager & {
+      context?: AudioContext
+    }
+    const ctx = sm.context
+    debugEvent(`intro-song ctx=${ctx?.state ?? 'none'}`)
 
     const start = () => {
-      if (!this.introSong || this.done) return
+      if (this.done) return
+      // Create the sound AFTER the AudioContext is running. On iOS,
+      // AudioNodes (GainNode via createGain()) created on a suspended
+      // context can become zombie objects that don't process audio once
+      // the context resumes. Moving sound.add() here ensures the
+      // volumeNode GainNode is created on a live context.
+      this.introSong = this.sound.add('intro_song', { volume: 0 })
       const result = this.introSong.play()
-      debugEvent(`intro-song play=${result}`)
+      debugEvent(`intro-song play=${result} ctx=${ctx?.state ?? '?'}`)
       this.tweens.add({
         targets: this.introSong,
         volume: 0.15,
@@ -401,17 +410,6 @@ export class IntroScene extends Phaser.Scene {
       })
     }
 
-    // On mobile (iOS especially) the AudioContext starts in 'suspended'
-    // state. ctx.resume() was already called by our global unlockAudio
-    // listener, but it's async. Wait for the context to actually be
-    // 'running' before calling play() — AudioBufferSourceNode.start()
-    // fails silently on a suspended context. We don't need to be inside
-    // a user-gesture callback at this point; we only need the context running.
-    const sm = this.sound as Phaser.Sound.BaseSoundManager & {
-      context?: AudioContext
-    }
-    const ctx = sm.context
-    debugEvent(`intro-song ctx=${ctx?.state ?? 'none'}`)
     if (ctx && ctx.state !== 'running') {
       ctx.resume().then(start).catch(start)
     } else {
