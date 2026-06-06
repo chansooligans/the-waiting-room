@@ -385,18 +385,30 @@ export class IntroScene extends Phaser.Scene {
    *  pre-narration hold silent. */
   private fadeInIntroSong() {
     if (!this.cache.audio.exists('intro_song')) return
-    this.introSong = this.sound.add('intro_song')
-    // Force volume to 0 BEFORE play() so the song never bursts at
-    // the default 1.0 volume — some audio backends ignore the
-    // sound.add config until after the first playback tick.
-    ;(this.introSong as any).setVolume?.(0)
-    this.introSong.play()
-    ;(this.introSong as any).setVolume?.(0)
-    this.tweens.add({
-      targets: this.introSong,
-      volume: 0.15,
-      duration: 5000,
-    })
+    // volume: 0 in the config ensures the sound starts silently even
+    // when played from Phaser's locked-audio queue on mobile.
+    this.introSong = this.sound.add('intro_song', { volume: 0 })
+
+    const start = () => {
+      if (!this.introSong || this.done) return
+      this.introSong.play()
+      this.tweens.add({
+        targets: this.introSong,
+        volume: 0.15,
+        duration: 5000,
+      })
+    }
+
+    // On mobile the first tap triggers AudioContext.resume() which is
+    // async — sm.locked is still true synchronously in this handler.
+    // Defer play + tween until the 'unlocked' event so the GainNode
+    // exists when the tween starts animating volume.
+    const sm = this.sound as Phaser.Sound.BaseSoundManager & { locked?: boolean }
+    if (sm.locked) {
+      this.sound.once('unlocked', start)
+    } else {
+      start()
+    }
   }
 
   /** Bump the intro song from its quiet pre-narration level up to
