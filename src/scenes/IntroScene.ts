@@ -402,7 +402,8 @@ export class IntroScene extends Phaser.Scene {
       // volumeNode GainNode is created on a live context.
       this.introSong = this.sound.add('intro_song', { volume: 0 })
       const result = this.introSong.play()
-      debugEvent(`intro-song play=${result} ctx=${ctx?.state ?? '?'}`)
+      const sm2 = this.sound as Phaser.Sound.BaseSoundManager & { volume?: number }
+      debugEvent(`intro-song play=${result} ctx=${ctx?.state ?? '?'} mute=${this.sound.mute} vol=${sm2.volume ?? '?'}`)
       this.tweens.add({
         targets: this.introSong,
         volume: 0.15,
