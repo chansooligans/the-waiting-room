@@ -400,14 +400,17 @@ export class IntroScene extends Phaser.Scene {
       // context can become zombie objects that don't process audio once
       // the context resumes. Moving sound.add() here ensures the
       // volumeNode GainNode is created on a live context.
-      this.introSong = this.sound.add('intro_song', { volume: 0 })
+      // Start at a small but immediately audible volume (0.12) then
+      // fade to the pre-narration level. On mobile a 5 s fade from
+      // volume 0 is effectively silent the whole time.
+      this.introSong = this.sound.add('intro_song', { volume: 0.12 })
       const result = this.introSong.play()
       const sm2 = this.sound as Phaser.Sound.BaseSoundManager & { volume?: number }
       debugEvent(`intro-song play=${result} ctx=${ctx?.state ?? '?'} mute=${this.sound.mute} vol=${sm2.volume ?? '?'}`)
       this.tweens.add({
         targets: this.introSong,
         volume: 0.15,
-        duration: 5000,
+        duration: 1500,
       })
     }
 
