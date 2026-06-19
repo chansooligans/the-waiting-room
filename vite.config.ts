@@ -39,6 +39,13 @@ export default defineConfig({
         // amend against the 271 response. Lives at
         // /fog-prototype.html.
         fog: resolve(__dirname, 'fog-prototype.html'),
+        // Intro prototype: the L1 teaching encounter ("The Wrong
+        // Card"), ported from the runtime puzzle engine into the
+        // standalone iframe format. Eligibility district. A single
+        // AMEND on Box 1a — swap Anjali's husband's subscriber id
+        // for her own to clear a CO-31. The simplest possible demo
+        // of the puzzle loop. Lives at /intro-prototype.html.
+        intro: resolve(__dirname, 'intro-prototype.html'),
         // Hydra prototype REMOVED 2026-05 — superseded by COB
         // Cascade Spider (cobCascadeSpider input below). The Hydra
         // mechanic was a thin three-payer SEQUENCE sketch; COB

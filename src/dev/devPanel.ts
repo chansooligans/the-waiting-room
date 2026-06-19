@@ -1,6 +1,6 @@
 // Dev jump panel. Toggled by `~` (backtick) or the small DEV chip.
-// Lists every encounter that has a puzzleSpecId, plus scene shortcuts
-// and a "clear save" button.
+// Lists level presets + room/scene shortcuts and a "clear save"
+// button.
 //
 // Available automatically in dev (`vite dev`). In production builds
 // it can be opted-in by appending `?dev=1` to the URL — useful for

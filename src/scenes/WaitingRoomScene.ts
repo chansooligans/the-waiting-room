@@ -338,8 +338,8 @@ export class WaitingRoomScene extends Phaser.Scene {
 
     // Red Room ambience — pick one of three tracks at random, loop
     // it, and fade in over 2s. The sound is on the global manager so
-    // it carries through the PuzzleBattle overlay; PuzzleBattleScene
-    // fades it out as part of its post-submit blur transition.
+    // it carries through the prototype overlay; PrototypeIframeScene
+    // fades it out as part of its post-submit return transition.
     this.startRedRoomAmbience()
 
     // Arrival animation — the player drops in from above, rotating
@@ -860,19 +860,19 @@ export class WaitingRoomScene extends Phaser.Scene {
     if (state.defeatedObstacles.includes(os.marker.encounterId)) return
     const enc = ENCOUNTERS[os.marker.encounterId]
     if (!enc) return
-    // Engagement requires EITHER a runtime puzzle spec OR a prototype
-    // iframe URL (catalog cases). Encounters with neither exist as
-    // codex/lore data only.
-    if (!enc.puzzleSpecId && !enc.prototypeIframeUrl) return
+    // Engagement requires a prototype iframe URL. Every playable
+    // encounter is a standalone Case prototype now; encounters without
+    // one exist as codex/lore data only.
+    if (!enc.prototypeIframeUrl) return
 
     this.canMove = false
     this.engagePrompt.setVisible(false)
     saveGame()
 
     // Snap the red-room ambience to full volume before handing off to
-    // the puzzle scene. The WR fades ambience in over 2 s; if the
+    // the prototype scene. The WR fades ambience in over 2 s; if the
     // player engages quickly, scene.start kills that tween mid-fade
-    // and the sound stays silent for the entire puzzle session.
+    // and the sound stays silent for the entire encounter session.
     for (const key of ['red_room_1', 'red_room_2', 'red_room_3']) {
       const s = this.sound.get(key)
       if (s && s.isPlaying) {
@@ -881,25 +881,17 @@ export class WaitingRoomScene extends Phaser.Scene {
       }
     }
 
-    // NPC-triggered sessions return to the Hospital after the puzzle
+    // NPC-triggered sessions return to the Hospital after the encounter
     // (the player wakes up next to whoever handed them the case).
     // Free-roam sessions return to the WR so the player can wander
     // to another obstacle.
     const returnScene = this.activeEncounterId ? 'Hospital' : 'WaitingRoom'
 
-    if (enc.puzzleSpecId) {
-      this.scene.start('PuzzleBattle', {
-        encounterId: enc.id,
-        puzzleSpecId: enc.puzzleSpecId,
-        returnScene,
-      })
-    } else {
-      // Catalog case — mount its standalone prototype in an iframe.
-      this.scene.start('PrototypeIframe', {
-        encounterId: enc.id,
-        returnScene,
-      })
-    }
+    // Mount the encounter's standalone prototype in an iframe.
+    this.scene.start('PrototypeIframe', {
+      encounterId: enc.id,
+      returnScene,
+    })
   }
 
   private buildHUD() {

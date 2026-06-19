@@ -3,13 +3,11 @@ import type { LevelDef } from '../types'
 // 33-level arc, one level per Case. Authored in the order defined
 // by `src/content/case-order.ts`.
 //
-// Each level binds to exactly one case + one encounter id. The 12
-// runtime-spec cases route to PuzzleBattleScene (existing flow).
-// The 21 catalog-only cases route to PrototypeIframeScene via a
-// new `prototypeIframeUrl` field on their Encounter entry in
-// enemies.ts (the encounter still appears in `encounters: []`
-// here; the dispatch happens in HospitalScene based on which
-// field is set on the Encounter).
+// Each level binds to exactly one case + one encounter id. Every
+// playable encounter routes to PrototypeIframeScene via the
+// `prototypeIframeUrl` field on its Encounter entry in enemies.ts —
+// the encounter appears in `encounters: []` here, and engagement
+// mounts its standalone Case prototype in an iframe.
 //
 // NPC handoff per level follows district affinity:
 //   eligibility → Kim (Registration) / Anjali (L1 only)

@@ -2,7 +2,6 @@ import Phaser from 'phaser'
 import { addFullscreenButton } from './fullscreenButton'
 import { addMuteButton } from './muteButton'
 import { BEATS, type SceneActionId } from './introBeats'
-import { debugEvent } from './debugRibbon'
 
 export class IntroScene extends Phaser.Scene {
   private currentBeat = 0
@@ -386,39 +385,13 @@ export class IntroScene extends Phaser.Scene {
    *  pre-narration hold silent. */
   private fadeInIntroSong() {
     if (!this.cache.audio.exists('intro_song')) return
-
-    const sm = this.sound as Phaser.Sound.BaseSoundManager & {
-      context?: AudioContext
-    }
-    const ctx = sm.context
-    debugEvent(`intro-song ctx=${ctx?.state ?? 'none'}`)
-
-    const start = () => {
-      if (this.done) return
-      // Create the sound AFTER the AudioContext is running. On iOS,
-      // AudioNodes (GainNode via createGain()) created on a suspended
-      // context can become zombie objects that don't process audio once
-      // the context resumes. Moving sound.add() here ensures the
-      // volumeNode GainNode is created on a live context.
-      // Start at a small but immediately audible volume (0.12) then
-      // fade to the pre-narration level. On mobile a 5 s fade from
-      // volume 0 is effectively silent the whole time.
-      this.introSong = this.sound.add('intro_song', { volume: 0.12 })
-      const result = this.introSong.play()
-      const sm2 = this.sound as Phaser.Sound.BaseSoundManager & { volume?: number }
-      debugEvent(`intro-song play=${result} ctx=${ctx?.state ?? '?'} mute=${this.sound.mute} vol=${sm2.volume ?? '?'}`)
-      this.tweens.add({
-        targets: this.introSong,
-        volume: 0.15,
-        duration: 1500,
-      })
-    }
-
-    if (ctx && ctx.state !== 'running') {
-      ctx.resume().then(start).catch(start)
-    } else {
-      start()
-    }
+    this.introSong = this.sound.add('intro_song', { volume: 0 })
+    this.introSong.play()
+    this.tweens.add({
+      targets: this.introSong,
+      volume: 0.15,
+      duration: 5000,
+    })
   }
 
   /** Bump the intro song from its quiet pre-narration level up to

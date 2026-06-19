@@ -4,7 +4,6 @@ import { IntroScene } from './scenes/IntroScene'
 import { TitleScene } from './scenes/TitleScene'
 import { HospitalScene } from './scenes/HospitalScene'
 import { DialogueScene } from './scenes/DialogueScene'
-import { PuzzleBattleScene } from './scenes/PuzzleBattleScene'
 import { PrototypeIframeScene } from './scenes/PrototypeIframeScene'
 import { FormScene } from './scenes/FormScene'
 import { WaitingRoomScene } from './scenes/WaitingRoomScene'
@@ -38,7 +37,7 @@ const config: Phaser.Types.Core.GameConfig = {
       debug: false,
     },
   },
-  scene: [BootScene, IntroScene, TitleScene, HospitalScene, DialogueScene, PuzzleBattleScene, PrototypeIframeScene, FormScene, WaitingRoomScene, CodexScene, TipsTerminalScene, TouchOverlay],
+  scene: [BootScene, IntroScene, TitleScene, HospitalScene, DialogueScene, PrototypeIframeScene, FormScene, WaitingRoomScene, CodexScene, TipsTerminalScene, TouchOverlay],
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -57,23 +56,23 @@ const game = new Phaser.Game(config)
 // any user gesture (tap, click, key) resumes the context and
 // drains Phaser's pending sound queue.
 const unlockAudio = () => {
-  // Just resume the AudioContext — do NOT touch sm.locked or call
-  // sm.unlock(). Phaser's own unlock handler (body-level, bubble phase)
-  // checks `if (!this.locked) return` at the top; if we set locked=false
-  // first, Phaser's handler bails without emitting 'unlocked' or draining
-  // the queued sound queue. Our role is only to call ctx.resume() early
-  // (capture phase) so the context is running by the time Phaser's handler
-  // fires and completes its flow.
   const sm = game.sound as Phaser.Sound.BaseSoundManager & {
+    locked?: boolean
+    unlock?: () => void
     context?: AudioContext
   }
   const ctx = sm.context
-  if (ctx && ctx.state === 'suspended') {
-    ctx.resume().then(() => {
-      debugEvent('audio-unlocked')
-    }).catch(() => {})
-  } else {
+  const finish = () => {
+    if (sm.locked) {
+      sm.locked = false
+      if (typeof sm.unlock === 'function') sm.unlock()
+    }
     debugEvent('audio-unlocked')
+  }
+  if (ctx && ctx.state === 'suspended') {
+    ctx.resume().then(finish).catch(() => {})
+  } else {
+    finish()
   }
   document.removeEventListener('touchstart', unlockAudio, true)
   document.removeEventListener('touchend', unlockAudio, true)

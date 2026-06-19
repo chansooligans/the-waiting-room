@@ -74,9 +74,9 @@ export const WING_LABEL: Record<Wing, string> = {
 /**
  * An Encounter is the data behind a Waiting Room obstacle. It carries
  * codex/lore fields (CARC code, archetype, watchpoint, etc.) plus a
- * pointer to the runtime puzzle that the player solves: `puzzleSpecId`.
- * Encounters without a `puzzleSpecId` exist as codex/lore data only —
- * they are not engageable.
+ * pointer to the standalone Case prototype the player solves:
+ * `prototypeIframeUrl`. Encounters without one exist as codex/lore
+ * data only — they are not engageable.
  */
 export interface Encounter {
   id: string
@@ -105,17 +105,14 @@ export interface Encounter {
   highlightedBoxes?: string[]
   /** The payer's denial language as it would appear on the 835 ERA or letter. */
   payerNote?: string
-  /** Required for engagement. Key into `src/runtime/puzzle/specs/index.ts`. */
-  puzzleSpecId?: string
   /**
-   * Alternative to puzzleSpecId. For Cases whose only implementation
-   * is a standalone prototype HTML page (the 21 catalog Cases), this
-   * URL is mounted in an iframe via PrototypeIframeScene. The
-   * embedded prototype posts a `case-completed` message back via
-   * postMessage when the player submits, and the scene mirrors
-   * PuzzleBattleScene's victory plumbing (defeatedObstacles,
-   * resources, codex, level progression). Mutually exclusive with
-   * `puzzleSpecId` — the dispatch picks one or the other.
+   * Required for engagement. Each playable encounter is a standalone
+   * Case prototype HTML page (under `src/<encounter>-prototype/`),
+   * mounted in an iframe via PrototypeIframeScene. The embedded
+   * prototype posts a `case-completed` message back via postMessage
+   * when the player submits, and the scene runs the victory plumbing
+   * (defeatedObstacles, resources, codex, level progression).
+   * Encounters without this field are codex/lore data only.
    */
   prototypeIframeUrl?: string
 }
@@ -186,8 +183,8 @@ export interface DialogueEffect {
    * Drop the player into the Waiting Room with one specific obstacle
    * active. Used for NPC-handed cases — the conversation summons the
    * descent, the player walks the WR to the lit obstacle, engages it,
-   * and the puzzle launches from there. The obstacle's spec is looked
-   * up via ENCOUNTERS[encounterId].puzzleSpecId.
+   * and the encounter's prototype launches from there (looked up via
+   * ENCOUNTERS[encounterId].prototypeIframeUrl).
    */
   triggerDescent?: { encounterId: string }
 }

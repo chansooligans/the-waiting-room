@@ -15,7 +15,7 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     archetype: 'Wrong Card',
     wing: 'eligibility',
     codexOnSight: 'obstacle_intro_wrong_card',
-    puzzleSpecId: 'intro',
+    prototypeIframeUrl: '/intro-prototype.html',
     cashRecovered: 387,
     caseId: 'case_intro_patel',
     highlightedBoxes: ['1a'],
@@ -36,7 +36,7 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     archetype: 'Medical Necessity Wraith',
     wing: 'appeals',
     codexOnSight: 'obstacle_co_50',
-    puzzleSpecId: 'wraith',
+    prototypeIframeUrl: '/wraith-prototype.html',
     unlocksOnDefeat: ['medical_policy'],
     caseId: 'case_wraith_walker',
     highlightedBoxes: ['21A', '24D-1'],
@@ -56,7 +56,7 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     archetype: 'Bundling Beast',
     wing: 'coding',
     codexOnSight: 'obstacle_co_97',
-    puzzleSpecId: 'bundle',
+    prototypeIframeUrl: '/bundle-prototype.html',
     caseId: 'case_bundle_kim',
     highlightedBoxes: ['24D-1'],
     payerNote:
@@ -76,7 +76,7 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     archetype: 'Prior Auth Gatekeeper',
     wing: 'appeals',
     codexOnSight: 'obstacle_co_197',
-    puzzleSpecId: 'gatekeeper',
+    prototypeIframeUrl: '/gatekeeper-prototype.html',
     unlocksOnDefeat: ['prior_auth_278'],
     caseId: 'case_gatekeeper_okafor',
     highlightedBoxes: ['24D-1'],
@@ -97,35 +97,13 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     archetype: 'Documentation Sprite Swarm',
     wing: 'coding',
     codexOnSight: 'obstacle_co_16_swarm',
-    puzzleSpecId: 'swarm',
+    prototypeIframeUrl: '/swarm-prototype.html',
     cashRecovered: 220,
     unlocksOnDefeat: ['claim_scrubber'],
     caseId: 'case_swarm_yamada',
     highlightedBoxes: ['21A', '24D-1'],
     payerNote:
       'Multiple 277CA rejects on file: missing rendering provider taxonomy and ambiguous diagnosis pointer. Resubmit with corrected loop 2310B PRV segment and specific dx.',
-  },
-  oa_23_hydra: {
-    id: 'oa_23_hydra',
-    title: 'COB Hydra',
-    description:
-      'Three heads. Three payers. Adjudicate them in order — Primary, then Secondary, then Tertiary — or you grow more heads.',
-    surfaceSymptom: 'Multi-payer claim stuck in coordination',
-    rootCause: 'payer', // first head is payer-rooted; others vary
-    carcCode: 'OA-23',
-    carcName: 'Adjustment / coordination by primary payer',
-    watchpoint: 'COB sequence is contractual. The heads adjudicate in order — adjudicating out of order causes retractions.',
-    level: 9,
-    archetype: 'COB Hydra',
-    wing: 'eligibility',
-    codexOnSight: 'obstacle_oa_23_hydra',
-    puzzleSpecId: 'hydra',
-    cashRecovered: 1250,
-    unlocksOnDefeat: ['cob_check'],
-    caseId: 'case_hydra_okwu',
-    highlightedBoxes: ['1', '4'],
-    payerNote:
-      'Secondary payer cannot adjudicate until primary remit is on file. Verify COB chain (BCBS / Medicare / Medicaid) and resequence per Medicare Secondary Payer rules.',
   },
   eligibility_fog: {
     id: 'eligibility_fog',
@@ -140,7 +118,7 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     archetype: 'Eligibility Fog',
     wing: 'eligibility',
     codexOnSight: 'obstacle_eligibility_fog',
-    puzzleSpecId: 'fog',
+    prototypeIframeUrl: '/fog-prototype.html',
     cashRecovered: 190,
     unlocksOnDefeat: ['cost_estimate'],
     caseId: 'case_fog_nguyen',
@@ -162,7 +140,7 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     archetype: 'Duplicate Claim Doppelgänger',
     wing: 'billing',
     codexOnSight: 'obstacle_co_18_doppelganger',
-    puzzleSpecId: 'doppelganger',
+    prototypeIframeUrl: '/doppelganger-prototype.html',
     cashRecovered: 145,
     unlocksOnDefeat: ['submit_837i'],
     caseId: 'case_doppel_reyes',
@@ -185,7 +163,7 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     archetype: 'Timely Filing Reaper',
     wing: 'appeals',
     codexOnSight: 'obstacle_co_29_reaper',
-    puzzleSpecId: 'reaper',
+    prototypeIframeUrl: '/reaper-prototype.html',
     cashRecovered: 1400,
     unlocksOnDefeat: ['submit_837i'],
     caseId: 'case_reaper_park',
@@ -206,7 +184,7 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     archetype: 'The Quarterly Audit',
     wing: 'miracles',
     codexOnSight: 'obstacle_boss_audit',
-    puzzleSpecId: 'audit-boss',
+    prototypeIframeUrl: '/audit-boss-prototype.html',
     cashRecovered: 8400,
     caseId: 'case_audit_finale',
     highlightedBoxes: ['67', '80'],
@@ -224,7 +202,7 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     archetype: 'Underpayment Specter',
     wing: 'reconsideration',
     codexOnSight: 'obstacle_underpayment_specter',
-    puzzleSpecId: 'specter',
+    prototypeIframeUrl: '/specter-prototype.html',
     cashRecovered: 28,
   },
   lighthouse_charity: {
@@ -238,7 +216,7 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     archetype: 'Lighthouse',
     wing: 'patient_services',
     codexOnSight: 'obstacle_lighthouse',
-    puzzleSpecId: 'lighthouse',
+    prototypeIframeUrl: '/lighthouse-prototype.html',
     cashRecovered: 0,
   },
   surprise_bill_specter: {
@@ -252,14 +230,14 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     archetype: 'Surprise Bill Specter',
     wing: 'patient_services',
     codexOnSight: 'obstacle_surprise_bill',
-    puzzleSpecId: 'surprise-bill',
+    prototypeIframeUrl: '/surprise-bill-prototype.html',
     cashRecovered: 0,
   },
 
   // === Catalog encounters — mounted via PrototypeIframeScene ===
   // These wrap the standalone /<case>-prototype.html pages. The
   // page emits a `case-completed` postMessage on victory; the scene
-  // mirrors PuzzleBattleScene's submit plumbing.
+  // (PrototypeIframeScene) runs the game-side submit plumbing.
   catalog_asp_wac_apothecary: {
     id: 'catalog_asp_wac_apothecary',
     title: 'ASP / WAC Apothecary',
