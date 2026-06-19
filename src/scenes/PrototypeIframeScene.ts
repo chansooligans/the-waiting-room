@@ -243,12 +243,20 @@ export class PrototypeIframeScene extends Phaser.Scene {
     if (this.returnBtn) return
     const btn = document.createElement('button')
     btn.textContent = 'Return to game →'
+    // No entrance animation: this is the only exit from a won encounter,
+    // so it must NEVER depend on a CSS animation completing. A prior
+    // version used `animation: ... both` starting from opacity:0, which
+    // left the button invisible whenever the animation was throttled
+    // (background tab, slow device, reduced-motion) — the "missing
+    // Return to game button" bug. The button is now visible the instant
+    // it mounts.
     btn.style.cssText = `
       position: fixed;
       bottom: 28px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 600;
+      opacity: 1;
       background: #f0a868;
       color: #1b130a;
       border: 1px solid #f7c690;
@@ -258,17 +266,7 @@ export class PrototypeIframeScene extends Phaser.Scene {
       letter-spacing: 0.08em;
       cursor: pointer;
       box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
-      animation: __proto_return_in 420ms ease-out both;
     `
-    if (!document.getElementById('__proto_return_kf__')) {
-      const kf = document.createElement('style')
-      kf.id = '__proto_return_kf__'
-      kf.textContent = `@keyframes __proto_return_in {
-        from { opacity: 0; transform: translate(-50%, 14px); }
-        to { opacity: 1; transform: translate(-50%, 0); }
-      }`
-      document.head.appendChild(kf)
-    }
     btn.addEventListener('click', () => {
       if (this.fadingOut) return
       btn.disabled = true
