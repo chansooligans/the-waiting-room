@@ -203,13 +203,6 @@ export const CODEX_ENTRIES: Record<string, CodexEntry> = {
     description: 'Two services on the same day fused into one. CO-97 denials.',
     detail: 'The Bundle is a straight HP fight with a teaching emphasis on modifier 25 / 59. CDI Query stamps the +25 modifier onto the E&M line. Real-world parallel: most bundling denials are not really bundled — they\'re a missing modifier that signals significant, separately identifiable service.',
   },
-  obstacle_oa_23_hydra: {
-    id: 'obstacle_oa_23_hydra',
-    name: 'Coordination of Benefits Hydra',
-    category: 'obstacles',
-    description: 'Three heads, three payers. OA-23 cascading.',
-    detail: 'The Hydra runs on the multiHead mechanic — Primary, Secondary, Tertiary heads each with their own HP and rootCause. You attack the lowest-index live head; super-effective is computed against THAT head\'s rootCause, not the encounter\'s. Real-world parallel: COB sequence is contractual; adjudicating out of order causes retractions.',
-  },
   obstacle_eligibility_fog: {
     id: 'obstacle_eligibility_fog',
     name: 'Eligibility Fog',

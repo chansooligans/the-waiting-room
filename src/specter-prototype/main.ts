@@ -727,11 +727,11 @@ function renderDesignNotes(): string {
       </div>
       <p class="notes-cta">
         Side-by-side comparison: open
-        <a href="./hydra-prototype.html">Hydra</a> for the
-        other payment-side prototype (multi-payer SEQUENCE
-        with running balance) — Hydra is about getting the
-        order right; Specter is about catching what got
-        paid wrong. Same shape, different math.
+        <a href="./cob-cascade-spider-prototype.html">COB Cascade Spider</a>
+        for the other payment-side prototype (multi-payer coordination
+        cascade) — the Spider is about getting the payer order right;
+        Specter is about catching what got paid wrong. Same shape,
+        different math.
       </p>
     </section>
   `

@@ -282,53 +282,6 @@ export const CASES: Record<string, PatientCase> = {
     },
   },
 
-  // Linked to encounter `oa_23_hydra` (COB Hydra).
-  case_hydra_okwu: {
-    id: 'case_hydra_okwu',
-    patientName: 'Adaeze Okwu',
-    age: 71,
-    insurance: 'BCBS Federal (primary) / Medicare Part B (secondary) / Medicaid (tertiary)',
-    diagnosis: 'Chronic kidney disease, stage 4',
-    diagnosisCode: 'N18.4',
-    procedure: 'Hemodialysis session',
-    procedureCode: '90935',
-    formType: 'cms1500',
-    level: 9,
-    // Pre-fix in the hospital: the COB chain on file lists Medicare as
-    // primary, but BCBS Federal is actually primary because the patient
-    // is still working past 65. Reordering it before submission means
-    // the heads adjudicate in the right sequence and no retraction
-    // hydra grows back.
-    errors: [
-      {
-        field: 'Insurance Plan',
-        currentValue: 'Medicare Part B (primary) / BCBS Federal (sec)',
-        correctValue: 'BCBS Federal (primary) / Medicare Part B (sec)',
-        explanation: 'Patient is still actively employed (and so is her spouse). Per Medicare Secondary Payer rules, the employer group plan is primary. Sequencing it correctly before adjudication avoids the retraction hydra entirely.',
-      },
-    ],
-    claim: {
-      type: 'cms1500',
-      claimId: 'CLM-2026-04-22-58801',
-      insuranceType: 'Group',
-      patient: { name: 'OKWU, ADAEZE', dob: '1955-06-18', sex: 'F' },
-      insured: { id: 'BCB-FED-99812', name: 'OKWU, ADAEZE', group: '0F-0033' },
-      diagnoses: [
-        { code: 'N18.4', label: 'CKD stage 4' },
-      ],
-      serviceLines: [
-        {
-          dos: '2026-04-22',
-          pos: '65',
-          cpt: { code: '90935', label: 'Hemodialysis, single eval' },
-          dxPointer: 'A',
-          charges: '$1,250.00',
-        },
-      ],
-      provider: { name: 'Dr. C. Ifeanyi, MD', npi: '1582093471' },
-    },
-  },
-
   // Linked to encounter `eligibility_fog` (Eligibility Fog).
   case_fog_nguyen: {
     id: 'case_fog_nguyen',

@@ -10,11 +10,9 @@ import { showNarration } from './narration'
 import { isTouchDevice } from './device'
 import { ENCOUNTERS } from '../content/enemies'
 import { LEVEL_NPC_DIALOGUES } from '../content/dialogue'
-import { PUZZLE_SPECS } from '../runtime/puzzle/specs'
 import { flavorForTile, LEVEL_ORIENTATION_HINTS } from './hospitalFlavor'
 import { runWakeUpTransition } from './wakeUpOverlay'
 import { pickNextTrack } from './musicShuffle'
-import { showClaimPreview } from './claimPreview'
 import { debugStatus, debugEvent } from './debugRibbon'
 import type { NPC } from '../types'
 
@@ -320,7 +318,7 @@ export class HospitalScene extends Phaser.Scene {
     this.cameras.main.setZoom(1.5)
     this.cameras.main.setBounds(0, 0, this.mapDef.width * TILE, this.mapDef.height * TILE)
     // Defensive: clear any residual fade state from the previous scene
-    // (the PuzzleBattle scene fades to black before scene.start; on
+    // (the descent/return path fades to black before scene.start; on
     // some mobile browsers the new camera was inheriting a stuck
     // fade overlay, leaving the player on a fully black screen). Then
     // fade in cleanly from black.
@@ -393,10 +391,7 @@ export class HospitalScene extends Phaser.Scene {
         saveGame()
         this.canMove = false
         debugEvent(`descent:start ${descent.encounterId}`)
-        showClaimPreview(this, descent.encounterId, () => {
-          debugEvent(`descent:preview-done ${descent.encounterId}`)
-          this.descendThroughGap(descent.encounterId)
-        })
+        this.descendThroughGap(descent.encounterId)
       }
       // After the thanks dialogue closes, walk Anjali out.
       if (s.pendingAnjaliLeave) {
@@ -469,9 +464,9 @@ export class HospitalScene extends Phaser.Scene {
       debugEvent('hosp:sleep')
     })
 
-    // Wake: fired when PuzzleBattleScene calls scene.wake('Hospital')
+    // Wake: fired when PrototypeIframeScene calls scene.wake('Hospital')
     // instead of scene.start('Hospital'). Restores movement, camera,
-    // ambience, and post-puzzle state without rebuilding 10k tiles.
+    // ambience, and post-encounter state without rebuilding 10k tiles.
     this.events.on(Phaser.Scenes.Events.WAKE, () => {
       debugEvent('hosp:wake-fired')
       const s = getState()
@@ -535,6 +530,18 @@ export class HospitalScene extends Phaser.Scene {
       this.cameras.main.setBackgroundColor(0x0e1116)
       this.cameras.main.fadeIn(450, 0, 0, 0)
       this.time.delayedCall(700, () => { this.cameras.main.setAlpha(1) })
+
+      // A WR/puzzle round-trip can leave the cinematic intro_song stuck
+      // mid-fade: WaitingRoom.create kicks off a fade-out tween for it,
+      // but that tween dies when WaitingRoom is stopped on engage, so
+      // the (looping) song keeps playing at low volume. On wake,
+      // startHospitalAmbience() would then see intro_song "playing" and
+      // defer forever waiting for a 'complete' that never fires, leaving
+      // the Hospital silent. Tear it down here so ambience starts clean.
+      const stuckIntro = this.sound.get('intro_song')
+      if (stuckIntro) {
+        try { safeFinishSoundTween(this.game, stuckIntro) } catch { debugEvent('wake:intro-stop-err') }
+      }
 
       try { this.startHospitalAmbience() } catch (e) { debugEvent('wake:ambience-err') }
 
@@ -869,6 +876,21 @@ export class HospitalScene extends Phaser.Scene {
         tileX: p.tileX, tileY: p.tileY,
       })
     }
+
+    // Keep NPC art out of the mini-map's UI camera. buildMiniMap() does
+    // `uiCamera.ignore()` over a ONE-TIME snapshot of the display list
+    // taken at create. NPCs placed on a later wake (case-handlers that
+    // become active at higher levels — Alex at L2, Kim at L3) aren't in
+    // that snapshot, so the UI camera renders them a second time at
+    // their un-scrolled world position — a "ghost" NPC floating by the
+    // mini-map. Explicitly ignoring every NPC sprite + label here closes
+    // that gap. `ignore` OR-s a per-camera bitmask, so it's idempotent
+    // and safe to re-run. Guard for the create-time call at line ~314,
+    // which runs before uiCamera exists (those sprites are covered by
+    // buildMiniMap's snapshot instead).
+    if (this.uiCamera) {
+      this.uiCamera.ignore(this.npcSprites.flatMap(n => [n.sprite, n.label]))
+    }
   }
 
   /**
@@ -1112,9 +1134,6 @@ export class HospitalScene extends Phaser.Scene {
       ease: 'Sine.easeIn',
     })
   }
-
-  // showClaimPreview lives in ./claimPreview — pure DOM overlay, no
-  // scene state.
 
   private setupInput() {
     this.cursors = this.input.keyboard!.createCursorKeys()
@@ -2139,10 +2158,9 @@ export class HospitalScene extends Phaser.Scene {
     })
 
     // Camera fade-to-black + start WR on completion. Every encounter
-    // (both runtime-spec and iframe) lands in the WR — the player
-    // walks the parallel-room layer to the obstacle and presses E.
-    // WR.tryEngageObstacle dispatches to PuzzleBattleScene or
-    // PrototypeIframeScene based on the encounter's fields.
+    // lands in the WR — the player walks the parallel-room layer to
+    // the obstacle and presses E. WR.tryEngageObstacle mounts the
+    // encounter's prototype via PrototypeIframeScene.
     const spawnTileX = this.playerTileX
     const spawnTileY = this.playerTileY
     this.cameras.main.fadeOut(900, 0, 0, 0)

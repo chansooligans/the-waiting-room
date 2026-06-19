@@ -194,7 +194,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
  *  Rendered only for encounters the player has seen but not defeated;
  *  defeated ones collapse to a one-line "✓ solved" entry. */
 export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hints: string[] }> = {
-  // ----- 12 runtime-spec encounters (in-game playable via PuzzleBattleScene) -----
+  // ----- Core story encounters (in-game playable via their Case prototype) -----
   intro_wrong_card: {
     name: "The Wrong Card (L1)",
     level: 1,
