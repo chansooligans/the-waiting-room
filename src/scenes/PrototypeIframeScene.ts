@@ -59,6 +59,16 @@ export class PrototypeIframeScene extends Phaser.Scene {
   init(data: InitData) {
     this.encounterId = data.encounterId ?? ''
     this.returnScene = data.returnScene ?? 'Hospital'
+    // Phaser reuses one scene instance per key, so these per-encounter
+    // flags survive from a previous session. Reset them every time the
+    // scene starts — otherwise a second encounter in the same run (e.g.
+    // the L2 apothecary after the L1 intro) sees `caseCompleted` still
+    // true from the first, and handleCaseComplete bails before showing
+    // the "Return to game" button. (Bug: button missing in a new game
+    // but fine from a level preset, which is a fresh page load.)
+    this.fadingOut = false
+    this.caseCompleted = false
+    this.returnBtn = undefined
     const enc = ENCOUNTERS[this.encounterId]
     if (!enc) throw new Error(`Unknown encounter: ${this.encounterId}`)
     if (!enc.prototypeIframeUrl) {
