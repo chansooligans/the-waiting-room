@@ -1,4 +1,4 @@
-// Gatekeeper @ L3 — first-sketch prototype (CO-197).
+// Gatekeeper @ L5 — Prior Authorization (CO-197).
 //
 // Sibling to wraith / bundle / reaper. Same shape (Hospital
 // intro → dreamlike fall → Waiting Room → claim form +
@@ -246,7 +246,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Gatekeeper <span class="muted">@ L3 — first-sketch prototype</span></h1>
+        <h1>Gatekeeper <span class="muted">@ L5 · Prior Authorization</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./">← back to game</a>
