@@ -121,8 +121,8 @@ function renderPanel(): string {
     <section>
       <div class="devp-section-h">Chart pulls</div>
       <button class="devp-btn" data-dev-action="charts" data-dev-arg="pull-all">Pull all charts</button>
-      <button class="devp-btn" data-dev-action="charts" data-dev-arg="pull-co_97">Pull L4 op-note (co_97)</button>
-      <button class="devp-btn" data-dev-action="charts" data-dev-arg="pull-co_50">Pull L5 echo (co_50)</button>
+      <button class="devp-btn" data-dev-action="charts" data-dev-arg="pull-co_97">Pull L5 op-note (co_97)</button>
+      <button class="devp-btn" data-dev-action="charts" data-dev-arg="pull-co_50">Pull L11 echo (co_50)</button>
       <button class="devp-btn warn" data-dev-action="charts" data-dev-arg="clear">Clear all charts</button>
     </section>
     <section>
@@ -214,42 +214,41 @@ type LevelPreset = {
   spawn: { x: number; y: number }
 }
 // Tile coords cribbed from ROOM_JUMPS below so the two stay in sync.
-// L5 (Martinez · gatekeeper) lives in PRIOR_AUTH which isn't in
+// L8 (Martinez · gatekeeper) lives in PRIOR_AUTH which isn't in
 // ROOM_JUMPS — coord (44, 8) is the room interior from level1.ts.
 const LEVEL_PRESETS: LevelPreset[] = [
-  { level: 1,  label: 'L1 — The Wrong Card',             note: 'Anjali · intro',       spawn: { x: 14, y: 39 } },
-  { level: 2,  label: 'L2 — ASP / WAC Apothecary',       note: 'Alex · catalog',       spawn: { x: 28, y: 8  } },
-  { level: 3,  label: 'L3 — Eligibility Fog',            note: 'Kim · fog',            spawn: { x: 22, y: 21 } },
-  { level: 4,  label: 'L4 — Stoploss Reckoner',          note: 'Alex · catalog',       spawn: { x: 28, y: 8  } },
-  { level: 5,  label: 'L5 — Prior-Auth Gatekeeper',      note: 'Martinez · gatekeeper',spawn: { x: 44, y: 8  } },
-  { level: 6,  label: 'L6 — Form Mirror',                note: 'Pat · catalog',        spawn: { x: 22, y: 21 } },
-  { level: 7,  label: 'L7 — Outpatient Surgery Grouper', note: 'Pat · catalog',        spawn: { x: 22, y: 21 } },
-  { level: 8,  label: 'L8 — No-Show Bill',               note: 'Jordan · catalog',     spawn: { x: 28, y: 27 } },
-  { level: 9,  label: 'L9 — Bundling Beast',             note: 'Pat · bundle',         spawn: { x: 11, y: 55 } },
-  { level: 10, label: 'L10 — Lighthouse',                note: 'Jordan · charity',     spawn: { x: 28, y: 27 } },
-  { level: 11, label: 'L11 — GFE Oracle',                note: 'Sam · catalog',        spawn: { x: 8,  y: 21 } },
-  { level: 12, label: 'L12 — Medical Necessity Wraith',  note: 'Sam · wraith',         spawn: { x: 8,  y: 21 } },
-  { level: 13, label: 'L13 — Documentation Sprite Swarm', note: 'Alex · swarm',        spawn: { x: 29, y: 55 } },
-  { level: 14, label: 'L14 — Doppelgänger',              note: 'Kim · doppel',         spawn: { x: 22, y: 21 } },
-  { level: 15, label: 'L15 — Implant Carve-Out',         note: 'Alex · catalog',       spawn: { x: 29, y: 55 } },
-  { level: 16, label: 'L16 — Credentialing Lattice',     note: 'Kim · catalog',        spawn: { x: 22, y: 21 } },
-  { level: 17, label: 'L17 — Carve-Out Phantom',         note: 'Alex · catalog',       spawn: { x: 29, y: 55 } },
-  { level: 18, label: 'L18 — CPT Licensure Mire',        note: 'Pat · catalog',        spawn: { x: 11, y: 55 } },
-  { level: 19, label: 'L19 — Timely Filing Reaper',      note: 'Sam · reaper',         spawn: { x: 8,  y: 21 } },
-  { level: 20, label: 'L20 — Surprise Bill Specter',     note: 'Jordan · NSA',         spawn: { x: 48, y: 55 } },
-  { level: 21, label: 'L21 — OB Per-Diem Specter',       note: 'Alex · catalog',       spawn: { x: 29, y: 55 } },
-  { level: 22, label: 'L22 — Phantom Patient',           note: 'Kim · catalog',        spawn: { x: 22, y: 21 } },
-  { level: 23, label: 'L23 — Risk Adjustment Hollow',    note: 'Pat · catalog',        spawn: { x: 11, y: 55 } },
-  { level: 24, label: 'L24 — Chemo Bundle Specter',      note: 'Alex · catalog',       spawn: { x: 29, y: 55 } },
-  { level: 25, label: 'L25 — Two-Midnight Mire',         note: 'Pat · catalog',        spawn: { x: 11, y: 55 } },
-  { level: 26, label: 'L26 — Underpayment Specter',      note: 'Alex · CO-45',         spawn: { x: 29, y: 55 } },
-  { level: 27, label: 'L27 — COB Cascade Spider',        note: 'Kim · catalog',        spawn: { x: 22, y: 21 } },
-  { level: 28, label: 'L28 — Case-Rate Specter',         note: 'Alex · catalog',       spawn: { x: 29, y: 55 } },
-  { level: 29, label: 'L29 — MRF Cartographer',          note: 'Sam · catalog',        spawn: { x: 8,  y: 21 } },
-  { level: 30, label: 'L30 — IDR Crucible',              note: 'Sam · catalog',        spawn: { x: 8,  y: 21 } },
-  { level: 31, label: 'L31 — 340B Specter',              note: 'Alex · catalog',       spawn: { x: 29, y: 55 } },
-  { level: 32, label: 'L32 — HIPAA Spider',              note: 'Sam · catalog',        spawn: { x: 8,  y: 21 } },
-  { level: 33, label: 'L33 — The Quarterly Audit',       note: 'Dana · boss',          spawn: { x: 18, y: 105 } },
+  { level: 1 , label: 'L1 — The Wrong Card'                     , note: 'Anjali · intro'          , spawn: { x: 14, y: 39 } },
+  { level: 2 , label: 'L2 — ASP / WAC Apothecary'               , note: 'Alex · catalog'          , spawn: { x: 28, y: 8 } },
+  { level: 3 , label: 'L3 — Eligibility Fog'                    , note: 'Kim · fog'               , spawn: { x: 22, y: 21 } },
+  { level: 4 , label: 'L4 — Stoploss Reckoner'                  , note: 'Alex · parking lot'      , spawn: { x: 8, y: 37 } },
+  { level: 5 , label: 'L5 — Bundling Beast'                     , note: 'Pat · bundle'            , spawn: { x: 11, y: 55 } },
+  { level: 6 , label: 'L6 — Outpatient Surgery Grouper'         , note: 'Pat · catalog'           , spawn: { x: 11, y: 55 } },
+  { level: 7 , label: 'L7 — No-Show Bill'                       , note: 'Jordan · catalog'        , spawn: { x: 28, y: 27 } },
+  { level: 8 , label: 'L8 — Prior-Auth Gatekeeper'              , note: 'Martinez · gatekeeper'   , spawn: { x: 44, y: 8 } },
+  { level: 9 , label: 'L9 — Lighthouse'                         , note: 'Jordan · charity'        , spawn: { x: 28, y: 27 } },
+  { level: 10, label: 'L10 — GFE Oracle'                        , note: 'Sam · catalog'           , spawn: { x: 8, y: 21 } },
+  { level: 11, label: 'L11 — Medical Necessity Wraith'          , note: 'Sam · wraith'            , spawn: { x: 8, y: 21 } },
+  { level: 12, label: 'L12 — Documentation Sprite Swarm'        , note: 'Alex · swarm'            , spawn: { x: 29, y: 55 } },
+  { level: 13, label: 'L13 — Doppelgänger'                      , note: 'Kim · doppel'            , spawn: { x: 22, y: 21 } },
+  { level: 14, label: 'L14 — Implant Carve-Out'                 , note: 'Alex · catalog'          , spawn: { x: 29, y: 55 } },
+  { level: 15, label: 'L15 — Credentialing Lattice'             , note: 'Kim · catalog'           , spawn: { x: 22, y: 21 } },
+  { level: 16, label: 'L16 — Carve-Out Phantom'                 , note: 'Alex · catalog'          , spawn: { x: 29, y: 55 } },
+  { level: 17, label: 'L17 — CPT Licensure Mire'                , note: 'Pat · catalog'           , spawn: { x: 11, y: 55 } },
+  { level: 18, label: 'L18 — Timely Filing Reaper'              , note: 'Sam · reaper'            , spawn: { x: 8, y: 21 } },
+  { level: 19, label: 'L19 — Surprise Bill Specter'             , note: 'Jordan · NSA'            , spawn: { x: 48, y: 55 } },
+  { level: 20, label: 'L20 — OB Per-Diem Specter'               , note: 'Alex · catalog'          , spawn: { x: 29, y: 55 } },
+  { level: 21, label: 'L21 — Phantom Patient'                   , note: 'Kim · catalog'           , spawn: { x: 22, y: 21 } },
+  { level: 22, label: 'L22 — Risk Adjustment Hollow'            , note: 'Pat · catalog'           , spawn: { x: 11, y: 55 } },
+  { level: 23, label: 'L23 — Chemo Bundle Specter'              , note: 'Alex · catalog'          , spawn: { x: 29, y: 55 } },
+  { level: 24, label: 'L24 — Two-Midnight Mire'                 , note: 'Pat · catalog'           , spawn: { x: 11, y: 55 } },
+  { level: 25, label: 'L25 — Underpayment Specter'              , note: 'Alex · CO-45'            , spawn: { x: 29, y: 55 } },
+  { level: 26, label: 'L26 — COB Cascade Spider'                , note: 'Kim · catalog'           , spawn: { x: 22, y: 21 } },
+  { level: 27, label: 'L27 — Case-Rate Specter'                 , note: 'Alex · catalog'          , spawn: { x: 29, y: 55 } },
+  { level: 28, label: 'L28 — MRF Cartographer'                  , note: 'Sam · catalog'           , spawn: { x: 8, y: 21 } },
+  { level: 29, label: 'L29 — IDR Crucible'                      , note: 'Sam · catalog'           , spawn: { x: 8, y: 21 } },
+  { level: 30, label: 'L30 — 340B Specter'                      , note: 'Alex · catalog'          , spawn: { x: 29, y: 55 } },
+  { level: 31, label: 'L31 — HIPAA Spider'                      , note: 'Sam · catalog'           , spawn: { x: 8, y: 21 } },
+  { level: 32, label: 'L32 — The Quarterly Audit'               , note: 'Dana · boss'             , spawn: { x: 18, y: 105 } },
 ]
 
 /** Hospital-scene room teleports. Each entry sets
@@ -287,39 +286,38 @@ const ROOM_JUMPS: { id: string; label: string; x: number; y: number }[] = [
 /** Encounter id used to mark the "previous level done" for each
  *  level transition. Order matches LEVEL_DEFEAT_THRESHOLD = [1,2,…]. */
 const PRESET_DEFEAT_SEQUENCE = [
-  'intro_wrong_card',                  // L1  intro
-  'catalog_asp_wac_apothecary',        // L2  asp-wac
-  'eligibility_fog',                   // L3  fog
-  'catalog_stoploss_reckoner',         // L4  stoploss
-  'co_197',                            // L5  gatekeeper
-  'catalog_form_mirror',               // L6  form-mirror
-  'catalog_outpatient_surgery_grouper',// L7  outpatient-surgery-grouper
-  'catalog_no_show_bill',              // L8  no-show
-  'co_97',                             // L9  bundle
-  'lighthouse_charity',                // L10 lighthouse
-  'catalog_gfe_oracle',                // L11 gfe-oracle
-  'co_50',                             // L12 wraith
-  'co_16_swarm',                       // L13 swarm
-  'co_18_doppelganger',                // L14 doppelganger
-  'catalog_implant_carveout_specter',  // L15 implant
-  'catalog_credentialing_lattice',     // L16 credentialing
-  'catalog_carveout_phantom',          // L17 carveout-phantom
-  'catalog_cpt_licensure_mire',        // L18 cpt-licensure
-  'co_29_reaper',                      // L19 reaper
-  'surprise_bill_specter',             // L20 surprise-bill
-  'catalog_ob_perdiem_specter',        // L21 ob-perdiem
-  'catalog_phantom_patient',           // L22 phantom-patient
-  'catalog_risk_adj_hollow',           // L23 risk-adj
-  'catalog_chemo_bundle_specter',      // L24 chemo-bundle
-  'catalog_two_midnight_mire',         // L25 two-midnight
-  'underpayment_specter',              // L26 specter
-  'catalog_cob_cascade_spider',        // L27 cob-cascade
-  'catalog_case_rate_specter',         // L28 case-rate
-  'catalog_mrf_cartographer',          // L29 mrf
-  'catalog_idr_crucible',              // L30 idr-crucible
-  'catalog_three_forty_b_specter',     // L31 340b
-  'catalog_hipaa_spider',              // L32 hipaa
-  'boss_audit',                        // L33 audit-boss
+  'intro_wrong_card',                   // L1  The Wrong Card
+  'catalog_asp_wac_apothecary',         // L2  ASP / WAC Apothecary
+  'eligibility_fog',                    // L3  Eligibility Fog
+  'catalog_stoploss_reckoner',          // L4  Stoploss Reckoner
+  'co_97',                              // L5  Bundling Beast
+  'catalog_outpatient_surgery_grouper', // L6  Outpatient Surgery Grouper
+  'catalog_no_show_bill',               // L7  No-Show Bill
+  'co_197',                             // L8  Prior-Auth Gatekeeper
+  'lighthouse_charity',                 // L9  Lighthouse
+  'catalog_gfe_oracle',                 // L10  GFE Oracle
+  'co_50',                              // L11  Medical Necessity Wraith
+  'co_16_swarm',                        // L12  Documentation Sprite Swarm
+  'co_18_doppelganger',                 // L13  Doppelgänger
+  'catalog_implant_carveout_specter',   // L14  Implant Carve-Out
+  'catalog_credentialing_lattice',      // L15  Credentialing Lattice
+  'catalog_carveout_phantom',           // L16  Carve-Out Phantom
+  'catalog_cpt_licensure_mire',         // L17  CPT Licensure Mire
+  'co_29_reaper',                       // L18  Timely Filing Reaper
+  'surprise_bill_specter',              // L19  Surprise Bill Specter
+  'catalog_ob_perdiem_specter',         // L20  OB Per-Diem Specter
+  'catalog_phantom_patient',            // L21  Phantom Patient
+  'catalog_risk_adj_hollow',            // L22  Risk Adjustment Hollow
+  'catalog_chemo_bundle_specter',       // L23  Chemo Bundle Specter
+  'catalog_two_midnight_mire',          // L24  Two-Midnight Mire
+  'underpayment_specter',               // L25  Underpayment Specter
+  'catalog_cob_cascade_spider',         // L26  COB Cascade Spider
+  'catalog_case_rate_specter',          // L27  Case-Rate Specter
+  'catalog_mrf_cartographer',           // L28  MRF Cartographer
+  'catalog_idr_crucible',               // L29  IDR Crucible
+  'catalog_three_forty_b_specter',      // L30  340B Specter
+  'catalog_hipaa_spider',               // L31  HIPAA Spider
+  'boss_audit',                         // L32  The Quarterly Audit
 ]
 
 /** Intro skip-to anchors. Indexes into BEATS in introBeats.ts — pick

@@ -101,31 +101,31 @@ const OBSTACLES: ObstacleMarker[] = [
   { tileX: 14, tileY: 36, encounterId: 'intro_wrong_card',     bounds: LOBBY_BOUNDS },
 
   // PATIENT SERVICES — Sam hands the wraith / reaper.
-  { tileX: 5,  tileY: 21, encounterId: 'co_50',                bounds: PATIENT_SVC_BOUNDS },  // Wraith    (L5)
-  { tileX: 11, tileY: 21, encounterId: 'co_29_reaper',         bounds: PATIENT_SVC_BOUNDS },  // Reaper    (L7)
+  { tileX: 5,  tileY: 21, encounterId: 'co_50',                bounds: PATIENT_SVC_BOUNDS },  // Wraith    (L11)
+  { tileX: 11, tileY: 21, encounterId: 'co_29_reaper',         bounds: PATIENT_SVC_BOUNDS },  // Reaper    (L18)
 
   // PRIOR AUTH — Martinez hands the gatekeeper.
-  { tileX: 44, tileY: 8,  encounterId: 'co_197',               bounds: PRIOR_AUTH_BOUNDS },   // Gatekeeper (L5)
+  { tileX: 44, tileY: 8,  encounterId: 'co_197',               bounds: PRIOR_AUTH_BOUNDS },   // Gatekeeper (L8)
 
   // REGISTRATION — Kim hands the fog / doppelgänger.
   // (Hydra was here at L9 in the prior rotation; now prototype-only.
   // Doppelgänger took the slot — it moved from free-roam corridor to
   // a Kim-handed registration encounter.)
-  { tileX: 20, tileY: 21, encounterId: 'eligibility_fog',      bounds: REGISTRATION_BOUNDS }, // Fog       (L2)
-  { tileX: 32, tileY: 21, encounterId: 'co_18_doppelganger',   bounds: REGISTRATION_BOUNDS }, // Doppelgänger (L9)
+  { tileX: 20, tileY: 21, encounterId: 'eligibility_fog',      bounds: REGISTRATION_BOUNDS }, // Fog       (L3)
+  { tileX: 32, tileY: 21, encounterId: 'co_18_doppelganger',   bounds: REGISTRATION_BOUNDS }, // Doppelgänger (L13)
 
   // HIM / Coding — Pat hands the bundle.
-  { tileX: 11, tileY: 55, encounterId: 'co_97',                bounds: HIM_BOUNDS },          // Bundle    (L4)
+  { tileX: 11, tileY: 55, encounterId: 'co_97',                bounds: HIM_BOUNDS },          // Bundle    (L5)
 
   // BILLING — Alex hands the swarm.
-  { tileX: 29, tileY: 55, encounterId: 'co_16_swarm',          bounds: BILLING_BOUNDS },      // Swarm     (L6)
+  { tileX: 29, tileY: 55, encounterId: 'co_16_swarm',          bounds: BILLING_BOUNDS },      // Swarm     (L12)
 
   // PFS — Jordan hands the surprise bill.
-  { tileX: 48, tileY: 55, encounterId: 'surprise_bill_specter', bounds: PFS_BOUNDS },          // Specter   (L8)
+  { tileX: 48, tileY: 55, encounterId: 'surprise_bill_specter', bounds: PFS_BOUNDS },          // Specter   (L19)
 
   // AUDIT — Dana hands the boss. Audit moved to second floor; the
   // boss obstacle moves with it so the WR mirror lines up.
-  { tileX: 18, tileY: 105, encounterId: 'boss_audit',          bounds: AUDIT_BOUNDS },        // Boss      (L33)
+  { tileX: 18, tileY: 105, encounterId: 'boss_audit',          bounds: AUDIT_BOUNDS },        // Boss      (L32)
 
   // ===== Catalog encounters (iframe-mounted) =====
   // Each marker is placed in the parallel layer of the room where

@@ -39,155 +39,151 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Amend the subscriber ID + group number from the 271 response.",
   ],
   4: [
-    "Alex pulled a stoploss case in the Main Hub.",
+    "Alex stepped out to the parking lot over a stoploss case — take the lobby EXIT teleport to reach him.",
     "Stoploss provisions kick in when charges exceed a contracted threshold. Calculation: charges × outlier % vs. the contract's stoploss formula.",
     "Common error: the contract's stoploss threshold is on TOTAL charges, not just the line item that triggered.",
   ],
   5: [
-    "Martinez is in Prior Auth. CO-197 — no auth on file for an MRI.",
-    "File a retroactive 278 with proper clinical rationale. Pick the rationale that matches both the chart AND the payer's UM criteria.",
-    "Once the 278 returns the auth number, amend Box 23 on the claim. Single-amend close.",
-  ],
-  6: [
-    "Pat flagged a form question at Registration. CMS-1500 vs UB-04.",
-    "CMS-1500 = professional (837P). UB-04 = institutional (837I). The same service can belong on either depending on who's billing.",
-    "Hospital outpatient surgery? Usually UB-04. Office-based procedure same day? CMS-1500.",
-  ],
-  7: [
-    "Pat at Registration. Outpatient surgery grouper case — APC packaging.",
-    "APC = Ambulatory Payment Classification. Bundles outpatient services into payment groups based on resource intensity.",
-    "Status indicators drive packaging behavior. 'T' = significant procedure paid separately; 'N' = packaged into the primary service.",
-  ],
-  8: [
-    "Jordan in Eligibility. A no-show fee policy call.",
-    "When to waive: clinically urgent follow-up, financial hardship, first-time miss. When to enforce: repeat no-show pattern, no contact attempt.",
-    "Patient-facing language matters more than the math here. The script is the policy.",
-  ],
-  9: [
     "South wing opens up. Pat moved down to HIM / Coding.",
     "CO-97 bundled-service denial. Modifier 25 + chart support for a separately identifiable E&M.",
     "Pull Sarah Kim's op-note from Med Records first. Pat won't hand off until you've got it.",
   ],
-  10: [
+  6: [
+    "Pat in HIM. Outpatient surgery grouper case — APC packaging.",
+    "APC = Ambulatory Payment Classification. Bundles outpatient services into payment groups based on resource intensity.",
+    "Status indicators drive packaging behavior. 'T' = significant procedure paid separately; 'N' = packaged into the primary service.",
+  ],
+  7: [
+    "Jordan in Eligibility. A no-show fee policy call.",
+    "When to waive: clinically urgent follow-up, financial hardship, first-time miss. When to enforce: repeat no-show pattern, no contact attempt.",
+    "Patient-facing language matters more than the math here. The script is the policy.",
+  ],
+  8: [
+    "Martinez is in Prior Auth. CO-197 — no auth on file for an MRI.",
+    "File a retroactive 278 with proper clinical rationale. Pick the rationale that matches both the chart AND the payer's UM criteria.",
+    "Once the 278 returns the auth number, amend Box 23 on the claim. Single-amend close.",
+  ],
+  9: [
     "Jordan in Eligibility. A patient with no path to pay.",
     "Charity care under §501(r). Financial assistance policy + presumptive eligibility screen.",
     "Patient-facing case. The system you're operating is the safety net.",
   ],
-  11: [
+  10: [
     "Sam in Patient Services. GFE-vs-bill mismatch.",
     "GFE = Good Faith Estimate. NSA requires uninsured/self-pay patients to receive one in advance.",
     "If the bill exceeds the GFE by >$400, the patient has appeal rights via the patient-provider dispute resolution process.",
   ],
-  12: [
+  11: [
     "Sam has the Walker echo. Pull the chart at Med Records first.",
     "CO-50 medical-necessity denial. Citation-chain appeal across three sources.",
     "All three pieces (payer phrase, chart fact, policy clause) must address the SAME issue. Mismatch is the test.",
   ],
-  13: [
+  12: [
     "Cal cleared the back-wing corridor. Alex is in Billing. The clearinghouse is bleeding.",
     "CO-16 catch-all. Read the RARC + 277CA detail — that's where the real reason lives.",
     "Frequency-code-7 replacement for corrected resubmits so you don't dupe-flag.",
   ],
-  14: [
+  13: [
     "Kim at Registration. A duplicate that shouldn't exist.",
     "CO-18: exact duplicate. The payer's matching algorithm flagged this as identical to one on file.",
     "Frequency codes (0/7/8). Replacement claims must reference the original ICN.",
   ],
-  15: [
+  14: [
     "Alex in Billing. Implant carve-out went sideways.",
     "When implant cost exceeds the stoploss threshold, the contract carves it out from the case rate as an invoice-based add-on.",
     "Pull the manufacturer invoice and the contract's stoploss section. The math is in the deltas.",
   ],
-  16: [
+  15: [
     "Kim at Registration. A new hire whose credentialing isn't finished yet.",
     "Provider credentialing = the payer's process for approving a doc to bill under their network.",
     "Retro-credentialing is sometimes available. If not, the bill goes through under a covering credentialed provider OR self-pay.",
   ],
-  17: [
+  16: [
     "Alex in Billing. Two bills for one ER visit — the facility billed in-network, the physician group OON.",
     "NSA carve-out: patient owes in-network cost-share on the OON physician bill at an in-network facility.",
     "Recalculate cost-share. The OON physician and the payer route to IDR. Patient is out of the rate fight.",
   ],
-  18: [
+  17: [
     "Pat in HIM. AMA CPT licensing edge case.",
     "AMA owns CPT and licenses it. Derivative works (code mappings, crosswalks) need licensing or a public-domain alternative (HCPCS Level II).",
     "Internal use vs. publication has different licensing tiers. Read the actual terms; don't assume.",
   ],
-  19: [
+  18: [
     "Sam in Patient Services. The reaper has surfaced.",
     "CO-29 timely filing. Find the first-submit timestamp on the 277CA chain.",
     "Subscriber-ID typo is the most common reason a timely claim gets denied 'not on file.' Amend the ID + attach the 277CA evidence.",
   ],
-  20: [
+  19: [
     "Jordan is now at the PFS phone bank. Surprise-bill territory.",
     "NSA caps patient cost-share to in-network levels for emergency + ancillary services at in-network facilities.",
     "OON provider and payer fight in IDR. Patient is out once cost-share is calculated correctly.",
   ],
-  21: [
+  20: [
     "Alex in Billing. OB per-diem with a C-section escalator.",
     "OB per-diem contracts usually have escalators for cesarean delivery, NICU, multiples.",
     "Check that the escalator triggered. Often a coding-side miss (procedure code didn't propagate to the per-diem rate calc).",
   ],
-  22: [
+  21: [
     "Kim at Registration. Two patients matched into the same demographic profile.",
     "Identity matching collision — same name + DOB + zip code, different patients.",
     "Pull the chart history. Look for treatment timeline gaps that prove these are distinct people. Resolve at the source.",
   ],
-  23: [
+  22: [
     "Pat in HIM. HCC capture annual review.",
     "HCC (Hierarchical Condition Categories) drive Medicare Advantage risk-adjusted payment.",
     "Chronic conditions must be coded every year. Drops one year, the RAF score evaporates. Pull the chart, capture what's actually documented.",
   ],
-  24: [
+  23: [
     "Alex in Billing. Chemo bundled into the case rate; admin code dropped.",
     "Chemotherapy admin (96413, 96415) is often bundled with the drug + case rate. The breakdown matters for revenue capture.",
     "Pull the contract's chemo carve-out terms + the actual claim. Find the missing admin units.",
   ],
-  25: [
+  24: [
     "Pat in HIM. Two-midnight inpatient vs observation question.",
     "Medicare 2-midnight rule: an inpatient admission is presumed appropriate if it spans ≥2 midnights AND is medically necessary.",
     "<2 midnights = observation unless physician documents a clinically-justified reason for inpatient.",
   ],
-  26: [
+  25: [
     "Alex in Billing. CO-45 underpayment streak.",
     "CO-45 = charges exceed fee schedule / allowed amount. Common but worth scrutinizing — sometimes the fee schedule is wrong.",
     "Compare paid amount to the contract's negotiated rate. If there's a delta, file the dispute.",
   ],
-  27: [
+  26: [
     "Kim at Registration. Multi-payer COB cascade.",
     "Three coverages = three potential primaries. Birthday rule, employer-vs-retiree, Medicare secondary, spouse plan order.",
     "Run a fresh COB inquiry. The 271 will tell you what each payer currently thinks the order is — and they often disagree.",
   ],
-  28: [
+  27: [
     "Alex in Billing. Case-rate vs per-diem mismatch.",
     "Case rate = one bundled payment for the whole stay. Per-diem = paid per day.",
     "Multi-day stays paid as case rate often underpay vs. per-diem. Check the contract's case-rate threshold and the actual LOS.",
   ],
-  29: [
+  28: [
     "Sam in Patient Services. Mapping a payer's MRF.",
     "MRF = Machine-Readable File. CMS rule requires payers to publish negotiated rates. Files are huge JSON.",
     "Find the negotiated rate for the disputed CPT in the payer's MRF. Use jq + a grep — the rate is there if the rule was followed.",
   ],
-  30: [
+  29: [
     "Sam in Patient Services. An IDR submission.",
     "IDR = Independent Dispute Resolution. NSA arbitration. Baseball-style: each side submits one number, the arbiter picks one.",
     "Defend the math. QPA (Qualifying Payment Amount), historical rates, complexity factors. The closer your number is to QPA, the more often you win.",
   ],
-  31: [
+  30: [
     "Alex in Billing. 340B rate clawback.",
     "340B program lets eligible hospitals buy outpatient drugs at deep discount. After Becerra v. AHA, post-2023 reimbursement rules changed.",
     "Check the drug's 340B eligibility + the date of service. Some clawbacks were retroactive; some are forward-looking.",
   ],
-  32: [
+  31: [
     "Sam in Patient Services. A faxed PHI page went to the wrong number.",
     "HIPAA breach response: four-factor assessment (nature of PHI, who received, was it actually viewed, mitigation).",
     "Under 500 individuals = annual report to HHS. Over 500 = notify HHS + media within 60 days.",
   ],
-  33: [
+  32: [
     "Dana is on the Auditorium stage. Talking to her starts the boss encounter.",
     "The audit covers everything you've touched in the last 90 days. Documentation, modifiers, medical necessity, the whole stack.",
     "RECEIPT vs AMEND: defend the original work with chart evidence (RECEIPT), or concede + accept the recoupment (AMEND). Pick the right one per finding.",
   ],
+
 }
 
 /** Per-encounter hints. Keyed by encounter id (matches `enemies.ts`).
@@ -214,7 +210,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   co_197: {
-    name: "Gatekeeper · Prior Auth (L5)",
+    name: "Gatekeeper · Prior Auth (L8)",
     level: 5,
     hints: [
       "CO-197: prior authorization absent or invalid. File a retroactive 278 with proper clinical rationale.",
@@ -223,7 +219,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   co_50: {
-    name: "Wraith · Medical Necessity (L12)",
+    name: "Wraith · Medical Necessity (L11)",
     level: 12,
     hints: [
       "CO-50: not deemed medically necessary. The payer doesn't think the diagnosis supports the procedure.",
@@ -232,7 +228,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   co_97: {
-    name: "Bundle · Modifier 25 (L9)",
+    name: "Bundle · Modifier 25 (L5)",
     level: 9,
     hints: [
       "CO-97: bundled service. The payer rolled the E&M into the procedure.",
@@ -241,7 +237,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   co_16_swarm: {
-    name: "Swarm · Clearinghouse (L13)",
+    name: "Swarm · Clearinghouse (L12)",
     level: 13,
     hints: [
       "277CA waves — clearinghouse rejecting batches before they reach the payer.",
@@ -250,7 +246,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   co_29_reaper: {
-    name: "Reaper · Timely Filing (L19)",
+    name: "Reaper · Timely Filing (L18)",
     level: 19,
     hints: [
       "CO-29: timely filing limit exceeded. Look for the first-submit timestamp in the 277CA chain.",
@@ -259,7 +255,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   surprise_bill_specter: {
-    name: "Specter · Surprise Bill (L20)",
+    name: "Specter · Surprise Bill (L19)",
     level: 20,
     hints: [
       "NSA territory — caps cost-share to in-network levels for emergency + ancillary services at in-network facilities.",
@@ -268,7 +264,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   lighthouse_charity: {
-    name: "Lighthouse · Charity Care (L10)",
+    name: "Lighthouse · Charity Care (L9)",
     level: 10,
     hints: [
       "§501(r) — non-profit hospitals must screen patients for financial assistance.",
@@ -277,7 +273,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   co_18_doppelganger: {
-    name: "Doppelgänger · Duplicate (L14)",
+    name: "Doppelgänger · Duplicate (L13)",
     level: 14,
     hints: [
       "CO-18: exact duplicate. Two claims look identical to the payer's matching algorithm.",
@@ -286,7 +282,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   underpayment_specter: {
-    name: "Underpayment Specter (L26)",
+    name: "Underpayment Specter (L25)",
     level: 26,
     hints: [
       "CO-45: paid amount under the contract rate. The payer's adjudication landed below the contract math.",
@@ -295,7 +291,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   boss_audit: {
-    name: "Audit · The Reckoning (L33)",
+    name: "Audit · The Reckoning (L32)",
     level: 33,
     hints: [
       "Three findings. For each one, you choose RECEIPT (defend with chart evidence) or AMEND (concede + accept the recoupment).",
@@ -324,7 +320,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_form_mirror: {
-    name: "Form Mirror (L6)",
+    name: "Form Mirror (catalog)",
     level: 6,
     hints: [
       "CMS-1500 = professional (837P, individual practitioner billing). UB-04 = institutional (837I, hospital/facility).",
@@ -333,7 +329,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_outpatient_surgery_grouper: {
-    name: "Outpatient Surgery Grouper (L7)",
+    name: "Outpatient Surgery Grouper (L6)",
     level: 7,
     hints: [
       "APC packaging: outpatient services group into payment classifications based on resource intensity.",
@@ -342,7 +338,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_no_show_bill: {
-    name: "No-Show Bill (L8)",
+    name: "No-Show Bill (L7)",
     level: 8,
     hints: [
       "Waive criteria: clinically urgent follow-up, financial hardship, first-time miss, miscommunication.",
@@ -351,7 +347,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_gfe_oracle: {
-    name: "Good Faith Estimate Oracle (L11)",
+    name: "Good Faith Estimate Oracle (L10)",
     level: 11,
     hints: [
       "GFE = Good Faith Estimate. NSA requires it for uninsured/self-pay patients in advance.",
@@ -360,7 +356,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_implant_carveout_specter: {
-    name: "Implant Carve-Out Specter (L15)",
+    name: "Implant Carve-Out Specter (L14)",
     level: 15,
     hints: [
       "When implant cost exceeds the stoploss threshold, most contracts carve it out from the case rate.",
@@ -369,7 +365,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_credentialing_lattice: {
-    name: "Credentialing Lattice (L16)",
+    name: "Credentialing Lattice (L15)",
     level: 16,
     hints: [
       "Credentialing = the payer's approval to bill under their network.",
@@ -378,7 +374,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_carveout_phantom: {
-    name: "Carve-Out Phantom (L17)",
+    name: "Carve-Out Phantom (L16)",
     level: 17,
     hints: [
       "In-network facility + OON physician group at the same ER visit = NSA carve-out applies.",
@@ -387,7 +383,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_cpt_licensure_mire: {
-    name: "CPT Licensure Mire (L18)",
+    name: "CPT Licensure Mire (L17)",
     level: 18,
     hints: [
       "AMA owns CPT and licenses it. Derivative works (crosswalks, mappings) need a license.",
@@ -396,7 +392,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_ob_perdiem_specter: {
-    name: "OB Per-Diem Specter (L21)",
+    name: "OB Per-Diem Specter (L20)",
     level: 21,
     hints: [
       "OB per-diem contracts have escalators for C-section, NICU, multiple births.",
@@ -405,7 +401,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_phantom_patient: {
-    name: "Phantom Patient (L22)",
+    name: "Phantom Patient (L21)",
     level: 22,
     hints: [
       "Identity-matching collision: same name + DOB + zip, different patients.",
@@ -414,7 +410,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_risk_adj_hollow: {
-    name: "Risk Adjustment Hollow (L23)",
+    name: "Risk Adjustment Hollow (L22)",
     level: 23,
     hints: [
       "HCC = Hierarchical Condition Categories. Drives Medicare Advantage risk-adjusted payment.",
@@ -423,7 +419,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_chemo_bundle_specter: {
-    name: "Chemo Bundle Specter (L24)",
+    name: "Chemo Bundle Specter (L23)",
     level: 24,
     hints: [
       "Chemo admin (96413, 96415) often bundles with the drug + case rate.",
@@ -432,7 +428,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_two_midnight_mire: {
-    name: "Two-Midnight Mire (L25)",
+    name: "Two-Midnight Mire (L24)",
     level: 25,
     hints: [
       "Medicare 2-midnight rule: inpatient is presumed appropriate if it spans ≥2 midnights AND is medically necessary.",
@@ -441,7 +437,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_cob_cascade_spider: {
-    name: "COB Cascade Spider (L27)",
+    name: "COB Cascade Spider (L26)",
     level: 27,
     hints: [
       "Three coverages = three potential primaries. Birthday rule, employer-vs-retiree, Medicare secondary, spouse plan.",
@@ -450,7 +446,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_case_rate_specter: {
-    name: "Case-Rate Specter (L28)",
+    name: "Case-Rate Specter (L27)",
     level: 28,
     hints: [
       "Case rate = one bundled payment for the whole stay. Per-diem = paid per day.",
@@ -459,7 +455,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_mrf_cartographer: {
-    name: "MRF Cartographer (L29)",
+    name: "MRF Cartographer (L28)",
     level: 29,
     hints: [
       "MRF = Machine-Readable File. CMS rule requires payers to publish negotiated rates.",
@@ -468,7 +464,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_idr_crucible: {
-    name: "IDR Crucible (L30)",
+    name: "IDR Crucible (L29)",
     level: 30,
     hints: [
       "IDR = Independent Dispute Resolution. NSA arbitration, baseball-style.",
@@ -477,7 +473,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_three_forty_b_specter: {
-    name: "340B Specter (L31)",
+    name: "340B Specter (L30)",
     level: 31,
     hints: [
       "340B program: eligible hospitals buy outpatient drugs at deep discount.",
@@ -486,7 +482,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     ],
   },
   catalog_hipaa_spider: {
-    name: "HIPAA Spider (L32)",
+    name: "HIPAA Spider (L31)",
     level: 32,
     hints: [
       "Four-factor assessment: nature of PHI, who received it, was it actually viewed, mitigation steps.",
