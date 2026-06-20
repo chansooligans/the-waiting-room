@@ -661,8 +661,18 @@ export class HospitalScene extends Phaser.Scene {
       const sizeMult = meta?.size ?? 1
       const dispSize = TILE * OBJECT_DISPLAY_MULT * sizeMult
       const objY = (y + 1) * TILE
+      // Object depth encodes the tile's row so southern (larger-y,
+      // nearer-camera) objects draw in front of northern ones where
+      // their bottom-anchored sprites overlap. The eager build relied
+      // on insertion order (buildMap looped y-ascending) for this; with
+      // lazy per-room reveal, tiles are created in reveal order — so a
+      // room entered later (e.g. walking north into a hallway) would
+      // otherwise draw its objects over rooms entered earlier. A
+      // normalized y term keeps the ordering creation-order-independent
+      // and within [2, 3), still below NPCs (depth 5) and the player (10).
+      const objDepth = 2 + y / this.mapDef.height
       const obj = this.add.image(px, objY, objKey)
-        .setOrigin(0.5, 1).setDepth(2).setAlpha(0)
+        .setOrigin(0.5, 1).setDepth(objDepth).setAlpha(0)
       obj.setDisplaySize(dispSize, dispSize)
       // Default tint applies only when the renderer is using the
       // glyph's default obj. If the user overrode the sprite via
