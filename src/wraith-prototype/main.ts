@@ -1,4 +1,4 @@
-// Wraith @ L4 — first-sketch prototype.
+// Wraith @ L4.
 //
 // Standalone single-encounter sketch demonstrating the action set:
 // no HP, no tools-as-damage, no multiple choice. Player connects
@@ -287,7 +287,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Wraith <span class="muted">@ L4 — first-sketch prototype</span></h1>
+        <h1>Wraith <span class="muted">@ L4</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./">← back to game</a>

@@ -1,4 +1,4 @@
-// Doppelgänger @ L6 — first-sketch prototype (CO-18 / duplicate claim).
+// Doppelgänger @ L6 (CO-18 / duplicate claim).
 //
 // Sibling to wraith / bundle / reaper / gatekeeper / fog /
 // hydra / swarm / specter. Same shape (Hospital intro →
@@ -258,7 +258,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Doppelgänger <span class="muted">@ L6 — first-sketch prototype</span></h1>
+        <h1>Doppelgänger <span class="muted">@ L6</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./">← back to game</a>

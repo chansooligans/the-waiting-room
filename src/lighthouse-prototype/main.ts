@@ -1,4 +1,4 @@
-// Lighthouse @ L8 — first-sketch prototype (charity care, patient-facing).
+// Lighthouse @ L8 (charity care, patient-facing).
 //
 // Sibling to the other nine prototypes — but a deliberately
 // different shape. Per L8's design principle: "Lean Hospital-
@@ -304,7 +304,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Lighthouse <span class="muted">@ L8 — first-sketch prototype</span></h1>
+        <h1>Lighthouse <span class="muted">@ L8</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./">← back to game</a>
