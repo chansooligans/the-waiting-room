@@ -24,7 +24,7 @@
 // inflated by single-case agreements that should have been
 // excluded. Open negotiation lapsed. Player must file the IDR.
 //
-// Three verbs:
+// Three actions:
 //   - AUDIT: 4 true/false statements on QPA methodology rules
 //     (what's IN, what's OUT, disclosure requirements, baseball
 //     arbitration mechanic).
@@ -326,7 +326,7 @@ function renderHeader(): string {
           ${term('IDR')}. ${term('baseball arbitration')} mechanic:
           one offer wins. Audit the QPA methodology; rebucket to
           the right specialty + setting; submit the defensible market
-          median. New verbs: AUDIT, REBUCKET, OFFER. See the
+          median. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -396,21 +396,20 @@ function briefingContent(): string {
       </p>
       <p>"Three issues:"</p>
       <ul>
-        <li><strong>Audit.</strong> Four statements about QPA
+        <li>Four statements about QPA
         methodology rules. Watch the
         ${term('SCA')} contamination trap, the risk-bearing exclusion,
         and the ${term('methodology disclosure', 'methodology-disclosure')}
-        deadline. <em>New verb: AUDIT.</em></li>
-        <li><strong>Rebucket.</strong> Four
+        deadline.</li>
+        <li>Four
         ${term('specialty bucket', 'specialty+setting bucket')} options.
         BlueCross used cardiology-elective; the right bucket is
-        cardiology-emergency-ED (POS 23). Mismatch = QPA challenge.
-        <em>New verb: REBUCKET.</em></li>
-        <li><strong>Offer.</strong> Five final-offer dollar amounts.
+        cardiology-emergency-ED (POS 23). Mismatch = QPA challenge.</li>
+        <li>Five final-offer dollar amounts.
         Too high → arbitrator picks the QPA. Too low → leave money
         on the table. The ${money(MARKET_MEDIAN)} market median —
         backed by CardioCare\'s contracts + Fair Health — is the
-        defensible number. <em>New verb: OFFER.</em></li>
+        defensible number.</li>
       </ul>
       <p>
         "${term('TMA v HHS')} killed the QPA-presumption in 2022.
@@ -577,7 +576,7 @@ function renderOffer(o: OfferOption): string {
 function renderRecap(issueId: string): string {
   const issue = issues.find(i => i.id === issueId)
   if (!issue) return ''
-  return `<div class="recap"><div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div><p>${escape(issue.recap)}</p></div>`
+  return `<div class="recap"><div class="recap-h">RECAP</div><p>${escape(issue.recap)}</p></div>`
 }
 
 function renderChecklist(): string {
@@ -652,7 +651,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> AUDIT (QPA methodology rules — what\'s in the median, what\'s excluded, disclosure obligations), REBUCKET (specialty + setting axes, the most-litigated QPA challenge ground), OFFER (baseball-arbitration strategy: defensible best number wins).</li>
+            <li><strong>Three moves:</strong> audit (QPA methodology rules — what\'s in the median, what\'s excluded, disclosure obligations), rebucket (specialty + setting axes, the most-litigated QPA challenge ground), offer (baseball-arbitration strategy: defensible best number wins).</li>
             <li><strong>Baseball arbitration is the central mechanic.</strong> Other Cases let you split the difference, escalate, or compromise. IDR doesn\'t — the arbitrator picks one offer. The Case forces the player to commit to a number they can defend with data.</li>
             <li><strong>Methodology disclosure is leverage.</strong> 45 CFR 149.140(d) gives providers a 30-day right to demand the QPA derivation. Plans that don\'t respond within 30 days hand the provider an affirmative IDR defense. The Case includes the unanswered disclosure as a key piece of leverage.</li>
             <li><strong>TMA v HHS context matters.</strong> The 2022 Texas Medical Association lawsuits killed the original "QPA presumption" — arbitrators no longer give the QPA automatic primacy. Provider-friendly regulatory environment, but only if you submit a credible offer. The Case bottles that — submit billed charges and you still lose.</li>
@@ -661,7 +660,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>Sibling shape</h3>
           <ul>
-            <li>Cousin to <a href="./surprise-bill-prototype.html">Surprise Bill Specter</a> — same NSA-dispute family, but PATIENT-side (defending against the OON balance bill). IDR Crucible is PROVIDER-side (CardioCare disputing the QPA payment). Both lean on the NSA carve-out + QPA framework but the verbs and stakes flip.</li>
+            <li>Cousin to <a href="./surprise-bill-prototype.html">Surprise Bill Specter</a> — same NSA-dispute family, but PATIENT-side (defending against the OON balance bill). IDR Crucible is PROVIDER-side (CardioCare disputing the QPA payment). Both lean on the NSA carve-out + QPA framework but the actions and stakes flip.</li>
             <li>Cousin to <a href="./carveout-phantom-prototype.html">Carve-out Phantom</a> — same NSA universe; that one ROUTES the dispute (figures out who pays whom and through what channel), this one IS the dispute (final-offer arbitration after open negotiation fails).</li>
             <li>Cousin to <a href="./case-rate-specter-prototype.html">Case Rate Specter</a> in the contract-data shape — both require the player to assemble defensible market data; that one applies it to a contract-vs-fee-table mismatch, this one applies it to a baseball-arbitration final offer.</li>
             <li>District: appeals (purple). The dispute IS the encounter — arbitration mechanics, evidence weighting, strategic offer-setting. Levels 9 because the IDR sophistication assumes the player has already learned QPA / OON / NSA basics from earlier Cases (Surprise Bill, Carve-out Phantom).</li>

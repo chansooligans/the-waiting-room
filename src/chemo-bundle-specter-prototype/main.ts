@@ -12,7 +12,7 @@
 // AR analyst's first instinct is to appeal. That instinct is wrong.
 // The contract is right; the chargemaster is the bug.
 //
-// Verbs:
+// Actions:
 //   - READ-CLAUSE: walk 4 contract sections; mark which governs.
 //   - EXAMINE-CDM: 4 charge entries; identify the misconfigured
 //     hard-coding that drops drug J-codes independently.
@@ -364,7 +364,7 @@ function renderHeader(): string {
           ${escape(PAYER)}'s contract bundles the drug into
           a chemo ${term('case rate')} when ${term('hard-coding', 'CPT 96413 + Rev 0335')} are
           present. The bug is in the ${term('CDM')}, not the
-          claim. Verbs: READ-CLAUSE, EXAMINE-CDM, HARD-CODE.
+          claim.
           See the <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -433,24 +433,23 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Read-clause.</strong> Four contract sections.
+          Four contract sections.
           Mark the one that governs (8.3(c) — chemo case rate).
           Three are decoys: prior auth, standard schedule, appeals
-          timing. <em>New verb: READ-CLAUSE.</em>
+          timing.
         </li>
         <li>
-          <strong>Examine-CDM.</strong> Four chargemaster entries.
+          Four chargemaster entries.
           Three are misconfigured — they hard-code admin and drugs
           as separate billables. One is right: a single bundled
-          case-rate charge entry. <em>New verb: EXAMINE-CDM.</em>
+          case-rate charge entry.
         </li>
         <li>
-          <strong>Hard-code.</strong> Five resolution paths. Only
+          Five resolution paths. Only
           one (update the CDM, suppress the J-code drops on UHC
           contracts) is right. The others appeal a contractually
           correct denial, file under the wrong NCCI mechanism, or
-          give back the case-rate payment we did receive.
-          <em>New verb: HARD-CODE.</em>"
+          give back the case-rate payment we did receive."
         </li>
       </ul>
       <p>
@@ -650,7 +649,7 @@ function renderRecap(issueId: string): string {
   if (!issue) return ''
   return `
     <div class="recap">
-      <div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div>
+      <div class="recap-h">RECAP</div>
       <p>${escape(issue.recap)}</p>
     </div>
   `
@@ -745,10 +744,10 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> READ-CLAUSE
+            <li><strong>Three actions:</strong> reading the clause
             (contract section reading; cousin to Case Rate
-            Specter's COMPARE-CONTRACT), EXAMINE-CDM (chargemaster
-            inspection), HARD-CODE (configure the upstream rule).</li>
+            Specter's contract comparison), examining the CDM (chargemaster
+            inspection), and hard-coding (configure the upstream rule).</li>
             <li><strong>The bug isn't on the claim.</strong>
             First Case where the answer is upstream — fix the
             chargemaster, not the rejection. Most "appeal the

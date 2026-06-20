@@ -14,14 +14,14 @@
 // policy correctly, and writing the bill off as charity care
 // instead of letting it become bad debt.
 //
-// Verbs:
-//   - LISTEN — read Maria's disclosures, pick a follow-up
-//     question that elicits useful information instead of
-//     paternalism or premature paperwork.
-//   - SCREEN — Federal Poverty Level worksheet. Compute
-//     household income / FPL ratio; pick the eligibility tier.
-//   - RELEASE — file the bill as charity care, not bad debt
-//     and not a payment-plan-only.
+// Action set:
+//   - Read Maria's disclosures, pick a follow-up question that
+//     elicits useful information instead of paternalism or
+//     premature paperwork.
+//   - Federal Poverty Level worksheet. Compute household income
+//     / FPL ratio; pick the eligibility tier.
+//   - File the bill as charity care, not bad debt and not a
+//     payment-plan-only.
 //
 // The Lighthouse itself is restorative. It doesn't disappear
 // when defeated; it keeps standing. The bell rings; Maria
@@ -405,21 +405,18 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Listen.</strong> She's already exhausted.
-          Ask one good follow-up question — the kind that
-          gets you what the application needs without making
-          her feel audited. <em>Verb: LISTEN.</em>
+          She's already exhausted. Ask one good follow-up
+          question — the kind that gets you what the
+          application needs without making her feel audited.
         </li>
         <li>
-          <strong>Screen.</strong> Open the FA worksheet.
-          Compute her household income against ${term('FPL')}.
-          Pick her tier. <em>Verb: SCREEN.</em>
+          Open the FA worksheet. Compute her household income
+          against ${term('FPL')}. Pick her tier.
         </li>
         <li>
-          <strong>Release.</strong> File the bill correctly —
-          as charity care under the right tier, not as bad
-          debt and not as a payment-plan-only. <em>Verb:
-          RELEASE.</em>
+          File the bill correctly — as charity care under the
+          right tier, not as bad debt and not as a
+          payment-plan-only.
         </li>
       </ul>
       <p>
@@ -758,9 +755,9 @@ function renderDesignNotes(): string {
           <ul>
             <li><b>Not a fight.</b> First prototype where the encounter has no enemy. The patient is in front of you; the bill is real; the question is what happens to it. Win condition: the bill gets released as charity, not let to drift into bad debt.</li>
             <li><b>Patient-facing register.</b> Every prior prototype argues with payers. This one is a conversation with someone who owes money she can't pay. Different emotional shape entirely — closer to social work than RCM.</li>
-            <li><b>The verbs are LISTEN, SCREEN, RELEASE.</b> Not amend, not cite, not appeal. Listening well is a learnable skill that maps onto a multiple-choice mechanic — the wrong question reads as paternalism, premature paperwork, or judgment, and the patient closes off.</li>
+            <li><b>Listen, screen, release.</b> Not amend, not cite, not appeal. Listening well is a learnable skill that maps onto a multiple-choice mechanic — the wrong question reads as paternalism, premature paperwork, or judgment, and the patient closes off.</li>
             <li><b>The Lighthouse doesn't disappear.</b> Defeat-the-encounter framing is gone. The Lighthouse keeps standing; the next patient finds it the same way Maria did. Cosmologically: this is a release valve, not a stuck claim.</li>
-            <li><b>Outside the four-district system.</b> The prototype uses a warm-gold accent (lighthouse beam), not one of the canonical Eligibility/Coding/Billing/Appeals colors. The encounter sits outside the verb-space those districts share.</li>
+            <li><b>Outside the four-district system.</b> The prototype uses a warm-gold accent (lighthouse beam), not one of the canonical Eligibility/Coding/Billing/Appeals colors. The encounter sits outside the action set those districts share.</li>
           </ul>
         </div>
         <div>

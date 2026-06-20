@@ -2,14 +2,14 @@
 //
 // Sibling to wraith-prototype + bundle-prototype. Same shape
 // (Hospital intro → dreamlike fall → Waiting Room → claim form +
-// workbench + builder), tuned to a different verb-space:
+// workbench + builder), tuned to a different action set:
 //
-//   - TIME PRESSURE is the verb. Every action costs days from a
+//   - Time pressure drives it. Every action costs days from a
 //     finite filing-window budget. The Reaper doesn't hit; the
 //     calendar does.
-//   - Two issues: CITE (extenuating-circumstances waiver, backed
-//     by 277CA receipts) + AMEND (the subscriber ID that's been
-//     bouncing this claim for nine months).
+//   - Two issues: cite the extenuating-circumstances waiver, backed
+//     by 277CA receipts, and amend the subscriber ID that's been
+//     bouncing this claim for nine months.
 //
 // Demonstrates: a real countdown changes the rhythm without
 // breaking the framework. Wrong picks aren't free; the player
@@ -779,7 +779,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What's different from Wraith + Bundle</h3>
           <ul>
-            <li><b>TIME PRESSURE is the new verb.</b> A real countdown — 14 days — visible at all times. Every action burns days. Run out, lose the file.</li>
+            <li><b>Time pressure drives it.</b> A real countdown — 14 days — visible at all times. Every action burns days. Run out, lose the file.</li>
             <li><b>Cost preview on every action.</b> The amend callout, the CITE button, even SUBMIT show their day-cost up front. Players choose with knowledge.</li>
             <li><b>Wrong picks have real cost.</b> A wrong subscriber ID burns 3 days. A mismatched citation burns 3–4. There's no "no penalty" mode here — that's the whole point.</li>
             <li><b>Different field again.</b> Box 1a (subscriber ID), not Box 21 (dx) or Box 24 (modifier). The framework handles any field; this proves it.</li>

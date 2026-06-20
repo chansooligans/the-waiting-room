@@ -2,13 +2,13 @@
 //
 // Sibling to wraith / bundle / reaper / gatekeeper. Same shape
 // (Hospital intro → dreamlike fall → Waiting Room → claim form
-// + middle work + checklist), tuned to a different verb-space:
+// + middle work + checklist), tuned to a different action set:
 //
-//   - REVEAL is the new verb. Run a 270 eligibility inquiry to
+//   - Reveal: run a 270 eligibility inquiry to
 //     surface what registration got wrong. Until you do, the
 //     suspect fields on the claim are literally fogged over —
 //     you know something's off, you can't tell what.
-//   - AMEND finishes it. After the 271 response comes back,
+//   - Amend finishes it. After the 271 response comes back,
 //     the fog burns off and discrepancies show up red. Amend
 //     each wrong field against the 271 as the source of truth.
 //
@@ -251,7 +251,7 @@ function renderHeader(): string {
           <a href="./bundle-prototype.html">Bundle</a>,
           <a href="./reaper-prototype.html">Reaper</a>, and
           <a href="./gatekeeper-prototype.html">Gatekeeper</a>.
-          This one is REVEAL-dominant: claim fields are
+          In this one, claim fields are
           fogged over until you run a ${term('270')} inquiry.
           Once the ${term('271')} comes back, the fog burns
           off and the wrong fields glow red. Tests an upstream
@@ -333,7 +333,7 @@ function briefingContent(): string {
           the eligibility check to Anthem; the ${term('271')}
           response comes back with her current plan,
           subscriber ID, group. The fog burns off. Differences
-          show up red. <em>This is the new verb: REVEAL.</em>
+          show up red.
         </li>
         <li>
           <strong>Amend whatever the 271 flagged.</strong> Not
@@ -341,7 +341,7 @@ function briefingContent(): string {
           difference is fine). The real issues are the
           subscriber ID and the group number — old employer's
           plan, both stale. Fix them against the 271 as the
-          source of truth. <em>Familiar territory: AMEND.</em>
+          source of truth.
         </li>
       </ul>
       <p>
@@ -698,7 +698,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What's different from the others</h3>
           <ul>
-            <li><b>REVEAL is the new verb.</b> The encounter is gated by an inquiry — until you run the 270, the discrepant fields are literally fogged over on the claim. The fog is the puzzle.</li>
+            <li><b>Reveal-gated.</b> The encounter is gated by an inquiry — until you run the 270, the discrepant fields are literally fogged over on the claim. The fog is the puzzle.</li>
             <li><b>Upstream encounter.</b> First prototype where the fight happens <em>before</em> the claim submits, not after a denial. Teaches that a clean drop on day one beats a clean appeal six months later.</li>
             <li><b>Distractors in the response.</b> The 271 returns five fields; only two are real issues (subscriber + group). Name format and DOB are not. The player learns to filter.</li>
             <li><b>Two-amends in one encounter.</b> Most prior prototypes had one amend. This one has two — same root cause (job change), different fields. Teaches that registration errors come in clusters.</li>

@@ -4,11 +4,11 @@
 // no-show fee; she did call to cancel; the front desk just never
 // logged it.
 //
-// Verbs:
-//   - LISTEN: 4 statements; mark each "supports cancellation" or
+// Action set:
+//   - 4 statements; mark each "supports cancellation" or
 //     "doesn't bear on it." Right follow-up question, not assumption.
-//   - INVESTIGATE: 4 sources to pull. Pick the one that confirms.
-//   - WAIVE: 4 resolution paths. Pick the right one.
+//   - 4 sources to pull. Pick the one that confirms.
+//   - 4 resolution paths. Pick the right one.
 //
 // Author: May 2026.
 import { BASE_CSS, districtVars, escape, renderCaseRecap, type CaseRecap, notifyParentVictory} from '../shared/prototype-base'
@@ -170,7 +170,7 @@ const glossary: Record<string, GlossaryEntry> = {
   },
   'release valve': {
     term: 'Release valve (Case archetype)',
-    plain: "A Case where the player practices kindness rather than fight. Lighthouse (charity care) is the L8 archetype; No-Show Bill is the L6 mid-game version. The verb-space leans LISTEN / INVESTIGATE / WAIVE rather than CITE / AMEND / APPEAL. Release valves prove the framework supports restorative encounters as well as combative ones.",
+    plain: "A Case where the player practices kindness rather than fight. Lighthouse (charity care) is the L8 archetype; No-Show Bill is the L6 mid-game version. The action set leans toward listening, investigating, and waiving rather than citing, amending, and appealing. Release valves prove the framework supports restorative encounters as well as combative ones.",
   },
   'patient experience': {
     term: 'Patient experience (NPS / HCAHPS)',
@@ -246,8 +246,7 @@ function renderHeader(): string {
           ${escape(PATIENT)} on the phone. $${FEE}
           ${term('no-show fee')}; she says she called to cancel.
           Mid-game ${term('release valve')} — companion to Lighthouse.
-          Verbs are LISTEN, INVESTIGATE, WAIVE — not appeal, amend,
-          cite. See the <a href="#design-notes">design notes</a>.
+          See the <a href="#design-notes">design notes</a>.
         </p>
       `}
     </header>
@@ -293,7 +292,7 @@ function briefingContent(): string {
   return `
     <div class="briefing-h">
       <span class="briefing-tag">DANA, IN YOUR EAR</span>
-      <span class="briefing-sub">${state.briefingDone ? 'Re-reading her note.' : 'Different verb-space. Kindness, not fight.'}</span>
+      <span class="briefing-sub">${state.briefingDone ? 'Re-reading her note.' : 'Kindness, not fight.'}</span>
     </div>
     <div class="briefing-body">
       <p>
@@ -303,16 +302,15 @@ function briefingContent(): string {
       </p>
       <p>"Three issues:"</p>
       <ul>
-        <li><strong>Listen.</strong> Four things she\'s saying.
-        Two bear on the cancellation; two are sympathetic context.
-        Difference matters. <em>New verb: LISTEN.</em></li>
-        <li><strong>Investigate.</strong> Pull the call log — not
-        Jamie\'s memory, not Marcia\'s attestation, not next
-        week\'s manager meeting. <em>New verb: INVESTIGATE.</em></li>
-        <li><strong>Waive.</strong> Adjust the account, route a
-        training note. Don\'t split the difference; don\'t hide
-        behind policy; don\'t escalate to collections.
-        <em>New verb: WAIVE.</em></li>
+        <li>Four things she\'s saying. Two bear on the
+        cancellation; two are sympathetic context. Difference
+        matters.</li>
+        <li>Pull the call log — not Jamie\'s memory, not
+        Marcia\'s attestation, not next week\'s manager
+        meeting.</li>
+        <li>Adjust the account, route a training note. Don\'t
+        split the difference; don\'t hide behind policy; don\'t
+        escalate to collections.</li>
       </ul>
       <p class="briefing-sign">"The script IS the policy. — D."</p>
     </div>
@@ -425,7 +423,7 @@ function renderOpt(o: Source | Resolution, kind: 'source' | 'resolution'): strin
 function renderRecap(issueId: string): string {
   const issue = issues.find(i => i.id === issueId)
   if (!issue) return ''
-  return `<div class="recap"><div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div><p>${escape(issue.recap)}</p></div>`
+  return `<div class="recap"><div class="recap-h">RECAP</div><p>${escape(issue.recap)}</p></div>`
 }
 
 function renderChecklist(): string {
@@ -490,7 +488,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> LISTEN (separate evidence from context), INVESTIGATE (documented sources), WAIVE.</li>
+            <li><strong>Three new actions:</strong> separating evidence from context, drawing on documented sources, and waiving the charge.</li>
             <li><strong>Mid-game release valve.</strong> Companion to Lighthouse (L8 charity care). Proves the framework supports restorative Cases too.</li>
             <li><strong>Sympathetic context isn\'t evidence.</strong> Both can be true at once — the patient deserves empathy AND the policy needs facts. Listen to both, weight only the evidence.</li>
             <li><strong>Decoys teach how kindness fails.</strong> Splitting the difference, policy-citing, collections — each feels process-correct and reads as cruel.</li>

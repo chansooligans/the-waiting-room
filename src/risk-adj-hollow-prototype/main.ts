@@ -5,7 +5,7 @@
 // Advantage contract is risk-adjusted; under-coded HCCs leave
 // money — and accurate risk pictures — on the table.
 //
-// Verbs:
+// Actions:
 //   - REVIEW: read 4 chart snippets; mark each "supports specific
 //     code" or "ambiguous → CDI query."
 //   - ENRICH: pick the right ICD-10 / HCC code per documented item.
@@ -311,8 +311,7 @@ function renderHeader(): string {
           diabetes with neuropathy, CKD 3a, BMI 41.2, EF 35% — the
           encoder captured E11.9 and stopped. ${term('HCC')} capture
           missed; ${term('RAF')} short. Two snippets need specific
-          codes; two need ${term('CDI query', 'CDI queries')}. New
-          verbs: REVIEW, ENRICH, QUERY. See the
+          codes; two need ${term('CDI query', 'CDI queries')}. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -368,16 +367,16 @@ function briefingContent(): string {
       </p>
       <p>"Three issues:"</p>
       <ul>
-        <li><strong>Review.</strong> Four chart snippets. Two
+        <li>Four chart snippets. Two
         support specific codes; two are ambiguous and need
-        CDI queries. <em>New verb: REVIEW.</em></li>
-        <li><strong>Enrich.</strong> For the supported snippets,
+        CDI queries.</li>
+        <li>For the supported snippets,
         pick the specific code. Don't under-code (E11.9, N18.9
         are easy traps); don't up-code (N18.5 when the chart
-        says 3a is fraud). <em>New verb: ENRICH.</em></li>
-        <li><strong>Query.</strong> For the ambiguous ones, draft
+        says 3a is fraud).</li>
+        <li>For the ambiguous ones, draft
         a non-leading bundled CDI query. Leading queries
-        violate AHIMA standards. <em>New verb: QUERY.</em></li>
+        violate AHIMA standards.</li>
       </ul>
       <p class="briefing-sign">"If it isn't documented this year, it isn't coded this year. — D."</p>
     </div>
@@ -531,7 +530,7 @@ function renderQueryRow(q: QueryOption): string {
 function renderRecap(issueId: string): string {
   const issue = issues.find(i => i.id === issueId)
   if (!issue) return ''
-  return `<div class="recap"><div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div><p>${escape(issue.recap)}</p></div>`
+  return `<div class="recap"><div class="recap-h">RECAP</div><p>${escape(issue.recap)}</p></div>`
 }
 
 function renderChecklist(): string {
@@ -599,7 +598,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> REVIEW (chart vs claim), ENRICH (specific codes), QUERY (CDI compliance).</li>
+            <li><strong>Three moves:</strong> review the chart against the claim, enrich with specific codes, and query for CDI compliance.</li>
             <li><strong>Inverted Wraith.</strong> The missing piece is in the hospital, not the payer.</li>
             <li><strong>Up-coding decoy.</strong> N18.5 (CKD 5) when the chart says 3a is fraud — different category from under-coding.</li>
             <li><strong>Leading query is forbidden.</strong> AHIMA / ACDIS standards prohibit suggesting the diagnosis.</li>

@@ -5,10 +5,10 @@
 // is to walk the audit trail backwards, find the merge point,
 // split the records, and refile each claim against its correct MRN.
 //
-// Verbs:
-//   - TRACE: walk 5 audit-trail events; mark which is the merge point.
-//   - UNMERGE: 4 split-strategy options. Pick the right one.
-//   - REFILE: 4 resolution paths.
+// Action set:
+//   - Walk 5 audit-trail events; mark which is the merge point.
+//   - 4 split-strategy options. Pick the right one.
+//   - 4 resolution paths.
 //
 // Demonstrates: identity is upstream of every revenue-cycle
 // process. When MRN goes wrong, every downstream step compounds
@@ -273,8 +273,7 @@ function renderHeader(): string {
           today's encounter rode that ${term('chart merge')}
           downstream until Aetna returned ${term('CO-31')} (patient
           cannot be identified). Walk the trail, find the merge,
-          split the records, refile. New verbs: TRACE, UNMERGE,
-          REFILE. See the
+          split the records, refile. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -333,14 +332,14 @@ function briefingContent(): string {
       </p>
       <p>"Three issues:"</p>
       <ul>
-        <li><strong>Trace.</strong> Walk five audit events. Find
-        the one where identity crossed. <em>New verb: TRACE.</em></li>
-        <li><strong>Unmerge.</strong> Pick the split strategy that
-        doesn't make the MPI worse. Decoys are real
-        anti-patterns: chart-merge (catastrophic), spawn-new-MRN
-        (worsens MPI), fudge-DOB (fraud). <em>New verb: UNMERGE.</em></li>
-        <li><strong>Refile.</strong> Move the encounter to the
-        right MRN, refile, and add a system-level guardrail."</li>
+        <li>Walk five audit events. Find the one where identity
+        crossed.</li>
+        <li>Pick the split strategy that doesn't make the MPI
+        worse. Decoys are real anti-patterns: chart-merge
+        (catastrophic), spawn-new-MRN (worsens MPI), fudge-DOB
+        (fraud).</li>
+        <li>Move the encounter to the right MRN, refile, and add
+        a system-level guardrail."</li>
       </ul>
       <p class="briefing-sign">"Two patients, two MRNs. — D."</p>
     </div>
@@ -500,7 +499,7 @@ function renderRecap(issueId: string): string {
   if (!issue) return ''
   return `
     <div class="recap">
-      <div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div>
+      <div class="recap-h">RECAP</div>
       <p>${escape(issue.recap)}</p>
     </div>
   `
@@ -590,9 +589,9 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> TRACE (walk audit
-            events), UNMERGE (pick split strategy without making
-            MPI worse), REFILE.</li>
+            <li><strong>Three new actions:</strong> tracing audit
+            events, unmerging (pick split strategy without making
+            MPI worse), and refiling.</li>
             <li><strong>Identity is upstream.</strong> First Case
             where the bug is in the MPI / registration, not the
             claim or chargemaster.</li>

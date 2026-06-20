@@ -10,7 +10,7 @@
 // procedure, with the right co-provider disclosures, and the
 // hospital is bound to bill within ±$400 of it under the NSA.
 //
-// Verbs:
+// Actions:
 //   - ITEMIZE: 6 candidate line items; classify each as Mercy's
 //     (goes on this GFE), co-provider's (separate GFE; mention but
 //     don't price), or not applicable (ineligible service).
@@ -313,8 +313,7 @@ function renderHeader(): string {
           ${term('GFE')} within ${NSA_GFE_DEADLINE_DAYS}
           business days. Sibling to
           <a href="./mrf-cartographer-prototype.html">MRF Cartographer</a> —
-          same source-of-truth puzzle, different deliverable. New
-          verbs: ITEMIZE, ESTIMATE, COMMIT. See the
+          same source-of-truth puzzle, different deliverable. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -374,7 +373,7 @@ function briefingContent(): string {
     </div>
     <div class="briefing-body">
       <p>
-        "Different verb-space than the appeals. The dragon hasn't
+        "Different work than the appeals. The dragon hasn't
         arrived yet; we're closing the door before it does. Maya
         gets a number she can trust before she signs. If we hand her
         a number we can't honor, she disputes through
@@ -386,24 +385,23 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Itemize.</strong> Eight candidate lines. Sort
+          Eight candidate lines. Sort
           them: Mercy's (we estimate),
           ${term('co-provider')}'s (we disclose, don't estimate),
           or not applicable (off the GFE). Get this wrong and we
           either over-promise (Mercy GFE includes anesthesia we
           don't bill) or under-disclose (no mention of the
-          pediatrician). <em>New verb: ITEMIZE.</em>
+          pediatrician).
         </li>
         <li>
-          <strong>Estimate.</strong> For the Mercy lines, same
+          For the Mercy lines, same
           source-of-truth call as the
           <a href="./mrf-cartographer-prototype.html">MRF</a>:
           ${term('hard-coded')} from CDM, ${term('soft-coded')}
-          from the claim median per payer. <em>New verb: ESTIMATE
-          (returning from MRF Cartographer).</em>
+          from the claim median per payer.
         </li>
         <li>
-          <strong>Commit.</strong> Sign the GFE. Mercy commits to
+          Sign the GFE. Mercy commits to
           billing within ±$${NSA_VARIANCE_CAP} of the total. Hand a
           copy to Maya, route the co-provider notice to anesthesia
           + pediatrics. Done."
@@ -589,7 +587,7 @@ function renderRecap(issueId: string): string {
   if (!issue) return ''
   return `
     <div class="recap">
-      <div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div>
+      <div class="recap-h">RECAP</div>
       <p>${escape(issue.recap)}</p>
     </div>
   `
@@ -682,9 +680,9 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> ITEMIZE
-            (classify by who bills it), ESTIMATE (returning from
-            MRF Cartographer — pick the source), COMMIT (sign the
+            <li><strong>Three moves:</strong> itemize
+            (classify by who bills it), estimate (returning from
+            MRF Cartographer — pick the source), commit (sign the
             regulatory document).</li>
             <li><strong>Patient-facing prevention.</strong> First
             Case where the dragon hasn't arrived yet — we're

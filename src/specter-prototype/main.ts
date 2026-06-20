@@ -3,9 +3,9 @@
 // Sibling to wraith / bundle / reaper / gatekeeper / fog /
 // hydra / swarm. Same shape (Hospital intro → dreamlike fall →
 // Waiting Room → middle work → checklist), tuned to a
-// payment-side verb-space:
+// payment-side action set:
 //
-//   - VARIANCE is the new verb. The 835 ERA arrived and
+//   - Contract-vs-paid variance drives it. The 835 ERA arrived and
 //     looks paid. Most of the claims on it are correct. One
 //     hides an underpayment — the payer paid less than the
 //     contract requires. Detection is the puzzle; the appeal
@@ -296,7 +296,7 @@ function renderHeader(): string {
       ${state.briefingDone ? '' : `
         <p class="lede">
           An eighth prototype, sibling to the others. This one
-          is VARIANCE-dominant: an ${term('835')} arrived
+          hinges on contract-vs-paid variance: an ${term('835')} arrived
           showing four claims paid. They <em>look</em> paid.
           One isn't — the payer paid against the prior year's
           ${term('fee schedule')} on a chest-x-ray line and
@@ -376,14 +376,13 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Detect.</strong> Verify each claim against
+          Verify each claim against
           the ${term('fee schedule')} below. Click 'Verify'
           on each row — the math will surface the variance,
-          if any. Three of these are clean. One isn't. <em>This
-          is the new verb: VARIANCE.</em>
+          if any. Three of these are clean. One isn't.
         </li>
         <li>
-          <strong>Appeal.</strong> Once you've found the
+          Once you've found the
           underpayment, file with the right shortfall and the
           right reason. Wrong shortfall = denied appeal.
           Wrong reason = routed to the wrong queue and lost
@@ -706,7 +705,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What's different from the others</h3>
           <ul>
-            <li><b>VARIANCE is the new verb.</b> First prototype where the input is a successful 835, not a denial. The Specter looks like everything is fine. The puzzle is finding what isn't.</li>
+            <li><b>Hunting contract-vs-paid variance.</b> First prototype where the input is a successful 835, not a denial. The Specter looks like everything is fine. The puzzle is finding what isn't.</li>
             <li><b>The math is the puzzle.</b> Compare contract-allowed to actually-paid, line by line. Three claims match; one shows a $28 short. No form to fix — a number to find.</li>
             <li><b>Detection precedes appeal.</b> The appeal launcher is locked until the player has flagged the right claim. Models the AR analyst's actual workflow: variance report first, appeal second.</li>
             <li><b>Pedagogically distinctive distractor in the appeal modal.</b> Wrong shortfall ($46) is the *adjustment* (billed - paid). Right answer is contract - paid. Players who confuse the two get gentle correction.</li>

@@ -3,9 +3,9 @@
 // Sibling to wraith / bundle / reaper / gatekeeper / fog /
 // hydra. Same shape (Hospital intro → dreamlike fall → Waiting
 // Room → middle work → checklist), tuned to a queue-shaped
-// verb-space:
+// action set:
 //
-//   - BATCH is the new verb. Eighteen claims rejected over the
+//   - Eighteen claims rejected over the
 //     weekend, all CO-16 ("claim/service lacks information").
 //     Fourteen of them share one root cause (a misconfigured
 //     NPI on Dr. Smith's profile). Fix the cluster as a group;
@@ -282,7 +282,7 @@ function renderHeader(): string {
       ${state.briefingDone ? '' : `
         <p class="lede">
           A seventh prototype, sibling to the others. This one
-          is BATCH-dominant: eighteen weekend
+          works a whole queue at once: eighteen weekend
           ${term('CO-16')} rejections, fourteen of them sharing
           one ${term('upstream fix')} (a misconfigured
           ${term('NPI')} on Dr. Smith's profile). The
@@ -359,20 +359,20 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Find the cluster and batch-fix it.</strong>
+          Find the cluster and batch-fix it.
           Fourteen of these claims share a detail string.
           Figure out the right ${term('NPI')}, apply it to all
-          fourteen at once. <em>This is the new verb: BATCH.</em>
+          fourteen at once.
         </li>
         <li>
-          <strong>Sweep the outliers.</strong> The remaining
+          Sweep the outliers. The remaining
           three have different issues. Two need real fixes.
           One is a false positive — looks broken, isn't.
           Triage matters; sometimes the right move is no
           move.
         </li>
         <li>
-          <strong>${term('upstream fix', 'Patch upstream')}.</strong>
+          ${term('upstream fix', 'Patch upstream')}.
           Why was the NPI blank? Dr. Smith's profile in the
           ${term('EHR')} has an empty rendering-NPI field, and
           the billing module fills blanks with placeholders
@@ -801,7 +801,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What's different from the others</h3>
           <ul>
-            <li><b>BATCH is the new verb.</b> First prototype that operates on a queue, not a single claim. Eighteen rows; fourteen share one fix. Pattern detection comes before triage.</li>
+            <li><b>Operates on a queue, not a single claim.</b> First prototype to do so. Eighteen rows; fourteen share one fix. Pattern detection comes before triage.</li>
             <li><b>The ClaimSheet is gone.</b> In its place: a queue table with cluster + outlier sections, status badges per row, and a click-to-inspect modal for each claim.</li>
             <li><b>"No action" is a valid move.</b> One outlier is a clearinghouse false positive — picking 'mark as no-action' is the correct answer. Rebuilding the 837 'just to be safe' is wrong.</li>
             <li><b>Patch-upstream is its own issue.</b> Fixing the 14 claims is half the encounter; filing the EHR ticket is the other half. Without both, the same 14 claims become 28 next Monday.</li>
@@ -822,7 +822,7 @@ function renderDesignNotes(): string {
       <p class="notes-cta">
         Side-by-side comparison: open
         <a href="./fog-prototype.html">Fog</a> for the other
-        L2 prototype (single-claim REVEAL upstream encounter)
+        L2 prototype (single-claim upstream encounter)
         — both teach 'fix it before it ships' but at completely
         different scales (1 claim vs 18). Same shape, different
         unit of work.

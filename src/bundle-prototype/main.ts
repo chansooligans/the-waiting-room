@@ -2,7 +2,7 @@
 //
 // Sibling to wraith-prototype. Same shape (Hospital intro →
 // dreamlike fall → Waiting Room → claim form + workbench + builder),
-// tuned to a different verb-space:
+// tuned to a different action set:
 //
 //   - AMEND-dominant: the fix is a missing modifier on Box 24, not
 //     a wrong code on Box 21. Faster surgical fix.
@@ -270,7 +270,7 @@ function renderHeader(): string {
           <a href="./wraith-prototype.html">Wraith</a>. This one
           is AMEND-dominant: the fix is a missing modifier on
           Box 24 (not a wrong code on Box 21). Tests whether the
-          verb-space holds for "quick surgical fix" encounters
+          action set holds for "quick surgical fix" encounters
           too. See the <a href="#design-notes">design notes</a>
           for what this prototype is testing.
         </p>
@@ -672,7 +672,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this prototype proves (or tries to)</h3>
           <ul>
-            <li>The framework supports both quick surgical fixes and protracted appeals — same verb-space (AMEND + CITE), different ratios.</li>
+            <li>The framework supports both quick surgical fixes and protracted appeals — same action set (AMEND + CITE), different ratios.</li>
             <li>The claim form as playing field works for service-line modifications, not just diagnosis amendments.</li>
             <li>Margin callouts can point at any disputed row, not just Box 21.</li>
             <li>Dana's voice generalizes to different denial types — same wisdom, different specifics.</li>

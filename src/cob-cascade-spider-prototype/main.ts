@@ -6,12 +6,12 @@
 // gotcha that "primary" varies by patient on the same family
 // policy.
 //
-// Verbs:
-//   - VERIFY-ELIGIBILITY: 4 statements about the policy structure +
+// Action set:
+//   - Verify eligibility: 4 statements about the policy structure +
 //     COB rules. True/false.
-//   - APPLY-CASCADE: pick the right primary/secondary order for
+//   - Apply cascade: pick the right primary/secondary order for
 //     each of three patients on the same household.
-//   - REFILE: pick the right resolution path for the misfiled claim.
+//   - Refile: pick the right resolution path for the misfiled claim.
 //
 // The teaching beat: COB isn't one rule — it's a cascade where the
 // answer depends on patient relationship to the subscriber + age +
@@ -296,8 +296,7 @@ function renderHeader(): string {
           Jorge (dual-eligible grandfather) needs the
           ${term('payer of last resort')} rule. Same household
           policy, completely different cascades. Goes deeper than
-          <a href="./hydra-prototype.html">Hydra</a>. New verbs:
-          VERIFY-ELIGIBILITY, APPLY-CASCADE, REFILE. See the
+          <a href="./hydra-prototype.html">Hydra</a>. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -356,21 +355,19 @@ function briefingContent(): string {
       <p>"Three issues:"</p>
       <ul>
         <li>
-          <strong>Verify-eligibility.</strong> Four COB statements,
+          Four COB statements,
           true/false. Watch the "${term('MSP', 'Medicare always primary')}" decoy —
           MSP rules flip it for working-aged + ESRD + a few others.
-          <em>New verb: VERIFY-ELIGIBILITY.</em>
         </li>
         <li>
-          <strong>Apply-cascade.</strong> Three patients on the
+          Three patients on the
           same household; pick primary per patient. Mateo (kid)
           uses ${term('birthday rule')}; Sofia (working 67) uses
           ${term('working-aged', 'MSP working-aged')}; Jorge (grandfather)
-          uses ${term('payer of last resort')}. <em>New verb:
-          APPLY-CASCADE.</em>
+          uses ${term('payer of last resort')}.
         </li>
         <li>
-          <strong>Refile.</strong> Re-walk eligibility on DOS, file
+          Re-walk eligibility on DOS, file
           against the right primary per patient, queue secondaries
           for the post-primary 835. Don't bill the patient; don't
           file Medicaid first; don't pick one primary for the whole
@@ -524,7 +521,7 @@ function renderResolution(r: Resolution): string {
 function renderRecap(issueId: string): string {
   const issue = issues.find(i => i.id === issueId)
   if (!issue) return ''
-  return `<div class="recap"><div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div><p>${escape(issue.recap)}</p></div>`
+  return `<div class="recap"><div class="recap-h">RECAP</div><p>${escape(issue.recap)}</p></div>`
 }
 
 function renderChecklist(): string {
@@ -589,7 +586,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> VERIFY-ELIGIBILITY (COB rule statements), APPLY-CASCADE (per-patient primary pick), REFILE.</li>
+            <li><strong>Three actions:</strong> verify eligibility (COB rule statements), apply cascade (per-patient primary pick), refile.</li>
             <li><strong>COB is a cascade, not a rule.</strong> Same household, three different cascades — relationship × age × Medicare entitlement × employer size × court orders.</li>
             <li><strong>MSP is a category, not an exception.</strong> Six MSP categories total; this Case touches working-aged. Future Cases could expand into ESRD-coordination, workers' comp, auto/no-fault.</li>
             <li><strong>Payer-of-last-resort trap.</strong> Filing Medicaid primary on a dual-eligible is one of the most common audit findings.</li>

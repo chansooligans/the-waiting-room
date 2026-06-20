@@ -4,11 +4,11 @@
 // provided by network provider) returns. Walk the credentialing
 // matrix, find the gap, file a backdated enrollment + reconsideration.
 //
-// Verbs:
-//   - VERIFY-NETWORK: 4 cells in the credentialing matrix; mark
+// Action set:
+//   - Verify network: 4 cells in the credentialing matrix; mark
 //     each "in-network for DOS" or "in-gap for DOS."
-//   - ENROLL: 4 enrollment-action options.
-//   - BACKDATE: 4 reconsideration paths.
+//   - Enroll: 4 enrollment-action options.
+//   - Backdate: 4 reconsideration paths.
 //
 // Author: May 2026.
 import { BASE_CSS, districtVars, escape, renderCaseRecap, type CaseRecap, notifyParentVictory} from '../shared/prototype-base'
@@ -254,8 +254,7 @@ function renderHeader(): string {
           Anthem's ${term('effective date')} for Dr. Patel was 4/2 —
           eleven days after the DOS. ${term('CO-242')} returned.
           Walk the matrix, file the backdate, file the
-          ${term('reconsideration')}. New verbs: VERIFY-NETWORK,
-          ENROLL, BACKDATE. See the
+          ${term('reconsideration')}. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -311,15 +310,14 @@ function briefingContent(): string {
       </p>
       <p>"Three issues:"</p>
       <ul>
-        <li><strong>Verify network.</strong> Four payers in the
-        credentialing matrix. Check which were active on 3/22.
-        <em>New verb: VERIFY-NETWORK.</em></li>
-        <li><strong>Enroll.</strong> Backdate the Anthem effective
+        <li>Four payers in the
+        credentialing matrix. Check which were active on 3/22.</li>
+        <li>Backdate the Anthem effective
         date. Don't bill Hannah, don't fudge the tax ID, don't
-        wait. <em>New verb: ENROLL.</em></li>
-        <li><strong>Backdate.</strong> Reconsideration with the
+        wait.</li>
+        <li>Reconsideration with the
         corrected effective date. Skip reconsideration and the
-        adjudicator denies again. <em>New verb: BACKDATE.</em></li>
+        adjudicator denies again.</li>
       </ul>
       <p class="briefing-sign">"Retro-credentialing is a real thing. Ask. — D."</p>
     </div>
@@ -443,7 +441,7 @@ function renderBackdateRow(b: BackdateOption): string {
 function renderRecap(issueId: string): string {
   const issue = issues.find(i => i.id === issueId)
   if (!issue) return ''
-  return `<div class="recap"><div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div><p>${escape(issue.recap)}</p></div>`
+  return `<div class="recap"><div class="recap-h">RECAP</div><p>${escape(issue.recap)}</p></div>`
 }
 
 function renderChecklist(): string {
@@ -507,7 +505,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> VERIFY-NETWORK, ENROLL, BACKDATE.</li>
+            <li><strong>Three actions:</strong> verify network, enroll, backdate.</li>
             <li><strong>Provider-side eligibility.</strong> CO-242 ≠ CO-31 (patient identity) ≠ CO-95 (form type). All eligibility-family but different actors.</li>
             <li><strong>Reconsideration ≠ formal appeal.</strong> Light touch for credentialing fixes; formal appeals are for adjudicated decisions.</li>
             <li><strong>Don't bill the patient.</strong> Credentialing gaps are administrative, not member-facing.</li>

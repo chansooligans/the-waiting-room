@@ -16,7 +16,7 @@
 // (duplicate antibiotic charge) that should be conceded
 // quickly to avoid a worse outcome later.
 //
-// Verbs: RECEIPT, AMEND. The choice between them is the
+// Actions: RECEIPT, AMEND. The choice between them is the
 // pedagogy — bluffing on a real error reads as compounding;
 // folding on defensible coding gives away revenue that was
 // rightfully earned.
@@ -102,7 +102,7 @@ const findings: Finding[] = [
     ],
     receiptRecap: "You attached the day-1 blood culture report showing MSSA growth. The auditor reviews it, nods once, marks the finding closed. The DRG difference stays earned.",
     amendRecap: "(You shouldn't have conceded this one — the chart supported A41.01.) Recoupment processed: $8,420. The DRG drops from 870 back to 871; the hospital writes off the difference.",
-    wrongReceiptFeedback: "(N/A — this finding's correct verb is RECEIPT.)",
+    wrongReceiptFeedback: "(N/A — this finding's correct action is RECEIPT.)",
     wrongAmendFeedback: "Wait — the chart actually supports A41.01. The day-1 culture report shows MSSA growth from admission. Conceding this one gives up revenue you legitimately earned. Defend it with the culture documentation; don't fold on a defensible position.",
   },
   {
@@ -138,7 +138,7 @@ const findings: Finding[] = [
     ],
     receiptRecap: "You attached the ICU flowsheet showing MAP < 65, lactate > 4, and pressor requirement. The auditor's analyst checks the boxes one by one, then signs off on R65.20 as supported. The MCC stays.",
     amendRecap: "(Conceding here gives away a defensible code.) Recoupment processed: $3,210. R65.20 is removed; DRG drops to 871.",
-    wrongReceiptFeedback: "(N/A — this finding's correct verb is RECEIPT.)",
+    wrongReceiptFeedback: "(N/A — this finding's correct action is RECEIPT.)",
     wrongAmendFeedback: "The flowsheet has all three severe-sepsis criteria documented in real time — MAP < 65, lactate > 4, pressor requirement. Conceding this one is leaving $3,210 on the table that the documentation supports. Don't fold on a defensible severity code.",
   },
   {
@@ -175,7 +175,7 @@ const findings: Finding[] = [
     receiptRecap: "(N/A — RECEIPT was the wrong call here. Trying to defend a duplicate charge with no supporting documentation usually triggers a more thorough audit.)",
     amendRecap: "You voided the duplicate vancomycin charge. The auditor closes the finding; recoupment is small and clean ($340), and the audit doesn't expand. This is what 'concede the small thing fast' looks like.",
     wrongReceiptFeedback: "There's no documentation that supports a second 06:00 dose — because there wasn't one. The MAR shows one dose; the order was for one dose; the second pharmacy line is a billing error. Trying to defend it would either fail or trigger a deeper audit looking for similar errors. Concede this one cleanly: AMEND.",
-    wrongAmendFeedback: "(N/A — this finding's correct verb is AMEND.)",
+    wrongAmendFeedback: "(N/A — this finding's correct action is AMEND.)",
   },
 ]
 
@@ -389,7 +389,7 @@ function briefingContent(): string {
         deeper?"
       </p>
       <p>
-        "Two verbs:"
+        "Two ways to respond:"
       </p>
       <ul>
         <li>
@@ -576,7 +576,7 @@ function renderModal(): string {
               }).join('')}
             </ul>
             <button class="btn ghost" data-action="cancel-receipt-step" data-finding="${finding.id}">
-              ← Back · pick verb again
+              ← Back · choose again
             </button>
           </div>
         ` : `
@@ -698,7 +698,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What's different from the others</h3>
           <ul>
-            <li><b>The finale shape.</b> Not a fight against a payer; not a kindness to a patient. A *defense* of work already done. The verbs (RECEIPT / AMEND) are about what you do with someone else's accusation, not how you assemble your own argument.</li>
+            <li><b>The finale shape.</b> Not a fight against a payer; not a kindness to a patient. A *defense* of work already done. The two actions (RECEIPT / AMEND) are about what you do with someone else's accusation, not how you assemble your own argument.</li>
             <li><b>Three findings, three independent decisions.</b> Each one has its own RECEIPT-vs-AMEND call. The pedagogy is in knowing which is which: defending a defensible finding retains revenue; conceding a real error fast keeps the audit narrow.</li>
             <li><b>Bluffing has a real cost.</b> Picking RECEIPT on the duplicate-charge finding and attaching wrong evidence still costs the recoupment AND sets the audit up to expand. The prototype models this as a failed-receipt status (vs. a clean amend).</li>
             <li><b>The numbers add up.</b> Total exposure $11,970. A clean run lands at $340 recouped. Failing one defensible finding loses $3,210 or $8,420; bluffing on the duplicate doesn't get the $340 back. The summary table makes this legible.</li>
@@ -709,7 +709,7 @@ function renderDesignNotes(): string {
           <h3>What this prototype proves (or tries to)</h3>
           <ul>
             <li>The framework absorbs a defense-shaped encounter without breaking — same hospital intro, fall, Dana voice, claim-form, checklist, submit. The middle holds three independent finding-modals instead of a single workbench/builder.</li>
-            <li>RECEIPT-as-verb is teachable: the player learns to read chart evidence for whether it actually supports the original coding, vs. just being adjacent to it (the "right diagnosis on the discharge summary doesn't prove it was supported at admission" beat).</li>
+            <li>RECEIPT-as-action is teachable: the player learns to read chart evidence for whether it actually supports the original coding, vs. just being adjacent to it (the "right diagnosis on the discharge summary doesn't prove it was supported at admission" beat).</li>
             <li>"Concede small things fast to avoid bigger findings" is a real-world RAC defense lesson that's almost never named in healthcare-system games. The duplicate-charge finding is the prototype's vehicle for it.</li>
             <li>A summary table (exposure / recouped / defended) at the end of the encounter makes the financial logic of the audit legible — it's not just whether you "won," it's how much revenue was at stake and how much survived the review.</li>
             <li>Dana's voice scales to the heaviest encounter in the curriculum without breaking. Sign-off shifts to "This one is the door home."</li>
@@ -771,7 +771,7 @@ function pickEvidence(findingId: string, evidenceId: string) {
     fs.feedback = ev.feedback
     return
   }
-  // Correct evidence — but is RECEIPT the right verb at all?
+  // Correct evidence — but is RECEIPT the right action at all?
   if (finding.correctVerb !== 'receipt') {
     // Player tried to defend something that should be amended; receipt fails.
     fs.resolved = true
@@ -785,7 +785,7 @@ function pickEvidence(findingId: string, evidenceId: string) {
     state.inReceiptStep = false
     return
   }
-  // Correct verb + correct evidence: receipt holds.
+  // Correct action + correct evidence: receipt holds.
   fs.resolved = true
   fs.verb = 'receipt'
   fs.receiptHeld = true
@@ -912,7 +912,7 @@ const css = districtVars('appeals') + BASE_CSS + `
   .finding-stakes { font-size: 11.5px; color: var(--ink-dim); font-style: italic; }
   .finding-recap { margin-top: 8px; font-size: 12.5px; color: var(--ink-dim); line-height: 1.55; padding: 10px 12px; background: rgba(0,0,0,0.18); border-radius: 4px; }
 
-  /* RECEIPT vs AMEND verb picker — two big buttons. */
+  /* RECEIPT vs AMEND action picker — two big buttons. */
   .audit-modal { max-width: 740px; }
   .audit-verbs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
   @media (max-width: 700px) { .audit-verbs { grid-template-columns: 1fr; } }

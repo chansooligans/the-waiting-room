@@ -4,7 +4,7 @@
 // assessment, picks the right immediate containment, and decides on
 // the notification path.
 //
-// Verbs:
+// Actions:
 //   - ASSESS: 4 statements about the four-factor risk assessment.
 //   - CONTAIN: 4 immediate-containment options.
 //   - NOTIFY: 4 notification paths.
@@ -248,7 +248,7 @@ function renderHeader(): string {
           ${term('four-factor', 'four-factor risk assessment')},
           contain, decide on notification. ${term('PHI')}
           discipline; under-${term('500-record threshold', '500-record')}
-          path. New verbs: ASSESS, CONTAIN, NOTIFY. See the
+          path. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -307,15 +307,13 @@ function briefingContent(): string {
       </p>
       <p>"Three issues:"</p>
       <ul>
-        <li><strong>Assess.</strong> Four statements about the four
-        factors. Each one matters. <em>New verb: ASSESS.</em></li>
-        <li><strong>Contain.</strong> Log + attestation. Don't
-        sit on it; don't over-notify; don't sue the recipient.
-        <em>New verb: CONTAIN.</em></li>
-        <li><strong>Notify.</strong> Under 500 records is its own
+        <li>Four statements about the four
+        factors. Each one matters.</li>
+        <li>Log + attestation. Don't
+        sit on it; don't over-notify; don't sue the recipient.</li>
+        <li>Under 500 records is its own
         path — individual letters + internal log + annual HHS
-        aggregate. Not immediate HHS, not media, not OIG.
-        <em>New verb: NOTIFY.</em></li>
+        aggregate. Not immediate HHS, not media, not OIG.</li>
       </ul>
       <p class="briefing-sign">"Four factors before you say breach. — D."</p>
     </div>
@@ -422,7 +420,7 @@ function renderOpt(o: ContainOption | NotifyOption, kind: 'contain' | 'notify'):
 function renderRecap(issueId: string): string {
   const issue = issues.find(i => i.id === issueId)
   if (!issue) return ''
-  return `<div class="recap"><div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div><p>${escape(issue.recap)}</p></div>`
+  return `<div class="recap"><div class="recap-h">RECAP</div><p>${escape(issue.recap)}</p></div>`
 }
 
 function renderChecklist(): string {
@@ -487,7 +485,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> ASSESS (four-factor), CONTAIN (log + attest), NOTIFY (under-500 path).</li>
+            <li><strong>Three moves:</strong> assess (four-factor), contain (log + attest), notify (under-500 path).</li>
             <li><strong>First non-claim Case.</strong> No CARC; no payer. Compliance work pure.</li>
             <li><strong>Calibration as the puzzle.</strong> Under-react = OCR finding; over-react = self-inflicted breach. The right answer is in the middle.</li>
             <li><strong>Wrong-agency decoy.</strong> OIG vs HHS OCR — common confusion in the wild.</li>

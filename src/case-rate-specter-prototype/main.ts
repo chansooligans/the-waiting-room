@@ -6,7 +6,7 @@
 // inlier formula when the contract's outlier provision says they
 // should be paying 75% of charges.
 //
-// Verbs:
+// Actions:
 //   - COMPARE-CONTRACT — read the three contract clauses, identify
 //     which applies. Two are decoys; one (the outlier provision) is
 //     the lever.
@@ -401,18 +401,17 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Threshold trip.</strong> Read the contract pack.
+          Read the contract pack.
           Three clauses. Two are decoys. Mark the one that governs
-          this stay. <em>New verb: COMPARE-CONTRACT.</em>
+          this stay.
         </li>
         <li>
-          <strong>Reprice.</strong> Apply the formula. The math is
+          Apply the formula. The math is
           the appeal — payer paid as if she were inlier; she isn't.
           The number you compute is the number you ask for.
-          <em>New verb: REPRICE.</em>
         </li>
         <li>
-          <strong>Appeal.</strong> File with the right shortfall and
+          File with the right shortfall and
           the right reason. Wrong shortfall gets the appeal denied.
           Wrong reason gets it routed to clinical review and lost
           for a month."
@@ -627,7 +626,7 @@ function renderRecap(issueId: string): string {
   if (!issue) return ''
   return `
     <div class="recap">
-      <div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div>
+      <div class="recap-h">RECAP</div>
       <p>${escape(issue.recap)}</p>
     </div>
   `
@@ -718,8 +717,8 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Two new verbs:</strong> COMPARE-CONTRACT and REPRICE.
-            Both unlock with the third (APPEAL, shared with Specter).</li>
+            <li><strong>Two new actions:</strong> comparing contracts and repricing.
+            Both unlock with the third (appeal, shared with Specter).</li>
             <li><strong>The lever is the clause, not the code.</strong> No
             CARC argument here. ${term('CO-45')} stays on the line; the
             fight is over which contract section governs the stay.</li>

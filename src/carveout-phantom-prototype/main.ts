@@ -8,7 +8,7 @@
 // (same co-provider classification axis; that one is pre-service,
 // this one is post-encounter cleanup).
 //
-// Verbs:
+// Actions:
 //   - TRACE-CONTRACT: 5 contract-relationship statements; player
 //     marks each true / false. The "true" pattern reveals that
 //     Mercy is in-network with Anthem but the ER physician group
@@ -23,7 +23,7 @@
 //
 // Demonstrates: "two bills for one visit" is rarely about coding
 // — it's about who contracted with whom. Reading the contract
-// chain is the verb.
+// chain is the core action.
 //
 // Author: May 2026.
 import { BASE_CSS, districtVars, escape, renderCaseRecap, type CaseRecap, notifyParentVictory} from '../shared/prototype-base'
@@ -314,7 +314,7 @@ function renderHeader(): string {
           is ${term('in-network facility')} with Anthem.
           The physician group isn't. The puzzle is which contract
           chain governs and which ${term('NSA')} protection applies.
-          New verbs: TRACE-CONTRACT, APPLY-NSA, RESOLVE. See the
+          See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -382,17 +382,17 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Trace.</strong> Five statements about who is
+          Five statements about who is
           contracted with whom. Mark each true or false. The
-          pattern reveals the gap. <em>New verb: TRACE-CONTRACT.</em>
+          pattern reveals the gap.
         </li>
         <li>
-          <strong>Apply NSA.</strong> Pick the right protection
+          Pick the right protection
           category. Four options; only one matches. Wrong cite =
-          wrong forum, wrong remedy. <em>New verb: APPLY-NSA.</em>
+          wrong forum, wrong remedy.
         </li>
         <li>
-          <strong>Resolve.</strong> Five action options. One zeros
+          Five action options. One zeros
           Marcus's exposure and routes the dispute correctly. The
           others either over-refund, under-protect, or send the
           right answer to the wrong forum."
@@ -559,7 +559,7 @@ function renderRecap(issueId: string): string {
   if (!issue) return ''
   return `
     <div class="recap">
-      <div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div>
+      <div class="recap-h">RECAP</div>
       <p>${escape(issue.recap)}</p>
     </div>
   `
@@ -651,9 +651,9 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> TRACE-CONTRACT
-            (walk who-contracts-with-whom), APPLY-NSA (pick the
-            citation), RESOLVE (route the dispute).</li>
+            <li><strong>Three actions:</strong> tracing the
+            contract chain (walk who-contracts-with-whom), applying the
+            NSA citation, and resolving (route the dispute).</li>
             <li><strong>Two bills are not always two errors.</strong>
             Sometimes the second bill is structurally inevitable
             (separate staffing contract); the puzzle is whether

@@ -9,14 +9,14 @@
 // — it's a regulatory dispute that protects the patient and
 // recovers the contested amount from the OON billing entity.
 //
-// Verbs:
-//   - CLASSIFY — recognize this as an NSA-protected scenario
+// Action set:
+//   - Classify — recognize this as an NSA-protected scenario
 //     (in-network facility + OON ancillary provider in an
 //     emergency context).
-//   - CALCULATE — compute what the patient *actually* owes
+//   - Calculate — compute what the patient *actually* owes
 //     under NSA rules (in-network cost-share, not the OON
 //     balance).
-//   - DISPUTE — file the patient's protective statement +
+//   - Dispute — file the patient's protective statement +
 //     initiate IDR (Independent Dispute Resolution) against
 //     the OON billing entity.
 //
@@ -386,26 +386,25 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Classify.</strong> Is this an
+          Is this an
           NSA-protected scenario? You need the right answer
           and the right reasoning — 'no, OON is just OON'
           and 'partial cap' both lose Lou money he isn't
-          legally required to pay. <em>Verb: CLASSIFY.</em>
+          legally required to pay.
         </li>
         <li>
-          <strong>Calculate.</strong> What does Lou actually
+          What does Lou actually
           owe? It's not zero (NSA caps at in-network, doesn't
           eliminate it). It's not the bill (NSA prohibits
           that). It's his ${term('in-network cost-share')} —
-          his plan's ER imaging copay. <em>Verb: CALCULATE.</em>
+          his plan's ER imaging copay.
         </li>
         <li>
-          <strong>Dispute.</strong> File the protective
+          File the protective
           statement: void Lou's $4,200 bill, reissue at the
           right amount, initiate ${term('IDR')} with the OON
           provider for the contested portion. The dispute is
           between Mercy / Anthem / RAE — not Lou.
-          <em>Verb: DISPUTE.</em>
         </li>
       </ul>
       <p>

@@ -4,7 +4,7 @@
 // standalone iframe-prototype format every other encounter uses.
 // Eligibility district (mint accent). The simplest possible shape:
 //
-//   - A single verb: AMEND. There is no reveal, no inquiry, no
+//   - A single action: amend a field. There is no reveal, no inquiry, no
 //     timer, no queue. One disputed field on the claim (Box 1a),
 //     one picker, one correct answer.
 //   - The denial is clerical, not adversarial. Anjali handed her
@@ -15,7 +15,7 @@
 //     identified as our insured").
 //
 // Why this is the opener: it's the clearest demo of the puzzle
-// loop (briefing → claim → amend → SUBMIT → victory), the hook is
+// loop (briefing → claim → amend → submit → victory), the hook is
 // universally relatable, and the hospital ↔ waiting-room layer-
 // shift runs once at low stakes before any of it has to carry
 // narrative weight. Content (hospital intro, Dana's briefing, the
@@ -169,12 +169,12 @@ function renderHeader(): string {
       ${state.briefingDone ? '' : `
         <p class="lede">
           The opener. The simplest possible demonstration of the
-          puzzle loop — one disputed field, one verb. Anjali
+          puzzle loop — one disputed field. Anjali
           handed her husband's ${term('CMS-1500', 'Aetna card')} to
           the registrar; the claim went out under
           <em>his</em> ${term('subscriber', 'subscriber id')} and
           bounced ${term('CO-31')}. Click Box 1a, pick her actual
-          id from the ${term('271')} response, and SUBMIT. This is
+          id from the ${term('271')} response, and submit. This is
           the shape of half the job. See the
           <a href="#design-notes">design notes</a> for what it's
           teaching.
@@ -241,11 +241,11 @@ function briefingContent(): string {
         missing field."
       </p>
       <p>
-        "You're going to learn one verb today:"
+        "Here's the shape of it:"
       </p>
       <ul>
         <li>
-          <strong>AMEND.</strong> Click a disputed field on the
+          Click a disputed field on the
           claim and pick what should actually be there. The chart
           and the payer's ${term('271', 'eligibility record')} are
           your sources of truth — not the photocopy of the card.
@@ -468,7 +468,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What's different from the others</h3>
           <ul>
-            <li><b>It's the floor, not a wall.</b> One issue, one picker, one verb. Every other prototype layers a second mechanic on top of AMEND; this one is AMEND alone, so the loop itself is the lesson.</li>
+            <li><b>It's the floor, not a wall.</b> One issue, one picker. Every other prototype layers a second mechanic on top of a single amend; this one is the amend alone, so the loop itself is the lesson.</li>
             <li><b>The denial is clerical, not adversarial.</b> Nobody is fighting the claim — a card got swapped at the counter. Sets the tone: most "denials" are mistakes, and someone has to know the rules well enough to catch them.</li>
             <li><b>Universally relatable hook.</b> Everyone has fumbled an insurance card or watched a loved one do it. No prior revenue-cycle knowledge required to feel the problem.</li>
             <li><b>The layer-shift runs once at low stakes.</b> Hospital → Waiting Room → back, with nothing narrative riding on it yet. The player learns the register flip before it has to carry weight.</li>
@@ -480,7 +480,7 @@ function renderDesignNotes(): string {
           <ul>
             <li>The puzzle loop reads cleanly with zero scaffolding — briefing → claim → amend → submit → victory, no inquiry, no timer, no queue.</li>
             <li>A single correct amend can feel like a complete encounter when the framing (a real person, a real bill) carries it.</li>
-            <li>Dana's voice establishes the AMEND verb here so later prototypes can assume it and build on top.</li>
+            <li>Dana's voice establishes the basic amend here so later prototypes can assume it and build on top.</li>
             <li>CO-31 / subscriber-vs-dependent is teachable in two minutes through the form, not a lecture.</li>
             <li>The standalone iframe format can host the tutorial as faithfully as the deleted runtime engine did.</li>
           </ul>
@@ -489,7 +489,7 @@ function renderDesignNotes(): string {
       <p class="notes-cta">
         Next step up: open
         <a href="./fog-prototype.html">Fog</a> — same eligibility
-        district, same AMEND spine, but it adds the REVEAL verb (run
+        district, same amend spine, but it adds a reveal step (run
         a 270, clear the fog, then amend). This prototype is what Fog
         assumes you already know.
       </p>

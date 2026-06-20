@@ -3,7 +3,7 @@
 // carved out. Cousin to Case Rate Specter (same contract; different
 // clause).
 //
-// Verbs:
+// Actions:
 //   - ITEMIZE: sort 6 line items into "carve-out eligible" vs
 //     "rolled into the DRG case rate."
 //   - INVOICE-MATCH: 4 manufacturer invoices in the file; pick the
@@ -334,7 +334,7 @@ function renderHeader(): string {
           have ${term('implant carve-out', 'carved out')} at
           invoice +20%, paid separately. It rolled into the DRG.
           Same Specter shape: underpayment behind ${term('CO-45')}.
-          New verbs: ITEMIZE, INVOICE-MATCH, APPEND. See the
+          See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -399,23 +399,22 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Itemize.</strong> Six line items on the claim.
+          Six line items on the claim.
           Mark each as carve-out eligible or rolled into the DRG.
-          Exactly one is eligible. <em>New verb: ITEMIZE.</em>
+          Exactly one is eligible.
         </li>
         <li>
-          <strong>Invoice-match.</strong> Four invoices in the
+          Four invoices in the
           file. Pick the one for Greg's specific hardware. Decoys
           are real invoices for adjacent cases — wrong patient,
           wrong anatomy, or supplies-not-implants. The patient name
-          and the device match are both required. <em>New verb:
-          INVOICE-MATCH.</em>
+          and the device match are both required.
         </li>
         <li>
-          <strong>Append.</strong> Apply the contract formula:
+          Apply the contract formula:
           invoice cost +20%. Decoys are CDM gross charge (wrong
           basis), invoice-only (wrong markup), and +50% (wrong
-          markup, different contract). <em>New verb: APPEND.</em>"
+          markup, different contract)."
         </li>
       </ul>
       <p>
@@ -607,7 +606,7 @@ function renderRecap(issueId: string): string {
   if (!issue) return ''
   return `
     <div class="recap">
-      <div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div>
+      <div class="recap-h">RECAP</div>
       <p>${escape(issue.recap)}</p>
     </div>
   `
@@ -698,10 +697,10 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> ITEMIZE
-            (sort lines into carve-out vs DRG), INVOICE-MATCH
+            <li><strong>Three moves:</strong> itemize
+            (sort lines into carve-out vs DRG), invoice-match
             (read manufacturer invoices and match patient + device),
-            APPEND (apply the right formula from the contract
+            append (apply the right formula from the contract
             appendix).</li>
             <li><strong>The fix isn't coding.</strong> No CPT/CDM
             change. The carve-out flag is a billing-side

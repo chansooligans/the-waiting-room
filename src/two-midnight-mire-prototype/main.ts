@@ -9,7 +9,7 @@
 // admission. RAC audit returned a finding: stay didn't meet
 // inpatient medical necessity; should have been observation.
 //
-// Verbs:
+// Actions:
 //   - CLOCK: 4 statements about how the 2-midnight rule actually
 //     works (benchmark, presumption, severe-illness exception,
 //     order-required).
@@ -298,8 +298,7 @@ function renderHeader(): string {
           ${term('2-midnight rule')} benchmark; should have been
           ${term('observation status')}. ${money(RAC_RECOUPMENT)}
           recoupment on the table. Walk the clock; classify the doc;
-          decide whether to rebill, defend, or accept. New verbs:
-          CLOCK, CLASSIFY, RECLASSIFY. See the
+          decide whether to rebill, defend, or accept. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -362,21 +361,18 @@ function briefingContent(): string {
       </p>
       <p>"Three issues:"</p>
       <ul>
-        <li><strong>Clock.</strong> Four statements about how the
+        <li>Four statements about how the
         ${term('2-midnight rule')} actually works. Watch the
         clock-start trap (clock starts when hospital care begins,
-        not when the inpatient order is written).
-        <em>New verb: CLOCK.</em></li>
-        <li><strong>Classify.</strong> Five pieces of documentation.
+        not when the inpatient order is written).</li>
+        <li>Five pieces of documentation.
         Mark each as supporting inpatient or supporting observation.
-        Most of the chart is observation-shaped.
-        <em>New verb: CLASSIFY.</em></li>
-        <li><strong>Reclassify.</strong> Five resolution paths.
+        Most of the chart is observation-shaped.</li>
+        <li>Five resolution paths.
         ${term('Condition Code 44')} only works pre-discharge —
         Lawrence is gone. The post-discharge fix is
         ${term('Part A → Part B rebill')}; that recovers
-        observation payment instead of writing off entirely.
-        <em>New verb: RECLASSIFY.</em></li>
+        observation payment instead of writing off entirely.</li>
       </ul>
       <p>
         "Pick fights with documented merit. Some RAC findings are
@@ -547,7 +543,7 @@ function renderResolution(r: Resolution): string {
 function renderRecap(issueId: string): string {
   const issue = issues.find(i => i.id === issueId)
   if (!issue) return ''
-  return `<div class="recap"><div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div><p>${escape(issue.recap)}</p></div>`
+  return `<div class="recap"><div class="recap-h">RECAP</div><p>${escape(issue.recap)}</p></div>`
 }
 
 function renderChecklist(): string {
@@ -614,7 +610,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> CLOCK (2-midnight benchmark + clock-start mechanics), CLASSIFY (chart documentation per fact), RECLASSIFY (Part A→B rebill mechanics).</li>
+            <li><strong>Three actions:</strong> CLOCK (2-midnight benchmark + clock-start mechanics), CLASSIFY (chart documentation per fact), RECLASSIFY (Part A→B rebill mechanics).</li>
             <li><strong>The 2-midnight rule is the biggest classification-decision dollar lever in inpatient Medicare.</strong> Same care, same bed, ~4× different reimbursement.</li>
             <li><strong>Order isn't enough.</strong> Inpatient order is necessary; chart documentation has to back it up. RACs read for the documentation, not the order.</li>
             <li><strong>Pick fights with documented merit.</strong> Some RAC findings are wrong; this one isn't. Appealing weak positions burns more than it recovers.</li>

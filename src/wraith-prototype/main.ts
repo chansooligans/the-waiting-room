@@ -1,6 +1,6 @@
 // Wraith @ L4 — first-sketch prototype.
 //
-// Standalone single-encounter sketch demonstrating the verb space:
+// Standalone single-encounter sketch demonstrating the action set:
 // no HP, no tools-as-damage, no multiple choice. Player connects
 // payer phrases ↔ chart facts ↔ LCD clauses to build a defense
 // packet against a CO-50 medical-necessity denial.
@@ -8,7 +8,7 @@
 // Designed for someone with no revenue-cycle background:
 //   - Plain-English summary on every chart fact + LCD clause
 //   - Glossary tooltips on technical terms (click to reveal)
-//   - Dana's briefing before the encounter explains the verbs
+//   - Dana's briefing before the encounter explains the actions
 //   - Post-citation recap explains what argument the player made
 //
 // (An Expert mode that strips this scaffolding is a future toggle.)
@@ -370,7 +370,7 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Amend the claim.</strong> Sometimes the issue
+          Sometimes the issue
           is just that the wrong code was billed. The chart
           supports something more specific; you change it.
           Click directly on a disputed box on the claim form
@@ -378,7 +378,7 @@ function briefingContent(): string {
           the cheap fix.</em> Always try it first.
         </li>
         <li>
-          <strong>Build a citation.</strong> When there's
+          When there's
           nothing simple to fix — when the policy has an
           alternative path, or when the chart's evidence
           supports a real argument — connect a chart fact
@@ -758,7 +758,7 @@ function renderDesignNotes(): string {
           <h3>Intentional</h3>
           <ul>
             <li><b>No HP.</b> Wraith doesn't take damage; she becomes more <em>readable</em> as the packet builds.</li>
-            <li><b>No tools-as-buttons.</b> Verbs are <em>select payer phrase / chart fact / LCD clause</em>, then <em>cite</em>, then <em>submit</em>.</li>
+            <li><b>No tools-as-buttons.</b> The player <em>selects a payer phrase / chart fact / LCD clause</em>, then <em>cites</em>, then <em>submits</em>.</li>
             <li><b>No multiple choice.</b> Connections are drawn freely from real text.</li>
             <li><b>Distractors give feedback, not damage.</b> Pick a chart fact that doesn't fit and the builder explains why.</li>
             <li><b>Designed for someone with no revenue-cycle background.</b> Plain-English summaries on every fact, glossary tooltips on every code, Dana's briefing up front, recaps after each citation. (An "Expert mode" toggle to strip this scaffolding is a future improvement.)</li>

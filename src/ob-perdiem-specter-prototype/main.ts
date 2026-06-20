@@ -7,12 +7,12 @@
 // contract; different threshold-trip clause). Same hybrid pattern
 // shows up in OB, NICU, behavioral health, rehab.
 //
-// Verbs:
-//   - PARSE-CONTRACT: 4 statements about the case-rate + per-diem
-//     mechanics. Mark each true/false.
-//   - SPLIT-DAYS: allocate each inpatient day to "case-rate window"
+// Action set:
+//   - 4 statements about the case-rate + per-diem mechanics.
+//     Mark each true/false.
+//   - Allocate each inpatient day to "case-rate window"
 //     (days 1-2) or "per-diem days" (days 3+). Click per day.
-//   - APPEAL: file with the right per-diem-days × per-diem-rate
+//   - File with the right per-diem-days × per-diem-rate
 //     shortfall.
 //
 // Author: May 2026.
@@ -263,7 +263,7 @@ function renderHeader(): string {
           — case rate covers days 1-${CASE_RATE_DAYS}, ${term('per-diem')} covers
           days ${CASE_RATE_DAYS + 1}+. ${PER_DIEM_DAYS} per-diem days at
           ${money(PER_DIEM)}/day = ${money(PER_DIEM_TOTAL)} unbilled.
-          New verbs: PARSE-CONTRACT, SPLIT-DAYS, APPEAL. See the
+          See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -327,23 +327,21 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Parse-contract.</strong> Four statements about
-          the case-rate + per-diem math. The trap: thinking case
-          rate covers everything, or treating it as mutually
-          exclusive with per-diem. <em>New verb: PARSE-CONTRACT.</em>
+          Four statements about the case-rate + per-diem math.
+          The trap: thinking case rate covers everything, or
+          treating it as mutually exclusive with per-diem.
         </li>
         <li>
-          <strong>Split-days.</strong> Five inpatient days. Click
-          each to assign to case-rate window or per-diem.
+          Five inpatient days. Click each to assign to case-rate
+          window or per-diem.
           Days 1-${CASE_RATE_DAYS} are case-rate; the newborn
           phototherapy starting day 3 doesn't change the maternal
           DRG (no new maternal Dx) — just extends mother's stay
           into per-diem territory.
-          <em>New verb: SPLIT-DAYS.</em>
         </li>
         <li>
-          <strong>Appeal.</strong> Pick the right shortfall +
-          reason. Wrong combo = denied even with right math."
+          Pick the right shortfall + reason. Wrong combo =
+          denied even with right math."
         </li>
       </ul>
       <p class="briefing-sign">"The escalator either fired or didn't. — D."</p>
@@ -539,7 +537,7 @@ function renderRecap(issueId: string): string {
   if (!issue) return ''
   return `
     <div class="recap">
-      <div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div>
+      <div class="recap-h">RECAP</div>
       <p>${escape(issue.recap)}</p>
     </div>
   `
@@ -625,9 +623,9 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> PARSE-CONTRACT
-            (mutually-inclusive math), SPLIT-DAYS (allocate days
-            across windows), APPEAL.</li>
+            <li><strong>Three new actions:</strong> parsing the
+            contract (mutually-inclusive math), splitting days
+            across windows, and appealing.</li>
             <li><strong>Mutually inclusive ≠ mutually
             exclusive.</strong> Stoploss/outlier displace case
             rate; per-diem stacks with case rate. Different

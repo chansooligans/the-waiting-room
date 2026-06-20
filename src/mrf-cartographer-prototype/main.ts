@@ -31,12 +31,12 @@
 // rate (DRG case rate — the contract sets one number per DRG once
 // HIM assigns the grouping).
 //
-// Verbs:
-//   - CLASSIFY: 4 services; mark each hard-coded or soft-coded.
-//   - SOURCE: 4 services; pick CDM or claim history per service.
-//   - AGGREGATE: for claim-priced services, pick the right
-//     publication structure (per-payer-discrete + de-identified
-//     min/max per 45 CFR 180.50).
+// Action set:
+//   - 4 services; mark each hard-coded or soft-coded.
+//   - 4 services; pick CDM or claim history per service.
+//   - For claim-priced services, pick the right publication
+//     structure (per-payer-discrete + de-identified min/max
+//     per 45 CFR 180.50).
 //
 // Author: May 2026.
 import { BASE_CSS, districtVars, escape, renderCaseRecap, type CaseRecap, notifyParentVictory} from '../shared/prototype-base'
@@ -380,8 +380,7 @@ function renderHeader(): string {
           CDM/fee-schedule or claim history. The axes are
           correlated but distinct (see also
           <a href="./chemo-bundle-specter-prototype.html">Chemo Bundle Specter</a>
-          for the chargemaster side of hard-coding). New verbs:
-          CLASSIFY, SOURCE, AGGREGATE. See the
+          for the chargemaster side of hard-coding). See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -456,29 +455,28 @@ function briefingContent(): string {
       <p>"Three issues:"</p>
       <ul>
         <li>
-          <strong>Classify.</strong> For each of 4 services, mark
+          For each of 4 services, mark
           ${term('hard-coded')} (CDM auto-drops the code at charge
           time — most outpatient ancillaries) or ${term('soft-coded')}
           (HIM coder reviews the chart and runs the
           ${term('DRG grouper')} after discharge — most inpatient
-          stays + complex cases). <em>New verb: CLASSIFY.</em>
+          stays + complex cases).
         </li>
         <li>
-          <strong>Source.</strong> *Separately* pick the
+          *Separately* pick the
           ${term('rate source')} — CDM/fee-schedule (rates stable
           per payer) or claim history (rates wander per payer).
           Hard-coded services can be either; soft-coded services
           can be either. The axes correlate; they aren't identical.
-          <em>New verb: SOURCE.</em>
         </li>
         <li>
-          <strong>Aggregate.</strong> For claim-sourced rows, pick
+          For claim-sourced rows, pick
           the right ${term('MRF schema', 'MRF publication structure')}.
           The CMS spec wants per-payer-per-plan rates as DISCRETE
           fields plus a de-identified min/max — not a single
           collapsed statistic. CDM, single mean, single median,
           max-only — all collapse the per-payer detail and fail the
-          schema. <em>New verb: AGGREGATE.</em>"
+          schema."
         </li>
       </ul>
       <p>
@@ -772,7 +770,7 @@ function renderRecap(issueId: string): string {
   if (!issue) return ''
   return `
     <div class="recap">
-      <div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div>
+      <div class="recap-h">RECAP</div>
       <p>${escape(issue.recap)}</p>
     </div>
   `
@@ -864,9 +862,9 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> CLASSIFY (coding
-            mode — hard vs soft), SOURCE (rate source — CDM vs
-            claims), AGGREGATE (per-payer-discrete + de-identified min/max per 45 CFR 180.50).</li>
+            <li><strong>Three new actions:</strong> classifying coding
+            mode (hard vs soft), choosing rate source (CDM vs
+            claims), and aggregating (per-payer-discrete + de-identified min/max per 45 CFR 180.50).</li>
             <li><strong>Two axes, not one.</strong> Hard/soft
             coding and CDM/claims source are correlated but
             independent. Hard-coded services can be claim-priced

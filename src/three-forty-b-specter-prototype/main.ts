@@ -16,7 +16,7 @@
 // discount on the same dose. Manufacturer reports it; HRSA opens
 // a compliance review.
 //
-// Verbs:
+// Actions:
 //   - QUALIFY: 4 statements about 340B eligibility (provider, drug,
 //     patient, GPO prohibition).
 //   - MARK: pick the right modifier for this state Medicaid claim.
@@ -294,8 +294,7 @@ function renderHeader(): string {
           340B discount on the same dose →
           ${term('duplicate discount')}. Manufacturer reported it.
           HRSA opened a compliance review. Walk the rules; mark
-          the modifier; self-disclose. New verbs: QUALIFY, MARK,
-          DISCLOSE. See the
+          the modifier; self-disclose. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -361,21 +360,20 @@ function briefingContent(): string {
       </p>
       <p>"Three issues:"</p>
       <ul>
-        <li><strong>Qualify.</strong> Four statements about 340B
+        <li>Four statements about 340B
         rules. Watch the orphan-drug carve-out trap (covered-entity
         type matters), the GPO prohibition, the duplicate-discount
-        rule. <em>New verb: QUALIFY.</em></li>
-        <li><strong>Mark.</strong> Four modifier options. Right
+        rule.</li>
+        <li>Four modifier options. Right
         answer: state Medicaid uses ${escape(STATE_MOD)}.
         ${term('JG modifier', 'JG')} is Medicare; ${term('TB')} is
-        DME-context; no-modifier is the original bug.
-        <em>New verb: MARK.</em></li>
-        <li><strong>Disclose.</strong> Five resolution paths.
+        DME-context; no-modifier is the original bug.</li>
+        <li>Five resolution paths.
         ${term('HRSA self-disclosure', 'Self-disclose')} +
         refile + refund the manufacturer is right. Decoys: skip
         disclosure (review is already open), abandon 340B (defeats
         the purpose), bill Medicare (fraud), recoup-and-rebill
-        (use Frequency-7 instead). <em>New verb: DISCLOSE.</em></li>
+        (use Frequency-7 instead).</li>
       </ul>
       <p>
         "HRSA strongly favors self-disclosure. The covered entities
@@ -540,7 +538,7 @@ function renderResolution(r: Resolution): string {
 function renderRecap(issueId: string): string {
   const issue = issues.find(i => i.id === issueId)
   if (!issue) return ''
-  return `<div class="recap"><div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div><p>${escape(issue.recap)}</p></div>`
+  return `<div class="recap"><div class="recap-h">RECAP</div><p>${escape(issue.recap)}</p></div>`
 }
 
 function renderChecklist(): string {
@@ -609,7 +607,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> QUALIFY (340B program rules), MARK (state-specific Medicaid 340B modifier), DISCLOSE (HRSA self-disclosure mechanic).</li>
+            <li><strong>Three actions:</strong> QUALIFY (340B program rules), MARK (state-specific Medicaid 340B modifier), DISCLOSE (HRSA self-disclosure mechanic).</li>
             <li><strong>Self-disclosure beats discovery.</strong> Covered entities that walk in and say "we found this; we're fixing it" get remediation. Ones that get caught hiding get terminated. The Case bottles that lesson.</li>
             <li><strong>State variation matters.</strong> Modifier UD is the most common state Medicaid 340B identifier, but states vary — some use a different code, some require a flag rather than a modifier. The Case uses UD as a representative example; in your environment, check the state contract.</li>
             <li><strong>Becerra v AHA matters historically.</strong> 2018-2022 Medicare 340B payment was reduced; SCOTUS reversed; remedy paid through 2023 OPPS final rule. Historical context for any current 340B-Medicare conversation.</li>

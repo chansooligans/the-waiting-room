@@ -3,9 +3,9 @@
 // Sibling to wraith / bundle / reaper / gatekeeper / fog /
 // hydra / swarm / specter. Same shape (Hospital intro →
 // dreamlike fall → Waiting Room → middle work → checklist),
-// tuned to a billing-side verb-space:
+// tuned to a billing-side action set:
 //
-//   - REPLACE is the new verb. The original claim came back
+//   - Replace the claim. The original claim came back
 //     denied for a transposed subscriber ID. The biller fixed
 //     the ID and resubmitted — but as a *fresh* 837P (freq 1)
 //     instead of as a *replacement* (freq 7). Now Humana sees
@@ -17,7 +17,7 @@
 //     control* — not what's on the claim, but how the claim
 //     relates to other claims that already exist.
 //
-// Demonstrates: a subtle but important verb-space pivot.
+// Demonstrates: a subtle but important action-set pivot.
 // Same hospital intro / register flip / Dana voice / claim /
 // checklist / submit shape — different middle (a claim
 // history panel + Box 22 picker instead of a workbench or
@@ -267,7 +267,7 @@ function renderHeader(): string {
       ${state.briefingDone ? '' : `
         <p class="lede">
           A ninth prototype, sibling to the others. This one
-          is REPLACE-dominant: a claim came back denied for a
+          is about replacing a claim: it came back denied for a
           transposed subscriber ID, the biller fixed it and
           resubmitted — but as a fresh 837P instead of a
           ${term('frequency code', 'frequency-7 replacement')}.
@@ -345,13 +345,11 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>${term('frequency code', 'REPLACE the resub')}.</strong>
           Open the resubmission's ${term('CMS-1500', 'Box 22')}.
           Set the ${term('frequency code')} to <strong>7
           (replacement)</strong>, not 1 (original). Reference
           the original's ${term('ICN')} so Humana's engine
           knows which claim this one supersedes.
-          <em>This is the new verb: REPLACE.</em>
         </li>
         <li>
           <strong>Confirm the corrected subscriber ID.</strong>
@@ -722,7 +720,7 @@ function renderDesignNotes(): string {
         <div>
           <h3>What's different from the others</h3>
           <ul>
-            <li><b>REPLACE is the new verb.</b> The puzzle isn't what's on the claim — it's how the claim relates to other claims that already exist. First version-control encounter.</li>
+            <li><b>Replacing a claim.</b> The puzzle isn't what's on the claim — it's how the claim relates to other claims that already exist. First version-control encounter.</li>
             <li><b>Two-pick amend modal.</b> Box 22 has two fields (frequency code + original ref number); the modal renders them as paired sections that must both be set correctly. Standalone correct picks are still wrong if their counterpart is off.</li>
             <li><b>Claim history panel.</b> First prototype that shows two claims side-by-side. The "doppelgänger" framing is literal — both ICNs visible, both flagged duplicate, the player watches the original retire as the replacement registers.</li>
             <li><b>The claim form is the resubmission, not the original.</b> The original is read-only, displayed in the history panel as a reference. The player only edits the resub — but the edit refers back to the original's ICN.</li>

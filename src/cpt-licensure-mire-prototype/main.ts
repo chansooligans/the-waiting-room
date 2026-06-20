@@ -6,14 +6,14 @@
 // (HCPCS Level II for Medicare-specific services) is partial,
 // and the audit consequence is real.
 //
-// Verbs:
-//   - SOURCE: 4 true/false statements about the CPT licensing
+// Action set:
+//   - Source: 4 true/false statements about the CPT licensing
 //     chain. Player has to know how the system actually works
 //     before picking a fix.
-//   - LICENSE: 4 license-tier options for Mercy's charity clinic
+//   - License: 4 license-tier options for Mercy's charity clinic
 //     (5 coders, 1 EHR vendor, public-facing patient handouts).
 //     One tier covers the actual use; others over- or under-fit.
-//   - ALTERNATIVE: 4 services on the audit list. For each, pick
+//   - Alternative: 4 services on the audit list. For each, pick
 //     "use CPT" or "use HCPCS Level II equivalent." Most CPT codes
 //     have no HCPCS substitute; a small set of Medicare-specific
 //     services do (G-codes, J-codes for drugs, K-codes for DME).
@@ -293,7 +293,7 @@ function renderHeader(): string {
           use codes the federal program forces them to use. The puzzle
           works inside that system — pick the right ${term('license tiers', 'license tier')},
           surface ${term('HCPCS')} Level II alternatives where they
-          exist. New verbs: SOURCE, LICENSE, ALTERNATIVE. See the
+          exist. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -358,25 +358,23 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Source.</strong> Four statements about how the
+          Four statements about how the
           licensing chain actually works. Mark each true/false.
           You can't pick a fix until you understand the structure.
-          <em>New verb: SOURCE.</em>
         </li>
         <li>
-          <strong>License.</strong> Four tier options. Only one
+          Four tier options. Only one
           covers all three contexts the clinic uses CPT in
           (internal coding, EHR display, patient handouts). Cheap
           option under-licenses; enterprise option over-buys; "no
-          license" doesn't fly. <em>New verb: LICENSE.</em>
+          license" doesn't fly.
         </li>
         <li>
-          <strong>Alternative.</strong> Four services in the
+          Four services in the
           audit. For each, pick CPT or its HCPCS Level II
           equivalent. Most have no HCPCS substitute; a couple do
           (G-codes for Medicare-specific services, E-codes for DME).
-          The workaround is narrow but real. <em>New verb:
-          ALTERNATIVE.</em>"
+          The workaround is narrow but real."
         </li>
       </ul>
       <p>
@@ -549,7 +547,7 @@ function renderRecap(issueId: string): string {
   if (!issue) return ''
   return `
     <div class="recap">
-      <div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div>
+      <div class="recap-h">RECAP</div>
       <p>${escape(issue.recap)}</p>
     </div>
   `
@@ -642,8 +640,8 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> SOURCE (walk
-            the structure), LICENSE (pick a tier), ALTERNATIVE
+            <li><strong>Three actions:</strong> source (walk
+            the structure), license (pick a tier), alternative
             (find HCPCS substitutes where they exist).</li>
             <li><strong>The system IS the problem.</strong> First
             Case where the puzzle isn't a fix-it; it's

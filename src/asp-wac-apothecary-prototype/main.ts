@@ -8,7 +8,7 @@
 // Rate Specter (pick the right pricing formula). The lever here is
 // the HCPCS billable unit definition and the quarterly ASP file.
 //
-// Verbs:
+// Actions:
 //   - PRICE: identify which "price" governs (ASP, WAC, AWP, CDM) for
 //     a Part B drug claim. Only one is right.
 //   - CONVERT: turn the dose given (mg) into HCPCS billable units.
@@ -300,7 +300,7 @@ function renderHeader(): string {
           ${term('billable unit')} per HCPCS descriptor is 10mg —
           so the right answer is 40 units. ${term('ASP')}+6%
           governs reimbursement; ${term('WAC')} doesn\'t. The math
-          is the appeal. New verbs: PRICE, CONVERT, APPEAL. See the
+          is the appeal. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -361,19 +361,17 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Price.</strong> Pick the right reimbursement
+          Pick the right reimbursement
           basis. Decoys are real prices that don\'t apply.
-          <em>New verb: PRICE.</em>
         </li>
         <li>
-          <strong>Convert.</strong> ${DOSE_MG}mg dose → how many
+          ${DOSE_MG}mg dose → how many
           ${term('billable unit', 'HCPCS billable units')}?
           The descriptor governs (10mg = 1 unit), not the vial,
           not the milligram. Most J-code variance is unit-math.
-          <em>New verb: CONVERT.</em>
         </li>
         <li>
-          <strong>Appeal.</strong> Same modal as the Specters —
+          Same modal as the Specters —
           pick the shortfall amount + the reason. One combo
           right, four wrong.
         </li>
@@ -561,7 +559,7 @@ function renderRecap(issueId: string): string {
   if (!issue) return ''
   return `
     <div class="recap">
-      <div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div>
+      <div class="recap-h">RECAP</div>
       <p>${escape(issue.recap)}</p>
     </div>
   `
@@ -650,9 +648,9 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> PRICE (which
-            rate governs), CONVERT (HCPCS billable units from
-            dose), APPEAL (same modal pattern as the Specters).</li>
+            <li><strong>Three actions:</strong> picking which
+            rate governs, converting HCPCS billable units from
+            dose, and appealing (same modal pattern as the Specters).</li>
             <li><strong>Drugs have many prices.</strong> ASP, WAC,
             AWP, CDM all live in the same row — only one
             applies. Wrong column = wrong shortfall = denied

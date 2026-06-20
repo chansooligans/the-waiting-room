@@ -3,14 +3,14 @@
 // 837I). Different shape from the other coding-district Cases:
 // the puzzle isn't which code is wrong, it's which form is wrong.
 //
-// Verbs:
-//   - DETECT: 5 indicators on the rejected claim that signal the
+// Action set:
+//   - Detect: 5 indicators on the rejected claim that signal the
 //     form mismatch. Mark each "this is on the wrong form" or
 //     "this is fine."
-//   - MAP: 4 data elements need to be relocated from the CMS-1500
+//   - Map: 4 data elements need to be relocated from the CMS-1500
 //     to the correct UB-04 form locator. Pick the right FL per
 //     element.
-//   - REROUTE: refile as 837I (institutional) and pick the right
+//   - Reroute: refile as 837I (institutional) and pick the right
 //     resolution path — corrected claim vs new claim vs appeal.
 //
 // Demonstrates: forms are infrastructure. The same patient + same
@@ -337,8 +337,7 @@ function renderHeader(): string {
           institutional 1500 doesn't have — ${term('revenue code', 'revenue codes')},
           ${term('DRG')}, ${term('occurrence code', 'occurrence codes')} —
           all squatted in margins and remarks. Move them to a
-          ${term('UB-04')} and refile. New verbs: DETECT, MAP,
-          REROUTE. See the
+          ${term('UB-04')} and refile. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -404,23 +403,22 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Detect.</strong> Five lines on the rejected
+          Five lines on the rejected
           claim. Some signal the form mismatch
           (institutional-only fields with no home on the 1500),
-          some are the same on both forms. Mark each. <em>New
-          verb: DETECT.</em>
+          some are the same on both forms. Mark each.
         </li>
         <li>
-          <strong>Map.</strong> Each institutional-only data
+          Each institutional-only data
           element has a ${term('form locator')} on the
           ${term('UB-04')}. Pick the right FL per element.
           Decoys are real-form fields — pick wrong and the new
-          claim comes back bounced too. <em>New verb: MAP.</em>
+          claim comes back bounced too.
         </li>
         <li>
-          <strong>Reroute.</strong> Pick the right resolution
+          Pick the right resolution
           path. Hint: ${term('CO-95')} isn't a denial, it's a
-          rejection. Different remedy. <em>New verb: REROUTE.</em>
+          rejection. Different remedy.
         </li>
       </ul>
       <p class="briefing-sign">"The form is the routing. — D."</p>
@@ -608,7 +606,7 @@ function renderRecap(issueId: string): string {
   if (!issue) return ''
   return `
     <div class="recap">
-      <div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div>
+      <div class="recap-h">RECAP</div>
       <p>${escape(issue.recap)}</p>
     </div>
   `
@@ -699,9 +697,9 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> DETECT (find the
-            mismatch), MAP (move data elements to the right form
-            locators), REROUTE (refile, not appeal).</li>
+            <li><strong>Three actions:</strong> detect (find the
+            mismatch), map (move data elements to the right form
+            locators), reroute (refile, not appeal).</li>
             <li><strong>Forms are infrastructure.</strong> The
             same patient, procedures, and charges fit on either
             CMS-1500 or UB-04 — the wrong one bounces without

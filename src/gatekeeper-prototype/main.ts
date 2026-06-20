@@ -3,12 +3,12 @@
 // Sibling to wraith / bundle / reaper. Same shape (Hospital
 // intro → dreamlike fall → Waiting Room → claim form +
 // supporting panels + checklist), tuned to a different
-// verb-space:
+// action set:
 //
-//   - REQUEST is the new verb. File a retroactive 278
+//   - A new move: the request. File a retroactive 278
 //     (prior-auth inquiry). Wait. Read the response. Then
 //     transcribe the auth number onto the claim.
-//   - AMEND finishes it. Box 23 (auth number field) gets the
+//   - An amend finishes it. Box 23 (auth number field) gets the
 //     value the 278 returned.
 //
 // Drops the citation builder entirely — Gatekeeper isn't an
@@ -16,7 +16,7 @@
 // (locked service code + dx, picker for clinical rationale)
 // and a response panel that animates back from UHC.
 //
-// Demonstrates: the framework holds even when the verb-space
+// Demonstrates: the framework holds even when the action set
 // is procedural rather than argumentative. Same hospital
 // intro / register flip / claim / Dana voice / checklist /
 // submit shape — different middle.
@@ -257,7 +257,7 @@ function renderHeader(): string {
           <a href="./wraith-prototype.html">Wraith</a>,
           <a href="./bundle-prototype.html">Bundle</a>, and
           <a href="./reaper-prototype.html">Reaper</a>. This one
-          is REQUEST-dominant: file a 278, wait for the
+          is request-dominant: file a 278, wait for the
           response, transcribe the auth number. A process, not
           an argument. See the <a href="#design-notes">design
           notes</a> for what this prototype is testing.
@@ -334,12 +334,12 @@ function briefingContent(): string {
           ${term('UM criteria')}. If it lines up, their system
           finds the approval that was issued back in February —
           the one nobody wrote down — and sends back the auth
-          number. <em>This is the new verb: REQUEST.</em>
+          number.
         </li>
         <li>
           <strong>Amend Box 23.</strong> Once the 278 returns
           the auth number, transcribe it onto the claim. The
-          gate opens. <em>Familiar territory: AMEND.</em>
+          gate opens.
         </li>
       </ul>
       <p>
@@ -717,9 +717,9 @@ function renderDesignNotes(): string {
         <div>
           <h3>What's different from the others</h3>
           <ul>
-            <li><b>REQUEST is the new verb.</b> File a 278, wait for a response, read what came back. Not an argument; a process.</li>
+            <li><b>A new move: the request.</b> File a 278, wait for a response, read what came back. Not an argument; a process.</li>
             <li><b>The citation builder is gone.</b> In its place: a real 278 form (locked CPT + dx, picker for clinical rationale) and a response panel that animates back from UHC.</li>
-            <li><b>Two-phase flow.</b> Amend can't fire until REQUEST returns. The encounter has a strict order: file → wait → transcribe. Different rhythm from any of the prior prototypes.</li>
+            <li><b>Two-phase flow.</b> The amend can't fire until the request returns. The encounter has a strict order: file → wait → transcribe. Different rhythm from any of the prior prototypes.</li>
             <li><b>Different field again.</b> Box 23 (prior-auth number), not Box 1a, 21, or 24. The framework keeps working with whatever field the encounter targets.</li>
             <li><b>Wrong rationale → 278 denied.</b> The first action can fail in a soft way (denied, file again with better rationale). Models the real-world rhythm of 278 inquiries.</li>
             <li><b>Earlier in the curriculum (L3 vs L4/L7).</b> Lighter mood, more "polite procedural" than "looming dread."</li>
@@ -728,10 +728,10 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this prototype proves (or tries to)</h3>
           <ul>
-            <li>The framework can absorb a procedural verb (REQUEST) without breaking — same hospital intro, same fall, same claim, same checklist; only the middle changed.</li>
+            <li>The framework can absorb a procedural step (the request) without breaking — same hospital intro, same fall, same claim, same checklist; only the middle changed.</li>
             <li>UHC's UM criteria + the chart can sit side-by-side as informational columns rather than as builder slots, and still teach the player to *match the rationale to the criteria*.</li>
             <li>A locked-field form with a multiple-choice rationale picker can stand in for a real 278 transaction without dumping EDI onto the player.</li>
-            <li>A two-phase encounter (REQUEST → AMEND) feels like a sequence, not two unrelated puzzles, when the response panel literally produces the value the amend modal needs.</li>
+            <li>A two-phase encounter (request, then amend) feels like a sequence, not two unrelated puzzles, when the response panel literally produces the value the amend modal needs.</li>
             <li>Dana's voice still works at L3 — calmer, lighter, but the same "in your ear" register.</li>
           </ul>
         </div>
@@ -741,7 +741,7 @@ function renderDesignNotes(): string {
         <a href="./wraith-prototype.html">Wraith</a>,
         <a href="./bundle-prototype.html">Bundle</a>, or
         <a href="./reaper-prototype.html">Reaper</a> in another
-        tab. Different verb-spaces — argument, surgical fix,
+        tab. Different action sets — argument, surgical fix,
         time-bounded appeal, procedural request. Same shape.
         That's the framework working.
       </p>

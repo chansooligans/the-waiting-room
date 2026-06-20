@@ -3,7 +3,7 @@
 // Anthem contract; different threshold-trip clause). The player
 // computes the trip, the new payment basis, and the shortfall.
 //
-// Verbs:
+// Actions:
 //   - TRIP: verify the stoploss provision triggered (threshold:
 //     charges > 4× case rate). 4 statements true/false.
 //   - RECALCULATE: apply 65%-of-charges formula. Decoys are
@@ -271,8 +271,7 @@ function renderHeader(): string {
           ${term('stoploss', 'stoploss provision')} that trips when
           charges exceed 4× the case rate (${money(STOPLOSS_THRESHOLD)}).
           They tripped. Payment converts to 65% of charges = ${money(EXPECTED)}.
-          The math IS the appeal. New verbs: TRIP, RECALCULATE,
-          APPEAL. See the
+          The math IS the appeal. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -337,22 +336,20 @@ function briefingContent(): string {
       </p>
       <ul>
         <li>
-          <strong>Trip.</strong> Four statements about the
+          Four statements about the
           stoploss math + mechanics. Mark each true/false.
           The tricky one: stoploss and case rate are
           ${term('mutually exclusive')} — once stoploss trips,
           case rate is gone. Don't try to stack them.
-          <em>New verb: TRIP.</em>
         </li>
         <li>
-          <strong>Recalculate.</strong> Four formulas. Only one
+          Four formulas. Only one
           applies (65% of charges). Decoys are real percent-of-
           charge formulas that govern other contracts or other
           clauses in this same contract.
-          <em>New verb: RECALCULATE.</em>
         </li>
         <li>
-          <strong>Appeal.</strong> Same modal as the other
+          Same modal as the other
           Specters. Pick shortfall + reason. Wrong cite even
           with right math = denied. The math IS the appeal."
         </li>
@@ -546,7 +543,7 @@ function renderRecap(issueId: string): string {
   if (!issue) return ''
   return `
     <div class="recap">
-      <div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div>
+      <div class="recap-h">RECAP</div>
       <p>${escape(issue.recap)}</p>
     </div>
   `
@@ -635,9 +632,9 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> TRIP (verify
-            threshold), RECALCULATE (apply formula), APPEAL
-            (file with right cite).</li>
+            <li><strong>Three moves:</strong> verify the
+            threshold tripped, apply the formula to recalculate,
+            and file the appeal with the right cite.</li>
             <li><strong>The math is the appeal.</strong> Real
             arithmetic against the sheet — first Case where the
             shortfall isn't given, it's computed.</li>

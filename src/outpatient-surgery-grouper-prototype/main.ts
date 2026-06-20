@@ -16,13 +16,13 @@
 // CPT but the wrong rev code, dropped from a CDM line written
 // before OPG-aware billing was a thing.
 //
-// Verbs:
-//   - VERIFY-GROUPER: 4 statements about how OPG works + the 7/1/25
-//     update. Mark each true/false.
-//   - DIAGNOSE-VARIANCE: 5 candidate causes of the underpayment.
-//     Only one explains the variance.
-//   - CORRECT: 5 resolution paths. Refile + chargemaster fix is
-//     right; everything else is downstream-only or wrong direction.
+// Action set:
+//   - 4 statements about how OPG works + the 7/1/25 update.
+//     Mark each true/false.
+//   - 5 candidate causes of the underpayment. Only one
+//     explains the variance.
+//   - 5 resolution paths. Refile + chargemaster fix is right;
+//     everything else is downstream-only or wrong direction.
 //
 // Sibling to Chemo Bundle Specter (#200) — same upstream-fix muscle
 // applied to a different UHC mechanism.
@@ -306,8 +306,7 @@ function renderHeader(): string {
           the wrong ${term('rev codes', 'revenue code')}. Same
           chargemaster-fix muscle as
           <a href="./chemo-bundle-specter-prototype.html">Chemo Bundle Specter</a>,
-          different UHC mechanism. New verbs: VERIFY-GROUPER,
-          DIAGNOSE-VARIANCE, CORRECT. See the
+          different UHC mechanism. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}
@@ -372,25 +371,22 @@ function briefingContent(): string {
       <p>"Three issues:"</p>
       <ul>
         <li>
-          <strong>Verify-grouper.</strong> Four statements about how
-          OPG works. Watch the 'grouper changed' decoy — UHC's 7/1/25
-          update barely moved anything, but rookies blame it for
-          everything. <em>New verb: VERIFY-GROUPER.</em>
+          Four statements about how OPG works. Watch the
+          'grouper changed' decoy — UHC's 7/1/25 update barely
+          moved anything, but rookies blame it for everything.
         </li>
         <li>
-          <strong>Diagnose-variance.</strong> Five candidate causes.
-          Decoys are real-sounding (grouper update, multi-procedure
-          reduction, NCCI bundling, stale table) but only the
-          rev-code mismatch fits this claim. <em>New verb:
-          DIAGNOSE-VARIANCE.</em>
+          Five candidate causes. Decoys are real-sounding
+          (grouper update, multi-procedure reduction, NCCI
+          bundling, stale table) but only the rev-code mismatch
+          fits this claim.
         </li>
         <li>
-          <strong>Correct.</strong> Five paths. Refile + chargemaster
-          fix is right. Decoys: appeal the grouper (wrong target),
-          reconsider with original rev code (wrong substance),
-          bill the patient (wrong direction), recoup (don't —
-          UHC paid correctly given the inputs). <em>New verb:
-          CORRECT.</em>
+          Five paths. Refile + chargemaster fix is right. Decoys:
+          appeal the grouper (wrong target), reconsider with
+          original rev code (wrong substance), bill the patient
+          (wrong direction), recoup (don't — UHC paid correctly
+          given the inputs).
         </li>
       </ul>
       <p>
@@ -571,7 +567,7 @@ function renderRecap(issueId: string): string {
   if (!issue) return ''
   return `
     <div class="recap">
-      <div class="recap-h">RECAP · ${issue.verb.toUpperCase()}</div>
+      <div class="recap-h">RECAP</div>
       <p>${escape(issue.recap)}</p>
     </div>
   `
@@ -666,9 +662,9 @@ function renderDesignNotes(): string {
         <div>
           <h3>What this Case tests</h3>
           <ul>
-            <li><strong>Three new verbs:</strong> VERIFY-GROUPER
-            (read OPG mechanics), DIAGNOSE-VARIANCE (five plausible
-            decoys; only rev-code mismatch fits), CORRECT (refile +
+            <li><strong>Three new actions:</strong> verifying the
+            grouper (read OPG mechanics), diagnosing the variance (five plausible
+            decoys; only rev-code mismatch fits), and correcting (refile +
             chargemaster fix).</li>
             <li><strong>Routing as the lever.</strong> Same as
             Chemo Bundle Specter — payer's adjudication system did
