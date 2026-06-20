@@ -929,6 +929,11 @@ export class HospitalScene extends Phaser.Scene {
     destY: number,
   ) {
     this.time.delayedCall(400, () => {
+      // Guard against a scene teardown landing inside this 400ms window
+      // (e.g. a fast level change): the sprite would already be
+      // destroyed, and setTexture on it throws "Cannot read 'sys'".
+      // A destroyed GameObject has its `scene` reference nulled.
+      if (!anjali.sprite || !anjali.sprite.scene) return
       // Anjali enters from the lobby's north door and walks south to
       // her placement tile. Door tile is the player's spawn column,
       // y=32 (LOBBY's top edge).
