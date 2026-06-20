@@ -39,6 +39,7 @@ const DEFAULT_STATE: GameState = {
   pendingAnjaliLeave: false,
   pendingClaimSubmitted: null,
   chartsPulled: {},
+  chartsHinted: {},
 }
 
 let currentState: GameState = loadFromStorage() ?? structuredClone(DEFAULT_STATE)
@@ -73,6 +74,7 @@ function migrateState(loaded: Partial<GameState> & Record<string, unknown>): Gam
   merged.pendingAnjaliLeave ??= false
   merged.pendingClaimSubmitted ??= null
   merged.chartsPulled ??= {}
+  merged.chartsHinted ??= {}
   merged.wingsUnlocked ??= base.wingsUnlocked
   merged.tools ??= []
   // Top up the tool list with any missing default tools. Players don't
@@ -153,39 +155,38 @@ export function newGame() {
  * after 2 defeats, out of level 2 after 4 cumulative defeats, etc.
  */
 export const LEVEL_DEFEAT_THRESHOLD: number[] = [
-  1,  // L1 → 1 defeat to advance (intro)
+  1,  // L1  intro / wrong-card
   2,  // L2  asp-wac-apothecary
   3,  // L3  fog
   4,  // L4  stoploss-reckoner
-  5,  // L5  gatekeeper
-  6,  // L6  form-mirror
-  7,  // L7  outpatient-surgery-grouper
-  8,  // L8  no-show-bill
-  9,  // L9  bundle
-  10, // L10 lighthouse
-  11, // L11 gfe-oracle
-  12, // L12 wraith
-  13, // L13 swarm
-  14, // L14 doppelganger
-  15, // L15 implant-carveout-specter
-  16, // L16 credentialing-lattice
-  17, // L17 carveout-phantom
-  18, // L18 cpt-licensure-mire
-  19, // L19 reaper
-  20, // L20 surprise-bill
-  21, // L21 ob-perdiem-specter
-  22, // L22 phantom-patient
-  23, // L23 risk-adj-hollow
-  24, // L24 chemo-bundle-specter
-  25, // L25 two-midnight-mire
-  26, // L26 specter (underpayment)
-  27, // L27 cob-cascade-spider
-  28, // L28 case-rate-specter
-  29, // L29 mrf-cartographer
-  30, // L30 idr-crucible
-  31, // L31 three-forty-b-specter
-  32, // L32 hipaa-spider
-  33, // L33 audit-boss — capstone
+  5,  // L5  bundle (Bundling Beast — swapped in from old L9)
+  6,  // L6  outpatient-surgery-grouper
+  7,  // L7  no-show-bill
+  8,  // L8  gatekeeper (Prior-Auth — swapped in from old L5)
+  9,  // L9  lighthouse
+  10, // L10 gfe-oracle
+  11, // L11 wraith
+  12, // L12 swarm
+  13, // L13 doppelganger
+  14, // L14 implant-carveout-specter
+  15, // L15 credentialing-lattice
+  16, // L16 carveout-phantom
+  17, // L17 cpt-licensure-mire
+  18, // L18 reaper
+  19, // L19 surprise-bill
+  20, // L20 ob-perdiem-specter
+  21, // L21 phantom-patient
+  22, // L22 risk-adj-hollow
+  23, // L23 chemo-bundle-specter
+  24, // L24 two-midnight-mire
+  25, // L25 specter (underpayment)
+  26, // L26 cob-cascade-spider
+  27, // L27 case-rate-specter
+  28, // L28 mrf-cartographer
+  29, // L29 idr-crucible
+  30, // L30 three-forty-b-specter
+  31, // L31 hipaa-spider
+  32, // L32 audit-boss — capstone (form-mirror removed)
 ]
 
 /**

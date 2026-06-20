@@ -67,28 +67,26 @@ export const LEVELS: LevelDef[] = [
   },
   {
     id: 5,
-    title: 'Prior-Auth Gatekeeper',
-    subtitle: 'Prior authorization. The payer says: prove it first.',
-    hospitalDescription: 'The pre-certification office. Phone on hold. Fax machine grinding.',
-    waitingRoomDescription: 'A gate with no gatekeeper. Forms flutter through the bars.',
-    concepts: ['prior_auth', 'x12_278', 'medical_necessity'],
-    encounters: ['co_197'],
-    cases: ['case_gatekeeper_okafor'],
-    npcsActive: ['martinez', 'sam'],
+    title: 'Bundling Beast',
+    subtitle: 'Clinical documentation meets billing codes.',
+    hospitalDescription: 'The HIM department. Charts, codes, and the CDI team.',
+    waitingRoomDescription: 'Carbon copies of documents, each slightly different from the last.',
+    concepts: ['cdi', 'icd10_cm', 'icd10_pcs', 'modifiers'],
+    encounters: ['co_97'],
+    cases: ['case_bundle_kim'],
+    // Pat (HIM/CDI) gives the bundling case — the objective. The mini-map
+    // walks the player through the multi-step retrieval: Pat (HIM) →
+    // Medical Records (pull Sarah Kim's chart) → back to Pat. See
+    // `questChain` + HospitalScene.updateMiniMapNpcMarker.
+    npcsActive: ['pat'],
+    questChain: [
+      { kind: 'npc', npcId: 'pat', label: 'Talk to Pat in HIM' },
+      { kind: 'chart', encounterId: 'co_97', label: "Pull Sarah Kim's chart in Medical Records" },
+      { kind: 'npc', npcId: 'pat', label: 'Bring the chart back to Pat' },
+    ],
   },
   {
     id: 6,
-    title: 'Form Mirror',
-    subtitle: 'CMS-1500 vs UB-04 — which form does this service belong on?',
-    hospitalDescription: 'Coding asked you to double-check which form a service should have used.',
-    waitingRoomDescription: 'Two identical forms facing each other across a hallway, mirror-reflected.',
-    concepts: [],
-    encounters: ['catalog_form_mirror'],
-    cases: [],
-    npcsActive: ['pat'],
-  },
-  {
-    id: 7,
     title: 'Outpatient Surgery Grouper',
     subtitle: 'APC grouping for outpatient surgery — packaging rules + status indicators.',
     hospitalDescription: 'Outpatient surgery sent over a case with packaging questions.',
@@ -99,7 +97,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['pat'],
   },
   {
-    id: 8,
+    id: 7,
     title: 'No-Show Bill',
     subtitle: 'No-show fee policy — when to waive, when to enforce, what the patient hears.',
     hospitalDescription: 'A patient missed an appointment. Front desk asked if you waive the fee.',
@@ -110,24 +108,18 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['jordan'],
   },
   {
-    id: 9,
-    title: 'Bundling Beast',
-    subtitle: 'Clinical documentation meets billing codes.',
-    hospitalDescription: 'The HIM department. Charts, codes, and the CDI team.',
-    waitingRoomDescription: 'Carbon copies of documents, each slightly different from the last.',
-    concepts: ['cdi', 'icd10_cm', 'icd10_pcs', 'modifiers'],
-    encounters: ['co_97'],
-    cases: ['case_bundle_kim'],
-    // Pat (HIM/CDI) gives the bundling case — the objective. Dr.
-    // Martinez is ambient scenery in Prior Auth (placed for L5–33 via
-    // his `ambient` placement, independent of this list); he has no L9
-    // role. He was listed here first, which made the mini-map quest
-    // marker target him in Auth instead of Pat. Listing only Pat points
-    // the marker at the real objective.
-    npcsActive: ['pat'],
+    id: 8,
+    title: 'Prior-Auth Gatekeeper',
+    subtitle: 'Prior authorization. The payer says: prove it first.',
+    hospitalDescription: 'The pre-certification office. Phone on hold. Fax machine grinding.',
+    waitingRoomDescription: 'A gate with no gatekeeper. Forms flutter through the bars.',
+    concepts: ['prior_auth', 'x12_278', 'medical_necessity'],
+    encounters: ['co_197'],
+    cases: ['case_gatekeeper_okafor'],
+    npcsActive: ['martinez', 'sam'],
   },
   {
-    id: 10,
+    id: 9,
     title: 'Lighthouse',
     subtitle: 'Charity-care / §501(r) financial assistance for a patient with no path to pay.',
     hospitalDescription: 'A patient who can\'t pay. Jordan needs to walk the §501(r) screen.',
@@ -138,7 +130,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['jordan'],
   },
   {
-    id: 11,
+    id: 10,
     title: 'Good Faith Estimate Oracle',
     subtitle: 'GFE accuracy — patient billed over the threshold, opens the appeal path.',
     hospitalDescription: 'A patient flagged a GFE-vs-bill mismatch. Sam pulled the file.',
@@ -149,7 +141,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['sam'],
   },
   {
-    id: 12,
+    id: 11,
     title: 'Medical Necessity Wraith',
     subtitle: 'Payer policies are public. Most denials are predictable.',
     hospitalDescription: 'The contract management office. Binders of payer agreements.',
@@ -160,7 +152,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['sam'],
   },
   {
-    id: 13,
+    id: 12,
     title: 'Documentation Sprite Swarm',
     subtitle: 'The claim drops. Clearinghouse, payer, adjudication.',
     hospitalDescription: 'The billing office. Claims queued and dropping.',
@@ -171,7 +163,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['alex', 'pat'],
   },
   {
-    id: 14,
+    id: 13,
     title: 'Doppelgänger',
     subtitle: 'A duplicate that shouldn\'t exist. Version control across submissions.',
     hospitalDescription: 'Registration. The clerk is staring at two claims that look identical.',
@@ -182,7 +174,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['kim', 'alex'],
   },
   {
-    id: 15,
+    id: 14,
     title: 'Implant Carve-Out Specter',
     subtitle: 'Implant cost above stoploss — invoice carve-out missed by the contract.',
     hospitalDescription: 'A surgical case where the implant invoice should have triggered a carve-out.',
@@ -193,7 +185,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['alex'],
   },
   {
-    id: 16,
+    id: 15,
     title: 'Credentialing Lattice',
     subtitle: 'Provider credentialing gap — claim denied because the doc isn\'t credentialed with this plan yet.',
     hospitalDescription: 'A new hire whose credentialing paperwork is still in flight.',
@@ -204,7 +196,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['kim'],
   },
   {
-    id: 17,
+    id: 16,
     title: 'Carve-Out Phantom',
     subtitle: 'Two bills for one ER visit — NSA carve-out routes the OON physician fight to IDR.',
     hospitalDescription: 'An ER claim where the facility was in-network but the physician group wasn\'t.',
@@ -215,7 +207,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['alex'],
   },
   {
-    id: 18,
+    id: 17,
     title: 'CPT Licensure Mire',
     subtitle: 'AMA CPT licensing edges — code mapping, derivative-work limits, public-domain alternatives.',
     hospitalDescription: 'A coding question that bumped into AMA licensing terms.',
@@ -226,7 +218,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['pat'],
   },
   {
-    id: 19,
+    id: 18,
     title: 'Timely Filing Reaper',
     subtitle: 'The remittance arrives. Time to read the verdict.',
     hospitalDescription: 'The payment posting area. ERAs streaming in.',
@@ -237,7 +229,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['sam', 'jordan'],
   },
   {
-    id: 20,
+    id: 19,
     title: 'Surprise Bill Specter',
     subtitle: 'Patient responsibility. The bill flows downstream.',
     hospitalDescription: 'Patient financial services. The phone rings constantly.',
@@ -248,7 +240,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['jordan'],
   },
   {
-    id: 21,
+    id: 20,
     title: 'OB Per-Diem Specter',
     subtitle: 'OB per-diem with C-section escalator — payer paid the base rate only.',
     hospitalDescription: 'L&D billed a per-diem with the C-section escalator; the payer paid base only.',
@@ -259,7 +251,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['alex'],
   },
   {
-    id: 22,
+    id: 21,
     title: 'Phantom Patient',
     subtitle: 'Identity-matching collision — two patients, one demographic profile.',
     hospitalDescription: 'Two patients matched into the same MRN. Registration caught it on intake.',
@@ -270,7 +262,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['kim'],
   },
   {
-    id: 23,
+    id: 22,
     title: 'Risk Adjustment Hollow',
     subtitle: 'HCC capture — chronic condition coded once a year, dropped the next, RAF score evaporates.',
     hospitalDescription: 'An annual HCC capture review. A chronic that fell off the chart this year.',
@@ -281,7 +273,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['pat'],
   },
   {
-    id: 24,
+    id: 23,
     title: 'Chemo Bundle Specter',
     subtitle: 'Chemotherapy bundled into the case rate; admin code dropped, claim under-pays.',
     hospitalDescription: 'Oncology billed a chemo case; the administration code didn\'t carry through.',
@@ -292,7 +284,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['alex'],
   },
   {
-    id: 25,
+    id: 24,
     title: 'Two-Midnight Mire',
     subtitle: 'Inpatient vs observation — Medicare 2-midnight rule + medical-necessity overlay.',
     hospitalDescription: 'A Medicare admission where the 2-midnight expectation is contested.',
@@ -303,7 +295,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['pat'],
   },
   {
-    id: 26,
+    id: 25,
     title: 'Underpayment Specter',
     subtitle: 'CO-45 underpayment — contract says one rate, payment shows another.',
     hospitalDescription: 'A CO-45 streak across one payer. The contracted rate isn\'t what landed.',
@@ -314,7 +306,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['alex'],
   },
   {
-    id: 27,
+    id: 26,
     title: 'COB Cascade Spider',
     subtitle: 'Multi-payer coordination of benefits — Medicare + retiree + spouse plan cascade.',
     hospitalDescription: 'A patient with three coverages, all of them claiming secondary.',
@@ -325,7 +317,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['kim'],
   },
   {
-    id: 28,
+    id: 27,
     title: 'Case-Rate Specter',
     subtitle: 'Case-rate vs per-diem mismatch — multi-day stay paid as a single bundle.',
     hospitalDescription: 'A multi-day stay paid as one case-rate when per-diem should have applied.',
@@ -336,7 +328,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['alex'],
   },
   {
-    id: 29,
+    id: 28,
     title: 'MRF Cartographer',
     subtitle: 'Machine-Readable Files — read the payer rate sheet, find the negotiated rate hidden in 8 GB of JSON.',
     hospitalDescription: 'Sam is mapping a payer\'s MRF for a contested rate.',
@@ -347,7 +339,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['sam'],
   },
   {
-    id: 30,
+    id: 29,
     title: 'IDR Crucible',
     subtitle: 'Baseball-style arbitration — submit one number, pick a number, defend the math.',
     hospitalDescription: 'An IDR submission. Sam is sweating the number.',
@@ -358,7 +350,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['sam'],
   },
   {
-    id: 31,
+    id: 30,
     title: '340B Specter',
     subtitle: '340B-eligible drug paid at non-340B rate post-Becerra clawback.',
     hospitalDescription: 'A 340B-eligible drug paid at the wrong rate. Becerra clawback territory.',
@@ -369,7 +361,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['alex'],
   },
   {
-    id: 32,
+    id: 31,
     title: 'HIPAA Spider',
     subtitle: 'Breach response — four-factor assessment, notification thresholds, OCR follow-up.',
     hospitalDescription: 'A faxed PHI page went to the wrong number. Compliance opened the file.',
@@ -380,7 +372,7 @@ export const LEVELS: LevelDef[] = [
     npcsActive: ['sam'],
   },
   {
-    id: 33,
+    id: 32,
     title: 'The Quarterly Audit',
     subtitle: 'Everything you did is under review.',
     hospitalDescription: 'The auditorium. Auditors have arrived.',

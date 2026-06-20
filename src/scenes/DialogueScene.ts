@@ -265,6 +265,11 @@ export class DialogueScene extends Phaser.Scene {
       if (effect.reputationDelta) updateResources({ reputation: effect.reputationDelta })
       if (effect.cashDelta) updateResources({ cash: effect.cashDelta })
       if (effect.auditDelta) updateResources({ auditRisk: effect.auditDelta })
+      if (effect.markChartHinted) {
+        const st = getState()
+        st.chartsHinted ??= {}
+        st.chartsHinted[effect.markChartHinted] = true
+      }
     }
     saveGame()
   }

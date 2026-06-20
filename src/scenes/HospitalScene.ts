@@ -14,7 +14,7 @@ import { flavorForTile, LEVEL_ORIENTATION_HINTS } from './hospitalFlavor'
 import { runWakeUpTransition } from './wakeUpOverlay'
 import { pickNextTrack } from './musicShuffle'
 import { debugStatus, debugEvent } from './debugRibbon'
-import type { NPC } from '../types'
+import type { NPC, QuestStep, LevelDef } from '../types'
 
 // Tile size in game pixels. Bumped from 32 to 64 so the 64×64 LoRA
 // art (player / NPCs / objects) renders at native resolution instead
@@ -1566,25 +1566,16 @@ export class HospitalScene extends Phaser.Scene {
     // keep legacy levels alongside the current runtime levels.
     const lvl = getState().currentLevel
     const PULL_BY_LEVEL: Record<number, { encounterId: string; toast: string }> = {
-      4: {
-        encounterId: 'co_97',
-        toast:
-          "You pull Sarah Kim's chart.\n" +
-          "Op-note clear: separate visit, modifier-25 was just never appended.",
-      },
-      9: {
-        encounterId: 'co_97',
-        toast:
-          "You pull Sarah Kim's chart.\n" +
-          "Op-note clear: separate visit, modifier-25 was just never appended.",
-      },
+      // Bundling Beast (L5) — Sarah Kim's op-note. Part of the L5
+      // mini-map quest chain: Pat (HIM) → here → back to Pat.
       5: {
-        encounterId: 'co_50',
+        encounterId: 'co_97',
         toast:
-          "You pull Mr. Walker's chart.\n" +
-          "Echo report: LVEF 28%. Right there in black ink.",
+          "You pull Sarah Kim's chart.\n" +
+          "Op-note clear: separate visit, modifier-25 was just never appended.",
       },
-      12: {
+      // Medical Necessity Wraith (L11) — Mr. Walker's echo.
+      11: {
         encounterId: 'co_50',
         toast:
           "You pull Mr. Walker's chart.\n" +
@@ -2071,26 +2062,25 @@ export class HospitalScene extends Phaser.Scene {
     this.updateMiniMapNpcMarker()
   }
 
-  /** Draw a gold quest marker on the mini-map at the objective NPC's tile.
-   *  Always visible regardless of fog so the player always knows where to go.
-   *  The objective NPC is the first entry in the level's npcsActive list that
-   *  has a placed sprite. */
+  /** Draw a gold quest marker on the mini-map at the current objective's
+   *  tile. Always visible regardless of fog so the player always knows
+   *  where to go. For a level with a `questChain` (e.g. the L5 bundling
+   *  retrieval) the marker walks the chain — quest-giver → Medical
+   *  Records → quest-giver — advancing as the chart is hinted and pulled.
+   *  Otherwise it marks the first placed `npcsActive` NPC. */
   private updateMiniMapNpcMarker() {
     this.miniMapNpcMarker.clear()
     const state = getState()
     const level = LEVELS[state.currentLevel - 1]
-    const objectiveId = (level?.npcsActive ?? []).find(id =>
-      this.npcSprites.some(ns => ns.npc.id === id)
-    )
-    if (!objectiveId) return
-    const ns = this.npcSprites.find(n => n.npc.id === objectiveId)
-    if (!ns) return
+    if (!level) return
+    const target = this.resolveQuestTarget(level)
+    if (!target) return
     const cell = this.miniMapCell
     const ox = this.miniMapX + this.miniMapPad
     const oy = this.miniMapY + this.miniMapPad
-    // Center of the NPC's tile
-    const cx = ox + ns.tileX * cell + cell / 2
-    const cy = oy + ns.tileY * cell + cell / 2
+    // Center of the target tile
+    const cx = ox + target.x * cell + cell / 2
+    const cy = oy + target.y * cell + cell / 2
     // 5-pointed star: outer radius slightly larger than a tile so it
     // stands out clearly at collapsed scale (cell=6 → outerR=10).
     const outerR = cell + 4
@@ -2103,6 +2093,44 @@ export class HospitalScene extends Phaser.Scene {
     }
     this.miniMapNpcMarker.fillStyle(0xff3050, 1)
     this.miniMapNpcMarker.fillPoints(pts, true)
+  }
+
+  /** Tile the mini-map quest marker should point at for this level. */
+  private resolveQuestTarget(level: LevelDef): { x: number; y: number } | null {
+    const chain = level.questChain
+    if (chain && chain.length) {
+      const step = this.currentQuestStep(chain)
+      if (!step) return null
+      if (step.kind === 'chart') {
+        // Medical Records chart cabinet — center of the MED_RECORDS room
+        // (mirrors the bounds in tryChartPull: x 51..64, y 37..46).
+        return { x: 58, y: 42 }
+      }
+      if (step.kind === 'npc' && step.npcId) {
+        const ns = this.npcSprites.find(n => n.npc.id === step.npcId)
+        return ns ? { x: ns.tileX, y: ns.tileY } : null
+      }
+      return null
+    }
+    // Legacy: first placed npcsActive NPC is the objective.
+    const objectiveId = (level.npcsActive ?? []).find(id =>
+      this.npcSprites.some(ns => ns.npc.id === id))
+    const ns = objectiveId ? this.npcSprites.find(n => n.npc.id === objectiveId) : null
+    return ns ? { x: ns.tileX, y: ns.tileY } : null
+  }
+
+  /** Which step of a chart-retrieval quest chain is active: giver (talk)
+   *  → chart (Medical Records) → giver (return), driven by `chartsHinted`
+   *  and `chartsPulled` for the chain's chart encounter. */
+  private currentQuestStep(chain: QuestStep[]): QuestStep | null {
+    const state = getState()
+    const chartStep = chain.find(s => s.kind === 'chart')
+    const enc = chartStep?.encounterId
+    const hinted = enc ? !!state.chartsHinted?.[enc] : true
+    const pulled = enc ? !!state.chartsPulled?.[enc] : false
+    if (!hinted) return chain[0] ?? null            // go to the quest-giver
+    if (!pulled) return chartStep ?? null           // go pull the chart
+    return chain[chain.length - 1] ?? null          // bring it back to the giver
   }
 
   private checkNpcProximity() {
