@@ -47,10 +47,10 @@ export interface CaseEntry {
    *
    * Calibration:
    *   1   single-issue, single picker, no domain prereq (intro teaching)
-   *   2-3 single new verb OR 2 sequential simple issues
+   *   2-3 single new action OR 2 sequential simple issues
    *   4   2-3 issues, clear path, one new mechanic
    *   5   first real citation chain or multi-step procedural
-   *   6   multi-issue + multi-verb + meaningful domain depth
+   *   6   multi-issue + multi-action + meaningful domain depth
    *   7   complex domain (contract math, drug pricing, federal reg)
    *   8   multi-party + complex regulation
    *   9   strategic depth (math + adversarial choice)

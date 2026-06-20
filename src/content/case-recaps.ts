@@ -17,7 +17,7 @@ export const CASE_RECAPS: Record<string, CaseRecap> = {
       { term: 'Subscriber vs dependent', gist: 'On a family plan, the subscriber is the policyholder; spouses and children are dependents. Each member has their own subscriber ID. Boxes 1a (insured ID) and 4 (insured name) on the CMS-1500 must match the payer\'s roster for the patient — not the household.' },
       { term: '270/271 eligibility', gist: 'The X12 270 is the real-time "is this patient covered?" query; the 271 is the payer\'s response. Run it before the visit (or before resubmitting after a CO-31). It\'s the source of truth for member ID, plan, effective dates, and copay — not the photocopy of the card.' },
       { term: 'CO-31 (patient cannot be identified as our insured)', gist: 'Clerical denial: the demographic info on the claim doesn\'t match the payer\'s member record. Almost always fixed by amending Box 1a or the patient name to match the 271 response, then resubmitting. No appeal needed — just a clean correction.' },
-      { term: 'AMEND verb', gist: 'The first verb you learn. Open the disputed field on the claim, pick the value the chart + payer record actually support, resubmit. Most denials in your queue will be exactly this: a small thing, fixed cleanly, before it becomes someone\'s collections problem.' },
+      { term: 'Amending a field', gist: 'Open the disputed field on the claim, pick the value the chart + payer record actually support, resubmit. Most denials in your queue will be exactly this: a small thing, fixed cleanly, before it becomes someone\'s collections problem.' },
     ],
     resources: [
       { title: 'CMS — CMS-1500 Form Instructions', url: 'https://www.cms.gov/medicare/billing/electronicbillingeditrans/15001500', note: 'Field-by-field instructions for the CMS-1500, including Boxes 1a–11 (insured info).' },
@@ -396,7 +396,7 @@ export const CASE_RECAPS: Record<string, CaseRecap> = {
     oneLineRecap: 'You batch-fixed 18 CO-16 rejections by finding the shared NPI/taxonomy root cause, swept the outliers individually, and patched the EHR profile so it stops happening Mondays.',
     keyConcepts: [
       { term: 'CO-16 (claim/service lacks information)', gist: 'Most often a missing or invalid identifier — NPI, taxonomy, ICN, member ID. The remark code (RARC) tells you which.' },
-      { term: 'Root-cause vs case-by-case', gist: 'When N denials share a root cause, fixing the root cause once is cheaper than appealing N times. The BATCH verb captures this.' },
+      { term: 'Root-cause vs case-by-case', gist: 'When N denials share a root cause, fixing the root cause once is cheaper than appealing N times. Batching the shared fix is what captures this.' },
       { term: 'Upstream patches', gist: 'Fixing the claim AND the system that produced the bad claim. Usually means an EHR ticket — provider-profile field, taxonomy crosswalk, payer-specific submission rule.' },
     ],
     resources: [

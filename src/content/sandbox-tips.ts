@@ -25,7 +25,7 @@
 export const LEVEL_GUIDANCE: Record<number, string[]> = {
   1: [
     "Anjali walks up to your desk in the lobby. Talk to her — she's holding the case.",
-    "The verb you'll learn is AMEND. Click the disputed field on the claim, pick the value the chart actually supports.",
+    "Click the disputed field on the claim, pick the value the chart actually supports, and resubmit.",
     "The 271 eligibility response on file is the source of truth. The photocopy of her insurance card lied (it was the wrong card).",
   ],
   2: [
@@ -186,7 +186,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
   33: [
     "Dana is on the Auditorium stage. Talking to her starts the boss encounter.",
     "The audit covers everything you've touched in the last 90 days. Documentation, modifiers, medical necessity, the whole stack.",
-    "RECEIPT vs AMEND: defend the original work with chart evidence (RECEIPT), or concede + accept the recoupment (AMEND). Pick the right verb per finding.",
+    "RECEIPT vs AMEND: defend the original work with chart evidence (RECEIPT), or concede + accept the recoupment (AMEND). Pick the right one per finding.",
   ],
 }
 
@@ -201,7 +201,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     hints: [
       "Anjali handed her husband's insurance card at check-in. Different subscriber id than hers.",
       "The 271 eligibility response shows her on the plan as a dependent under her own id (AET447821491).",
-      "Amend Box 1a to her id and resubmit. Single-issue case; the verb is AMEND.",
+      "Amend Box 1a to her id and resubmit. Single-issue case.",
     ],
   },
   eligibility_fog: {
