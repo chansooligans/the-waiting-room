@@ -793,7 +793,7 @@ const css = districtVars('billing') + BASE_CSS + `
   .formula-btn { width: 100%; background: var(--panel-2); border: 1px solid #2a3142; border-radius: 5px; color: var(--ink); cursor: pointer; padding: 11px 14px; text-align: left; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; font: inherit; transition: all 0.15s; position: relative; }
   .formula-btn:hover:not(:disabled) { background: #232b3a; border-color: var(--accent-2); }
   .formula-btn:disabled { opacity: 0.45; cursor: default; }
-  .formula.applied .formula-btn { border-color: var(--good); background: linear-gradient(180deg, rgba(126,226,193,0.08), transparent); opacity: 1; }
+  .formula.applied .formula-btn { border-color: var(--good); background: linear-gradient(180deg, rgba(126,226,193,0.08), transparent); opacity: 1; padding-right: 90px; }
   .formula-label { flex: 1; font-size: 13px; padding-right: 90px; }
   .formula-amount { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; color: var(--ink); }
   .formula-badge.applied { position: absolute; top: 10px; right: 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 8px; border-radius: 3px; background: rgba(126,226,193,0.15); color: var(--good); border: 1px solid #2c5547; font-weight: 700; }
