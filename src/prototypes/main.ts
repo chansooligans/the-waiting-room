@@ -8,7 +8,7 @@
 // testing what battles look like in this game once HP / tools-as-
 // damage / multiple choice are off the table. They share a
 // framework (Hospital intro → dreamlike fall → claim form +
-// workbench + builder) but each tunes the verb-space to the
+// workbench + builder) but each tunes the action set to the
 // encounter.
 //
 // New Cases get added to PROTOTYPES below; the page renders itself
@@ -37,7 +37,7 @@ interface Prototype {
    */
   targetLevel: number
   status: 'shipped' | 'planned'
-  /** What the verb-space looks like for this encounter. */
+  /** What the action set looks like for this encounter. */
   verbs: string
   /** What this prototype tests beyond the wraith. */
   testing: string
@@ -107,7 +107,7 @@ const prototypes: Prototype[] = [
     targetLevel: 2,
     status: 'shipped',
     verbs: 'BATCH + sweep + patch upstream',
-    testing: 'New verb: BATCH. Eighteen weekend CO-16 rejections, fourteen sharing one root cause (a misconfigured NPI on a provider profile). Fix the cluster as a group, sweep the outliers individually (one is a clearinghouse false positive — correct move is "no action"), then file an EHR ticket so the same 14 claims don\'t come back next Monday. First prototype that operates on a queue, not a single claim.',
+    testing: 'Eighteen weekend CO-16 rejections, fourteen sharing one root cause (a misconfigured NPI on a provider profile). Fix the cluster as a group, sweep the outliers individually (one is a clearinghouse false positive — correct move is "no action"), then file an EHR ticket so the same 14 claims don\'t come back next Monday. First prototype that operates on a queue, not a single claim.',
     href: './swarm-prototype.html',
     district: 'eligibility',
     accent: '#7ee2c1',
@@ -121,7 +121,7 @@ const prototypes: Prototype[] = [
     targetLevel: 2,
     status: 'shipped',
     verbs: 'REVEAL + AMEND',
-    testing: 'New verb: REVEAL. Discrepant claim fields are literally fogged over until you run a 270 inquiry; the 271 response burns the fog off and reveals which fields differ from what the payer actually has on file. First prototype where the fight happens upstream — before submit, not after denial.',
+    testing: 'Discrepant claim fields are literally fogged over until you run a 270 inquiry; the 271 response burns the fog off and reveals which fields differ from what the payer actually has on file. First prototype where the fight happens upstream — before submit, not after denial.',
     href: './fog-prototype.html',
     district: 'eligibility',
     accent: '#7ee2c1',
@@ -135,7 +135,7 @@ const prototypes: Prototype[] = [
     targetLevel: 7,
     status: 'shipped',
     verbs: 'VARIANCE + APPEAL',
-    testing: 'New verb: VARIANCE. The 835 ERA arrived showing four claims paid; one hides a $28 underpayment because the payer\'s fee table was never updated for the 2026 contract. Verify each claim line-by-line against the contract, flag the underpayment, file the appeal with the right shortfall + reason. First prototype where the input is a successful payment, not a denial.',
+    testing: 'The 835 ERA arrived showing four claims paid; one hides a $28 underpayment because the payer\'s fee table was never updated for the 2026 contract. Verify each claim line-by-line against the contract, flag the underpayment, file the appeal with the right shortfall + reason. First prototype where the input is a successful payment, not a denial.',
     href: './specter-prototype.html',
     district: 'billing',
     accent: '#ef5b7b',
@@ -177,7 +177,7 @@ const prototypes: Prototype[] = [
     targetLevel: 8,
     status: 'shipped',
     verbs: 'LISTEN + SCREEN + RELEASE',
-    testing: 'First prototype that isn\'t a fight. Patient-facing, not payer-facing. A patient with a $87,420 bill she can\'t pay; verbs are LISTEN (pick the right follow-up question, not paternalism), SCREEN (FPL math + tier), RELEASE (file as charity care, not bad debt). Sits outside the four-district verb-space — the Lighthouse is restorative; it doesn\'t disappear when the encounter resolves.',
+    testing: 'First prototype that isn\'t a fight. Patient-facing, not payer-facing. A patient with a $87,420 bill she can\'t pay; the actions are LISTEN (pick the right follow-up question, not paternalism), SCREEN (FPL math + tier), RELEASE (file as charity care, not bad debt). Sits outside the four-district action set — the Lighthouse is restorative; it doesn\'t disappear when the encounter resolves.',
     href: './lighthouse-prototype.html',
     district: 'release-valve',
     accent: '#e8c074',
@@ -194,7 +194,7 @@ const prototypes: Prototype[] = [
     targetLevel: 9,
     status: 'shipped',
     verbs: 'REPLACE + CONFIRM',
-    testing: 'New verb: REPLACE. A claim came back denied for a transposed subscriber ID; the biller fixed it and resubmitted as a fresh 837 instead of a frequency-7 replacement; now both claims are flagged duplicate. Resolution: set Box 22 to frequency 7 + reference the original ICN. First version-control encounter — the puzzle isn\'t what\'s on the claim, it\'s how the claim relates to other claims that already exist.',
+    testing: 'A claim came back denied for a transposed subscriber ID; the biller fixed it and resubmitted as a fresh 837 instead of a frequency-7 replacement; now both claims are flagged duplicate. Resolution: set Box 22 to frequency 7 + reference the original ICN. First version-control encounter — the puzzle isn\'t what\'s on the claim, it\'s how the claim relates to other claims that already exist.',
     href: './doppelganger-prototype.html',
     district: 'billing',
     accent: '#ef5b7b',
@@ -276,7 +276,7 @@ const prototypes: Prototype[] = [
     targetLevel: 3,
     status: 'shipped',
     verbs: 'REQUEST + AMEND',
-    testing: 'New verb: REQUEST. File a retroactive 278; wait for the response; transcribe the auth number to Box 23. The citation builder is gone — replaced by a real 278 form (locked CPT + dx, picker for clinical rationale) and a response panel that animates back from the payer. Process, not argument.',
+    testing: 'File a retroactive 278; wait for the response; transcribe the auth number to Box 23. The citation builder is gone — replaced by a real 278 form (locked CPT + dx, picker for clinical rationale) and a response panel that animates back from the payer. Process, not argument.',
     href: './gatekeeper-prototype.html',
     district: 'eligibility',
     accent: '#7ee2c1',
@@ -369,7 +369,7 @@ const prototypes: Prototype[] = [
   //     billing column on the catalog. Each is set in a real
   //     payer/contract artifact (chargemaster, MRF, GFE, contract
   //     stoploss clause) so the player learns the document, not
-  //     just the verb. Author: Chansoo, May 2026. ===
+  //     just the action. Author: Chansoo, May 2026. ===
 
   {
     id: 'case-rate-specter',
@@ -575,7 +575,7 @@ function renderHeader(): string {
         without tools-as-damage, and without multiple choice.
         They share a framework
         (<em>Hospital intro → dreamlike fall → claim form +
-        middle work + checklist</em>); they differ in verb-space
+        middle work + checklist</em>); they differ in action set
         and rhythm.
       </p>
       <p class="meta">
