@@ -408,7 +408,7 @@ function renderClaim(): string {
               <tr class="${modifierResolved ? 'amended' : 'hi'}">
                 <td>${escape(claim.serviceLines[0].dos)}</td>
                 <td>${escape(claim.serviceLines[0].pos)}</td>
-                <td>${term('99214', escape(claim.serviceLines[0].cpt.code) + (claim.serviceLines[0].cpt.label ? ' — ' + escape(claim.serviceLines[0].cpt.label) : ''))}</td>
+                <td>${term('99214', claim.serviceLines[0].cpt.code + (claim.serviceLines[0].cpt.label ? ' — ' + claim.serviceLines[0].cpt.label : ''))}</td>
                 <td class="modifier-cell">
                   ${modifierResolved
                     ? `<span class="mod-applied">${escape(state.currentModifier)}</span>`
@@ -419,7 +419,7 @@ function renderClaim(): string {
               <tr>
                 <td>${escape(claim.serviceLines[1].dos)}</td>
                 <td>${escape(claim.serviceLines[1].pos)}</td>
-                <td>${term('11102', escape(claim.serviceLines[1].cpt.code) + (claim.serviceLines[1].cpt.label ? ' — ' + escape(claim.serviceLines[1].cpt.label) : ''))}</td>
+                <td>${term('11102', claim.serviceLines[1].cpt.code + (claim.serviceLines[1].cpt.label ? ' — ' + claim.serviceLines[1].cpt.label : ''))}</td>
                 <td class="modifier-cell">—</td>
                 <td>${escape(claim.serviceLines[1].charges)}</td>
               </tr>
