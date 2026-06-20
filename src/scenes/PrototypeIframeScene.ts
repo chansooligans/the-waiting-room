@@ -82,6 +82,11 @@ export class PrototypeIframeScene extends Phaser.Scene {
     this.installOverlay()
     this.attachHandlers()
 
+    // Clicking into the iframe shifts focus away from the parent window,
+    // which normally triggers Phaser's pauseOnBlur and kills the music.
+    // Keep audio running for the duration of this scene.
+    ;(this.game.sound as any).pauseOnBlur = false
+
     // Auto-unlock codex on first sight.
     const gs = getState()
     const enc = ENCOUNTERS[this.encounterId]
@@ -361,5 +366,6 @@ export class PrototypeIframeScene extends Phaser.Scene {
     }
     const overlay = document.getElementById(OVERLAY_ID)
     if (overlay && overlay.parentElement) overlay.parentElement.removeChild(overlay)
+    ;(this.game.sound as any).pauseOnBlur = true
   }
 }
