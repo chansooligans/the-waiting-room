@@ -1278,11 +1278,17 @@ export const LEVEL_1_MAP: MapDef = {
     { npcId: 'pat', tileX: HIM.x + 5, tileY: HIM.y + 5,
       levels: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
-    // Alex — Main Hub (L1-12) faces right toward Martinez; Billing
-    // (L13+, once the room unlocks and Cal clears the corridor)
-    // default 'down' at the EDI desk row.
+    // Alex — Main Hub (L1-11, minus L4) faces right toward Martinez;
+    // Billing (L13+, once the room unlocks and Cal clears the corridor)
+    // default 'down' at the EDI desk row. At L4 (Stoploss Reckoner) he
+    // steps out to the parking lot — see the OUTDOOR placement below and
+    // alex_stoploss_intake for why.
     { npcId: 'alex', tileX: MAIN_HUB.x + 4, tileY: MAIN_HUB.y + 4, facing: 'right',
-      levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] },
+      levels: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11] },
+    // L4 only — Alex out in the parking lot (drive aisle, near the lobby
+    // teleport arrival at (16, 67)), getting air over the trauma case.
+    { npcId: 'alex', tileX: OUTDOOR.x + 18, tileY: OUTDOOR.y + 6, facing: 'down',
+      levels: [4] },
     { npcId: 'alex', tileX: BILLING.x + 5, tileY: BILLING.y + 5,
       levels: [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 

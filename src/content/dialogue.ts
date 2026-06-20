@@ -1083,13 +1083,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   alex_stoploss_intake: {
     id: 'alex_stoploss_intake',
     speaker: 'Alex',
-    text: "Trauma case from last quarter — total charges crossed the stoploss threshold, but the payment looks like they paid the case rate flat. Contract's reckoning is off.",
+    text: "Don't laugh — I came out here to think. That trauma case from last quarter? Total charges blew past the stoploss threshold, but the payment came back like they paid the case rate flat. Couldn't see straight staring at it under the office lights.",
     next: 'alex_stoploss_intake_2',
   },
   alex_stoploss_intake_2: {
     id: 'alex_stoploss_intake_2',
     speaker: 'Alex',
-    text: "I need a second set of eyes on the math and the clause.",
+    text: "Patient came in right through that ambulance bay. Feels wrong to short the contract on a save like that. I need a second set of eyes on the math and the clause.",
     choices: [
       { text: '(Pull the EOR + contract.)',
         effect: { triggerDescent: { encounterId: 'catalog_stoploss_reckoner' } } },
@@ -1099,7 +1099,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   alex_stoploss_intake_back: {
     id: 'alex_stoploss_intake_back',
     speaker: 'Alex',
-    text: "The variance report's still going to be there.",
+    text: "I'll be out here a while. The variance report's not going anywhere.",
     choices: [{ text: '(Step away.)' }],
   },
 
