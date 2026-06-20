@@ -118,7 +118,13 @@ export const LEVELS: LevelDef[] = [
     concepts: ['cdi', 'icd10_cm', 'icd10_pcs', 'modifiers'],
     encounters: ['co_97'],
     cases: ['case_bundle_kim'],
-    npcsActive: ['martinez', 'pat'],
+    // Pat (HIM/CDI) gives the bundling case — the objective. Dr.
+    // Martinez is ambient scenery in Prior Auth (placed for L5–33 via
+    // his `ambient` placement, independent of this list); he has no L9
+    // role. He was listed here first, which made the mini-map quest
+    // marker target him in Auth instead of Pat. Listing only Pat points
+    // the marker at the real objective.
+    npcsActive: ['pat'],
   },
   {
     id: 10,
