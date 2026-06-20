@@ -14,6 +14,7 @@ import { installDevPanel } from './dev/devPanel'
 import { installDebugRibbon, debugEvent } from './scenes/debugRibbon'
 import { addFullscreenButton } from './scenes/fullscreenButton'
 import { addMuteButton } from './scenes/muteButton'
+import { installContextLossGuard } from './scenes/contextLossGuard'
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -97,6 +98,10 @@ addMuteButton(null as unknown as Phaser.Scene)
 // Track scene starts via the SceneManager event so the ribbon shows
 // transitions even from code paths we haven't manually instrumented.
 game.events.on(Phaser.Core.Events.READY, () => {
+  // Renderer exists by READY — install the WebGL context-loss guard so a
+  // dropped GL context (mobile memory pressure) recovers gracefully
+  // instead of leaving a blank canvas.
+  installContextLossGuard(game)
   for (const s of game.scene.scenes) {
     s.events.on(Phaser.Scenes.Events.START, () => debugEvent(`start ${s.scene.key}`))
     s.events.on(Phaser.Scenes.Events.SHUTDOWN, () => debugEvent(`shut ${s.scene.key}`))
