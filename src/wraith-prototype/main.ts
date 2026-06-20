@@ -443,7 +443,7 @@ function renderClaim(): string {
         </div>
         <div class="claim-grid">
           <div><b>Patient:</b> ${escape(claim.patient.name)} · ${escape(claim.patient.dob)}</div>
-          <div><b>Insurer:</b> ${term('BCBS', escape(claim.insured.name ?? ''))} · ${escape(claim.insured.id)}</div>
+          <div><b>Insurer:</b> ${term('BCBS', claim.insured.name ?? '')} · ${escape(claim.insured.id)}</div>
         </div>
         <div class="claim-section dx-section">
           <div class="claim-section-h">
@@ -468,7 +468,7 @@ function renderClaim(): string {
                 <tr class="hi">
                   <td>${escape(sl.dos)}</td>
                   <td>${escape(sl.pos)}</td>
-                  <td>${term('93306', escape(sl.cpt.code) + (sl.cpt.label ? ' — ' + escape(sl.cpt.label) : ''))}</td>
+                  <td>${term('93306', sl.cpt.code + (sl.cpt.label ? ' — ' + sl.cpt.label : ''))}</td>
                   <td>${escape(sl.charges)}</td>
                 </tr>
               `).join('')}
