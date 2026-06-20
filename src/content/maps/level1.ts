@@ -1238,12 +1238,6 @@ export const LEVEL_1_MAP: MapDef = {
     // on the player's column, three tiles north of spawn. Default
     // 'down' so she greets Chloe head-on.
     { npcId: 'anjali',   tileX: LOBBY.x + 10,       tileY: LOBBY.y + 4 },
-    // Martinez looks 'left' across the hub toward Alex / the
-    // bulletin board, not back at the wall. Gated [1..4] — at
-    // L5+ he moves to PRIOR_AUTH (see ambient placement below).
-    { npcId: 'martinez', tileX: MAIN_HUB.x + 14,    tileY: MAIN_HUB.y + 4, facing: 'left',
-      levels: [1, 2, 3, 4] },
-
     // === Per-level placements ===
     // Day-one mentor pass: at L1-2, Kim / Jordan gather in the front-
     // of-house (lobby + main hub) because their dedicated rooms
@@ -1313,11 +1307,8 @@ export const LEVEL_1_MAP: MapDef = {
     // Lobby — repositioned during the editor pass. Greta (flowers)
     // is now on the east side mid-conversation; Mr. Beck is near
     // the west wall; Officer Reyes covers the SW corner; Walter
-    // and Noah occupy the northern half.
+    // occupies the northern half.
     { npcId: 'walter',         tileX: LOBBY.x + 20, tileY: LOBBY.y + 2, ambient: true },
-    // Noah gated [1-8] so he falls through to the LOUNGE placement
-    // at L9+ (1F break room opens then).
-    { npcId: 'noah',           tileX: LOBBY.x + 18, tileY: LOBBY.y + 7, facing: 'left', ambient: true, levels: [1, 2, 3, 4, 5, 6, 7, 8] },
     // Officer Reyes shifted one tile east of his old spot — the
     // 'O' exit-mat tile now sits at (LOBBY.x+1, LOBBY.y+4), and
     // having him on top of it would block the teleport. Faces
@@ -1332,12 +1323,11 @@ export const LEVEL_1_MAP: MapDef = {
     // dx=9 (one tile west + one tile south of him).
     { npcId: 'dev', tileX: PFS.x + 11, tileY: PFS.y + 5, facing: 'left', ambient: true },
 
-    // Main Hub — physician floor. Priya defaults to 'down' (she's
-    // standing south-of-center, easy to read). Ethan still looks
-    // left toward her (mid-conversation about a discharge).
-    // Both gated [1-18] so they fall through to the LECTURE_HALL
-    // placement at L19+ (lecture hall opens with reaper at L19).
-    { npcId: 'dr_priya', tileX: MAIN_HUB.x + 9,  tileY: MAIN_HUB.y + 6, ambient: true, levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18] },
+    // Main Hub — physician floor. Priya uses the editor-confirmed
+    // tile and keeps facing the player-facing side of the room.
+    { npcId: 'dr_priya', tileX: 31, tileY: 5, facing: 'down', ambient: true },
+    // Ethan still looks left toward the physician cluster
+    // (mid-conversation about a discharge).
     { npcId: 'dr_ethan', tileX: MAIN_HUB.x + 14, tileY: MAIN_HUB.y + 8, facing: 'left', ambient: true, levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18] },
 
     // East wing.
@@ -1366,7 +1356,7 @@ export const LEVEL_1_MAP: MapDef = {
     // the boss room is full enough with Dana + the auditors.)
     { npcId: 'payer_rep',          tileX: PAYER.x + 5,      tileY: PAYER.y + 3,      facing: 'right', ambient: true, levels: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
     { npcId: 'payer_supervisor',   tileX: PAYER.x + 12,     tileY: PAYER.y + 3,      facing: 'left',  ambient: true },
-    { npcId: 'compliance_officer', tileX: COMPLIANCE.x + 6, tileY: COMPLIANCE.y + 5, facing: 'right', ambient: true, levels: [32, 33] },
+    { npcId: 'compliance_officer', tileX: 41, tileY: 118, facing: 'right', ambient: true, levels: [32, 33] },
 
     // Outdoor — parking lot ambient. Smoker NPCs are *outdoor-only*
     // by design (cigarette is part of the sprite); placing them
@@ -1386,11 +1376,10 @@ export const LEVEL_1_MAP: MapDef = {
     // working the dining floor. Cafeteria moved from a 22×13 SE
     // footprint to a 12×8 NW one; positions resized to match.
     //  - Manny mans the hot line on the north counter row.
-    //  - Yvette sits at the register on the same row, faces
-    //    'left' toward the counter line.
+    //  - Yvette sits at the register on the same row, facing down.
     //  - Reggie roams the dining floor.
     { npcId: 'cafeteria_worker', tileX: CAFETERIA.x + 3, tileY: CAFETERIA.y + 2, ambient: true },
-    { npcId: 'cashier',          tileX: CAFETERIA.x + 9, tileY: CAFETERIA.y + 2, facing: 'left', ambient: true },
+    { npcId: 'cashier',          tileX: 11, tileY: 4, facing: 'down', ambient: true },
     { npcId: 'server',           tileX: CAFETERIA.x + 7, tileY: CAFETERIA.y + 5, ambient: true },
 
     // Lab — Roni runs the bench. She's standing between the second
@@ -1424,9 +1413,8 @@ export const LEVEL_1_MAP: MapDef = {
     { npcId: 'liana',         tileX: CANCER_CENTER.x + 14, tileY: CANCER_CENTER.y + 5,  facing: 'down',  ambient: true, levels: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
     { npcId: 'elder_patient', tileX: CANCER_CENTER.x + 5,  tileY: CANCER_CENTER.y + 1,  facing: 'down',  ambient: true, levels: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
 
-    // Lecture Hall — a couple of attendees seated mid-audience.
+    // Lecture Hall — attendee seated mid-audience.
     // Unlocks at L19 (Reaper).
-    { npcId: 'dr_priya',      tileX: LECTURE_HALL.x + 4,   tileY: LECTURE_HALL.y + 3,   facing: 'down',  ambient: true, levels: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
     { npcId: 'dr_ethan',      tileX: LECTURE_HALL.x + 14,  tileY: LECTURE_HALL.y + 5,   facing: 'down',  ambient: true, levels: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
 
     // Auditorium — only opens at L33 (boss). dr_park joins Dana on
@@ -1438,13 +1426,10 @@ export const LEVEL_1_MAP: MapDef = {
 
     // Prior Auth — staff PA specialist at the desk. Unlocks at L5
     // (Gatekeeper).
-    { npcId: 'martinez',      tileX: PRIOR_AUTH.x + 6,     tileY: PRIOR_AUTH.y + 3,     facing: 'left',  ambient: true, levels: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
+    { npcId: 'martinez',      tileX: 48, tileY: 6, facing: 'left', ambient: true, levels: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
 
     // 1F Lounge — break-room ambient. Unlocks at L9.
-    { npcId: 'noah',          tileX: LOUNGE.x + 4,         tileY: LOUNGE.y + 3,         facing: 'down',  ambient: true, levels: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
-
-    // 2F Lounge — analyst-lunch ambient. Unlocks at L9 (behind stairs).
-    { npcId: 'nicole',        tileX: LOUNGE_2F.x + 6,      tileY: LOUNGE_2F.y + 3,      facing: 'down',  ambient: true, levels: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
+    { npcId: 'noah',          tileX: 9, tileY: 15, facing: 'right', ambient: true, levels: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
 
     // SW-corridor blocker — Cal stands in the south-wing trough
     // corridor (y=49, the east-west run that connects HIM / Billing /
