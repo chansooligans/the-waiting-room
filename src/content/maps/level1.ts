@@ -343,7 +343,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
       // phase-unlocks gradually. Locking the stairwell room itself
       // (rather than the stair tile) reuses the existing
       // applyUnlocks plumbing.
-      lockedUntilLevel: 9,
+      lockedUntilLevel: 8,
       ...STAIRWELL_1F,
       // East door at offset 3 → world (20, 7). Same tile as the
       // Main Hub west door at offset 4 — they share the boundary
@@ -365,7 +365,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     },
     {
       id: 'priorAuth',
-      lockedUntilLevel: 5,
+      lockedUntilLevel: 8,
       ...PRIOR_AUTH,
       // West door is shared with Main Hub's east locked door — same world
       // tile. Re-declaring it keeps the room self-describing; the builder
@@ -417,7 +417,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     },
     {
       id: 'kitchen',
-      lockedUntilLevel: 9,
+      lockedUntilLevel: 8,
       ...KITCHEN,
       // North door at offset 3 → world (5, 13). Opens onto the
       // east-west cross-corridor at y=12.
@@ -434,7 +434,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     },
     {
       id: 'lounge',
-      lockedUntilLevel: 9,
+      lockedUntilLevel: 8,
       ...LOUNGE,
       // North door at offset 3 → world (11, 13).
       doors: [{ side: 'N', offset: 3 }],
@@ -491,7 +491,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     // ===== East wing =====
     {
       id: 'radiology',
-      lockedUntilLevel: 9,
+      lockedUntilLevel: 8,
       ...RADIOLOGY,
       // West door at world y = 15+6 = 21, aligned with the spur corridor
       // running east from Registration's east door.
@@ -513,7 +513,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     },
     {
       id: 'pharmacy',
-      lockedUntilLevel: 12,
+      lockedUntilLevel: 11,
       ...PHARMACY,
       // West door at world y = 27+3 = 30.
       doors: [{ side: 'W', offset: 3 }],
@@ -528,9 +528,9 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     },
     {
       id: 'medRecords',
-      // L9's bundle handoff sends the player here for Sarah Kim's
+      // L5's bundle handoff sends the player here for Sarah Kim's
       // op-note before the Waiting Room descent.
-      lockedUntilLevel: 9,
+      lockedUntilLevel: 5,
       ...MED_RECORDS,
       // West door at world y = 37+5 = 42.
       doors: [{ side: 'W', offset: 5 }],
@@ -613,7 +613,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     // ===== South wing =====
     {
       id: 'him',
-      lockedUntilLevel: 9,
+      lockedUntilLevel: 5,
       ...HIM,
       doors: [{ side: 'N', offset: 7 }],
       // Coding / CDI: monitors, code books, charts.
@@ -629,7 +629,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     },
     {
       id: 'billing',
-      lockedUntilLevel: 13,
+      lockedUntilLevel: 12,
       ...BILLING,
       doors: [{ side: 'N', offset: 7 }],
       // Clearinghouse / claim queue: terminals + scrubber screens.
@@ -645,7 +645,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     },
     {
       id: 'pfs',
-      lockedUntilLevel: 20,
+      lockedUntilLevel: 19,
       ...PFS,
       doors: [{ side: 'N', offset: 8 }],
       // Patient Financial Services: phone bank + paperwork mountain.
@@ -662,7 +662,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     },
     {
       id: 'lab',
-      lockedUntilLevel: 13,
+      lockedUntilLevel: 12,
       ...LAB,
       // North door at offset 4 → world (60, 50). Opens onto the SW
       // trough corridor at y=49 (extended east past PFS to reach
@@ -695,7 +695,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     // ===== Public-event rooms =====
     {
       id: 'auditorium',
-      lockedUntilLevel: 33,
+      lockedUntilLevel: 32,
       ...AUDITORIUM,
       // West door at offset 5 → world (30, 37) — pairs with lobby's
       // east door at (29, 37). They share adjacent wall columns; the
@@ -732,7 +732,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
 
     {
       id: 'lectureHall',
-      lockedUntilLevel: 19,
+      lockedUntilLevel: 18,
       ...LECTURE_HALL,
       // North door at offset 12 → world (68, 58). Pairs with a
       // wraparound corridor that runs east from the SW trough past
@@ -807,7 +807,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
 
     {
       id: 'cancerCenter',
-      lockedUntilLevel: 10,
+      lockedUntilLevel: 9,
       ...CANCER_CENTER,
       // South door at offset 5 → world (56, 14). The room sits on the
       // top edge of the map north of Prior Auth's footprint, so a west
@@ -891,7 +891,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     },
     {
       id: 'audit',
-      lockedUntilLevel: 33,
+      lockedUntilLevel: 32,
       ...AUDIT,
       // North door at offset 22 lines up with the 2F corridor running
       // east-west at y=99. Old (south wing) audit door + corridor stub
@@ -925,7 +925,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     },
     {
       id: 'payer',
-      lockedUntilLevel: 19,
+      lockedUntilLevel: 18,
       ...PAYER,
       // North door at offset 4 onto the 2F corridor.
       doors: [{ side: 'N', offset: 4 }],
@@ -983,7 +983,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     },
     {
       id: 'lounge2F',
-      lockedUntilLevel: 9,
+      lockedUntilLevel: 8,
       ...LOUNGE_2F,
       // North door at offset 4 → world (60, 100). Opens onto the
       // 2F trunk corridor extended east past PAYER.
@@ -1014,7 +1014,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     },
     {
       id: 'compliance',
-      lockedUntilLevel: 32,
+      lockedUntilLevel: 31,
       ...COMPLIANCE,
       // North door at offset 16 onto a vertical stub from the 2F
       // corridor.
@@ -1256,35 +1256,35 @@ export const LEVEL_1_MAP: MapDef = {
     // the audit as the company-wide reckoning it is, rather than
     // a private back-office meeting.
     { npcId: 'dana', tileX: AUDITORIUM.x + 17, tileY: AUDITORIUM.y + 4, facing: 'left',
-      levels: [33] },
+      levels: [32] },
 
     // Kim — Registration counter (L3+, once the room unlocks).
     // Default 'down' so she faces the lobby-side approach.
     { npcId: 'kim', tileX: REGISTRATION.x + 4, tileY: REGISTRATION.y + 2,
-      levels: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
+      levels: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
     // Jordan — Eligibility (L3-19) at the kiosk; PFS (L20+, when
     // PFS room opens) at the desk row. Both spots she's facing
     // right (the F cabinet at eligibility, the water cooler at PFS).
     { npcId: 'jordan', tileX: ELIGIBILITY.x + 5, tileY: ELIGIBILITY.y + 3, facing: 'right',
-      levels: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19] },
+      levels: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18] },
     { npcId: 'jordan', tileX: PFS.x + 6, tileY: PFS.y + 5, facing: 'right',
-      levels: [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
+      levels: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
-    // Pat — Registration (L3-8) faces left toward Kim; HIM (L9+)
-    // default 'down' (sits at the desk row on entry).
+    // Pat — Registration (L3-4) faces left toward Kim; HIM (L5+, the
+    // bundling handoff) default 'down' (sits at the desk row on entry).
     { npcId: 'pat', tileX: REGISTRATION.x + 14, tileY: REGISTRATION.y + 4, facing: 'left',
-      levels: [3, 4, 5, 6, 7, 8] },
+      levels: [3, 4] },
     { npcId: 'pat', tileX: HIM.x + 5, tileY: HIM.y + 5,
-      levels: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
+      levels: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
     // Alex — Main Hub (L1-12) faces right toward Martinez; Billing
     // (L13+, once the room unlocks and Cal clears the corridor)
     // default 'down' at the EDI desk row.
     { npcId: 'alex', tileX: MAIN_HUB.x + 4, tileY: MAIN_HUB.y + 4, facing: 'right',
-      levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
+      levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] },
     { npcId: 'alex', tileX: BILLING.x + 5, tileY: BILLING.y + 5,
-      levels: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
+      levels: [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
     // Sam — Patient Services. Repositioned north of her old desk
     // tile (closer to the door) so Chloe meets her on entry rather
@@ -1294,10 +1294,10 @@ export const LEVEL_1_MAP: MapDef = {
     // L33 audit team — north chair row (AUDIT interior dy=2, world
     // y=102). Default 'down' faces south toward the conference
     // table where Chloe sits.
-    { npcId: 'auditor_carl',   tileX: AUDIT.x + 7,  tileY: AUDIT.y + 2, levels: [33] },
-    { npcId: 'auditor_chen',   tileX: AUDIT.x + 13, tileY: AUDIT.y + 2, levels: [33] },
-    { npcId: 'auditor_rivera', tileX: AUDIT.x + 19, tileY: AUDIT.y + 2, levels: [33] },
-    { npcId: 'auditor_eddi',   tileX: AUDIT.x + 22, tileY: AUDIT.y + 2, levels: [33] },
+    { npcId: 'auditor_carl',   tileX: AUDIT.x + 7,  tileY: AUDIT.y + 2, levels: [32] },
+    { npcId: 'auditor_chen',   tileX: AUDIT.x + 13, tileY: AUDIT.y + 2, levels: [32] },
+    { npcId: 'auditor_rivera', tileX: AUDIT.x + 19, tileY: AUDIT.y + 2, levels: [32] },
+    { npcId: 'auditor_eddi',   tileX: AUDIT.x + 22, tileY: AUDIT.y + 2, levels: [32] },
 
     // === Ambient populace — atmosphere NPCs spread across the
     //     hospital. `ambient: true` bypasses the per-level
@@ -1317,7 +1317,7 @@ export const LEVEL_1_MAP: MapDef = {
     { npcId: 'flower_visitor', tileX: LOBBY.x + 24, tileY: LOBBY.y + 5, facing: 'left', ambient: true },
     // Elder patient gated [1-9] so he falls through to the
     // CANCER_CENTER infusion-bay placement at L10+.
-    { npcId: 'elder_patient',  tileX: LOBBY.x + 5,  tileY: LOBBY.y + 3, ambient: true, levels: [1, 2, 3, 4, 5, 6, 7, 8, 9] },
+    { npcId: 'elder_patient',  tileX: LOBBY.x + 5,  tileY: LOBBY.y + 3, ambient: true, levels: [1, 2, 3, 4, 5, 6, 7, 8] },
 
     // PFS — Dev faces 'left' toward the water cooler at PFS dy=5
     // dx=9 (one tile west + one tile south of him).
@@ -1328,7 +1328,7 @@ export const LEVEL_1_MAP: MapDef = {
     { npcId: 'dr_priya', tileX: 31, tileY: 5, facing: 'down', ambient: true },
     // Ethan still looks left toward the physician cluster
     // (mid-conversation about a discharge).
-    { npcId: 'dr_ethan', tileX: MAIN_HUB.x + 14, tileY: MAIN_HUB.y + 8, facing: 'left', ambient: true, levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18] },
+    { npcId: 'dr_ethan', tileX: MAIN_HUB.x + 14, tileY: MAIN_HUB.y + 8, facing: 'left', ambient: true, levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17] },
 
     // East wing.
     //  - Rad tech faces 'right' toward the H (hospital bed) on the
@@ -1354,9 +1354,9 @@ export const LEVEL_1_MAP: MapDef = {
     // payer_rep — payer office opens at L19, lives there through
     // the end. (No L33 auditorium fork in the 33-level remap —
     // the boss room is full enough with Dana + the auditors.)
-    { npcId: 'payer_rep',          tileX: PAYER.x + 5,      tileY: PAYER.y + 3,      facing: 'right', ambient: true, levels: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
+    { npcId: 'payer_rep',          tileX: PAYER.x + 5,      tileY: PAYER.y + 3,      facing: 'right', ambient: true, levels: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
     { npcId: 'payer_supervisor',   tileX: PAYER.x + 12,     tileY: PAYER.y + 3,      facing: 'left',  ambient: true },
-    { npcId: 'compliance_officer', tileX: 41, tileY: 118, facing: 'right', ambient: true, levels: [32, 33] },
+    { npcId: 'compliance_officer', tileX: 41, tileY: 118, facing: 'right', ambient: true, levels: [31, 32] },
 
     // Outdoor — parking lot ambient. Smoker NPCs are *outdoor-only*
     // by design (cigarette is part of the sprite); placing them
@@ -1410,26 +1410,26 @@ export const LEVEL_1_MAP: MapDef = {
 
     // Cancer Center — oncology nurse + an infusion-bay patient.
     // Unlocks at L10 (Lighthouse).
-    { npcId: 'liana',         tileX: CANCER_CENTER.x + 14, tileY: CANCER_CENTER.y + 5,  facing: 'down',  ambient: true, levels: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
-    { npcId: 'elder_patient', tileX: CANCER_CENTER.x + 5,  tileY: CANCER_CENTER.y + 1,  facing: 'down',  ambient: true, levels: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
+    { npcId: 'liana',         tileX: CANCER_CENTER.x + 14, tileY: CANCER_CENTER.y + 5,  facing: 'down',  ambient: true, levels: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
+    { npcId: 'elder_patient', tileX: CANCER_CENTER.x + 5,  tileY: CANCER_CENTER.y + 1,  facing: 'down',  ambient: true, levels: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
     // Lecture Hall — attendee seated mid-audience.
     // Unlocks at L19 (Reaper).
-    { npcId: 'dr_ethan',      tileX: LECTURE_HALL.x + 14,  tileY: LECTURE_HALL.y + 5,   facing: 'down',  ambient: true, levels: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
+    { npcId: 'dr_ethan',      tileX: LECTURE_HALL.x + 14,  tileY: LECTURE_HALL.y + 5,   facing: 'down',  ambient: true, levels: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
     // Auditorium — only opens at L33 (boss). dr_park joins Dana on
     // stage; the auditors take the chairs (see AUDIT placements
     // above). compliance_officer + payer_rep are NOT in the
     // auditorium in the 33-level shape — they stay at their
     // primary stations.
-    { npcId: 'dr_park',            tileX: AUDITORIUM.x + 5,  tileY: AUDITORIUM.y + 3, facing: 'down', ambient: true, levels: [33] },
+    { npcId: 'dr_park',            tileX: AUDITORIUM.x + 5,  tileY: AUDITORIUM.y + 3, facing: 'down', ambient: true, levels: [32] },
 
     // Prior Auth — staff PA specialist at the desk. Unlocks at L5
     // (Gatekeeper).
-    { npcId: 'martinez',      tileX: 48, tileY: 6, facing: 'left', ambient: true, levels: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
+    { npcId: 'martinez',      tileX: 48, tileY: 6, facing: 'left', ambient: true, levels: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
     // 1F Lounge — break-room ambient. Unlocks at L9.
-    { npcId: 'noah',          tileX: 9, tileY: 15, facing: 'right', ambient: true, levels: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
+    { npcId: 'noah',          tileX: 9, tileY: 15, facing: 'right', ambient: true, levels: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
     // SW-corridor blocker — Cal stands in the south-wing trough
     // corridor (y=49, the east-west run that connects HIM / Billing /
@@ -1439,12 +1439,12 @@ export const LEVEL_1_MAP: MapDef = {
     // Billing. HIM (west of the descent, L9) is reachable from L9
     // onwards regardless.
     { npcId: 'maintenance_worker', tileX: 21, tileY: SW_TROUGH_Y, facing: 'left',
-      ambient: true, levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
+      ambient: true, levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] },
 
     // (Kitchen stays unpopulated — back-of-house is invisible-by-design.)
 
     // Main Hub — extra hospitalist, joins the existing physician
     // crowd. Faces 'right' toward the hub bulletin / colleagues.
-    { npcId: 'dr_park',          tileX: MAIN_HUB.x + 3,  tileY: MAIN_HUB.y + 2, facing: 'right', ambient: true, levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18] },
+    { npcId: 'dr_park',          tileX: MAIN_HUB.x + 3,  tileY: MAIN_HUB.y + 2, facing: 'right', ambient: true, levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17] },
   ],
 }

@@ -438,6 +438,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [
       { text: '(Pull the op-note first.)',
         next: 'pat_l4_chart_hint',
+        effect: { markChartHinted: 'co_97' },
         condition: { chartNotPulled: 'co_97' } },
       { text: '(Sit down and code it.)',
         effect: { triggerDescent: { encounterId: 'co_97' } },
@@ -1617,36 +1618,36 @@ export const DIALOGUES: Record<string, DialogueNode> = {
  *  the right intake tree. Existing dialogues from the 10-level shape
  *  are reused where the case is unchanged (only the level number moved). */
 export const LEVEL_NPC_DIALOGUES: Record<number, Record<string, string>> = {
-  2:  { alex:     'alex_asp_wac_intake' },
-  3:  { kim:      'kim_l2_intake' },             // fog
-  4:  { alex:     'alex_stoploss_intake' },
-  5:  { martinez: 'martinez_gatekeeper_intake', sam: 'sam_l3_intake' }, // gatekeeper
-  6:  { pat:      'pat_form_mirror_intake' },
-  7:  { pat:      'pat_outpatient_surgery_intake' },
-  8:  { jordan:   'jordan_no_show_intake' },
-  9:  { pat:      'pat_l4_intake' },             // bundle
-  10: { jordan:   'jordan_lighthouse_intake' },
-  11: { sam:      'sam_gfe_intake' },
-  12: { sam:      'sam_l5_intake' },             // wraith
-  13: { alex:     'alex_l6_intake' },            // swarm
-  14: { kim:      'kim_l9_intake' },             // doppelganger
-  15: { alex:     'alex_implant_carveout_intake' },
-  16: { kim:      'kim_credentialing_intake' },
-  17: { alex:     'alex_carveout_phantom_intake' },
-  18: { pat:      'pat_cpt_licensure_intake' },
-  19: { sam:      'sam_l7_intake' },             // reaper
-  20: { jordan:   'jordan_l8_intake' },          // surprise-bill
-  21: { alex:     'alex_ob_perdiem_intake' },
-  22: { kim:      'kim_phantom_patient_intake' },
-  23: { pat:      'pat_risk_adj_intake' },
-  24: { alex:     'alex_chemo_bundle_intake' },
-  25: { pat:      'pat_two_midnight_intake' },
-  26: { alex:     'alex_specter_intake' },
-  27: { kim:      'kim_cob_cascade_intake' },
-  28: { alex:     'alex_case_rate_intake' },
-  29: { sam:      'sam_mrf_intake' },
-  30: { sam:      'sam_idr_intake' },
-  31: { alex:     'alex_340b_intake' },
-  32: { sam:      'sam_hipaa_intake' },
-  33: { dana:     'dana_l10_intake' },           // boss
+  2:   { alex:     'alex_asp_wac_intake' },
+  3:   { kim:      'kim_l2_intake' },  // fog
+  4:   { alex:     'alex_stoploss_intake' },
+  5:   { pat:      'pat_l4_intake' },  // bundle
+  6:   { pat:      'pat_outpatient_surgery_intake' },
+  7:   { jordan:   'jordan_no_show_intake' },
+  8:   { martinez: 'martinez_gatekeeper_intake', sam: 'sam_l3_intake' },  // gatekeeper
+  9:   { jordan:   'jordan_lighthouse_intake' },
+  10:  { sam:      'sam_gfe_intake' },
+  11:  { sam:      'sam_l5_intake' },  // wraith
+  12:  { alex:     'alex_l6_intake' },  // swarm
+  13:  { kim:      'kim_l9_intake' },  // doppelganger
+  14:  { alex:     'alex_implant_carveout_intake' },
+  15:  { kim:      'kim_credentialing_intake' },
+  16:  { alex:     'alex_carveout_phantom_intake' },
+  17:  { pat:      'pat_cpt_licensure_intake' },
+  18:  { sam:      'sam_l7_intake' },  // reaper
+  19:  { jordan:   'jordan_l8_intake' },  // surprise-bill
+  20:  { alex:     'alex_ob_perdiem_intake' },
+  21:  { kim:      'kim_phantom_patient_intake' },
+  22:  { pat:      'pat_risk_adj_intake' },
+  23:  { alex:     'alex_chemo_bundle_intake' },
+  24:  { pat:      'pat_two_midnight_intake' },
+  25:  { alex:     'alex_specter_intake' },
+  26:  { kim:      'kim_cob_cascade_intake' },
+  27:  { alex:     'alex_case_rate_intake' },
+  28:  { sam:      'sam_mrf_intake' },
+  29:  { sam:      'sam_idr_intake' },
+  30:  { alex:     'alex_340b_intake' },
+  31:  { sam:      'sam_hipaa_intake' },
+  32:  { dana:     'dana_l10_intake' },  // boss
+
 }

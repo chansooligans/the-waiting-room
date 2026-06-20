@@ -187,6 +187,10 @@ export interface DialogueEffect {
    * ENCOUNTERS[encounterId].prototypeIframeUrl).
    */
   triggerDescent?: { encounterId: string }
+  /** Mark that the quest-giver has directed the player to pull this
+   *  encounter's chart. Drives the mini-map quest chain (NPC → Medical
+   *  Records → NPC) — set when the player accepts the chart errand. */
+  markChartHinted?: string
 }
 
 export interface DialogueNode {
@@ -370,6 +374,19 @@ export interface FormError {
 
 // === Level ===
 
+/** A single waypoint in a level's mini-map quest chain. The mini-map
+ *  highlights the current step and advances as the player completes it.
+ *  - `npc`   — go to a named NPC (resolved to its placed sprite tile).
+ *  - `chart` — go pull an encounter's chart in Medical Records
+ *              (resolved to the MedRecords cabinet); satisfied once the
+ *              chart for `encounterId` has been pulled. */
+export interface QuestStep {
+  kind: 'npc' | 'chart'
+  label: string
+  npcId?: string
+  encounterId?: string
+}
+
 export interface LevelDef {
   id: number
   title: string
@@ -380,6 +397,9 @@ export interface LevelDef {
   encounters: string[]
   cases: string[]
   npcsActive: string[]
+  /** Optional ordered mini-map waypoints for multi-step levels (e.g. the
+   *  L5 bundling retrieval: Pat → Medical Records → Pat). */
+  questChain?: QuestStep[]
   bossEncounter?: string
 }
 
@@ -475,6 +495,10 @@ export interface GameState {
    * DialogueChoice.condition.
    */
   chartsPulled?: Record<string, boolean>
+
+  /** Per-encounter flag: the quest-giver has pointed the player at the
+   *  chart (the middle step of a mini-map quest chain). */
+  chartsHinted?: Record<string, boolean>
 
   /**
    * DEV ONLY — when true, every room in the hospital map is treated
