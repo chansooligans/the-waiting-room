@@ -59,7 +59,7 @@ const prototypes: Prototype[] = [
   {
     id: 'wraith',
     title: 'Medical Necessity Wraith',
-    subtitle: '@ L4 — first-sketch prototype',
+    subtitle: '@ L4',
     archetype: 'Wraith',
     carc: 'CO-50',
     targetLevel: 4,
