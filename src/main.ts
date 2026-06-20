@@ -48,6 +48,23 @@ const config: Phaser.Types.Core.GameConfig = {
 const game = new Phaser.Game(config)
 ;(window as any).__PHASER_GAME__ = game
 
+// iOS: declare a "playback" audio session so the game's sound ignores
+// the hardware ring/silent switch. Phaser plays through the Web Audio
+// API, which iOS silences in silent mode by default (unlike <video> /
+// <audio> media, which is why other web content still plays). Setting
+// navigator.audioSession.type = 'playback' opts into the media-playback
+// category that plays through the switch. Supported on iOS 16.4+ (all
+// iOS browsers are WebKit); a guarded no-op everywhere else. Re-assert
+// on each unlock gesture since the session can reset when the
+// AudioContext is (re)created.
+const setPlaybackAudioSession = () => {
+  const session = (navigator as unknown as { audioSession?: { type?: string } }).audioSession
+  if (session && session.type !== 'playback') {
+    try { session.type = 'playback' } catch { /* unsupported value — ignore */ }
+  }
+}
+setPlaybackAudioSession()
+
 // Mobile audio unlock. iOS Safari and Android Chrome create the
 // AudioContext in `suspended` state until a user gesture. Phaser
 // has its own unlock, but it can miss taps on DOM overlays
@@ -64,6 +81,7 @@ const unlockAudio = () => {
   }
   const ctx = sm.context
   const finish = () => {
+    setPlaybackAudioSession()
     if (sm.locked) {
       sm.locked = false
       if (typeof sm.unlock === 'function') sm.unlock()
