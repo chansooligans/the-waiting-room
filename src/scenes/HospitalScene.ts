@@ -373,6 +373,13 @@ export class HospitalScene extends Phaser.Scene {
     try { this.enterRoomAt(this.playerTileX, this.playerTileY) } catch (e) { debugEvent('hosp:enterRoom-err ' + (e as Error).message?.slice(0,40)) }
     debugEvent('hosp:after-enterRoom')
 
+    // Report how many tile sprites the lazy fog build actually
+    // materialized vs the full-map total — the lever for entry time and
+    // resident object count. Previously this was always width×height.
+    let built = 0
+    for (const row of this.tileFloorSprites) for (const s of row) if (s) built++
+    debugEvent(`hosp:tiles-built ${built}/${this.mapDef.width * this.mapDef.height}`)
+
     this.events.on('resume', () => {
       // Always re-enable movement first — interact() set canMove=false
       // when it launched the dialogue, and descendThroughGap below
@@ -575,7 +582,7 @@ export class HospitalScene extends Phaser.Scene {
   }
 
   private buildMap() {
-    const { width: mw, height: mh, layout } = this.mapDef
+    const { width: mw, height: mh } = this.mapDef
 
     this.tileFloorSprites = Array.from({ length: mh }, () => new Array(mw))
     this.tileObjSprites = Array.from({ length: mh }, () => new Array(mw).fill(null))
@@ -597,55 +604,76 @@ export class HospitalScene extends Phaser.Scene {
       this.tileVisState = Array.from({ length: mh }, () => new Array(mw).fill(VIS_HIDDEN))
     }
 
-    for (let y = 0; y < mh; y++) {
-      const row = layout[y] || ''
-      for (let x = 0; x < mw; x++) {
-        const ch = row[x] || '.'
-        const px = x * TILE + TILE / 2
-        const py = y * TILE + TILE / 2
-        const tileDef = TILE_TEXTURES[ch] || TILE_TEXTURES['.']
-
-        const floor = this.add.image(px, py, tileDef.floor).setAlpha(0)
-        // setDisplaySize handles both 16×16 procedural and any future
-        // higher-res floor PNGs (which would land at 64×64). Replaces
-        // the prior setScale(2) which only worked for 16-px source.
-        floor.setDisplaySize(TILE, TILE)
-        if (tileDef.floorTint !== undefined) floor.setTint(tileDef.floorTint)
-        this.tileFloorSprites[y][x] = floor
-
-        // Per-tile overrides — `tileMeta` is built by mapBuilder from
-        // RoomItem fields, or produced by /map-editor.html and
-        // pasted in by hand. Drives sprite swap, size multiplier,
-        // and horizontal flip. A tile renders an obj when EITHER
-        // the glyph has a default `tileDef.obj` OR `meta.sprite`
-        // is set — letting authors place inactive (no-glyph) textures
-        // directly via the editor.
-        const meta = this.mapDef.tileMeta?.[`${x},${y}`]
-        const objKey = meta?.sprite ?? tileDef.obj
-        if (objKey) {
-          // Objects render bottom-anchored at the tile's bottom edge.
-          // Base size is `TILE * OBJECT_DISPLAY_MULT`; `meta.size`
-          // scales further per-tile if a layout wants a hero piece.
-          const sizeMult = meta?.size ?? 1
-          const dispSize = TILE * OBJECT_DISPLAY_MULT * sizeMult
-          const objY = (y + 1) * TILE
-          const obj = this.add.image(px, objY, objKey)
-            .setOrigin(0.5, 1).setDepth(2).setAlpha(0)
-          obj.setDisplaySize(dispSize, dispSize)
-          // Default tint applies only when the renderer is using the
-          // glyph's default obj. If the user overrode the sprite via
-          // tileMeta, the tint (which was tuned for the default art)
-          // would be wrong, so leave the override sprite untinted.
-          if (!meta?.sprite && tileDef.objTint !== undefined) {
-            obj.setTint(tileDef.objTint)
-          }
-          if (meta?.flipX) obj.setFlipX(true)
-          this.tileObjSprites[y][x] = obj
-        }
-      }
-    }
-
     this.computeRooms()
+
+    // Materialize the tiles the player has already seen (restored from
+    // the fog cache) up front. Fog-hidden tiles render at alpha 0 and
+    // are built lazily by `ensureTileSprite` the first time they're
+    // revealed — see the perf note on that method. On a fresh game this
+    // creates zero sprites; on a return trip, only the explored rooms.
+    this.applyTileVisibility()
+  }
+
+  /**
+   * Lazily instantiate the floor (and optional object) sprite for a
+   * single tile. Idempotent — returns immediately if the tile is
+   * already built.
+   *
+   * Perf: the Hospital map is 80×130 = 10,400 tiles. Building every
+   * tile as its own `Image` at map-load cost ~10k object allocations on
+   * the main thread every time the scene was entered — the visible hitch
+   * on entry (desktop + mobile) and the bulk of the resident object
+   * count that pushed mobile WebGL over its limit during the
+   * Hospital→Waiting Room handoff. Fog-of-war hides unexplored tiles at
+   * alpha 0, so an unseen tile contributes nothing visually; we defer
+   * its creation until it's first revealed. Reveal happens a whole room
+   * at a time via `applyTileVisibility`, which iterates y-then-x and so
+   * preserves the original insertion (draw) order within each room.
+   */
+  private ensureTileSprite(x: number, y: number) {
+    if (this.tileFloorSprites[y]?.[x]) return
+    const ch = this.mapDef.layout[y]?.[x] || '.'
+    const px = x * TILE + TILE / 2
+    const py = y * TILE + TILE / 2
+    const tileDef = TILE_TEXTURES[ch] || TILE_TEXTURES['.']
+
+    const floor = this.add.image(px, py, tileDef.floor).setAlpha(0)
+    // setDisplaySize handles both 16×16 procedural and any future
+    // higher-res floor PNGs (which would land at 64×64). Replaces
+    // the prior setScale(2) which only worked for 16-px source.
+    floor.setDisplaySize(TILE, TILE)
+    if (tileDef.floorTint !== undefined) floor.setTint(tileDef.floorTint)
+    this.tileFloorSprites[y][x] = floor
+
+    // Per-tile overrides — `tileMeta` is built by mapBuilder from
+    // RoomItem fields, or produced by /map-editor.html and
+    // pasted in by hand. Drives sprite swap, size multiplier,
+    // and horizontal flip. A tile renders an obj when EITHER
+    // the glyph has a default `tileDef.obj` OR `meta.sprite`
+    // is set — letting authors place inactive (no-glyph) textures
+    // directly via the editor.
+    const meta = this.mapDef.tileMeta?.[`${x},${y}`]
+    const objKey = meta?.sprite ?? tileDef.obj
+    if (objKey) {
+      // Objects render bottom-anchored at the tile's bottom edge.
+      // Base size is `TILE * OBJECT_DISPLAY_MULT`; `meta.size`
+      // scales further per-tile if a layout wants a hero piece.
+      const sizeMult = meta?.size ?? 1
+      const dispSize = TILE * OBJECT_DISPLAY_MULT * sizeMult
+      const objY = (y + 1) * TILE
+      const obj = this.add.image(px, objY, objKey)
+        .setOrigin(0.5, 1).setDepth(2).setAlpha(0)
+      obj.setDisplaySize(dispSize, dispSize)
+      // Default tint applies only when the renderer is using the
+      // glyph's default obj. If the user overrode the sprite via
+      // tileMeta, the tint (which was tuned for the default art)
+      // would be wrong, so leave the override sprite untinted.
+      if (!meta?.sprite && tileDef.objTint !== undefined) {
+        obj.setTint(tileDef.objTint)
+      }
+      if (meta?.flipX) obj.setFlipX(true)
+      this.tileObjSprites[y][x] = obj
+    }
   }
 
   private computeRooms() {
@@ -1791,7 +1819,18 @@ export class HospitalScene extends Phaser.Scene {
     const { width: mw, height: mh } = this.mapDef
     for (let y = 0; y < mh; y++) {
       for (let x = 0; x < mw; x++) {
-        const a = ALPHA_FOR_STATE[this.tileVisState[y][x]]
+        const state = this.tileVisState[y][x]
+        if (state === VIS_HIDDEN) {
+          // Hidden tiles are invisible and built lazily, so there's
+          // normally no sprite to touch. Guard for the (currently
+          // unused) case of a tile that was built then re-hidden.
+          this.tileFloorSprites[y]?.[x]?.setAlpha(0)
+          this.tileObjSprites[y]?.[x]?.setAlpha(0)
+          continue
+        }
+        // A visible tile must have a sprite — build it on first reveal.
+        this.ensureTileSprite(x, y)
+        const a = ALPHA_FOR_STATE[state]
         this.tileFloorSprites[y][x].setAlpha(a)
         const obj = this.tileObjSprites[y][x]
         if (obj) obj.setAlpha(a)
