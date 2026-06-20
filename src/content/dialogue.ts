@@ -104,22 +104,22 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   martinez_intro: {
     id: 'martinez_intro',
     speaker: 'Dr. Martinez',
-    text: "I don't have time for this. I saved a patient's life this morning and now you want to talk about paperwork?",
+    text: "The documentation says what I did. I've been writing that note for twelve years. Now it needs seventeen more characters or the claim bounces?",
     next: 'martinez_intro_2',
   },
   martinez_intro_2: {
     id: 'martinez_intro_2',
     speaker: 'Dr. Martinez',
-    text: "The documentation says what I did. Isn't that enough?",
+    text: "I'm not wrong about the clinical picture. So tell me exactly where the problem is.",
     choices: [
       { text: "The payer says the diagnosis doesn't support the procedure.", next: 'martinez_denial' },
-      { text: "Your note is great clinically. But the codes need to match.", next: 'martinez_codes' },
+      { text: "The codes need to match the clinical picture exactly — ICD-10 specificity matters.", next: 'martinez_codes' },
     ],
   },
   martinez_denial: {
     id: 'martinez_denial',
     speaker: 'Dr. Martinez',
-    text: "Then the payer is wrong! ... Fine. What do they need?",
+    text: "Which diagnosis? I coded what was in the room. If they want more specificity, that's a CDI conversation — not a clinical mistake.",
     choices: [
       { text: "A CDI query can bridge the gap. I'll work it.", effect: { unlockCodex: 'cdi' } },
     ],
@@ -127,9 +127,9 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   martinez_codes: {
     id: 'martinez_codes',
     speaker: 'Dr. Martinez',
-    text: "I'm a doctor, not a coder. But... I see your point. The note should support the code, and the code should support the claim.",
+    text: "Fine. What does the note need to say that it doesn't already say? And for the record — the clinical picture was clear.",
     choices: [
-      { text: "Exactly. I'll go take a look at the queue.", effect: { unlockCodex: 'icd10_cm' } },
+      { text: "Exactly. Let me pull up the CDI queue.", effect: { unlockCodex: 'icd10_cm' } },
     ],
   },
 
