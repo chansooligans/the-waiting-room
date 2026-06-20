@@ -226,6 +226,7 @@ function render(): string {
     ${renderHeader()}
     ${renderHospitalIntro()}
     ${!state.briefingDone ? renderBriefingInline() : `
+      ${renderStepGuide()}
       ${renderClaim()}
       ${renderRequestStation()}
       ${renderResponsePanel()}
@@ -360,6 +361,47 @@ function renderBriefingPopover(): string {
         <button class="btn ghost" data-action="close-briefing">Back to the encounter</button>
       </div>
     </div>
+  `
+}
+
+/** A single "what to do now, and where" banner at the top of the
+ *  workbench. The encounter has a strict two-phase order (file the 278 →
+ *  transcribe the auth) spread across several panels; without an anchor,
+ *  the player lands on the claim — which isn't actionable yet — and has
+ *  to hunt for the real first move. This names the current step, points
+ *  at the panel that holds it, and tracks progress 1 → 2. */
+function renderStepGuide(): string {
+  const approved = state.response?.status === 'approved'
+  const transcribed = state.resolvedIssues.has('auth-transcribe')
+
+  let title: string
+  let detail: string
+  if (transcribed) {
+    title = 'Both steps done — resubmit the claim'
+    detail = 'Box 23 now carries the auth number. Hit RESUBMIT CLAIM at the bottom to clear the denial.'
+  } else if (approved) {
+    title = 'Step 2 of 2 — Transcribe the auth onto Box 23'
+    detail = "UHC returned an auth number in the response panel. Use the mint callout beside the claim (top) to write it onto Box 23."
+  } else if (state.filing) {
+    title = 'Step 1 of 2 — 278 in transit…'
+    detail = "Waiting on UHC's response. The auth number comes back in the response panel — then Step 2 unlocks."
+  } else {
+    title = 'Step 1 of 2 — File the 278'
+    detail = "Start in the 278 panel below: pick the clinical rationale that matches the chart, then file. UHC returns the auth number."
+  }
+
+  return `
+    <section class="step-guide">
+      <div class="step-guide-body">
+        <div class="step-guide-title">${title}</div>
+        <div class="step-guide-detail">${detail}</div>
+      </div>
+      <div class="step-guide-track" aria-hidden="true">
+        <span class="sg-dot ${approved || transcribed ? 'done' : 'active'}">1</span>
+        <span class="sg-bar ${approved || transcribed ? 'done' : ''}"></span>
+        <span class="sg-dot ${transcribed ? 'done' : (approved ? 'active' : '')}">2</span>
+      </div>
+    </section>
   `
 }
 
@@ -892,6 +934,30 @@ function handleClick(e: MouseEvent) {
 // Gatekeeper-specific CSS — request station, response panel, Box-23 amend.
 // Base styles via BASE_CSS.
 const css = districtVars('eligibility') + BASE_CSS + `
+  /* Current-step guide — a single anchor at the top of the workbench
+     that answers "what do I do now, and where," so the player isn't
+     hunting across panels for the first move. */
+  .step-guide {
+    display: flex; align-items: center; gap: 18px;
+    background: linear-gradient(180deg, rgba(126, 226, 193, 0.10), rgba(126, 226, 193, 0.03));
+    border: 1px solid var(--accent); border-left: 4px solid var(--accent);
+    border-radius: 8px; padding: 14px 18px; margin-bottom: 20px;
+  }
+  .step-guide-body { flex: 1 1 auto; }
+  .step-guide-title { font-weight: 700; font-size: 14px; color: var(--accent); letter-spacing: 0.02em; }
+  .step-guide-detail { font-size: 12.5px; color: var(--ink); margin-top: 4px; line-height: 1.5; }
+  .step-guide-track { display: flex; align-items: center; gap: 7px; flex: 0 0 auto; }
+  .sg-dot {
+    width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+    font-size: 11px; font-weight: 800; color: var(--ink-dim);
+    background: var(--panel-2); border: 1px solid #2a3142;
+  }
+  .sg-dot.active { color: #0e1116; background: var(--accent); border-color: var(--accent); }
+  .sg-dot.done { color: var(--good); background: rgba(126, 226, 193, 0.15); border-color: var(--good); }
+  .sg-bar { width: 26px; height: 2px; background: #2a3142; border-radius: 2px; }
+  .sg-bar.done { background: var(--good); }
+  @media (max-width: 880px) { .step-guide-track { display: none; } }
+
   /* Larger annotation column — Gatekeeper's amend callout aligns with
      Box 23 (further down the form). */
   .claim-annotations { width: 240px; padding-top: 280px; }
