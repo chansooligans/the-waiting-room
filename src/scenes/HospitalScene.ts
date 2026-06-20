@@ -644,6 +644,16 @@ export class HospitalScene extends Phaser.Scene {
     floor.setDisplaySize(TILE, TILE)
     if (tileDef.floorTint !== undefined) floor.setTint(tileDef.floorTint)
     this.tileFloorSprites[y][x] = floor
+    // Keep tiles revealed after create out of the minimap's UI camera.
+    // buildMiniMap() tells uiCamera to ignore a one-time snapshot of the
+    // display list taken at create; tiles built later on room reveal
+    // aren't in that snapshot, so without this the UI camera (which
+    // doesn't scroll) renders them a second time at an un-scrolled
+    // position — a doubled "ghost" hallway. Mirrors the same guard
+    // placeNPCs uses for late-placed NPCs. uiCamera doesn't exist yet
+    // during the create-time buildMap pass; those tiles are covered by
+    // the snapshot instead, so the guard is correct in both phases.
+    if (this.uiCamera) this.uiCamera.ignore(floor)
 
     // Per-tile overrides — `tileMeta` is built by mapBuilder from
     // RoomItem fields, or produced by /map-editor.html and
@@ -683,6 +693,7 @@ export class HospitalScene extends Phaser.Scene {
       }
       if (meta?.flipX) obj.setFlipX(true)
       this.tileObjSprites[y][x] = obj
+      if (this.uiCamera) this.uiCamera.ignore(obj)
     }
   }
 
