@@ -1127,7 +1127,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L8 — Jordan, No-Show Bill (release-valve)
+  // L7 — Jordan, No-Show Bill (release-valve)
   jordan_no_show_intake: {
     id: 'jordan_no_show_intake',
     speaker: 'Jordan',
@@ -1151,7 +1151,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L10 — Jordan, Lighthouse (charity)
+  // L9 — Jordan, Lighthouse (charity)
   jordan_lighthouse_intake: {
     id: 'jordan_lighthouse_intake',
     speaker: 'Jordan',
@@ -1175,7 +1175,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L11 — Sam, GFE Oracle
+  // L10 — Sam, GFE Oracle
   sam_gfe_intake: {
     id: 'sam_gfe_intake',
     speaker: 'Sam',
@@ -1199,7 +1199,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L15 — Alex, Implant Carve-Out
+  // L14 — Alex, Implant Carve-Out
   alex_implant_carveout_intake: {
     id: 'alex_implant_carveout_intake',
     speaker: 'Alex',
@@ -1223,7 +1223,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L16 — Kim, Credentialing Lattice
+  // L15 — Kim, Credentialing Lattice
   kim_credentialing_intake: {
     id: 'kim_credentialing_intake',
     speaker: 'Kim',
@@ -1247,7 +1247,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L17 — Alex, Carve-Out Phantom (NSA carve-out)
+  // L16 — Alex, Carve-Out Phantom (NSA carve-out)
   alex_carveout_phantom_intake: {
     id: 'alex_carveout_phantom_intake',
     speaker: 'Alex',
@@ -1271,7 +1271,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L18 — Pat, CPT Licensure Mire
+  // L17 — Pat, CPT Licensure Mire
   pat_cpt_licensure_intake: {
     id: 'pat_cpt_licensure_intake',
     speaker: 'Pat',
@@ -1295,7 +1295,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L21 — Alex, OB Per-Diem Specter
+  // L20 — Alex, OB Per-Diem Specter
   alex_ob_perdiem_intake: {
     id: 'alex_ob_perdiem_intake',
     speaker: 'Alex',
@@ -1319,7 +1319,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L22 — Kim, Phantom Patient
+  // L21 — Kim, Phantom Patient
   kim_phantom_patient_intake: {
     id: 'kim_phantom_patient_intake',
     speaker: 'Kim',
@@ -1343,7 +1343,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L23 — Pat, Risk Adjustment Hollow
+  // L22 — Pat, Risk Adjustment Hollow
   pat_risk_adj_intake: {
     id: 'pat_risk_adj_intake',
     speaker: 'Pat',
@@ -1367,7 +1367,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L24 — Alex, Chemo Bundle Specter
+  // L23 — Alex, Chemo Bundle Specter
   alex_chemo_bundle_intake: {
     id: 'alex_chemo_bundle_intake',
     speaker: 'Alex',
@@ -1391,7 +1391,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L25 — Pat, Two-Midnight Mire
+  // L24 — Pat, Two-Midnight Mire
   pat_two_midnight_intake: {
     id: 'pat_two_midnight_intake',
     speaker: 'Pat',
@@ -1415,7 +1415,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L26 — Alex, Underpayment Specter
+  // L25 — Alex, Underpayment Specter
   alex_specter_intake: {
     id: 'alex_specter_intake',
     speaker: 'Alex',
@@ -1439,7 +1439,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L27 — Kim, COB Cascade Spider
+  // L26 — Kim, COB Cascade Spider
   kim_cob_cascade_intake: {
     id: 'kim_cob_cascade_intake',
     speaker: 'Kim',
@@ -1463,7 +1463,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L28 — Alex, Case-Rate Specter
+  // L27 — Alex, Case-Rate Specter
   alex_case_rate_intake: {
     id: 'alex_case_rate_intake',
     speaker: 'Alex',
@@ -1487,7 +1487,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L29 — Sam, MRF Cartographer
+  // L28 — Sam, MRF Cartographer
   sam_mrf_intake: {
     id: 'sam_mrf_intake',
     speaker: 'Sam',
@@ -1511,7 +1511,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L30 — Sam, IDR Crucible
+  // L29 — Sam, IDR Crucible
   sam_idr_intake: {
     id: 'sam_idr_intake',
     speaker: 'Sam',
@@ -1535,7 +1535,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L31 — Alex, 340B Specter
+  // L30 — Alex, 340B Specter
   alex_340b_intake: {
     id: 'alex_340b_intake',
     speaker: 'Alex',
@@ -1559,7 +1559,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L32 — Sam, HIPAA Spider
+  // L31 — Sam, HIPAA Spider
   sam_hipaa_intake: {
     id: 'sam_hipaa_intake',
     speaker: 'Sam',
