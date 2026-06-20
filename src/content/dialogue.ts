@@ -1103,31 +1103,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
-  // L6 — Pat, Form Mirror
-  pat_form_mirror_intake: {
-    id: 'pat_form_mirror_intake',
-    speaker: 'Pat',
-    text: "Coding flagged a form question. Same service, two different bill types — CMS-1500 or UB-04 depending on who's billing. Want to settle it?",
-    next: 'pat_form_mirror_intake_2',
-  },
-  pat_form_mirror_intake_2: {
-    id: 'pat_form_mirror_intake_2',
-    speaker: 'Pat',
-    text: "Routing question, mostly. If we pick wrong, the claim lands in the wrong adjudication path.",
-    choices: [
-      { text: '(Open the file.)',
-        effect: { triggerDescent: { encounterId: 'catalog_form_mirror' } } },
-      { text: 'I\'ll come back.', next: 'pat_form_mirror_intake_back' },
-    ],
-  },
-  pat_form_mirror_intake_back: {
-    id: 'pat_form_mirror_intake_back',
-    speaker: 'Pat',
-    text: "Fine. I'll keep the chart out.",
-    choices: [{ text: '(Step away.)' }],
-  },
-
-  // L7 — Pat, Outpatient Surgery Grouper
+  // Pat, Outpatient Surgery Grouper (L6)
   pat_outpatient_surgery_intake: {
     id: 'pat_outpatient_surgery_intake',
     speaker: 'Pat',
