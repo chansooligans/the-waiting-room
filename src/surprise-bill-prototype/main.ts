@@ -1,4 +1,4 @@
-// Surprise Bill Specter @ L8.
+// Surprise Bill Specter @ L19.
 //
 // Companion to Lighthouse — also L8 / patient-facing — but a
 // different shape entirely. Lighthouse is the kindness; this
@@ -293,7 +293,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Surprise Bill Specter <span class="muted">@ L8</span></h1>
+        <h1>Surprise Bill Specter <span class="muted">@ L19</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./">← back to game</a>

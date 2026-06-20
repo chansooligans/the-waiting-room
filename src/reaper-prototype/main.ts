@@ -1,4 +1,4 @@
-// Reaper @ L7 (CO-29).
+// Reaper @ L18 (CO-29).
 //
 // Sibling to wraith-prototype + bundle-prototype. Same shape
 // (Hospital intro → dreamlike fall → Waiting Room → claim form +
@@ -300,7 +300,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Reaper <span class="muted">@ L7</span></h1>
+        <h1>Reaper <span class="muted">@ L18</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./">← back to game</a>

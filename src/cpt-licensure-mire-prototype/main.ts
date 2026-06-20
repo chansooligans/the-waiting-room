@@ -1,4 +1,4 @@
-// CPT Licensure Mire @ L6 — meta-Case on the AMA's CPT licensing
+// CPT Licensure Mire @ L17 — meta-Case on the AMA's CPT licensing
 // system. First Case where the puzzle pushes against the system
 // rather than working within it: the AMA holds the copyright on
 // CPT codes, charges hospitals to use them, and CMS requires CPT
@@ -279,7 +279,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>CPT Licensure Mire <span class="muted">@ L6 — first sketch (meta-Case)</span></h1>
+        <h1>CPT Licensure Mire <span class="muted">@ L17 — first sketch (meta-Case)</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./prototypes.html">← back to catalog</a>

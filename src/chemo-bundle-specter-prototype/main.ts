@@ -1,4 +1,4 @@
-// Chemo Bundle Specter @ L6 — UnitedHealthcare chemo bundling Case.
+// Chemo Bundle Specter @ L23 — UnitedHealthcare chemo bundling Case.
 //
 // First Case where the bug isn't on the claim — it's upstream in
 // the chargemaster. Hard-coding (CDM auto-mapping of charges to
@@ -348,7 +348,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Chemo Bundle Specter <span class="muted">@ L6 — UHC chemo bundling (chargemaster fix)</span></h1>
+        <h1>Chemo Bundle Specter <span class="muted">@ L23 — UHC chemo bundling (chargemaster fix)</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./prototypes.html">← back to catalog</a>

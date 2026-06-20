@@ -1,4 +1,4 @@
-// Bundle @ L4 (CO-97).
+// Bundle @ L5 (CO-97).
 //
 // Sibling to wraith-prototype. Same shape (Hospital intro →
 // dreamlike fall → Waiting Room → claim form + workbench + builder),
@@ -258,7 +258,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Bundle <span class="muted">@ L4</span></h1>
+        <h1>Bundle <span class="muted">@ L5</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./">← back to game</a>

@@ -1,4 +1,4 @@
-// Case Rate Specter @ L7 — pricing-methodology sibling to the Specter.
+// Case Rate Specter @ L27 — pricing-methodology sibling to the Specter.
 //
 // Same district (billing). Same dragon (underpayment hidden behind a
 // CO-45 contractual adjustment). Different teeth: the underpayment
@@ -322,7 +322,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Case Rate Specter <span class="muted">@ L7 — pricing-methodology sibling</span></h1>
+        <h1>Case Rate Specter <span class="muted">@ L27 — pricing-methodology sibling</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./prototypes.html">← back to catalog</a>

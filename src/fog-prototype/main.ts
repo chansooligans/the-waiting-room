@@ -1,4 +1,4 @@
-// Fog @ L2 (eligibility / pre-submission).
+// Fog @ L3 (eligibility / pre-submission).
 //
 // Sibling to wraith / bundle / reaper / gatekeeper. Same shape
 // (Hospital intro → dreamlike fall → Waiting Room → claim form
@@ -238,7 +238,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Fog <span class="muted">@ L2</span></h1>
+        <h1>Fog <span class="muted">@ L3</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./">← back to game</a>

@@ -30,7 +30,7 @@ prototypes settle. Detailed history in `git log`.
 - [x] Battle dispatch (`MechanicController`): simple, investigation, timed
 - [x] `ClaimSheet` panel — realistic CMS-1500 with disputed boxes + payer note
 - [x] 12 tools, 12 encounters, 5 PatientCases, 7 NPCs, 22 codex entries
-- [x] **Twelve encounter-redesign prototypes** spanning L2 → L10 — see Prototype catalog below
+- [x] **Twelve encounter-redesign prototypes** spanning L3 → L32 — see Prototype catalog below
 - [x] Shared design system in `src/shared/prototype-base.ts` — four district colors + release-valve fifth, BASE_CSS, escape helper
 
 ### What's NOT Done
@@ -98,18 +98,18 @@ title is "Case Prototypes").
 
 | Level | Prototype           | District       | Verb-space                       |
 |-------|---------------------|----------------|----------------------------------|
-| L2    | Fog                 | Eligibility    | REVEAL → AMEND                   |
-| L2    | Swarm               | Eligibility    | BATCH + sweep + patch upstream   |
-| L3    | Gatekeeper          | Eligibility    | REQUEST → AMEND                  |
-| L4    | Wraith              | Coding         | CITE-dominant + AMEND            |
-| L4    | Bundle              | Coding         | AMEND-dominant + CITE            |
-| L6    | Doppelgänger        | Billing        | REPLACE + CONFIRM                |
-| L7    | Reaper              | Appeals        | TIME PRESSURE + CITE + AMEND     |
-| L7    | Specter             | Billing        | VARIANCE + APPEAL                |
-| L8    | Lighthouse          | Release valve  | LISTEN + SCREEN + RELEASE        |
-| L8    | Surprise Bill       | Billing        | CLASSIFY + CALCULATE + DISPUTE   |
-| L9    | Hydra               | Billing        | SEQUENCE + SUBMIT × 3            |
-| L10   | Audit Boss          | Appeals        | RECEIPT + AMEND                  |
+| L3    | Fog                 | Eligibility    | REVEAL → AMEND                   |
+| L5    | Bundle              | Coding         | AMEND-dominant + CITE            |
+| L8    | Gatekeeper          | Eligibility    | REQUEST → AMEND                  |
+| L9    | Lighthouse          | Release valve  | LISTEN + SCREEN + RELEASE        |
+| L11   | Wraith              | Coding         | CITE-dominant + AMEND            |
+| L12   | Swarm               | Eligibility    | BATCH + sweep + patch upstream   |
+| L13   | Doppelgänger        | Billing        | REPLACE + CONFIRM                |
+| L18   | Reaper              | Appeals        | TIME PRESSURE + CITE + AMEND     |
+| L19   | Surprise Bill       | Billing        | CLASSIFY + CALCULATE + DISPUTE   |
+| L25   | Specter             | Billing        | VARIANCE + APPEAL                |
+| L32   | Audit Boss          | Appeals        | RECEIPT + AMEND                  |
+| —     | Hydra               | Billing        | SEQUENCE + SUBMIT × 3 (planned)  |
 
 Each prototype builds its CSS as `districtVars(district) + BASE_CSS + customCss`
 where `BASE_CSS` carries the hospital intro / register flip / briefing /

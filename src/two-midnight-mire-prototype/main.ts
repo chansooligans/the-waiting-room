@@ -1,4 +1,4 @@
-// 2-Midnight Mire @ L8 — Medicare's 2-midnight rule decides
+// 2-Midnight Mire @ L24 — Medicare's 2-midnight rule decides
 // whether a stay pays as inpatient (Part A, DRG-based) or
 // outpatient observation (Part B, OPPS-paid). The revenue
 // impact is large; the audit attention is high (RACs target this
@@ -287,7 +287,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>2-Midnight Mire <span class="muted">@ L8 — RAC finding on a chest-pain admit</span></h1>
+        <h1>2-Midnight Mire <span class="muted">@ L24 — RAC finding on a chest-pain admit</span></h1>
         <div class="header-actions">${recallBtn}<a class="back-link" href="./prototypes.html">← back to catalog</a></div>
       </div>
       ${state.briefingDone ? '' : `

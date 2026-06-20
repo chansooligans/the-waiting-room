@@ -1,4 +1,4 @@
-// No-Show Bill @ L8 — patient-facing release-valve Case. Companion
+// No-Show Bill @ L7 — patient-facing release-valve Case. Companion
 // to Lighthouse's later charity-care beat: not every encounter is a
 // fight. Some are kindness wrapped in process. Patient calls about a $75
 // no-show fee; she did call to cancel; the front desk just never
@@ -238,7 +238,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>No-Show Bill <span class="muted">@ L8 — release valve</span></h1>
+        <h1>No-Show Bill <span class="muted">@ L7 — release valve</span></h1>
         <div class="header-actions">${recallBtn}<a class="back-link" href="./prototypes.html">← back to catalog</a></div>
       </div>
       ${state.briefingDone ? '' : `

@@ -1,4 +1,4 @@
-// MRF Cartographer @ L8 — pricing-transparency Case.
+// MRF Cartographer @ L28 — pricing-transparency Case.
 //
 // First Case where the deliverable is a regulatory file, not a
 // claim packet. Mercy's machine-readable file (MRF) is due for
@@ -364,7 +364,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>MRF Cartographer <span class="muted">@ L8 — first sketch (revised)</span></h1>
+        <h1>MRF Cartographer <span class="muted">@ L28 — first sketch (revised)</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./prototypes.html">← back to catalog</a>

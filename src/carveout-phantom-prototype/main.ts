@@ -1,4 +1,4 @@
-// Carve-out Phantom @ L9 — directly contracted facility, indirect
+// Carve-out Phantom @ L16 — directly contracted facility, indirect
 // physician group. Two bills for one ER visit; the patient never
 // chose the second one and isn't supposed to owe it.
 //
@@ -299,7 +299,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Carve-out Phantom <span class="muted">@ L9 — first sketch</span></h1>
+        <h1>Carve-out Phantom <span class="muted">@ L16 — first sketch</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./prototypes.html">← back to catalog</a>

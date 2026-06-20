@@ -1,4 +1,4 @@
-// Swarm @ L2 (CO-16 / batch rejections).
+// Swarm @ L12 (CO-16 / batch rejections).
 //
 // Sibling to wraith / bundle / reaper / gatekeeper / fog /
 // hydra. Same shape (Hospital intro → dreamlike fall → Waiting
@@ -273,7 +273,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Swarm <span class="muted">@ L2</span></h1>
+        <h1>Swarm <span class="muted">@ L12</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./">← back to game</a>
