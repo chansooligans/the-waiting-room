@@ -388,11 +388,11 @@ function briefingContent(): string {
     </div>
     <div class="briefing-body">
       <p>
-        "Sibling to <a href="./case-rate-specter-prototype.html">Case Rate Specter</a> —
-        same contract, different clause. That one was the outlier
-        provision; this one is the ${term('implant carve-out')}.
-        DRG case rates don't cover $24k of hardware; the
-        appendix carves it out so we don't eat the cost."
+        "The DRG case rate covers the procedure — not the hardware.
+        $24k of spinal implants went in unflagged at billing.
+        The contract appendix carves out implants at invoice +20%
+        above the threshold; the ${term('implant carve-out')} has
+        to be itemized and filed separately."
       </p>
       <p>
         "Three issues:"

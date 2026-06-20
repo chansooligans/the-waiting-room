@@ -253,14 +253,11 @@ function renderHeader(): string {
       </div>
       ${state.briefingDone ? '' : `
         <p class="lede">
-          A fourth prototype, sibling to the
-          <a href="./wraith-prototype.html">Wraith</a>,
-          <a href="./bundle-prototype.html">Bundle</a>, and
-          <a href="./reaper-prototype.html">Reaper</a>. This one
-          is request-dominant: file a 278, wait for the
-          response, transcribe the auth number. A process, not
-          an argument. See the <a href="#design-notes">design
-          notes</a> for what this prototype is testing.
+          Request-dominant: file a 278, wait for the response,
+          transcribe the auth number. A process, not an argument
+          — the payer didn't say no, they said prove you asked.
+          See the <a href="#design-notes">design notes</a>
+          for what this prototype is testing.
         </p>
       `}
     </header>

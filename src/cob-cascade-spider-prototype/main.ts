@@ -295,8 +295,8 @@ function renderHeader(): string {
           Sofia (working 67-year-old) needs ${term('MSP', 'MSP working-aged')};
           Jorge (dual-eligible grandfather) needs the
           ${term('payer of last resort')} rule. Same household
-          policy, completely different cascades. Goes deeper than
-          <a href="./hydra-prototype.html">Hydra</a>. See the
+          policy, completely different cascades. Three COB rules
+          that look identical until you apply them. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}

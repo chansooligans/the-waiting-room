@@ -378,9 +378,7 @@ function renderHeader(): string {
           auto-assigns) or ${term('soft-coded')} (HIM reviews chart),
           then *separately* pick the ${term('rate source')} —
           CDM/fee-schedule or claim history. The axes are
-          correlated but distinct (see also
-          <a href="./chemo-bundle-specter-prototype.html">Chemo Bundle Specter</a>
-          for the chargemaster side of hard-coding). See the
+          correlated but distinct. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}

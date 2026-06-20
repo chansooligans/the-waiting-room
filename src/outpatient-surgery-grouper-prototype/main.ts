@@ -303,10 +303,9 @@ function renderHeader(): string {
           rate was ${money(GROUPER_RATE)}. Variance ${money(VARIANCE)}.
           Looks like a CO-45 contractual write-off. Isn't —
           UHC's grouper didn't fire because the chargemaster dropped
-          the wrong ${term('rev codes', 'revenue code')}. Same
-          chargemaster-fix muscle as
-          <a href="./chemo-bundle-specter-prototype.html">Chemo Bundle Specter</a>,
-          different UHC mechanism. See the
+          the wrong ${term('rev codes', 'revenue code')}. Fix the
+          rev codes, re-submit, collect what the grouper should
+          have paid. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}

@@ -266,12 +266,9 @@ function renderHeader(): string {
       </div>
       ${state.briefingDone ? '' : `
         <p class="lede">
-          A second prototype, sibling to the
-          <a href="./wraith-prototype.html">Wraith</a>. This one
-          is AMEND-dominant: the fix is a missing modifier on
-          Box 24 (not a wrong code on Box 21). Tests whether the
-          action set holds for "quick surgical fix" encounters
-          too. See the <a href="#design-notes">design notes</a>
+          AMEND-dominant: the fix is a missing modifier on Box 24,
+          not a wrong diagnosis code. A clean surgical claim bounced
+          on a technicality. See the <a href="#design-notes">design notes</a>
           for what this prototype is testing.
         </p>
       `}

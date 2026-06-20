@@ -311,9 +311,8 @@ function renderHeader(): string {
           out). She's ${term('self-pay')}; under the
           ${term('NSA')}, Mercy owes her a
           ${term('GFE')} within ${NSA_GFE_DEADLINE_DAYS}
-          business days. Sibling to
-          <a href="./mrf-cartographer-prototype.html">MRF Cartographer</a> —
-          same source-of-truth puzzle, different deliverable. See the
+          business days. The rate source is the MRF — same
+          published rates, different deliverable format. See the
           <a href="#design-notes">design notes</a>.
         </p>
       `}

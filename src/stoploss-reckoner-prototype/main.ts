@@ -324,9 +324,7 @@ function briefingContent(): string {
     </div>
     <div class="briefing-body">
       <p>
-        "Sibling to <a href="./case-rate-specter-prototype.html">Case Rate Specter</a>
-        and <a href="./implant-carveout-specter-prototype.html">Implant Carve-out Specter</a>
-        — same Anthem contract, different threshold clause. Lucia's
+        "Same Anthem contract, different threshold clause. Lucia's
         stay tripped the ${term('stoploss')}, not the LOS outlier
         and not the implant carve-out. Three triggers in the same
         contract; only one applies per stay."
@@ -648,21 +646,6 @@ function renderDesignNotes(): string {
           </ul>
         </div>
         <div>
-          <h3>Sibling shape</h3>
-          <ul>
-            <li>Direct sibling to
-            <a href="./case-rate-specter-prototype.html">Case Rate Specter</a>
-            (LOS outlier) and
-            <a href="./implant-carveout-specter-prototype.html">Implant Carve-out Specter</a>
-            (implant carve-out) — same contract, three different
-            threshold-trip clauses.</li>
-            <li>Cousin to
-            <a href="./asp-wac-apothecary-prototype.html">ASP/WAC Apothecary</a>
-            (math-heavy J-code unit work).</li>
-            <li>Builds toward OB Per-Diem Specter @ L7 — case
-            rate + per-diem hybrid; same shape, different
-            split.</li>
-          </ul>
         </div>
       </div>
       <p class="notes-cta">

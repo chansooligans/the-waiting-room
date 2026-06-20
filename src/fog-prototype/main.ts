@@ -246,17 +246,11 @@ function renderHeader(): string {
       </div>
       ${state.briefingDone ? '' : `
         <p class="lede">
-          A fifth prototype, sibling to
-          <a href="./wraith-prototype.html">Wraith</a>,
-          <a href="./bundle-prototype.html">Bundle</a>,
-          <a href="./reaper-prototype.html">Reaper</a>, and
-          <a href="./gatekeeper-prototype.html">Gatekeeper</a>.
-          In this one, claim fields are
-          fogged over until you run a ${term('270')} inquiry.
+          Upstream, not downstream — fix the claim
+          <em>before</em> it submits, not after it bounces.
+          Claim fields are fogged until you run a ${term('270')} inquiry.
           Once the ${term('271')} comes back, the fog burns
-          off and the wrong fields glow red. Tests an upstream
-          encounter — fixing the claim <em>before</em> it
-          submits, not after it bounces. See the
+          off and the wrong fields glow red. See the
           <a href="#design-notes">design notes</a> for what
           this prototype is testing.
         </p>

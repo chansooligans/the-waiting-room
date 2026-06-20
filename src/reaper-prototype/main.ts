@@ -308,13 +308,10 @@ function renderHeader(): string {
       </div>
       ${state.briefingDone ? '' : `
         <p class="lede">
-          A third prototype, sibling to the
-          <a href="./wraith-prototype.html">Wraith</a> and
-          <a href="./bundle-prototype.html">Bundle</a>. This one
-          adds a real countdown — the appeal window is closing,
-          and every action burns days. Tests whether time
-          pressure changes the rhythm without breaking the
-          framework. See the <a href="#design-notes">design notes</a>
+          Time pressure. The appeal window is closing, and every
+          action burns days. CITE the right code, AMEND the record
+          — same framework, but the clock changes the rhythm.
+          See the <a href="#design-notes">design notes</a>
           for what this prototype is testing.
         </p>
       `}

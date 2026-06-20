@@ -311,16 +311,14 @@ function briefingContent(): string {
   return `
     <div class="briefing-h">
       <span class="briefing-tag">DANA, IN YOUR EAR</span>
-      <span class="briefing-sub">${state.briefingDone ? 'Re-reading her note.' : 'Sibling to the Case Rate Specter family — different trap.'}</span>
+      <span class="briefing-sub">${state.briefingDone ? 'Re-reading her note.' : 'Case rate + per-diem hybrid. The trap is in the split.'}</span>
     </div>
     <div class="briefing-body">
       <p>
-        "Sibling to <a href="./case-rate-specter-prototype.html">Case Rate Specter</a>
-        and <a href="./stoploss-reckoner-prototype.html">Stoploss Reckoner</a> — same
-        Anthem contract, different threshold mechanics. The trap
-        is different too: those clauses are mutually exclusive
-        (one displaces the other). Per-diem is mutually inclusive
-        — case rate AND per-diem both apply, in their own day windows."
+        "Same Anthem contract, different threshold mechanics.
+        The trap is in how the clauses combine: case rate alone
+        covers days 1–2. Per-diem kicks in for days 3 and beyond.
+        Both apply — they don't displace each other, they split the stay."
       </p>
       <p>
         "Three issues:"
