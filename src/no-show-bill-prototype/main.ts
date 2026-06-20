@@ -1,6 +1,6 @@
-// No-Show Bill @ L6 — patient-facing release-valve Case. Mid-game
-// companion to Lighthouse: not every encounter is a fight. Some
-// are kindness wrapped in process. Patient calls about a $75
+// No-Show Bill @ L8 — patient-facing release-valve Case. Companion
+// to Lighthouse's later charity-care beat: not every encounter is a
+// fight. Some are kindness wrapped in process. Patient calls about a $75
 // no-show fee; she did call to cancel; the front desk just never
 // logged it.
 //
@@ -170,7 +170,7 @@ const glossary: Record<string, GlossaryEntry> = {
   },
   'release valve': {
     term: 'Release valve (Case archetype)',
-    plain: "A Case where the player practices kindness rather than fight. Lighthouse (charity care) is the L8 archetype; No-Show Bill is the L6 mid-game version. The action set leans toward listening, investigating, and waiving rather than citing, amending, and appealing. Release valves prove the framework supports restorative encounters as well as combative ones.",
+    plain: "A Case where the player practices kindness rather than fight. No-Show Bill is the L8 version; Lighthouse (charity care) returns to the pattern at L10. The action set leans toward listening, investigating, and waiving rather than citing, amending, and appealing. Release valves prove the framework supports restorative encounters as well as combative ones.",
   },
   'patient experience': {
     term: 'Patient experience (NPS / HCAHPS)',
@@ -238,7 +238,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>No-Show Bill <span class="muted">@ L6 — first sketch</span></h1>
+        <h1>No-Show Bill <span class="muted">@ L8 — release valve</span></h1>
         <div class="header-actions">${recallBtn}<a class="back-link" href="./prototypes.html">← back to catalog</a></div>
       </div>
       ${state.briefingDone ? '' : `
@@ -489,7 +489,7 @@ function renderDesignNotes(): string {
           <h3>What this Case tests</h3>
           <ul>
             <li><strong>Three new actions:</strong> separating evidence from context, drawing on documented sources, and waiving the charge.</li>
-            <li><strong>Mid-game release valve.</strong> Companion to Lighthouse (L8 charity care). Proves the framework supports restorative Cases too.</li>
+            <li><strong>Mid-game release valve.</strong> Companion to Lighthouse (L10 charity care). Proves the framework supports restorative Cases too.</li>
             <li><strong>Sympathetic context isn\'t evidence.</strong> Both can be true at once — the patient deserves empathy AND the policy needs facts. Listen to both, weight only the evidence.</li>
             <li><strong>Decoys teach how kindness fails.</strong> Splitting the difference, policy-citing, collections — each feels process-correct and reads as cruel.</li>
           </ul>

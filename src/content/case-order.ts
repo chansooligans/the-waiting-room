@@ -139,7 +139,7 @@ export const CASE_ORDER: CaseEntry[] = [
   {
     id: "no-show-bill",
     name: "No-Show Bill",
-    archetype: "Lighthouse companion",
+    archetype: "Release Valve",
     district: "release-valve",
     hasRuntimeSpec: false,
     legacyLevel: null,

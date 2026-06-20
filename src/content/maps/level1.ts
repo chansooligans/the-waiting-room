@@ -528,7 +528,9 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     },
     {
       id: 'medRecords',
-      lockedUntilLevel: 12,
+      // L9's bundle handoff sends the player here for Sarah Kim's
+      // op-note before the Waiting Room descent.
+      lockedUntilLevel: 9,
       ...MED_RECORDS,
       // West door at world y = 37+5 = 42.
       doors: [{ side: 'W', offset: 5 }],

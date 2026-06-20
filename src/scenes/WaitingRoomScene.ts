@@ -79,6 +79,7 @@ interface ObstacleMarker {
 // entire underworld map.
 const LOBBY_BOUNDS        = { x: 4,  y: 32, w: 26, h: 10 }
 const MAIN_HUB_BOUNDS     = { x: 20, y: 3,  w: 18, h: 10 }
+const PRIOR_AUTH_BOUNDS   = { x: 37, y: 3,  w: 14, h: 10 }
 const PATIENT_SVC_BOUNDS  = { x: 2,  y: 17, w: 12, h: 8  }
 const REGISTRATION_BOUNDS = { x: 15, y: 17, w: 22, h: 8  }
 const ELIGIBILITY_BOUNDS  = { x: 24, y: 24, w: 10, h: 6  }
@@ -99,10 +100,12 @@ const OBSTACLES: ObstacleMarker[] = [
   // L1 — Anjali in the LOBBY.
   { tileX: 14, tileY: 36, encounterId: 'intro_wrong_card',     bounds: LOBBY_BOUNDS },
 
-  // PATIENT SERVICES — Sam hands the wraith / gatekeeper / reaper.
+  // PATIENT SERVICES — Sam hands the wraith / reaper.
   { tileX: 5,  tileY: 21, encounterId: 'co_50',                bounds: PATIENT_SVC_BOUNDS },  // Wraith    (L5)
-  { tileX: 8,  tileY: 21, encounterId: 'co_197',               bounds: PATIENT_SVC_BOUNDS },  // Gatekeeper (L3)
   { tileX: 11, tileY: 21, encounterId: 'co_29_reaper',         bounds: PATIENT_SVC_BOUNDS },  // Reaper    (L7)
+
+  // PRIOR AUTH — Martinez hands the gatekeeper.
+  { tileX: 44, tileY: 8,  encounterId: 'co_197',               bounds: PRIOR_AUTH_BOUNDS },   // Gatekeeper (L5)
 
   // REGISTRATION — Kim hands the fog / doppelgänger.
   // (Hydra was here at L9 in the prior rotation; now prototype-only.

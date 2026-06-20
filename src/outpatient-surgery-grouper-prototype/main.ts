@@ -96,7 +96,7 @@ const grouperStatements: GrouperStatement[] = [
     id: 'g3',
     text: `OPG application requires the claim to carry an accepted revenue code in addition to the CPT.`,
     truth: true,
-    reason: `True. UHC's adjudicator routes the claim through the OPG only when CPT + accepted rev code combo is present. For outpatient surgical procedures, ${term('rev codes', 'Rev ' + RIGHT_REV)} (Ambulatory Surgery Services) is standard. If a non-accepted rev code drops, the claim bypasses the grouper entirely.`,
+    reason: `True. UHC's adjudicator routes the claim through the OPG only when CPT + accepted rev code combo is present. For outpatient surgical procedures, Rev ${RIGHT_REV} (Ambulatory Surgery Services) is standard. If a non-accepted rev code drops, the claim bypasses the grouper entirely.`,
   },
   {
     id: 'g4',

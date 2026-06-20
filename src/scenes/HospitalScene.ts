@@ -1513,8 +1513,8 @@ export class HospitalScene extends Phaser.Scene {
       tx >= 51 && tx < 51 + 14 && ty >= 37 && ty < 37 + 10
     if (!inMedRecords) return false
     // Map current level → encounterId whose chart this pull resolves.
-    // Two cases gate descent on a chart pull right now (Pat L4 bundle,
-    // Sam L5 wraith); add new entries as more cases need the detour.
+    // Some intake dialogue is reused after level-order reshuffles, so
+    // keep legacy levels alongside the current runtime levels.
     const lvl = getState().currentLevel
     const PULL_BY_LEVEL: Record<number, { encounterId: string; toast: string }> = {
       4: {
@@ -1523,7 +1523,19 @@ export class HospitalScene extends Phaser.Scene {
           "You pull Sarah Kim's chart.\n" +
           "Op-note clear: separate visit, modifier-25 was just never appended.",
       },
+      9: {
+        encounterId: 'co_97',
+        toast:
+          "You pull Sarah Kim's chart.\n" +
+          "Op-note clear: separate visit, modifier-25 was just never appended.",
+      },
       5: {
+        encounterId: 'co_50',
+        toast:
+          "You pull Mr. Walker's chart.\n" +
+          "Echo report: LVEF 28%. Right there in black ink.",
+      },
+      12: {
         encounterId: 'co_50',
         toast:
           "You pull Mr. Walker's chart.\n" +

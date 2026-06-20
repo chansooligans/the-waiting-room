@@ -395,6 +395,30 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [{ text: '(Step away.)' }],
   },
 
+  // === Level 5 — Dr. Martinez hands off the prior-auth gatekeeper ===
+  martinez_gatekeeper_intake: {
+    id: 'martinez_gatekeeper_intake',
+    speaker: 'Dr. Martinez',
+    text: "Adaeze Okafor's lumbar MRI came back CO-197. I remember the payer giving verbal sign-off. What I don't have is the authorization number.",
+    next: 'martinez_gatekeeper_intake_2',
+  },
+  martinez_gatekeeper_intake_2: {
+    id: 'martinez_gatekeeper_intake_2',
+    speaker: 'Dr. Martinez',
+    text: "If you can pull the auth out of the payer's UM portal and re-file with it, the MRI survives. If not, appeals gets another corpse.",
+    choices: [
+      { text: '(Open the case.)',
+        effect: { triggerDescent: { encounterId: 'co_197' } } },
+      { text: 'Not yet.', next: 'martinez_gatekeeper_intake_back' },
+    ],
+  },
+  martinez_gatekeeper_intake_back: {
+    id: 'martinez_gatekeeper_intake_back',
+    speaker: 'Dr. Martinez',
+    text: "I'll be here. The authorization number is somewhere in that portal maze.",
+    choices: [{ text: '(Step away.)' }],
+  },
+
   // === Level 4 — Pat (Coding) hands off the bundling beast ===
   pat_l4_intake: {
     id: 'pat_l4_intake',
@@ -960,36 +984,60 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   chris_intro: {
     id: 'chris_intro',
     speaker: 'Chris',
-    text: "Pricing transparency. The data exists now, in a way it didn't five years ago. Every quarter the picture gets a little sharper.",
+    text: "We're at a genuinely weird moment. Data that didn't exist five years ago exists now. Questions nobody could answer are answerable. That doesn't happen often in any industry.",
     next: 'chris_intro_2',
   },
   chris_intro_2: {
     id: 'chris_intro_2',
     speaker: 'Chris',
-    text: "Most of my week is conversations with hospital CFOs. Five years ago I'd have to explain why this matters. Now they call us. The market caught up to the rule.",
+    text: "The hard part isn't the data. It's the belief that it should exist at all. Every person here decided it should. That's actually the thing.",
     next: 'chris_intro_3',
   },
   chris_intro_3: {
     id: 'chris_intro_3',
     speaker: 'Chris',
-    text: "Best moment of the job is when a buyer asks us a question we couldn't have answered last quarter, and we can. There aren't a lot of fields where you can feel the floor moving under you in a good way.",
+    text: "I get asked if the timing is right. I think there's never been a better time. The infrastructure is here. The data is here. The will is here.",
+    next: 'chris_intro_4',
+  },
+  chris_intro_4: {
+    id: 'chris_intro_4',
+    speaker: 'Chris',
+    text: "We have a knack for turning skeptics into believers. I call it courageousoptimism — one word when you've lived it long enough.",
+    next: 'chris_intro_5',
+  },
+  chris_intro_5: {
+    id: 'chris_intro_5',
+    speaker: 'Chris',
+    text: "I love when you can feel something wiring up. The pieces exist separately, and then one week they start talking to each other. That's the moment.",
   },
   adam_intro: {
     id: 'adam_intro',
     speaker: 'Adam',
-    text: "Working on the chargemaster diff. Five hundred million rows of negotiated rates. Five years ago you couldn't get this data; now we can compare it across every hospital in the country.",
+    text: "Seventy percent of our PRs have AI contribution now. Not because we mandated it — because the work actually moves faster. Stuff that wasn't getting built is getting built.",
     next: 'adam_intro_2',
   },
   adam_intro_2: {
     id: 'adam_intro_2',
     speaker: 'Adam',
-    text: "Every payer publishes it a little differently — different formats, different field names, their own quirks. We harmonize it. Once it's harmonized, you can ask real questions: what's the median rate for a CT scan in Houston, how does Phoenix compare. Questions nobody could answer a few years ago.",
+    text: "There's a version of this data that answers questions nobody has been able to ask yet. We're building toward that version. Every quarter it gets a little more real.",
     next: 'adam_intro_3',
   },
   adam_intro_3: {
     id: 'adam_intro_3',
     speaker: 'Adam',
-    text: "Long project. The kind where every quarter the data set gets cleaner and a few more questions become askable. Not glamorous. Slowly important.",
+    text: "The gap between 'someone should do this' and 'someone did this' got shorter. That's the whole job, honestly — close that gap.",
+    next: 'adam_intro_4',
+  },
+  adam_intro_4: {
+    id: 'adam_intro_4',
+    speaker: 'Adam',
+    text: "When we ship something, I like to name everyone who touched it — the PMs, the designers, the devs, the data scientists who validated it, the people who scraped the data so there was something to validate. The chain is longer than it looks.",
+    next: 'adam_intro_5',
+  },
+  adam_intro_5: {
+    id: 'adam_intro_5',
+    speaker: 'Adam',
+    text: "We've launched products that wouldn't exist without AI. Not 'launched faster' — wouldn't exist. That's a different sentence.",
   },
 
   dana_l10_intake_back: {
@@ -1572,7 +1620,7 @@ export const LEVEL_NPC_DIALOGUES: Record<number, Record<string, string>> = {
   2:  { alex:     'alex_asp_wac_intake' },
   3:  { kim:      'kim_l2_intake' },             // fog
   4:  { alex:     'alex_stoploss_intake' },
-  5:  { sam:      'sam_l3_intake' },             // gatekeeper
+  5:  { martinez: 'martinez_gatekeeper_intake', sam: 'sam_l3_intake' }, // gatekeeper
   6:  { pat:      'pat_form_mirror_intake' },
   7:  { pat:      'pat_outpatient_surgery_intake' },
   8:  { jordan:   'jordan_no_show_intake' },

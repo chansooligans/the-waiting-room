@@ -294,7 +294,7 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     rootCause: 'patient',
     watchpoint: 'The script is the policy. Tone matters as much as the math.',
     level: 8,
-    archetype: 'Lighthouse companion',
+    archetype: 'No-Show Bill',
     wing: 'patient_services',
     prototypeIframeUrl: '/no-show-bill-prototype.html',
   },

@@ -326,8 +326,8 @@ function briefingContent(): string {
       <p>
         "This one is a Bundle. The insurance company saw two
         services on the same day and decided to only pay for
-        one. The fix is usually small: there's a <strong>two-
-        digit modifier</strong> that tells their automated
+        one. The fix is usually small: there's a <strong>two-digit
+        modifier</strong> that tells their automated
         system 'these are actually separate.'"
       </p>
       <p>
@@ -346,8 +346,8 @@ function briefingContent(): string {
           back up the modifier with chart evidence — show that
           the office visit really was separate from the
           procedure — connect a chart fact to the
-          ${term('NCCI')} guidance. <em>This is the appeal-
-          ready version.</em>
+          ${term('NCCI')} guidance. <em>This is the appeal-ready
+          version.</em>
         </li>
       </ul>
       <p>
