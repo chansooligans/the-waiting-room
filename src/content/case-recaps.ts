@@ -276,10 +276,10 @@ export const CASE_RECAPS: Record<string, CaseRecap> = {
     ],
   },
   'no-show-bill': {
-    oneLineRecap: 'You handled a missed-appointment billing situation — Medicare prohibition, commercial allowability, patient-financial-hardship pathway — without violating policy or burning the relationship.',
+    oneLineRecap: 'You handled a missed-appointment billing situation — Medicare limits, commercial-plan variability, patient-financial-hardship pathway — without violating policy or burning the relationship.',
     keyConcepts: [
-      { term: 'Medicare prohibition', gist: "Medicare does NOT allow providers to bill the patient for missed appointments unless the practice has a uniformly-applied written policy (CMS Carrier Manual 30-3). Most don't bother." },
-      { term: 'Commercial allowability', gist: "Commercial payers don't restrict no-show fees — but the patient pays out of pocket; the payer doesn't cover them." },
+      { term: 'Medicare limits', gist: "Medicare allows missed-appointment charges only when a uniformly applied written policy applies to all patients; many practices avoid them." },
+      { term: 'Commercial variability', gist: "Commercial plans usually don't pay no-show fees; policy and state rules vary, and the patient often pays out of pocket." },
       { term: 'Hardship pathway', gist: 'Many practices waive no-show fees on first occurrence + for documented hardship. Routes through the same financial-assistance policy that handles charity care.' },
     ],
     resources: [
@@ -406,11 +406,11 @@ export const CASE_RECAPS: Record<string, CaseRecap> = {
     ],
   },
   'three-forty-b-specter': {
-    oneLineRecap: 'You walked the 340B program rules, marked the state Medicaid claim with modifier UD, and self-disclosed the duplicate-discount to HRSA — making the compliance review remedial, not punitive.',
+    oneLineRecap: 'You walked the 340B program rules, marked the state Medicaid claim with modifier UD, and self-disclosed the duplicate-discount to HRSA — positioning the response as remedial instead of evasive.',
     keyConcepts: [
       { term: '340B program', gist: '42 USC §256b. Manufacturers provide deeply-discounted outpatient drugs to qualifying covered entities (DSH ≥ 11.75%, CAH, RRC, SCH, FSCH, FQHC, Ryan White, etc.). Discount in exchange for safety-net mission.' },
       { term: 'Duplicate-discount prohibition', gist: "Manufacturers can't pay BOTH the 340B discount AND a Medicaid drug rebate on the same dose. State Medicaid programs use an identifier modifier (most commonly UD) on claims to prevent it." },
-      { term: 'HRSA self-disclosure', gist: 'When a duplicate-discount slip happens, voluntary disclosure to HRSA is favored — typically remediation (refund + corrective action plan). Hiding makes review punitive (program termination, FCA exposure).' },
+      { term: 'HRSA self-disclosure', gist: 'When a duplicate-discount slip happens, voluntary disclosure to HRSA can support a remedial posture: refund, corrective action plan, and documentation. Hiding can make the review much worse, including program or FCA exposure.' },
     ],
     resources: [
       { title: 'HRSA — 340B Program Office of Pharmacy Affairs', url: 'https://www.hrsa.gov/opa', note: 'The 340B program home — eligibility, registration, compliance, self-disclosure.' },

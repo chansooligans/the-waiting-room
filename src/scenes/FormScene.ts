@@ -180,7 +180,7 @@ export class FormScene extends Phaser.Scene {
       fontSize: '11px', fontFamily: 'monospace', color: '#d0d8e0',
     }).setOrigin(0.5)
 
-    this.add.text(width / 2, height / 2 + 22, 'The Waiting Room obstacle for this claim will start at full HP.', {
+    this.add.text(width / 2, height / 2 + 22, 'Your form bridge is ready; the Waiting Room case will start with the evidence already prepared.', {
       fontSize: '10px', fontFamily: 'monospace', color: '#7ee2c1',
       fontStyle: 'italic',
     }).setOrigin(0.5)

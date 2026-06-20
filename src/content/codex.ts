@@ -56,7 +56,7 @@ export const CODEX_ENTRIES: Record<string, CodexEntry> = {
     name: 'PR-204',
     category: 'codes',
     description: 'This service is not covered under the patient\'s current benefit plan.',
-    detail: 'CARC PR-204 is a benefit exclusion. The patient\'s specific plan design does not cover the service. No appeal will change this. The correct response is a cost estimate before the visit so the patient knows what they will owe.',
+    detail: 'CARC PR-204 is a benefit exclusion. The patient\'s specific plan design does not cover the service. An appeal usually can\'t create a benefit the plan excludes. The safer upstream response is a cost estimate before the visit so the patient knows what they may owe.',
   },
   oa_23: {
     id: 'oa_23',
@@ -187,7 +187,7 @@ export const CODEX_ENTRIES: Record<string, CodexEntry> = {
     name: 'Timely Filing Reaper',
     category: 'obstacles',
     description: 'A robed bureaucrat with an hourglass-blade. CO-29 denials.',
-    detail: 'The Reaper uses the timed mechanic — HP plus a Days Remaining countdown. Each turn the days tick down and the Reaper\'s damage escalates. Hit zero days and the fight is auto-loss regardless of HP. Real-world parallel: timely filing is contractual; once the deadline passes, no appeal will recover the claim.',
+    detail: 'The Reaper uses the timed mechanic — HP plus a Days Remaining countdown. Each turn the days tick down and the Reaper\'s damage escalates. Hit zero days and the fight is auto-loss regardless of HP. Real-world parallel: timely filing is contractual; once the deadline passes, recovery depends on proof of timely submission or a payer-recognized exception.',
   },
   obstacle_co_18_doppelganger: {
     id: 'obstacle_co_18_doppelganger',

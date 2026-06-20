@@ -143,7 +143,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   jordan_intro_2: {
     id: 'jordan_intro_2',
     speaker: 'Jordan',
-    text: "It's a benefit exclusion — PR-204. The service isn't covered under her plan. No appeal will change that.",
+    text: "It's a benefit exclusion — PR-204. An appeal can't create a benefit the plan excludes. The fix was earlier: estimate before the visit.",
     choices: [
       { text: "Could we have caught this earlier?", next: 'jordan_earlier' },
       { text: "What do we tell the patient?", next: 'jordan_patient' },
@@ -252,7 +252,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   sam_timely: {
     id: 'sam_timely',
     speaker: 'Sam',
-    text: "Worst feeling in this job. The claim is meritorious, the documentation is perfect, and you missed the contractual deadline by three days. There is no appeal. Watch the clock — that's the whole game.",
+    text: "Worst feeling in this job. The claim is meritorious, the documentation is perfect, and you missed the contractual deadline by three days. Without proof of timely filing, there may be no appeal left. Watch the clock — that's the work.",
     choices: [
       { text: "I'll watch for one in the queue.", effect: { unlockCodex: 'co_29_reaper' } },
     ],
@@ -480,7 +480,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   alex_l6_intake_2: {
     id: 'alex_l6_intake_2',
     speaker: 'Alex',
-    text: "Want to chase the source upstream? Patch the chart, the swarm starves.",
+    text: "Trace the source upstream. Patch the chart, and the swarm starves.",
     choices: [
       { text: '(Trace the swarm.)',
         effect: { triggerDescent: { encounterId: 'co_16_swarm' } } },
@@ -504,7 +504,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   sam_l7_intake_2: {
     id: 'sam_l7_intake_2',
     speaker: 'Sam',
-    text: "Fix is a frequency-7 with the right ICN. Sound easy. Isn't. Want to handle it?",
+    text: "Fix is a frequency-7 with the right ICN. Sounds easy. Isn't. Open the ERA and follow the duplicate trail.",
     choices: [
       { text: '(Open the ERA.)',
         effect: { triggerDescent: { encounterId: 'co_29_reaper' } } },
@@ -528,7 +528,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   jordan_l8_intake_2: {
     id: 'jordan_l8_intake_2',
     speaker: 'Jordan',
-    text: "I need someone to push the IDR side and document the protections. Want to walk it through?",
+    text: "I need someone to document the protections and push the IDR side before the bill hardens.",
     choices: [
       { text: '(Take the case.)',
         effect: { triggerDescent: { encounterId: 'surprise_bill_specter' } } },
@@ -1016,7 +1016,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   alex_asp_wac_intake_2: {
     id: 'alex_asp_wac_intake_2',
     speaker: 'Alex',
-    text: "Want to chase it down? Pricing math is mostly checking the units against the dose. If you spot the mistake, it's a clean recover.",
+    text: "I've got the file open if you want the trail. Pricing math is mostly checking the units against the dose; spot the mistake and it should recover cleanly.",
     choices: [
       { text: '(Pull the J-code file.)',
         effect: { triggerDescent: { encounterId: 'catalog_asp_wac_apothecary' } } },
@@ -1040,7 +1040,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   alex_stoploss_intake_2: {
     id: 'alex_stoploss_intake_2',
     speaker: 'Alex',
-    text: "I need someone to walk the math + the clause. Want to take it?",
+    text: "I need a second set of eyes on the math and the clause.",
     choices: [
       { text: '(Pull the EOR + contract.)',
         effect: { triggerDescent: { encounterId: 'catalog_stoploss_reckoner' } } },
@@ -1088,7 +1088,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   pat_outpatient_surgery_intake_2: {
     id: 'pat_outpatient_surgery_intake_2',
     speaker: 'Pat',
-    text: "Status indicators are the lever. Want to read the chart and run the grouper logic?",
+    text: "Status indicators are the lever. Pull the chart, then run the grouper logic against it.",
     choices: [
       { text: '(Pull the case.)',
         effect: { triggerDescent: { encounterId: 'catalog_outpatient_surgery_grouper' } } },
@@ -1112,7 +1112,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   jordan_no_show_intake_2: {
     id: 'jordan_no_show_intake_2',
     speaker: 'Jordan',
-    text: "Want to walk the no-show policy and decide if we waive? Patient-facing call, no codes.",
+    text: "This one's a call, not a code: walk the no-show policy and decide whether we waive.",
     choices: [
       { text: '(Take the call.)',
         effect: { triggerDescent: { encounterId: 'catalog_no_show_bill' } } },
@@ -1122,7 +1122,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   jordan_no_show_intake_back: {
     id: 'jordan_no_show_intake_back',
     speaker: 'Jordan',
-    text: "She's on hold. I'll keep her warm.",
+    text: "She's still on hold. I'll keep her on the line.",
     choices: [{ text: '(Step away.)' }],
   },
 
@@ -1136,7 +1136,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   jordan_lighthouse_intake_2: {
     id: 'jordan_lighthouse_intake_2',
     speaker: 'Jordan',
-    text: "Want to walk the screen + the presumptive eligibility check?",
+    text: "Can you walk the screen and presumptive eligibility check with him?",
     choices: [
       { text: '(Open the application.)',
         effect: { triggerDescent: { encounterId: 'lighthouse_charity' } } },
@@ -1160,7 +1160,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   sam_gfe_intake_2: {
     id: 'sam_gfe_intake_2',
     speaker: 'Sam',
-    text: "I need someone to itemize the GFE vs. the actual bill and find the gap. Want it?",
+    text: "Itemize the GFE against the actual bill and find the gap.",
     choices: [
       { text: '(Take it.)',
         effect: { triggerDescent: { encounterId: 'catalog_gfe_oracle' } } },
@@ -1184,7 +1184,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   alex_implant_carveout_intake_2: {
     id: 'alex_implant_carveout_intake_2',
     speaker: 'Alex',
-    text: "Pull the manufacturer invoice + the contract clause. Walk the math. Game?",
+    text: "Pull the manufacturer invoice and the contract clause. If the carve-out triggers, the math will say so.",
     choices: [
       { text: '(Open the case.)',
         effect: { triggerDescent: { encounterId: 'catalog_implant_carveout_specter' } } },
@@ -1208,7 +1208,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   kim_credentialing_intake_2: {
     id: 'kim_credentialing_intake_2',
     speaker: 'Kim',
-    text: "Retro-credential request? Re-route under covering? Want to figure it out?",
+    text: "Could be a retro-credential request; could be a re-route under the covering attending. Pull the file and pin it down.",
     choices: [
       { text: '(Pull the credentialing file.)',
         effect: { triggerDescent: { encounterId: 'catalog_credentialing_lattice' } } },
@@ -1232,7 +1232,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   alex_carveout_phantom_intake_2: {
     id: 'alex_carveout_phantom_intake_2',
     speaker: 'Alex',
-    text: "Recalculate cost-share. Route the OON ↔ payer fight to IDR. Want it?",
+    text: "Start with cost-share, then route the OON ↔ payer fight to IDR.",
     choices: [
       { text: '(Take the case.)',
         effect: { triggerDescent: { encounterId: 'catalog_carveout_phantom' } } },
@@ -1256,7 +1256,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   pat_cpt_licensure_intake_2: {
     id: 'pat_cpt_licensure_intake_2',
     speaker: 'Pat',
-    text: "Need someone to read the license, audit the tool's usage, and find the right HCPCS equivalent where it matters. You game?",
+    text: "If you can stand licensing language, I need your eyes on the tool usage and the HCPCS crosswalk.",
     choices: [
       { text: '(Take the audit.)',
         effect: { triggerDescent: { encounterId: 'catalog_cpt_licensure_mire' } } },
@@ -1280,7 +1280,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   alex_ob_perdiem_intake_2: {
     id: 'alex_ob_perdiem_intake_2',
     speaker: 'Alex',
-    text: "Probably a coding-side miss. Pull the contract clause + the procedure record. Want to chase it?",
+    text: "Pull the contract clause and the procedure record; that'll tell us whether the escalator missed.",
     choices: [
       { text: '(Pull the case.)',
         effect: { triggerDescent: { encounterId: 'catalog_ob_perdiem_specter' } } },
@@ -1304,7 +1304,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   kim_phantom_patient_intake_2: {
     id: 'kim_phantom_patient_intake_2',
     speaker: 'Kim',
-    text: "Walk the chart timelines, separate them at the source. Both patients are real; both deserve their own MRN. Take it?",
+    text: "Walk the chart timelines and separate them at the source. Both patients are real; both deserve their own MRN.",
     choices: [
       { text: '(Open both charts.)',
         effect: { triggerDescent: { encounterId: 'catalog_phantom_patient' } } },
@@ -1328,7 +1328,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   pat_risk_adj_intake_2: {
     id: 'pat_risk_adj_intake_2',
     speaker: 'Pat',
-    text: "Pull the chart. See what's actually documented this year. Recapture what we can. Game?",
+    text: "Pull the chart and see what's actually documented this year. Recapture what we can.",
     choices: [
       { text: '(Take the review.)',
         effect: { triggerDescent: { encounterId: 'catalog_risk_adj_hollow' } } },
@@ -1352,7 +1352,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   alex_chemo_bundle_intake_2: {
     id: 'alex_chemo_bundle_intake_2',
     speaker: 'Alex',
-    text: "Pull the infusion record, the claim, and the contract. Find the missing units. Take it?",
+    text: "Open the file and reconcile the missing units against the infusion record, claim, and contract.",
     choices: [
       { text: '(Open the file.)',
         effect: { triggerDescent: { encounterId: 'catalog_chemo_bundle_specter' } } },
@@ -1376,7 +1376,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   pat_two_midnight_intake_2: {
     id: 'pat_two_midnight_intake_2',
     speaker: 'Pat',
-    text: "Walk the H&P, progress notes, and discharge summary. Build the inpatient defense. You up?",
+    text: "Build the inpatient defense from the H&P, progress notes, and discharge summary.",
     choices: [
       { text: '(Pull the chart.)',
         effect: { triggerDescent: { encounterId: 'catalog_two_midnight_mire' } } },
@@ -1400,7 +1400,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   alex_specter_intake_2: {
     id: 'alex_specter_intake_2',
     speaker: 'Alex',
-    text: "Pull the EOR + the contract rate. Build the dispute. Take it?",
+    text: "Build the dispute from the EOR and contract rate.",
     choices: [
       { text: '(Open the case.)',
         effect: { triggerDescent: { encounterId: 'underpayment_specter' } } },
@@ -1424,7 +1424,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   kim_cob_cascade_intake_2: {
     id: 'kim_cob_cascade_intake_2',
     speaker: 'Kim',
-    text: "Walk the COB rules + the actual order. Run fresh inquiries. Take it?",
+    text: "Run fresh inquiries, then walk the COB order.",
     choices: [
       { text: '(Pull the file.)',
         effect: { triggerDescent: { encounterId: 'catalog_cob_cascade_spider' } } },
@@ -1448,7 +1448,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   alex_case_rate_intake_2: {
     id: 'alex_case_rate_intake_2',
     speaker: 'Alex',
-    text: "Walk the LOS + contract clauses. Build the per-diem dispute. Want it?",
+    text: "Walk the LOS and contract clauses, then build the per-diem dispute.",
     choices: [
       { text: '(Take the case.)',
         effect: { triggerDescent: { encounterId: 'catalog_case_rate_specter' } } },
@@ -1472,7 +1472,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   sam_mrf_intake_2: {
     id: 'sam_mrf_intake_2',
     speaker: 'Sam',
-    text: "8 GB of JSON. jq + grep. Find the rate for J-code 9120. Game?",
+    text: "It's 8 GB of JSON. jq + grep. Find the rate for J-code 9120 and bring coffee.",
     choices: [
       { text: '(Open the MRF.)',
         effect: { triggerDescent: { encounterId: 'catalog_mrf_cartographer' } } },
@@ -1496,7 +1496,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   sam_idr_intake_2: {
     id: 'sam_idr_intake_2',
     speaker: 'Sam',
-    text: "Want to walk the QPA calc + the case-specific factors? Baseball arbitration — the arbiter picks one number, no middle ground.",
+    text: "Walk the QPA calc and case-specific factors; baseball arbitration means the arbiter picks one number, no middle ground.",
     choices: [
       { text: '(Take the submission.)',
         effect: { triggerDescent: { encounterId: 'catalog_idr_crucible' } } },
@@ -1520,7 +1520,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   alex_340b_intake_2: {
     id: 'alex_340b_intake_2',
     speaker: 'Alex',
-    text: "Pull the eligibility + the DOS + the policy. Walk it. Take it?",
+    text: "Pull the eligibility, the DOS, and the policy; the answer is in the overlap.",
     choices: [
       { text: '(Open the case.)',
         effect: { triggerDescent: { encounterId: 'catalog_three_forty_b_specter' } } },
@@ -1544,7 +1544,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   sam_hipaa_intake_2: {
     id: 'sam_hipaa_intake_2',
     speaker: 'Sam',
-    text: "Don't say breach yet — assess first. Walk the four factors, document, decide on notification. Take it?",
+    text: "Don't say breach yet — assess first. Walk the four factors, document, then decide on notification.",
     choices: [
       { text: '(Open the file.)',
         effect: { triggerDescent: { encounterId: 'catalog_hipaa_spider' } } },

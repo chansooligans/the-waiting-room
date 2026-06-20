@@ -112,7 +112,7 @@ const varianceCauses: VarianceCause[] = [
     label: '7/1/25 OPG update changed the grouper level',
     detail: `UHC moved CPT ${CPT} to a lower grouper tier in the most recent exhibit update.`,
     isCause: false,
-    feedback: `Wrong. 7/1/25 update changed 0.08% of codes (all upward). ${CPT}'s level didn't change. "Grouper changed" is the most common wrong guess; UHC's exhibits are stable across releases.`,
+    feedback: `Not this time. 7/1/25 update changed 0.08% of codes (all upward). ${CPT}'s level didn't change. "Grouper changed" is the most common wrong guess; UHC's exhibits are stable across releases.`,
   },
   {
     id: 'wrong-rev',
@@ -126,14 +126,14 @@ const varianceCauses: VarianceCause[] = [
     label: 'Multi-procedure reduction',
     detail: 'A second CPT on the claim triggered a 50% reduction on the secondary procedure.',
     isCause: false,
-    feedback: `Wrong. The claim has only one CPT (${CPT}). Multi-procedure reduction can't apply to a single-procedure encounter. This decoy fits when there are 2+ surgical CPTs on the same DOS; here there isn't.`,
+    feedback: `Not this encounter. The claim has only one CPT (${CPT}). Multi-procedure reduction can't apply to a single-procedure encounter. This option fits when there are 2+ surgical CPTs on the same DOS; here there isn't.`,
   },
   {
     id: 'ncci-bundle',
     label: 'NCCI procedure-pair bundling edit (CO-97)',
     detail: 'CPT 45380 was bundled into another procedure on the encounter.',
     isCause: false,
-    feedback: `Wrong. NCCI bundling shows up as CO-97, not CO-45 / default-fee adjudication. The claim adjudicated to a *paid* amount (just lower than expected) — that's not how NCCI looks. Different mechanism, different CARC, different fix.`,
+    feedback: `Different mechanism. NCCI bundling shows up as CO-97, not CO-45 / default-fee adjudication. The claim adjudicated to a *paid* amount (just lower than expected) — that's not how NCCI looks. Different CARC, different fix.`,
   },
   {
     id: 'stale-table',
@@ -155,7 +155,7 @@ const resolutions: Resolution[] = [
     id: 'appeal-grouper',
     label: `File an appeal disputing the OPG level assignment for CPT ${CPT}`,
     correct: false,
-    feedback: `Wrong target. CPT ${CPT} *is* in the right grouper level — UHC's exhibit is correct, the hospital's expected was correct. The variance is on the rev-code side, not the grouper side. Appealing the grouper level earns a denial-of-the-appeal letter and burns 30 days.`,
+    feedback: `Different target. CPT ${CPT} *is* in the right grouper level — UHC's exhibit is correct, the hospital's expected was correct. The variance is on the rev-code side, not the grouper side. Appealing the grouper level earns a denial-of-the-appeal letter and burns 30 days.`,
   },
   {
     id: 'reconsider-original',
@@ -173,7 +173,7 @@ const resolutions: Resolution[] = [
     id: 'recoup',
     label: `Recoup the $${DEFAULT_FEE.toLocaleString()} payment to UHC and rebill the entire claim`,
     correct: false,
-    feedback: `Don't recoup what they correctly paid given the inputs they had. Refile a corrected claim (frequency 7, replacement of original) referencing the original ICN; UHC's system reverses the original adjudication and re-runs against the corrected rev code. Net payment moves from $${DEFAULT_FEE.toLocaleString()} to $${GROUPER_RATE.toLocaleString()}.`,
+    feedback: `No need to recoup what they correctly paid given the inputs they had. Refile a corrected claim (frequency 7, replacement of original) referencing the original ICN; UHC's system reverses the original adjudication and re-runs against the corrected rev code. Net payment moves from $${DEFAULT_FEE.toLocaleString()} to $${GROUPER_RATE.toLocaleString()}.`,
   },
 ]
 

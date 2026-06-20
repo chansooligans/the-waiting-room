@@ -26,7 +26,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
   1: [
     "Anjali walks up to your desk in the lobby. Talk to her — she's holding the case.",
     "Click the disputed field on the claim, pick the value the chart actually supports, and resubmit.",
-    "The 271 eligibility response on file is the source of truth. The photocopy of her insurance card lied (it was the wrong card).",
+    "The 271 eligibility response on file is the source of truth. The card was stale; the 271 is the record that matters.",
   ],
   2: [
     "Alex flagged a J-code denial in the Main Hub — ASP / WAC / NDC↔HCPCS territory.",
@@ -490,7 +490,7 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     level: 32,
     hints: [
       "Four-factor assessment: nature of PHI, who received it, was it actually viewed, mitigation steps.",
-      "Under 500 individuals affected = annual report to HHS. Over 500 = notify HHS + media within 60 days.",
+      "For this training case: under 500 goes on the annual HHS log; 500+ triggers HHS and media notice timelines. Verify the current rule before treating it as live guidance.",
       "Don't say 'breach' until the four-factor assessment is complete. The word does work on its own.",
     ],
   },

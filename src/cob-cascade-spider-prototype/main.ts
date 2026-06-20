@@ -75,7 +75,7 @@ const cobStatements: CobStatement[] = [
     id: 's2',
     text: 'Medicare is always the primary payer for any patient who has Medicare and an employer plan.',
     truth: false,
-    reason: 'Wrong, this is the working-aged MSP rule\'s opposite. When the patient is 65+ AND covered by a current-employment employer plan AND the employer has 20+ employees, the EMPLOYER PLAN is primary, Medicare is secondary. Smaller employers (<20) flip the order. ESRD, end-stage renal disease, has its own 30-month coordination-period rule. MSP is "Medicare second" precisely because Medicare often isn\'t first.',
+    reason: 'Not for this scenario. This is the working-aged MSP rule\'s opposite: when the patient is 65+ AND covered by a current-employment employer plan AND the employer has 20+ employees, the EMPLOYER PLAN is primary and Medicare is secondary. Smaller employers (<20) flip the order. ESRD, end-stage renal disease, has its own 30-month coordination-period rule. MSP is "Medicare second" precisely because Medicare often isn\'t first.',
   },
   {
     id: 's3',
@@ -113,9 +113,9 @@ const cascadePatients: PatientCascade[] = [
     correctPrimary: 'Aetna (employer plan; MSP working-aged makes employer primary)',
     options: [
       { id: 'aetna-employer', payer: 'Aetna (employer plan)', correct: true, feedback: 'Right. MSP working-aged: when the patient is 65+ AND covered by a current-employment plan AND the employer has 20+ employees, employer is primary. Mom\'s firm has 200 employees; Aetna is primary, Medicare is secondary.' },
-      { id: 'medicare-primary', payer: 'Medicare', correct: false, feedback: 'Wrong on the working-aged rule. Medicare is secondary when (a) patient is 65+, (b) employer plan is current-employment-based (not retiree), (c) employer has 20+ employees. Sofia checks all three boxes.' },
+      { id: 'medicare-primary', payer: 'Medicare', correct: false, feedback: 'Not under the working-aged rule. Medicare is secondary when (a) patient is 65+, (b) employer plan is current-employment-based (not retiree), (c) employer has 20+ employees. Sofia checks all three boxes.' },
       { id: 'uhc-spouse', payer: 'UHC (Dad\'s plan)', correct: false, feedback: 'UHC isn\'t in the picture for Sofia — she\'s covered under her own employer (Aetna) + Medicare, not Dad\'s plan.' },
-      { id: 'medicaid', payer: 'Medicaid', correct: false, feedback: 'Sofia isn\'t on Medicaid. Distractor.' },
+      { id: 'medicaid', payer: 'Medicaid', correct: false, feedback: 'Sofia isn\'t on Medicaid, so this payer is not in the picture.' },
     ],
   },
   {
@@ -126,7 +126,7 @@ const cascadePatients: PatientCascade[] = [
     correctPrimary: 'Medicare',
     options: [
       { id: 'medicare', payer: 'Medicare', correct: true, feedback: 'Right. No current-employment employer plan on Jorge — MSP working-aged doesn\'t apply. Medicare is primary; Medicaid pays remaining cost-share as the always-last payer (Medicaid is payer of last resort by federal law).' },
-      { id: 'medicaid-primary', payer: 'Medicaid', correct: false, feedback: 'Medicaid is ALWAYS payer of last resort by federal law (42 USC §1396a). It pays after every other source, including Medicare. Filing Medicaid as primary on a dual-eligible patient is a common error.' },
+      { id: 'medicaid-primary', payer: 'Medicaid', correct: false, feedback: 'Medicaid is generally payer of last resort under federal law (42 USC §1396a). It pays after every other source here, including Medicare. Filing Medicaid as primary on a dual-eligible patient is a common error.' },
       { id: 'family-plan', payer: 'Aetna (Mom\'s plan)', correct: false, feedback: 'Jorge isn\'t a dependent on Aetna — he\'s the grandfather, not Mom\'s spouse or child. The household policy doesn\'t cover him.' },
       { id: 'self-pay', payer: 'Self-pay', correct: false, feedback: 'Jorge has Medicare AND Medicaid. He shouldn\'t be processed as self-pay.' },
     ],
@@ -162,7 +162,7 @@ const resolutions: Resolution[] = [
     id: 'medicaid-everywhere',
     label: 'File Medicaid as primary on Jorge\'s claim; he\'s dual-eligible.',
     correct: false,
-    feedback: 'Medicaid is payer of last resort under 42 USC §1396a. ALWAYS files last, never first. Filing Medicaid primary on a dual-eligible patient is one of the most common COB errors and one of the easiest audit findings.',
+    feedback: 'Medicaid is payer of last resort under 42 USC §1396a. In this scenario it files last, not first. Filing Medicaid primary on a dual-eligible patient is one of the most common COB errors and one of the easiest audit findings.',
   },
 ]
 
@@ -170,7 +170,7 @@ const issues: Issue[] = [
   {
     id: 'verify',
     label: 'Verify-eligibility: walk the COB rules. 4 statements true/false.',
-    recap: 'You walked the cascade rules. Birthday rule for dependent kids (true); Medicare ALWAYS primary (false — MSP working-aged flips it); court orders override birthday rule (true); CO-22 = wrong primary on file (true).',
+    recap: 'You walked the cascade rules. Birthday rule for dependent kids (true); Medicare always primary (false — MSP working-aged flips it); court orders override birthday rule (true); CO-22 = wrong primary on file (true).',
     verb: 'verify',
   },
   {
@@ -356,7 +356,7 @@ function briefingContent(): string {
       <ul>
         <li>
           Four COB statements,
-          true/false. Watch the "${term('MSP', 'Medicare always primary')}" decoy —
+          true/false. Watch the "${term('MSP', 'Medicare always primary')}" assumption —
           MSP rules flip it for working-aged + ESRD + a few others.
         </li>
         <li>

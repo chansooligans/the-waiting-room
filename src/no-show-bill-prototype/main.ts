@@ -138,7 +138,7 @@ const resolutions: Resolution[] = [
     id: 'route-collections',
     label: `Refer Marcia's account to collections after 30 days if she doesn\'t pay.`,
     correct: false,
-    feedback: 'Sending a verified-cancellation account to collections is the kind of thing OCR investigations are made of — and patient-rep-on-Twitter complaints. Don\'t escalate against the patient when the bug is internal.',
+    feedback: 'Sending a verified-cancellation account to collections invites a patient-relations complaint and, if it escalates, a regulatory complaint. Don\'t escalate against the patient when the bug is internal.',
   },
 ]
 
@@ -264,7 +264,7 @@ function renderHospitalIntro(): string {
         ${escape(CANCEL_CLAIMED)}. Why am I being charged?"
       </p>
       <p>
-        She's not yelling. That's almost worse. Don't reach for
+        She's not yelling. She's careful, which tells you she has had to be careful. Don't reach for
         the appeal templates; that's not what this is. Listen,
         verify, waive if she's right.
       </p>
@@ -394,7 +394,7 @@ function renderWaivePanel(): string {
   if (!unlocked) return `<section class="waive-panel locked"><div class="wp-h"><span class="wp-tag idle">WAIVE</span><span class="wp-sub">Locked.</span></div></section>`
   return `
     <section class="waive-panel ${done ? 'done' : 'active'}">
-      <div class="wp-h"><span class="wp-tag ${done ? 'done' : 'active'}">RESOLVE · 4 paths</span><span class="wp-sub">${done ? 'Waive + adjust + retrain.' : 'Three decoys: split-the-difference, hide-behind-policy, escalate-to-collections.'}</span></div>
+      <div class="wp-h"><span class="wp-tag ${done ? 'done' : 'active'}">RESOLVE · 4 paths</span><span class="wp-sub">${done ? 'Waive + adjust + retrain.' : 'Other paths: split the difference, hide behind policy, escalate to collections.'}</span></div>
       <ul class="opt-list">
         ${resolutions.map(r => renderOpt(r, 'resolution')).join('')}
       </ul>
