@@ -1,4 +1,4 @@
-// GFE Oracle @ L8 — pre-service Case under the No Surprises Act.
+// GFE Oracle @ L10 — pre-service Case under the No Surprises Act.
 //
 // Sibling to MRF Cartographer: same source-of-truth muscle (CDM
 // for hard-coded lines, claim history for soft-coded), but the
@@ -298,7 +298,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>GFE Oracle <span class="muted">@ L8 — first sketch</span></h1>
+        <h1>GFE Oracle <span class="muted">@ L10 — first sketch</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./prototypes.html">← back to catalog</a>
@@ -709,7 +709,7 @@ function renderDesignNotes(): string {
             <a href="./surprise-bill-prototype.html">Surprise Bill Specter</a> —
             both about NSA-era patient billing, but post-encounter
             vs pre-encounter.</li>
-            <li>Builds toward Carve-out Phantom @ L9 — same
+            <li>Builds toward Carve-out Phantom @ L16 — same
             co-provider-vs-facility classification, applied to a
             two-bills-for-one-visit puzzle.</li>
           </ul>

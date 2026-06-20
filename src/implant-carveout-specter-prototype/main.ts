@@ -1,4 +1,4 @@
-// Implant Carve-out Specter @ L6 — high-cost implant unflagged at
+// Implant Carve-out Specter @ L14 — high-cost implant unflagged at
 // billing, rolled into the DRG case rate when it should have
 // carved out. Cousin to Case Rate Specter (same contract; different
 // clause).
@@ -320,7 +320,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Implant Carve-out Specter <span class="muted">@ L6 — first sketch</span></h1>
+        <h1>Implant Carve-out Specter <span class="muted">@ L14 — first sketch</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./prototypes.html">← back to catalog</a>
@@ -730,7 +730,7 @@ function renderDesignNotes(): string {
             opposite shape: that one suppresses J-codes inside
             a case rate; this one elevates a hardware line
             outside the case rate.</li>
-            <li>Builds toward Stoploss Reckoner @ L7 (same
+            <li>Builds toward Stoploss Reckoner @ L4 (same
             contract, different threshold-trip clause; math gets
             heavier).</li>
           </ul>

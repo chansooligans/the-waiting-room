@@ -1,4 +1,4 @@
-// Outpatient Surgery Grouper @ L7 — UHC's Outpatient Procedure
+// Outpatient Surgery Grouper @ L6 — UHC's Outpatient Procedure
 // Grouper (OPG) Exhibit assigns CPT/HCPCS codes to grouper levels.
 // Each level has a fixed reimbursement amount (similar in spirit to
 // Medicare APCs, but UHC-specific). Critical detail: the grouper
@@ -289,7 +289,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Outpatient Surgery Grouper <span class="muted">@ L7 — first sketch (UHC OPG / wrong rev code)</span></h1>
+        <h1>Outpatient Surgery Grouper <span class="muted">@ L6 — first sketch (UHC OPG / wrong rev code)</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./prototypes.html">← back to catalog</a>

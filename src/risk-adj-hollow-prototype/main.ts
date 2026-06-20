@@ -1,4 +1,4 @@
-// Risk Adjustment Hollow @ L5 — incomplete HCC capture for a
+// Risk Adjustment Hollow @ L22 — incomplete HCC capture for a
 // value-based contract. The chart documents diabetes with
 // neuropathy, CKD stage 3, and morbid obesity. The encoder
 // captured E11.9 (diabetes unspecified) and stopped. The Medicare
@@ -299,7 +299,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Risk Adjustment Hollow <span class="muted">@ L5 — first sketch</span></h1>
+        <h1>Risk Adjustment Hollow <span class="muted">@ L22 — first sketch</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./prototypes.html">← back to catalog</a>

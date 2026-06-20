@@ -1,4 +1,4 @@
-// Credentialing Lattice @ L9 — provider-enrollment Case. Dr. Patel
+// Credentialing Lattice @ L15 — provider-enrollment Case. Dr. Patel
 // joined Mercy in March; her payer enrollments lag her start date.
 // One DOS landed inside the gap with Anthem; CO-242 (services not
 // provided by network provider) returns. Walk the credentialing
@@ -243,7 +243,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Credentialing Lattice <span class="muted">@ L9 — first sketch</span></h1>
+        <h1>Credentialing Lattice <span class="muted">@ L15 — first sketch</span></h1>
         <div class="header-actions">${recallBtn}<a class="back-link" href="./prototypes.html">← back to catalog</a></div>
       </div>
       ${state.briefingDone ? '' : `

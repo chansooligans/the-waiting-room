@@ -1,4 +1,4 @@
-// Audit Boss @ L10 (the finale).
+// Audit Boss @ L32 (the finale).
 //
 // The Quarterly Audit. Different shape from every prior
 // encounter: this isn't a fight against a payer or a kindness
@@ -299,7 +299,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Audit <span class="muted">@ L10 · the finale</span></h1>
+        <h1>Audit <span class="muted">@ L32 · the finale</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./">← back to game</a>

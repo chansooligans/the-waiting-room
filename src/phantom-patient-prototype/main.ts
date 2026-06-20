@@ -1,4 +1,4 @@
-// Phantom Patient @ L9 — wrong-MRN chart merge. Two patients
+// Phantom Patient @ L21 — wrong-MRN chart merge. Two patients
 // with the same DOB at Mercy got their charts cross-merged at
 // registration; the encounter ended up on the wrong MRN; the
 // claim came back CO-31 (patient cannot be identified). The fix
@@ -260,7 +260,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Phantom Patient <span class="muted">@ L9 — first sketch</span></h1>
+        <h1>Phantom Patient <span class="muted">@ L21 — first sketch</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./prototypes.html">← back to catalog</a>

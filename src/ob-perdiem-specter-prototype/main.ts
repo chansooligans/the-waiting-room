@@ -1,4 +1,4 @@
-// OB Per-Diem Specter @ L7 — obstetrics case rate + per-diem hybrid.
+// OB Per-Diem Specter @ L20 — obstetrics case rate + per-diem hybrid.
 // Contract pays a flat case rate for the first N inpatient days and
 // per-diem for subsequent days. Hospital applied the case rate alone
 // and missed the per-diem days for a complicated delivery.
@@ -249,7 +249,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>OB Per-Diem Specter <span class="muted">@ L7 — first sketch</span></h1>
+        <h1>OB Per-Diem Specter <span class="muted">@ L20 — first sketch</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./prototypes.html">← back to catalog</a>

@@ -1,4 +1,4 @@
-// IDR Crucible @ L9 — Independent Dispute Resolution Case.
+// IDR Crucible @ L29 — Independent Dispute Resolution Case.
 //
 // Under the No Surprises Act (45 CFR 149.140 + 149.510), when a
 // patient gets emergency care at an in-network facility but is
@@ -313,7 +313,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>IDR Crucible <span class="muted">@ L9 — Independent Dispute Resolution Case</span></h1>
+        <h1>IDR Crucible <span class="muted">@ L29 — Independent Dispute Resolution Case</span></h1>
         <div class="header-actions">${recallBtn}<a class="back-link" href="./prototypes.html">← back to catalog</a></div>
       </div>
       ${state.briefingDone ? '' : `

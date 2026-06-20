@@ -1,4 +1,4 @@
-// HIPAA Spider @ L10 — privacy breach Case set inside the audit window.
+// HIPAA Spider @ L31 — privacy breach Case set inside the audit window.
 // Three lab reports were faxed to a wrong number two weeks before the
 // quarterly audit lands. Player runs the four-factor breach risk
 // assessment, picks the right immediate containment, and decides on
@@ -238,7 +238,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>HIPAA Spider <span class="muted">@ L10 — first sketch</span></h1>
+        <h1>HIPAA Spider <span class="muted">@ L31 — first sketch</span></h1>
         <div class="header-actions">${recallBtn}<a class="back-link" href="./prototypes.html">← back to catalog</a></div>
       </div>
       ${state.briefingDone ? '' : `

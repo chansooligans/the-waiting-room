@@ -1,4 +1,4 @@
-// Form Mirror @ L4 — wrong-form Case. Facility claim filed on a
+// Form Mirror @ catalog — wrong-form Case. Facility claim filed on a
 // CMS-1500 (professional 837P) instead of a UB-04 (institutional
 // 837I). Different shape from the other coding-district Cases:
 // the puzzle isn't which code is wrong, it's which form is wrong.
@@ -323,7 +323,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Form Mirror <span class="muted">@ L4 — first sketch (UB-04 vs CMS-1500)</span></h1>
+        <h1>Form Mirror <span class="muted">@ catalog — first sketch (UB-04 vs CMS-1500)</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./prototypes.html">← back to catalog</a>
@@ -724,7 +724,7 @@ function renderDesignNotes(): string {
             <a href="./carveout-phantom-prototype.html">Carve-out Phantom</a>
             (PPDR vs IDR) — same "wrong forum, wrong remedy"
             failure mode.</li>
-            <li>Builds toward Phantom Patient @ L9 (wrong-MRN
+            <li>Builds toward Phantom Patient @ L21 (wrong-MRN
             identity merge) — same "the data ended up in the
             wrong container" muscle.</li>
           </ul>

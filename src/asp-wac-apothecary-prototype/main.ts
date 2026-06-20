@@ -1,4 +1,4 @@
-// ASP/WAC Apothecary @ L5 — drug-pricing Case. Underpayment on a
+// ASP/WAC Apothecary @ L2 — drug-pricing Case. Underpayment on a
 // Part B J-code claim where the hospital billed in vials but the
 // HCPCS billable unit is 10mg. Three different "prices" to
 // reconcile (ASP, WAC, AWP) and a unit conversion that turns one
@@ -286,7 +286,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>ASP/WAC Apothecary <span class="muted">@ L5 — first sketch (drug pricing)</span></h1>
+        <h1>ASP/WAC Apothecary <span class="muted">@ L2 — first sketch (drug pricing)</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./prototypes.html">← back to catalog</a>
@@ -672,7 +672,7 @@ function renderDesignNotes(): string {
             same dragon (underpayment behind CO-45), different
             lever (unit math + reimbursement basis).</li>
             <li>Reuses the appeal modal pattern from Specter.</li>
-            <li>Builds toward Implant Carve-out Specter @ L6 —
+            <li>Builds toward Implant Carve-out Specter @ L14 —
             same "find the line item, match the invoice, refile"
             shape with a different basis.</li>
           </ul>

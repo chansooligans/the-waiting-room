@@ -1,4 +1,4 @@
-// Specter @ L7 (underpayment detection).
+// Specter @ L25 (underpayment detection).
 //
 // Sibling to wraith / bundle / reaper / gatekeeper / fog /
 // hydra / swarm. Same shape (Hospital intro → dreamlike fall →
@@ -287,7 +287,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>Specter <span class="muted">@ L7</span></h1>
+        <h1>Specter <span class="muted">@ L25</span></h1>
         <div class="header-actions">
           ${recallBtn}
           <a class="back-link" href="./">← back to game</a>

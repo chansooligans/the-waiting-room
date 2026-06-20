@@ -1,4 +1,4 @@
-// 340B Drug Pricing Specter @ L8 — duplicate-discount Case.
+// 340B Drug Pricing Specter @ L30 — duplicate-discount Case.
 //
 // 340B is the federal program (42 USC §256b) that lets eligible
 // safety-net providers buy outpatient drugs at deeply discounted
@@ -280,7 +280,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>340B Drug Pricing Specter <span class="muted">@ L8 — duplicate-discount Case</span></h1>
+        <h1>340B Drug Pricing Specter <span class="muted">@ L30 — duplicate-discount Case</span></h1>
         <div class="header-actions">${recallBtn}<a class="back-link" href="./prototypes.html">← back to catalog</a></div>
       </div>
       ${state.briefingDone ? '' : `

@@ -1,4 +1,4 @@
-// COB Cascade Spider @ L9 — coordination-of-benefits cascade with
+// COB Cascade Spider @ L26 — coordination-of-benefits cascade with
 // commercial primary/secondary AND Medicare Secondary Payer
 // (working-aged) wrinkle. Cousin to Hydra (the original COB Case)
 // but goes deeper into the rules: birthday rule for dependent kids,
@@ -285,7 +285,7 @@ function renderHeader(): string {
   return `
     <header class="page-h">
       <div class="title-row">
-        <h1>COB Cascade Spider <span class="muted">@ L9 — birthday rule + MSP + dual-eligibility</span></h1>
+        <h1>COB Cascade Spider <span class="muted">@ L26 — birthday rule + MSP + dual-eligibility</span></h1>
         <div class="header-actions">${recallBtn}<a class="back-link" href="./prototypes.html">← back to catalog</a></div>
       </div>
       ${state.briefingDone ? '' : `
