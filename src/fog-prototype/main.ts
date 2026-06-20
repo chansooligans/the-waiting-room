@@ -318,7 +318,7 @@ function briefingContent(): string {
         Linh changed jobs three months ago. The card she handed
         over at the front desk is from her old plan. The
         registration screen accepted it because the format was
-        valid — but the data is stale. If this claim drops as-
+        valid — but the data is stale. If this claim drops as
         is, it'll bounce off Anthem's adjudication engine for a
         subscriber-not-found, and we'll be cleaning it up
         for the next month."
