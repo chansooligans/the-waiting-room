@@ -176,6 +176,56 @@ const resolutions: Resolution[] = [
   },
 ]
 
+// Documented facts the player reads to answer the true/false trace.
+// Each statement is derivable from one of these source documents —
+// without them the trace is a guess, with them it's evidence-reading.
+interface EvidenceRow { k: string; v: string; flag?: 'good' | 'bad' }
+interface EvidenceDoc { id: string; source: string; kind: string; rows: EvidenceRow[] }
+
+const caseFile: EvidenceDoc[] = [
+  {
+    id: 'eob',
+    source: `${PAYER} — Explanation of Benefits`,
+    kind: 'facility claim',
+    rows: [
+      { k: 'Provider', v: FACILITY },
+      { k: 'Network status', v: 'IN-NETWORK', flag: 'good' },
+      { k: 'Service', v: `Emergency dept. visit · ${VISIT_DATE}` },
+      { k: 'Patient responsibility', v: `${money(FACILITY_BILL)} (in-network ER cost-share) · PAID` },
+    ],
+  },
+  {
+    id: 'phantom-bill',
+    source: `${PHYSICIAN_GROUP} — Patient Statement`,
+    kind: 'physician bill',
+    rows: [
+      { k: 'Billing group', v: 'ER staffing group (contracted at Mercy)' },
+      { k: `Network status w/ ${PAYER}`, v: 'OUT-OF-NETWORK', flag: 'bad' },
+      { k: 'Balance billed to patient', v: `${money(PHANTOM_BILL)}`, flag: 'bad' },
+      { k: 'Advance OON notice + consent on file', v: 'NONE', flag: 'bad' },
+    ],
+  },
+  {
+    id: 'staffing',
+    source: `${FACILITY} — ER Staffing Note`,
+    kind: 'org chart',
+    rows: [
+      { k: 'ER physician services', v: `Provided under contract by ${PHYSICIAN_GROUP}` },
+      { k: 'Directly employed by Mercy?', v: 'NO — contracted staffing group', flag: 'bad' },
+    ],
+  },
+  {
+    id: 'triage',
+    source: `${FACILITY} — ER Triage Record`,
+    kind: 'clinical',
+    rows: [
+      { k: 'Chief complaint', v: 'Chest pain (walk-in)' },
+      { k: 'Triage acuity', v: 'ESI 2 — emergent', flag: 'good' },
+      { k: 'Could patient shop for an in-network provider?', v: 'No — emergency presentation' },
+    ],
+  },
+]
+
 const issues: Issue[] = [
   {
     id: 'trace',
@@ -281,6 +331,7 @@ function render(): string {
     ${renderHeader()}
     ${renderHospitalIntro()}
     ${!state.briefingDone ? renderBriefingInline() : `
+      ${renderCaseFile()}
       ${renderTracePanel()}
       ${renderClassifyPanel()}
       ${renderResolvePanel()}
@@ -423,6 +474,35 @@ function renderBriefingPopover(): string {
   `
 }
 
+function renderCaseFile(): string {
+  return `
+    <section class="case-file">
+      <div class="cf-h">
+        <span class="cf-tag">CASE FILE · the evidence</span>
+        <span class="cf-sub">Everything you need to mark the statements is here. Read the documents, then trace the chain below.</span>
+      </div>
+      <div class="cf-grid">
+        ${caseFile.map(d => `
+          <div class="cf-doc">
+            <div class="cf-doc-h">
+              <span class="cf-src">${escape(d.source)}</span>
+              <span class="cf-kind">${escape(d.kind)}</span>
+            </div>
+            <ul class="cf-rows">
+              ${d.rows.map(r => `
+                <li>
+                  <span class="cf-k">${escape(r.k)}</span>
+                  <span class="cf-v ${r.flag ? 'cf-' + r.flag : ''}">${escape(r.v)}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `
+}
+
 function renderTracePanel(): string {
   const done = state.resolvedIssues.has('trace')
   return `
@@ -431,7 +511,7 @@ function renderTracePanel(): string {
         <span class="tp-tag">CONTRACT CHAIN · 5 statements</span>
         <span class="tp-sub">${done
           ? 'Walked. Mercy in-network; Riverside not; Marcus didn\'t consent; visit was emergency. The Phantom is the gap.'
-          : 'For each statement, mark true or false. Get every one right to map the chain.'}</span>
+          : 'For each statement, mark true or false — the answer is in the case file above. Get every one right to map the chain.'}</span>
       </div>
       <ul class="stmt-list">
         ${contractStatements.map(s => renderStatementRow(s)).join('')}
@@ -817,6 +897,23 @@ function handleClick(e: MouseEvent) {
 // ===== Per-prototype CSS =====
 
 const css = districtVars('billing') + BASE_CSS + `
+  /* Case file (evidence) */
+  .case-file { background: var(--panel); border: 1px solid #232a36; border-left: 4px solid var(--accent-2); border-radius: 8px; padding: 16px 18px; margin-bottom: 18px; }
+  .cf-h { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+  .cf-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-2); }
+  .cf-sub { font-size: 12px; color: var(--ink-dim); font-style: italic; }
+  .cf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+  .cf-doc { background: var(--panel-2); border: 1px solid #2a3142; border-radius: 6px; padding: 10px 12px; }
+  .cf-doc-h { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 8px; border-bottom: 1px dashed #2a3142; padding-bottom: 6px; }
+  .cf-src { font-size: 12px; font-weight: 700; color: var(--ink); }
+  .cf-kind { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-dim); white-space: nowrap; }
+  .cf-rows { list-style: none; padding-left: 0; margin: 0; }
+  .cf-rows li { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; font-size: 12px; line-height: 1.4; }
+  .cf-k { color: var(--ink-dim); flex: 1; }
+  .cf-v { text-align: right; font-weight: 600; color: var(--ink); }
+  .cf-v.cf-good { color: var(--good); }
+  .cf-v.cf-bad  { color: var(--bad); }
+
   /* Trace panel */
   .trace-panel { background: var(--panel); border: 1px solid #232a36; border-left: 4px solid var(--accent); border-radius: 8px; padding: 16px 18px; margin-bottom: 22px; }
   .trace-panel.done { border-left-color: var(--good); }
