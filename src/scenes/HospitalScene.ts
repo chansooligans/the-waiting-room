@@ -175,7 +175,7 @@ const TIPS_TERMINAL_TILE = { x: 75, y: 101 }
 // The single Medical Records drawer that holds the level's active chart.
 // It's highlighted in-room and flagged on the mini-map so the player
 // knows exactly which cabinet to open (vs. the ~20 decoy binders).
-const ACTIVE_CHART_CABINET = { x: 57, y: 44 }
+const ACTIVE_CHART_CABINET = { x: 58, y: 45 }
 
 // Current level -> the chart an op-note pull resolves. The pull only
 // fires at ACTIVE_CHART_CABINET; every other drawer is flavor only.
