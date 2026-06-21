@@ -41,7 +41,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_asp_wac_apothecary'],
     cases: [],
-    npcsActive: ['alex'],
+    npcsActive: ['liana'],
   },
   {
     id: 3,
@@ -127,7 +127,7 @@ export const LEVELS: LevelDef[] = [
     concepts: ['charity_care', '501r'],
     encounters: ['lighthouse_charity'],
     cases: [],
-    npcsActive: ['jordan'],
+    npcsActive: ['anjali'],
   },
   {
     id: 10,
@@ -149,7 +149,7 @@ export const LEVELS: LevelDef[] = [
     concepts: ['medical_policy', 'fee_schedule', 'contract_terms'],
     encounters: ['co_50'],
     cases: ['case_wraith_walker'],
-    npcsActive: ['sam'],
+    npcsActive: ['payer_supervisor'],
   },
   {
     id: 12,
@@ -160,7 +160,7 @@ export const LEVELS: LevelDef[] = [
     concepts: ['x12_837', 'x12_277ca', 'clearinghouse', 'adjudication'],
     encounters: ['co_16_swarm'],
     cases: ['case_swarm_yamada'],
-    npcsActive: ['alex', 'pat'],
+    npcsActive: ['lab_tech'],
   },
   {
     id: 13,
@@ -171,7 +171,7 @@ export const LEVELS: LevelDef[] = [
     concepts: ['x12_837', 'icn', 'frequency_codes', 'duplicate_handling'],
     encounters: ['co_18_doppelganger'],
     cases: ['case_doppel_reyes'],
-    npcsActive: ['kim', 'alex'],
+    npcsActive: ['joe'],
   },
   {
     id: 14,
@@ -182,7 +182,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_implant_carveout_specter'],
     cases: [],
-    npcsActive: ['alex'],
+    npcsActive: ['rad_tech'],
   },
   {
     id: 15,
@@ -193,7 +193,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_credentialing_lattice'],
     cases: [],
-    npcsActive: ['kim'],
+    npcsActive: ['dr_park'],
   },
   {
     id: 16,
@@ -248,7 +248,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_ob_perdiem_specter'],
     cases: [],
-    npcsActive: ['alex'],
+    npcsActive: ['dr_priya'],
   },
   {
     id: 21,
@@ -259,7 +259,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_phantom_patient'],
     cases: [],
-    npcsActive: ['kim'],
+    npcsActive: ['records_clerk'],
   },
   {
     id: 22,
@@ -281,7 +281,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_chemo_bundle_specter'],
     cases: [],
-    npcsActive: ['alex'],
+    npcsActive: ['dr_ethan'],
   },
   {
     id: 24,
@@ -292,7 +292,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_two_midnight_mire'],
     cases: [],
-    npcsActive: ['pat'],
+    npcsActive: ['dr_park'],
   },
   {
     id: 25,
@@ -325,7 +325,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_case_rate_specter'],
     cases: [],
-    npcsActive: ['alex'],
+    npcsActive: ['payer_supervisor'],
   },
   {
     id: 28,
@@ -358,7 +358,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_three_forty_b_specter'],
     cases: [],
-    npcsActive: ['alex'],
+    npcsActive: ['liana'],
   },
   {
     id: 31,
@@ -369,7 +369,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_hipaa_spider'],
     cases: [],
-    npcsActive: ['sam'],
+    npcsActive: ['compliance_officer'],
   },
   {
     id: 32,

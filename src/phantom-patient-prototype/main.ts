@@ -286,7 +286,7 @@ function renderHospitalIntro(): string {
     <section class="hospital-intro">
       <div class="register hospital">HOSPITAL · this morning</div>
       <p>
-        Kim from registration walks over with two charts in one
+        Marisol from records walks over with two charts in one
         hand. "${escape(PATIENT_A)} and ${escape(PATIENT_B)}.
         Same DOB. Today's encounter went on the wrong one. Aetna
         returned ${term('CO-31')}. We need to walk the trail
@@ -570,7 +570,7 @@ function renderVictory(): string {
       </p>
       <div class="register hospital">HOSPITAL · later that morning</div>
       <p>
-        Kim flips through the MPI alerts. "Three more same-DOB
+        Marisol flips through the MPI alerts. "Three more same-DOB
         ambiguities this week. Cleaner registration is the only
         fix that scales."
       </p>

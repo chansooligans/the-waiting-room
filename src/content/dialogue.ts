@@ -462,13 +462,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // === Level 5 — Sam hands off the medical-necessity wraith ===
   sam_l5_intake: {
     id: 'sam_l5_intake',
-    speaker: 'Sam',
+    speaker: 'Diane',
     text: "CO-50 on Walker. TTE for unspecified heart failure. Payer wants LCD evidence of LVEF under 35%. Echo report exists; it's just not stapled to the claim.",
     next: 'sam_l5_intake_2',
   },
   sam_l5_intake_2: {
     id: 'sam_l5_intake_2',
-    speaker: 'Sam',
+    speaker: 'Diane',
     text: "Wraiths feed on missing pages. Bring the evidence and it dissolves. Try?",
     // Same chart-gating pattern as Pat L4: descent only available
     // after the player has pulled Walker's echo from Medical Records.
@@ -484,13 +484,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   sam_l5_chart_hint: {
     id: 'sam_l5_chart_hint',
-    speaker: 'Sam',
+    speaker: 'Diane',
     text: "Walker. Echo dated 09/14. Medical Records — east wing — bottom shelf. Without the LVEF the LCD doesn't apply. Don't go down empty-handed.",
     choices: [{ text: '(Step away.)' }],
   },
   sam_l5_intake_back: {
     id: 'sam_l5_intake_back',
-    speaker: 'Sam',
+    speaker: 'Diane',
     text: "It only gets harder to read once it's been a week.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -498,13 +498,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // === Level 6 — Alex (IT/EDI) hands off the documentation-sprite swarm ===
   alex_l6_intake: {
     id: 'alex_l6_intake',
-    speaker: 'Alex',
+    speaker: 'Roni',
     text: "Yamada batch. 277CA rejects piling up — taxonomy missing on the rendering provider, and a dx pointer that points to nothing. We can scrub each reject one at a time, but they're regenerating faster than we sweep them.",
     next: 'alex_l6_intake_2',
   },
   alex_l6_intake_2: {
     id: 'alex_l6_intake_2',
-    speaker: 'Alex',
+    speaker: 'Roni',
     text: "Trace the source upstream. Patch the chart, and the swarm starves.",
     choices: [
       { text: '(Trace the swarm.)',
@@ -514,7 +514,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   alex_l6_intake_back: {
     id: 'alex_l6_intake_back',
-    speaker: 'Alex',
+    speaker: 'Roni',
     text: "Sure. They multiply quietly until they don't.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -571,13 +571,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   //     (Was the COB hydra; hydra moved to prototype-only catalog.) ===
   kim_l9_intake: {
     id: 'kim_l9_intake',
-    speaker: 'Kim',
+    speaker: 'Joe',
     text: "Two claims for Reyes — same DOS, same CPT, same everything — and they're both denying CO-18. Someone resubmitted instead of replacing.",
     next: 'kim_l9_intake_2',
   },
   kim_l9_intake_2: {
     id: 'kim_l9_intake_2',
-    speaker: 'Kim',
+    speaker: 'Joe',
     text: "I've got the original ICN. Box 22 frequency 7 references it and the duplicate folds back in. Want to take it?",
     choices: [
       { text: '(Open the duplicate.)',
@@ -587,7 +587,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   kim_l9_intake_back: {
     id: 'kim_l9_intake_back',
-    speaker: 'Kim',
+    speaker: 'Joe',
     text: "It'll keep. They always do.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1058,13 +1058,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L2 — Alex, ASP / WAC Apothecary
   alex_asp_wac_intake: {
     id: 'alex_asp_wac_intake',
-    speaker: 'Alex',
+    speaker: 'Liana',
     text: "Got a Part B drug denial — J-code units don't reconcile with ASP+6%. NDC↔HCPCS crosswalk might be off. Look interesting?",
     next: 'alex_asp_wac_intake_2',
   },
   alex_asp_wac_intake_2: {
     id: 'alex_asp_wac_intake_2',
-    speaker: 'Alex',
+    speaker: 'Liana',
     text: "I've got the file open if you want the trail. Pricing math is mostly checking the units against the dose; spot the mistake and it should recover cleanly.",
     choices: [
       { text: '(Pull the J-code file.)',
@@ -1074,7 +1074,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   alex_asp_wac_intake_back: {
     id: 'alex_asp_wac_intake_back',
-    speaker: 'Alex',
+    speaker: 'Liana',
     text: "Fair. The pricing files don't move on us.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1154,13 +1154,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L9 — Jordan, Lighthouse (charity)
   jordan_lighthouse_intake: {
     id: 'jordan_lighthouse_intake',
-    speaker: 'Jordan',
+    speaker: 'Anjali',
     text: "A patient who can't pay. Walked into the ER three weeks ago with no insurance and no income above 200% FPL. We have §501(r) for exactly this; the application's open.",
     next: 'jordan_lighthouse_intake_2',
   },
   jordan_lighthouse_intake_2: {
     id: 'jordan_lighthouse_intake_2',
-    speaker: 'Jordan',
+    speaker: 'Anjali',
     text: "Can you walk the screen and presumptive eligibility check with him?",
     choices: [
       { text: '(Open the application.)',
@@ -1170,7 +1170,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   jordan_lighthouse_intake_back: {
     id: 'jordan_lighthouse_intake_back',
-    speaker: 'Jordan',
+    speaker: 'Anjali',
     text: "He's not going anywhere. He's been in this lobby longer than I have.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1202,13 +1202,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L14 — Alex, Implant Carve-Out
   alex_implant_carveout_intake: {
     id: 'alex_implant_carveout_intake',
-    speaker: 'Alex',
+    speaker: 'Adaeze',
     text: "Surgical case where the implant invoice was $14K above the stoploss threshold. Contract carves it out — payer paid the bundled case rate anyway.",
     next: 'alex_implant_carveout_intake_2',
   },
   alex_implant_carveout_intake_2: {
     id: 'alex_implant_carveout_intake_2',
-    speaker: 'Alex',
+    speaker: 'Adaeze',
     text: "Pull the manufacturer invoice and the contract clause. If the carve-out triggers, the math will say so.",
     choices: [
       { text: '(Open the case.)',
@@ -1218,7 +1218,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   alex_implant_carveout_intake_back: {
     id: 'alex_implant_carveout_intake_back',
-    speaker: 'Alex',
+    speaker: 'Adaeze',
     text: "Six figures in aggregate. I'll wait.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1226,13 +1226,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L15 — Kim, Credentialing Lattice
   kim_credentialing_intake: {
     id: 'kim_credentialing_intake',
-    speaker: 'Kim',
+    speaker: 'Dr. Park',
     text: "New hire denied — Aetna says the doc isn't credentialed yet. He's been seeing patients for six weeks under a covering attending, but the bill went out under his own NPI.",
     next: 'kim_credentialing_intake_2',
   },
   kim_credentialing_intake_2: {
     id: 'kim_credentialing_intake_2',
-    speaker: 'Kim',
+    speaker: 'Dr. Park',
     text: "Could be a retro-credential request; could be a re-route under the covering attending. Pull the file and pin it down.",
     choices: [
       { text: '(Pull the credentialing file.)',
@@ -1242,7 +1242,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   kim_credentialing_intake_back: {
     id: 'kim_credentialing_intake_back',
-    speaker: 'Kim',
+    speaker: 'Dr. Park',
     text: "Sixty days from charge to denial. Clock's running.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1298,13 +1298,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L20 — Alex, OB Per-Diem Specter
   alex_ob_perdiem_intake: {
     id: 'alex_ob_perdiem_intake',
-    speaker: 'Alex',
+    speaker: 'Dr. Priya',
     text: "L&D case — vaginal delivery converted to C-section mid-labor. Payer paid the OB per-diem base rate; the C-section escalator never triggered.",
     next: 'alex_ob_perdiem_intake_2',
   },
   alex_ob_perdiem_intake_2: {
     id: 'alex_ob_perdiem_intake_2',
-    speaker: 'Alex',
+    speaker: 'Dr. Priya',
     text: "Pull the contract clause and the procedure record; that'll tell us whether the escalator missed.",
     choices: [
       { text: '(Pull the case.)',
@@ -1314,7 +1314,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   alex_ob_perdiem_intake_back: {
     id: 'alex_ob_perdiem_intake_back',
-    speaker: 'Alex',
+    speaker: 'Dr. Priya',
     text: "The escalator's worth four figures per case. We see this a lot.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1322,13 +1322,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L21 — Kim, Phantom Patient
   kim_phantom_patient_intake: {
     id: 'kim_phantom_patient_intake',
-    speaker: 'Kim',
+    speaker: 'Marisol',
     text: "Two patients with the same name, same DOB, same zip code. They collided into one MRN at intake. Treatment histories tangled.",
     next: 'kim_phantom_patient_intake_2',
   },
   kim_phantom_patient_intake_2: {
     id: 'kim_phantom_patient_intake_2',
-    speaker: 'Kim',
+    speaker: 'Marisol',
     text: "Walk the chart timelines and separate them at the source. Both patients are real; both deserve their own MRN.",
     choices: [
       { text: '(Open both charts.)',
@@ -1338,7 +1338,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   kim_phantom_patient_intake_back: {
     id: 'kim_phantom_patient_intake_back',
-    speaker: 'Kim',
+    speaker: 'Marisol',
     text: "Don't take long. Both of them are getting bills that aren't theirs.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1370,13 +1370,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L23 — Alex, Chemo Bundle Specter
   alex_chemo_bundle_intake: {
     id: 'alex_chemo_bundle_intake',
-    speaker: 'Alex',
+    speaker: 'Dr. Ethan',
     text: "Oncology case — chemo administration codes (96413, 96415) dropped from the claim. Payer paid the drug + a case rate that doesn't cover admin time.",
     next: 'alex_chemo_bundle_intake_2',
   },
   alex_chemo_bundle_intake_2: {
     id: 'alex_chemo_bundle_intake_2',
-    speaker: 'Alex',
+    speaker: 'Dr. Ethan',
     text: "Open the file and reconcile the missing units against the infusion record, claim, and contract.",
     choices: [
       { text: '(Open the file.)',
@@ -1386,7 +1386,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   alex_chemo_bundle_intake_back: {
     id: 'alex_chemo_bundle_intake_back',
-    speaker: 'Alex',
+    speaker: 'Dr. Ethan',
     text: "Six-figure aggregate every quarter. Don't pass long.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1394,13 +1394,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L24 — Pat, Two-Midnight Mire
   pat_two_midnight_intake: {
     id: 'pat_two_midnight_intake',
-    speaker: 'Pat',
+    speaker: 'Dr. Park',
     text: "Medicare admit, 38 hours total stay. Payer downgraded to observation. Clinical narrative supports inpatient — physician documented the 2-midnight expectation.",
     next: 'pat_two_midnight_intake_2',
   },
   pat_two_midnight_intake_2: {
     id: 'pat_two_midnight_intake_2',
-    speaker: 'Pat',
+    speaker: 'Dr. Park',
     text: "Build the inpatient defense from the H&P, progress notes, and discharge summary.",
     choices: [
       { text: '(Pull the chart.)',
@@ -1410,7 +1410,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   pat_two_midnight_intake_back: {
     id: 'pat_two_midnight_intake_back',
-    speaker: 'Pat',
+    speaker: 'Dr. Park',
     text: "The clock on the appeal isn't generous.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1466,13 +1466,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L27 — Alex, Case-Rate Specter
   alex_case_rate_intake: {
     id: 'alex_case_rate_intake',
-    speaker: 'Alex',
+    speaker: 'Diane',
     text: "Eight-day stay paid as one case rate. Contract has a per-diem trigger at day 5 that should've kicked in. Payer's adjudication didn't.",
     next: 'alex_case_rate_intake_2',
   },
   alex_case_rate_intake_2: {
     id: 'alex_case_rate_intake_2',
-    speaker: 'Alex',
+    speaker: 'Diane',
     text: "Walk the LOS and contract clauses, then build the per-diem dispute.",
     choices: [
       { text: '(Take the case.)',
@@ -1482,7 +1482,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   alex_case_rate_intake_back: {
     id: 'alex_case_rate_intake_back',
-    speaker: 'Alex',
+    speaker: 'Diane',
     text: "Three or four of these a month. Aggregate matters.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1538,13 +1538,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L30 — Alex, 340B Specter
   alex_340b_intake: {
     id: 'alex_340b_intake',
-    speaker: 'Alex',
+    speaker: 'Liana',
     text: "340B-eligible drug reimbursed at the non-340B rate post-Becerra. Either we lose the discount on this DOS or the payer's reading the clawback rule wrong.",
     next: 'alex_340b_intake_2',
   },
   alex_340b_intake_2: {
     id: 'alex_340b_intake_2',
-    speaker: 'Alex',
+    speaker: 'Liana',
     text: "Pull the eligibility, the DOS, and the policy; the answer is in the overlap.",
     choices: [
       { text: '(Open the case.)',
@@ -1554,7 +1554,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   alex_340b_intake_back: {
     id: 'alex_340b_intake_back',
-    speaker: 'Alex',
+    speaker: 'Liana',
     text: "Pharmacy's keeping a tally. They'll appreciate the recover.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1562,13 +1562,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L31 — Sam, HIPAA Spider
   sam_hipaa_intake: {
     id: 'sam_hipaa_intake',
-    speaker: 'Sam',
+    speaker: 'Theo',
     text: "Fax-machine misroute Tuesday — six pages of PHI to a podiatrist's office that isn't ours. Four-factor assessment hasn't started.",
     next: 'sam_hipaa_intake_2',
   },
   sam_hipaa_intake_2: {
     id: 'sam_hipaa_intake_2',
-    speaker: 'Sam',
+    speaker: 'Theo',
     text: "Don't say breach yet — assess first. Walk the four factors, document, then decide on notification.",
     choices: [
       { text: '(Open the file.)',
@@ -1578,7 +1578,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   sam_hipaa_intake_back: {
     id: 'sam_hipaa_intake_back',
-    speaker: 'Sam',
+    speaker: 'Theo',
     text: "Sixty-day notification clock starts when we knew. We know now.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1594,36 +1594,36 @@ export const DIALOGUES: Record<string, DialogueNode> = {
  *  the right intake tree. Existing dialogues from the 10-level shape
  *  are reused where the case is unchanged (only the level number moved). */
 export const LEVEL_NPC_DIALOGUES: Record<number, Record<string, string>> = {
-  2:   { alex:     'alex_asp_wac_intake' },
+  2:   { liana: 'alex_asp_wac_intake' },
   3:   { kim:      'kim_l2_intake' },  // fog
   4:   { alex:     'alex_stoploss_intake' },
   5:   { pat:      'pat_l4_intake' },  // bundle
   6:   { records_clerk: 'pat_outpatient_surgery_intake' },
   7:   { jordan:   'jordan_no_show_intake' },
   8:   { martinez: 'martinez_gatekeeper_intake', sam: 'sam_l3_intake' },  // gatekeeper
-  9:   { jordan:   'jordan_lighthouse_intake' },
+  9:   { anjali: 'jordan_lighthouse_intake' },
   10:  { payer_rep: 'sam_gfe_intake' },
-  11:  { sam:      'sam_l5_intake' },  // wraith
-  12:  { alex:     'alex_l6_intake' },  // swarm
-  13:  { kim:      'kim_l9_intake' },  // doppelganger
-  14:  { alex:     'alex_implant_carveout_intake' },
-  15:  { kim:      'kim_credentialing_intake' },
+  11:  { payer_supervisor: 'sam_l5_intake' },  // wraith
+  12:  { lab_tech: 'alex_l6_intake' },  // swarm
+  13:  { joe: 'kim_l9_intake' },  // doppelganger
+  14:  { rad_tech: 'alex_implant_carveout_intake' },
+  15:  { dr_park: 'kim_credentialing_intake' },
   16:  { dr_ethan: 'alex_carveout_phantom_intake' },
   17:  { pat:      'pat_cpt_licensure_intake' },
   18:  { sam:      'sam_l7_intake' },  // reaper
   19:  { jordan:   'jordan_l8_intake' },  // surprise-bill
-  20:  { alex:     'alex_ob_perdiem_intake' },
-  21:  { kim:      'kim_phantom_patient_intake' },
+  20:  { dr_priya: 'alex_ob_perdiem_intake' },
+  21:  { records_clerk: 'kim_phantom_patient_intake' },
   22:  { dr_priya: 'pat_risk_adj_intake' },
-  23:  { alex:     'alex_chemo_bundle_intake' },
-  24:  { pat:      'pat_two_midnight_intake' },
+  23:  { dr_ethan: 'alex_chemo_bundle_intake' },
+  24:  { dr_park: 'pat_two_midnight_intake' },
   25:  { alex:     'alex_specter_intake' },
   26:  { kim:      'kim_cob_cascade_intake' },
-  27:  { alex:     'alex_case_rate_intake' },
+  27:  { payer_supervisor: 'alex_case_rate_intake' },
   28:  { payer_rep: 'sam_mrf_intake' },
   29:  { sam:      'sam_idr_intake' },
-  30:  { alex:     'alex_340b_intake' },
-  31:  { sam:      'sam_hipaa_intake' },
+  30:  { liana: 'alex_340b_intake' },
+  31:  { compliance_officer: 'sam_hipaa_intake' },
   32:  { dana:     'dana_l10_intake' },  // boss
 
 }
