@@ -29,7 +29,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "The 271 eligibility response on file is the source of truth. The card was stale; the 271 is the record that matters.",
   ],
   2: [
-    "Alex flagged a J-code denial in the Main Hub — ASP / WAC / NDC↔HCPCS territory.",
+    "Liana from pharmacy is in the Main Hub — ASP / WAC / NDC↔HCPCS territory.",
     "Part B drugs pay at ASP+6% (Average Sales Price plus six percent). New drugs pay WAC+3% until ASP data exists.",
     "J-code units count actual dose, not packages. 50mg J3490 = 1 unit; billing 50 units is the dispute.",
   ],
@@ -64,7 +64,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Once the 278 returns the auth number, amend Box 23 on the claim. Single-amend close.",
   ],
   9: [
-    "Jordan in Eligibility. A patient with no path to pay.",
+    "Anjali's in the lobby. A patient with no path to pay.",
     "Charity care under §501(r). Financial assistance policy + presumptive eligibility screen.",
     "Patient-facing case. The system you're operating is the safety net.",
   ],
@@ -74,27 +74,27 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "If the bill exceeds the GFE by >$400, the patient has appeal rights via the patient-provider dispute resolution process.",
   ],
   11: [
-    "Sam has the Walker echo. Pull the chart at Med Records first.",
+    "Diane in Patient Services has the Walker echo. Pull the chart at the lit drawer first.",
     "CO-50 medical-necessity denial. Citation-chain appeal across three sources.",
     "All three pieces (payer phrase, chart fact, policy clause) must address the SAME issue. Mismatch is the test.",
   ],
   12: [
-    "Cal cleared the back-wing corridor. Alex is in Billing. The clearinghouse is bleeding.",
+    "Roni in the Lab. NCCI edits as the claim swarms the clearinghouse.",
     "CO-16 catch-all. Read the RARC + 277CA detail — that's where the real reason lives.",
     "Frequency-code-7 replacement for corrected resubmits so you don't dupe-flag.",
   ],
   13: [
-    "Kim at Registration. A duplicate that shouldn't exist.",
+    "Joe in Medical Records. A duplicate that shouldn't exist.",
     "CO-18: exact duplicate. The payer's matching algorithm flagged this as identical to one on file.",
     "Frequency codes (0/7/8). Replacement claims must reference the original ICN.",
   ],
   14: [
-    "Alex in Billing. Implant carve-out went sideways.",
+    "Adaeze in Radiology. Implant carve-out went sideways.",
     "When implant cost exceeds the stoploss threshold, the contract carves it out from the case rate as an invoice-based add-on.",
     "Pull the manufacturer invoice and the contract's stoploss section. The math is in the deltas.",
   ],
   15: [
-    "Kim at Registration. A new hire whose credentialing isn't finished yet.",
+    "Dr. Park in the Main Hub. A new hire whose credentialing isn't finished yet.",
     "Provider credentialing = the payer's process for approving a doc to bill under their network.",
     "Retro-credentialing is sometimes available. If not, the bill goes through under a covering credentialed provider OR self-pay.",
   ],
@@ -119,12 +119,12 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "OON provider and payer fight in IDR. Patient is out once cost-share is calculated correctly.",
   ],
   20: [
-    "Alex in Billing. OB per-diem with a C-section escalator.",
+    "Dr. Priya. OB per-diem with a C-section escalator.",
     "OB per-diem contracts usually have escalators for cesarean delivery, NICU, multiples.",
     "Check that the escalator triggered. Often a coding-side miss (procedure code didn't propagate to the per-diem rate calc).",
   ],
   21: [
-    "Kim at Registration. Two patients matched into the same demographic profile.",
+    "Marisol in Medical Records. Two patients matched into the same demographic profile.",
     "Identity matching collision — same name + DOB + zip code, different patients.",
     "Pull the chart history. Look for treatment timeline gaps that prove these are distinct people. Resolve at the source.",
   ],
@@ -134,12 +134,12 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Chronic conditions must be coded every year. Drops one year, the RAF score evaporates. Pull the chart, capture what's actually documented.",
   ],
   23: [
-    "Alex in Billing. Chemo bundled into the case rate; admin code dropped.",
+    "Dr. Ethan in the Lecture Hall. Chemo bundled into the case rate; admin code dropped.",
     "Chemotherapy admin (96413, 96415) is often bundled with the drug + case rate. The breakdown matters for revenue capture.",
     "Pull the contract's chemo carve-out terms + the actual claim. Find the missing admin units.",
   ],
   24: [
-    "Pat in HIM. Two-midnight inpatient vs observation question.",
+    "Dr. Park in HIM. Two-midnight inpatient vs observation question.",
     "Medicare 2-midnight rule: an inpatient admission is presumed appropriate if it spans ≥2 midnights AND is medically necessary.",
     "<2 midnights = observation unless physician documents a clinically-justified reason for inpatient.",
   ],
@@ -154,7 +154,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Run a fresh COB inquiry. The 271 will tell you what each payer currently thinks the order is — and they often disagree.",
   ],
   27: [
-    "Alex in Billing. Case-rate vs per-diem mismatch.",
+    "Diane in the Payer office. Case-rate vs per-diem mismatch.",
     "Case rate = one bundled payment for the whole stay. Per-diem = paid per day.",
     "Multi-day stays paid as case rate often underpay vs. per-diem. Check the contract's case-rate threshold and the actual LOS.",
   ],
@@ -169,12 +169,12 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Defend the math. QPA (Qualifying Payment Amount), historical rates, complexity factors. The closer your number is to QPA, the more often you win.",
   ],
   30: [
-    "Alex in Billing. 340B rate clawback.",
+    "Liana in the Cancer Center. 340B rate clawback.",
     "340B program lets eligible hospitals buy outpatient drugs at deep discount. After Becerra v. AHA, post-2023 reimbursement rules changed.",
     "Check the drug's 340B eligibility + the date of service. Some clawbacks were retroactive; some are forward-looking.",
   ],
   31: [
-    "Sam in Patient Services. A faxed PHI page went to the wrong number.",
+    "Theo (compliance). A faxed PHI page went to the wrong number.",
     "HIPAA breach response: four-factor assessment (nature of PHI, who received, was it actually viewed, mitigation).",
     "Under 500 individuals = annual report to HHS. Over 500 = notify HHS + media within 60 days.",
   ],
