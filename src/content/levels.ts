@@ -394,3 +394,50 @@ export const LEVELS: LevelDef[] = [
     bossEncounter: 'boss_audit',
   },
 ]
+
+// ---------------------------------------------------------------------------
+// Active-level toggle (game-flow on/off switch)
+//
+// The full 32-level arc above always exists — content, NPCs, prototypes,
+// Waiting Room obstacles are never deleted. But the *playable flow* only
+// visits the levels listed in ENABLED_LEVELS, skipping the rest. Progression
+// jumps from one enabled level straight to the next (see
+// state.ts:checkLevelProgression), so a disabled level's giver / obstacle
+// simply never becomes the active objective.
+//
+// To turn a level back on or off, just add/remove its id here — nothing
+// else needs to change. Keep it sorted for readability; order doesn't matter
+// (ACTIVE_LEVELS sorts + dedupes).
+export const ENABLED_LEVELS: number[] = [
+  1, 2, 4, 5, 6, 8, 10, 14, 16, 17, 18, 19, 20, 23, 24, 25, 27, 28, 29, 30, 32,
+]
+
+/** The enabled level ids, sorted ascending and de-duped — the actual
+ *  play order. */
+export const ACTIVE_LEVELS: number[] = [...new Set(ENABLED_LEVELS)].sort((a, b) => a - b)
+
+/** Is this level part of the active game flow? */
+export function isLevelEnabled(id: number): boolean {
+  return ACTIVE_LEVELS.includes(id)
+}
+
+/** The first level the player starts on. */
+export function firstActiveLevel(): number {
+  return ACTIVE_LEVELS[0] ?? 1
+}
+
+/** The next enabled level strictly after `id`, or null if `id` is the
+ *  last active level (capstone). Works even if `id` itself is disabled
+ *  (e.g. a dev jump): returns the next enabled level above it. */
+export function nextActiveLevel(id: number): number | null {
+  for (const lvl of ACTIVE_LEVELS) {
+    if (lvl > id) return lvl
+  }
+  return null
+}
+
+/** How many active levels sit strictly before `id` — i.e. the count of
+ *  obstacle defeats the player must have to be standing at `id`. */
+export function activeLevelsBefore(id: number): number {
+  return ACTIVE_LEVELS.filter(l => l < id).length
+}

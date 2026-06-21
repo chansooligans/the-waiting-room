@@ -9,6 +9,7 @@
 
 import { getState, loadGame, newGame, saveGame } from '../state'
 import { clearHospitalFog } from '../scenes/HospitalScene'
+import { ACTIVE_LEVELS } from '../content/levels'
 import type { GameState } from '../types'
 
 const PANEL_ID = '__dev_panel__'
@@ -97,11 +98,13 @@ function renderPanel(): string {
     </section>
     <section>
       <div class="devp-section-h">Save presets</div>
-      ${LEVEL_PRESETS.map(p => `
-        <button class="devp-btn" data-dev-action="preset" data-dev-arg="${p.level}">
-          ${p.label} <span class="devp-id">(${p.note})</span>
+      ${LEVEL_PRESETS.map(p => {
+        const off = !ACTIVE_LEVELS.includes(p.level)
+        return `
+        <button class="devp-btn" data-dev-action="preset" data-dev-arg="${p.level}"${off ? ' style="opacity:0.5"' : ''}>
+          ${p.label} <span class="devp-id">(${p.note})</span>${off ? ' <span class="devp-id" style="color:#ef5b7b">· skipped</span>' : ''}
         </button>
-      `).join('')}
+      `}).join('')}
     </section>
     <section>
       <div class="devp-section-h">Jump to scene</div>
@@ -343,11 +346,15 @@ const INTRO_BEATS: { beat: number; label: string }[] = [
 
 function buildPresetSave(targetLevel: number): string {
   const lvl = Math.max(1, Math.min(33, targetLevel))
-  // Need (lvl - 1) defeats so threshold for the previous level is met,
-  // landing the player AT `lvl` ready to take its case.
-  const defeats = PRESET_DEFEAT_SEQUENCE.slice(0, lvl - 1)
+  // Progression only counts enabled levels (the ENABLED_LEVELS toggle in
+  // levels.ts). To land the player AT `lvl` ready to take its case, seed
+  // one defeat per *enabled* level below it — that satisfies
+  // checkLevelProgression's position-based threshold. Disabled levels
+  // below `lvl` contribute no defeat (they're skipped in the flow).
+  const enabledBelow = ACTIVE_LEVELS.filter(a => a < lvl)
+  const defeats = enabledBelow.map(a => PRESET_DEFEAT_SEQUENCE[a - 1])
   const levelComplete = Array(33).fill(false)
-  for (let i = 0; i < lvl - 1; i++) levelComplete[i] = true
+  for (const a of enabledBelow) levelComplete[a - 1] = true
   // Drop the player at the room that hosts this level's case NPC so QA
   // isn't hunting through corridors after every jump. Falls back to the
   // lobby if a preset is missing its spawn (shouldn't happen — type is
