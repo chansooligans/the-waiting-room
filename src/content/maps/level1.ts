@@ -1271,12 +1271,13 @@ export const LEVEL_1_MAP: MapDef = {
     { npcId: 'jordan', tileX: PFS.x + 6, tileY: PFS.y + 5, facing: 'right',
       levels: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
-    // Pat — Registration (L3-4) faces left toward Kim; HIM (L5+, the
-    // bundling handoff) default 'down' (sits at the desk row on entry).
+    // Pat — Registration (L3-4, + L6 outpatient-grouper whose WR obstacle
+    // sits in the Registration parallel) faces left; HIM for L5 (bundling
+    // chart handoff) and L7-32, default 'down' at the desk row.
     { npcId: 'pat', tileX: REGISTRATION.x + 14, tileY: REGISTRATION.y + 4, facing: 'left',
-      levels: [3, 4] },
+      levels: [3, 4, 6] },
     { npcId: 'pat', tileX: HIM.x + 5, tileY: HIM.y + 5,
-      levels: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
+      levels: [5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
     // Alex — Main Hub (L1-11, minus L4) faces right toward Martinez;
     // Billing (L13+, once the room unlocks and Cal clears the corridor)
