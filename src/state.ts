@@ -1,9 +1,10 @@
 import type { GameState } from './types'
+import { firstActiveLevel, nextActiveLevel, activeLevelsBefore } from './content/levels'
 
 const SAVE_KEY = 'denial_dungeon_save'
 
 const DEFAULT_STATE: GameState = {
-  currentLevel: 1,
+  currentLevel: firstActiveLevel(),
   levelComplete: Array(33).fill(false),
   levelStars: Array(33).fill(0),
   resources: {
@@ -203,12 +204,21 @@ export const LEVEL_DEFEAT_THRESHOLD: number[] = [
 export function checkLevelProgression(): number | null {
   const defeats = currentState.defeatedObstacles.length
   const lvl = currentState.currentLevel
-  if (lvl >= LEVEL_DEFEAT_THRESHOLD.length) return null
-  const threshold = LEVEL_DEFEAT_THRESHOLD[lvl - 1]
+  // Progression walks ACTIVE_LEVELS (the enabled-level toggle in
+  // levels.ts), skipping disabled levels entirely. The player only ever
+  // engages active-level obstacles, so `defeats` == the number of active
+  // levels cleared. To leave the active level at position `pos`
+  // (0-based) the player needs `pos + 1` defeats; clearing it advances
+  // to the next enabled level.
+  const next = nextActiveLevel(lvl)
+  if (next === null) return null            // capstone / last active level
+  // `activeLevelsBefore(lvl)` is this level's 0-based position when lvl
+  // is enabled; +1 is the cumulative defeats required to clear it.
+  const threshold = activeLevelsBefore(lvl) + 1
   if (defeats < threshold) return null
   // Advance.
   currentState.levelComplete[lvl - 1] = true
-  currentState.currentLevel = lvl + 1
+  currentState.currentLevel = next
   // Drop a banner-pending marker — HospitalScene reads + clears
   // this on entry to surface the "Level N — <Title>" banner.
   currentState.pendingLevelBanner = currentState.currentLevel
