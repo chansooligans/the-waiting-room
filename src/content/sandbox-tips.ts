@@ -49,7 +49,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Pull Sarah Kim's op-note from Med Records first. Pat won't hand off until you've got it.",
   ],
   6: [
-    "Pat at Registration. Outpatient surgery grouper case — APC packaging.",
+    "Marisol's out in the parking lot — outpatient surgery grouper, APC packaging. Take the lobby EXIT.",
     "APC = Ambulatory Payment Classification. Bundles outpatient services into payment groups based on resource intensity.",
     "Status indicators drive packaging behavior. 'T' = significant procedure paid separately; 'N' = packaged into the primary service.",
   ],
@@ -69,7 +69,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Patient-facing case. The system you're operating is the safety net.",
   ],
   10: [
-    "Sam in Patient Services. GFE-vs-bill mismatch.",
+    "Theresa's out in the parking lot — GFE-vs-bill mismatch. Take the lobby EXIT.",
     "GFE = Good Faith Estimate. NSA requires uninsured/self-pay patients to receive one in advance.",
     "If the bill exceeds the GFE by >$400, the patient has appeal rights via the patient-provider dispute resolution process.",
   ],
@@ -99,7 +99,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Retro-credentialing is sometimes available. If not, the bill goes through under a covering credentialed provider OR self-pay.",
   ],
   16: [
-    "Alex in Billing. Two bills for one ER visit — the facility billed in-network, the physician group OON.",
+    "Dr. Ethan's out in the parking lot — two bills for one ER visit; facility in-network, physician group OON. Take the lobby EXIT.",
     "NSA carve-out: patient owes in-network cost-share on the OON physician bill at an in-network facility.",
     "Recalculate cost-share. The OON physician and the payer route to IDR. Patient is out of the rate fight.",
   ],
@@ -129,7 +129,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Pull the chart history. Look for treatment timeline gaps that prove these are distinct people. Resolve at the source.",
   ],
   22: [
-    "Pat in HIM. HCC capture annual review.",
+    "Dr. Priya's out in the parking lot — HCC capture annual review. Take the lobby EXIT.",
     "HCC (Hierarchical Condition Categories) drive Medicare Advantage risk-adjusted payment.",
     "Chronic conditions must be coded every year. Drops one year, the RAF score evaporates. Pull the chart, capture what's actually documented.",
   ],
@@ -159,7 +159,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Multi-day stays paid as case rate often underpay vs. per-diem. Check the contract's case-rate threshold and the actual LOS.",
   ],
   28: [
-    "Sam in Patient Services. Mapping a payer's MRF.",
+    "Theresa's out in the parking lot — mapping a payer's MRF. Take the lobby EXIT.",
     "MRF = Machine-Readable File. CMS rule requires payers to publish negotiated rates. Files are huge JSON.",
     "Find the negotiated rate for the disputed CPT in the payer's MRF. Use jq + a grep — the rate is there if the rule was followed.",
   ],

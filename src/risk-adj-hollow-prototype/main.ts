@@ -324,7 +324,7 @@ function renderHospitalIntro(): string {
     <section class="hospital-intro">
       <div class="register hospital">HOSPITAL · this morning</div>
       <p>
-        Pat from coding flips a chart open. ${escape(PATIENT)},
+        Dr. Priya flips a chart open. ${escape(PATIENT)},
         annual wellness visit + endo + nephro + echo. "${escape("Encoder")}
         captured E11.9 — diabetes unspecified. Chart says
         neuropathy. Chart says CKD 3a. Chart says BMI 41.

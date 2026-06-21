@@ -1271,11 +1271,10 @@ export const LEVEL_1_MAP: MapDef = {
     { npcId: 'jordan', tileX: PFS.x + 6, tileY: PFS.y + 5, facing: 'right',
       levels: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
-    // Pat — Registration (L3-4, + L6 outpatient-grouper whose WR obstacle
-    // sits in the Registration parallel) faces left; HIM for L5 (bundling
-    // chart handoff) and L7-32, default 'down' at the desk row.
+    // Pat — Registration (L3-4) faces left; HIM for L5 (bundling chart
+    // handoff) and L7-32, default 'down' at the desk row.
     { npcId: 'pat', tileX: REGISTRATION.x + 14, tileY: REGISTRATION.y + 4, facing: 'left',
-      levels: [3, 4, 6] },
+      levels: [3, 4] },
     { npcId: 'pat', tileX: HIM.x + 5, tileY: HIM.y + 5,
       levels: [5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
@@ -1290,6 +1289,14 @@ export const LEVEL_1_MAP: MapDef = {
     // teleport arrival at (16, 67)), getting air over the trauma case.
     { npcId: 'alex', tileX: OUTDOOR.x + 18, tileY: OUTDOOR.y + 6, facing: 'down',
       levels: [4] },
+    // Outdoor case-givers — each stands in the parking lot for their
+    // level so the descent lands in the jungle WR parallel (like Alex at
+    // L4). Non-ambient + listed before their ambient placements so they
+    // win de-dup at their case level.
+    { npcId: 'records_clerk', tileX: OUTDOOR.x + 16, tileY: OUTDOOR.y + 6, facing: 'down', levels: [6] },
+    { npcId: 'payer_rep',     tileX: OUTDOOR.x + 22, tileY: OUTDOOR.y + 6, facing: 'down', levels: [10, 28] },
+    { npcId: 'dr_ethan',      tileX: OUTDOOR.x + 28, tileY: OUTDOOR.y + 6, facing: 'down', levels: [16] },
+    { npcId: 'dr_priya',      tileX: OUTDOOR.x + 12, tileY: OUTDOOR.y + 6, facing: 'down', levels: [22] },
     { npcId: 'alex', tileX: BILLING.x + 5, tileY: BILLING.y + 5,
       levels: [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
