@@ -695,7 +695,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     // ===== Public-event rooms =====
     {
       id: 'auditorium',
-      lockedUntilLevel: 20,
+      lockedUntilLevel: 30,
       ...AUDITORIUM,
       // West door at offset 5 → world (30, 37) — pairs with lobby's
       // east door at (29, 37). They share adjacent wall columns; the
@@ -1300,10 +1300,12 @@ export const LEVEL_1_MAP: MapDef = {
     // (home room locked / NPC filtered out). Placed in the case's
     // obstacle room so the descent spawns in-room.
     { npcId: 'liana',            tileX: MAIN_HUB.x + 6,    tileY: MAIN_HUB.y + 5,    facing: 'down',  levels: [2] },
-    // L20 (340B Specter) — Liana gives it from the Auditorium, in the
-    // aisle just inside the west door. Must precede her Cancer-Center
-    // ambient placement so it wins as the preferred placement at L20.
-    { npcId: 'liana',            tileX: AUDITORIUM.x + 8,  tileY: AUDITORIUM.y + 5,  facing: 'left',  levels: [20] },
+    // L30 (OB Per-Diem Specter) — Dr. Priya gives it from the
+    // Auditorium, in the aisle just inside the west door. Must precede
+    // her Main-Hub ambient placement so it wins as the preferred
+    // placement at L30. (L20/Liana/340B falls through to her
+    // Cancer-Center ambient placement — no override needed.)
+    { npcId: 'dr_priya',         tileX: AUDITORIUM.x + 8,  tileY: AUDITORIUM.y + 5,  facing: 'left',  levels: [30] },
     { npcId: 'payer_supervisor', tileX: PATIENT_SVC.x + 4, tileY: PATIENT_SVC.y + 3, facing: 'right', levels: [11] },
     { npcId: 'dr_park',          tileX: HIM.x + 8,         tileY: HIM.y + 5,         facing: 'down',  levels: [24] },
     { npcId: 'cashier',          tileX: PFS.x + 8,         tileY: PFS.y + 5,         facing: 'down',  levels: [19] },
