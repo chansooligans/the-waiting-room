@@ -230,6 +230,7 @@ export class HospitalScene extends Phaser.Scene {
   // Once the player expands the map, they've learned the gesture — stop
   // showing the "click to expand" affordance for the rest of the session.
   private miniMapHintDismissed = false
+  private miniMapMarkerPulsing = false
   private lockedToast?: Phaser.GameObjects.Text
   private lockedToastTween?: Phaser.Tweens.Tween
   private uiCamera!: Phaser.Cameras.Scene2D.Camera
@@ -2109,21 +2110,38 @@ export class HospitalScene extends Phaser.Scene {
     const cell = this.miniMapCell
     const ox = this.miniMapX + this.miniMapPad
     const oy = this.miniMapY + this.miniMapPad
-    // Center of the target tile
+    // Center of the target tile. Draw the star relative to (0,0) and
+    // position the graphics there, so the pulse tween can scale it about
+    // its own center.
     const cx = ox + target.x * cell + cell / 2
     const cy = oy + target.y * cell + cell / 2
-    // 5-pointed star: outer radius slightly larger than a tile so it
-    // stands out clearly at collapsed scale (cell=6 → outerR=10).
-    const outerR = cell + 4
+    this.miniMapNpcMarker.setPosition(cx, cy)
+    // Big enough to read at the collapsed scale (cell can be as small as
+    // 2px). A dark halo + thick white outline make the red star pop
+    // against any tile color underneath (dark corridor or tan room).
+    const outerR = Math.max(9, cell + 6)
     const innerR = outerR * 0.42
     const pts: { x: number; y: number }[] = []
     for (let i = 0; i < 10; i++) {
       const a = (i * Math.PI / 5) - Math.PI / 2
       const r = i % 2 === 0 ? outerR : innerR
-      pts.push({ x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r })
+      pts.push({ x: Math.cos(a) * r, y: Math.sin(a) * r })
     }
-    this.miniMapNpcMarker.fillStyle(0xff3050, 1)
+    this.miniMapNpcMarker.fillStyle(0x000000, 0.4)
+    this.miniMapNpcMarker.fillCircle(0, 0, outerR + 3)
+    this.miniMapNpcMarker.fillStyle(0xff3a5c, 1)
     this.miniMapNpcMarker.fillPoints(pts, true)
+    this.miniMapNpcMarker.lineStyle(2, 0xffffff, 1)
+    this.miniMapNpcMarker.strokePoints(pts, true)
+    // Gentle pulse (added once) to draw the eye to the objective.
+    if (!this.miniMapMarkerPulsing) {
+      this.miniMapMarkerPulsing = true
+      this.tweens.add({
+        targets: this.miniMapNpcMarker,
+        scale: { from: 1, to: 1.35 },
+        duration: 650, yoyo: true, repeat: -1, ease: 'Sine.easeInOut',
+      })
+    }
   }
 
   /** Tile the mini-map quest marker should point at for this level. */
