@@ -46,11 +46,19 @@ const OBJECT_DISPLAY_MULT = 1.5
  * renders every obstacle and exits via the gap. The dev panel uses it.
  */
 
+type WrBiome = 'redroom' | 'jungle' | 'spectral'
+
 interface ObstacleMarker {
   /** World-space tile coordinate inside the Hospital room. */
   tileX: number
   tileY: number
   encounterId: string
+  /**
+   * Palette override for this encounter's WR session. Defaults to the
+   * Red Room (or jungle when bounds === OUTDOOR_BOUNDS). The billing-
+   * district Specters set 'spectral' for their cold archive look.
+   */
+  biome?: WrBiome
   /**
    * When this marker is the active one for an NPC-triggered descent,
    * confine the player to this rectangle (in tile units). Prevents the
@@ -95,6 +103,18 @@ const AUDIT_BOUNDS        = { x: 4,  y: 100, w: 28, h: 10 }
 // player descends straight onto the platform. No perimeter walls in
 // this sub-region, so it reads as a lit slab in the bioluminescent jungle void.
 const OUTDOOR_BOUNDS      = { x: 12, y: 66, w: 24, h: 12 }
+
+// "Spectral district" rooms — the billing-district Specters used to all
+// share BILLING_BOUNDS, so every one descended into the same room with
+// the same palette. Each now mirrors the Hospital room of its own
+// case-giver (restoring the parallel-room principle) and renders in the
+// cold 'spectral' biome (see biome()), giving the Specter set a shared
+// haunted look across six distinct rooms.
+const RADIOLOGY_BOUNDS    = { x: 51, y: 15, w: 14, h: 10 }  // implant carve-out (Adaeze)
+const CANCER_CENTER_BOUNDS= { x: 51, y: 2,  w: 28, h: 12 }  // 340B (Liana)
+const LECTURE_HALL_BOUNDS = { x: 56, y: 58, w: 20, h: 12 }  // chemo bundle (Dr. Ethan)
+const PAYER_BOUNDS        = { x: 36, y: 100, w: 18, h: 10 } // case-rate (Diane)
+const AUDITORIUM_BOUNDS   = { x: 30, y: 32, w: 20, h: 10 }  // OB per-diem (Dr. Priya)
 
 const OBSTACLES: ObstacleMarker[] = [
   // Each obstacle is placed in the parallel layer of the room where
@@ -169,15 +189,18 @@ const OBSTACLES: ObstacleMarker[] = [
   { tileX: 34, tileY: 72, encounterId: 'catalog_risk_adj_hollow', bounds: OUTDOOR_BOUNDS },
   { tileX: 7,  tileY: 56, encounterId: 'catalog_two_midnight_mire',         bounds: HIM_BOUNDS },
 
-  // BILLING — Alex from L13 onwards (L15 implant, L17 carveout-phantom,
-  // L21 ob-perdiem, L24 chemo, L26 underpayment, L28 case-rate, L31 340b).
-  { tileX: 27, tileY: 55, encounterId: 'catalog_implant_carveout_specter',  bounds: BILLING_BOUNDS },
+  // SPECTRAL DISTRICT — the billing/reimbursement Specters. Each now
+  // mirrors its own case-giver's Hospital room (instead of all sharing
+  // BILLING) and renders in the cold 'spectral' biome.
+  { tileX: 58, tileY: 20, encounterId: 'catalog_implant_carveout_specter',  bounds: RADIOLOGY_BOUNDS,     biome: 'spectral' }, // Adaeze · Radiology
+  { tileX: 65, tileY: 8,  encounterId: 'catalog_three_forty_b_specter',     bounds: CANCER_CENTER_BOUNDS, biome: 'spectral' }, // Liana · Cancer Center
+  { tileX: 66, tileY: 64, encounterId: 'catalog_chemo_bundle_specter',      bounds: LECTURE_HALL_BOUNDS,  biome: 'spectral' }, // Dr. Ethan · Lecture Hall
+  { tileX: 28, tileY: 56, encounterId: 'underpayment_specter',              bounds: BILLING_BOUNDS,       biome: 'spectral' }, // Alex · Billing
+  { tileX: 45, tileY: 105, encounterId: 'catalog_case_rate_specter',        bounds: PAYER_BOUNDS,         biome: 'spectral' }, // Diane · Payer office
+  { tileX: 40, tileY: 37, encounterId: 'catalog_ob_perdiem_specter',        bounds: AUDITORIUM_BOUNDS,    biome: 'spectral' }, // Dr. Priya · Auditorium
+
+  // PARKING LOT (outdoor) — Carve-Out Phantom (Dr. Priya at L16).
   { tileX: 28, tileY: 70, encounterId: 'catalog_carveout_phantom', bounds: OUTDOOR_BOUNDS },
-  { tileX: 33, tileY: 55, encounterId: 'catalog_ob_perdiem_specter',        bounds: BILLING_BOUNDS },
-  { tileX: 25, tileY: 56, encounterId: 'catalog_chemo_bundle_specter',      bounds: BILLING_BOUNDS },
-  { tileX: 28, tileY: 56, encounterId: 'underpayment_specter',              bounds: BILLING_BOUNDS },
-  { tileX: 31, tileY: 56, encounterId: 'catalog_case_rate_specter',         bounds: BILLING_BOUNDS },
-  { tileX: 34, tileY: 56, encounterId: 'catalog_three_forty_b_specter',     bounds: BILLING_BOUNDS },
 ]
 
 interface ObstacleSprite {
@@ -268,6 +291,8 @@ export class WaitingRoomScene extends Phaser.Scene {
   /** When set, tryMove rejects any tile outside this rectangle —
    *  confines the player to the active obstacle's room. */
   private sessionBounds: { x: number; y: number; w: number; h: number } | null = null
+  /** Palette override for the active encounter (see ObstacleMarker.biome). */
+  private activeBiomeKey: WrBiome | null = null
   /** Spawn tile passed in by the dialogue handoff — the player's
    *  Hospital tile at the moment of descent. WR drops them at the
    *  same coords so the room-by-room parallelism reads. */
@@ -293,6 +318,7 @@ export class WaitingRoomScene extends Phaser.Scene {
       ? OBSTACLES.find(m => m.encounterId === this.activeEncounterId)
       : null
     this.sessionBounds = activeMarker?.bounds ?? null
+    this.activeBiomeKey = activeMarker?.biome ?? null
   }
 
   preload() {
@@ -472,19 +498,37 @@ export class WaitingRoomScene extends Phaser.Scene {
     return this.sessionBounds === OUTDOOR_BOUNDS
   }
 
-  /** Biome palette. The outdoor lot reads as a bioluminescent night
-   *  jungle (teal + violet on near-black); every other room keeps the
-   *  Twin-Peaks red room. */
+  /** Which palette this session uses. An explicit marker override wins;
+   *  otherwise the outdoor lot is jungle and everything else is red room. */
+  private get sessionBiomeKey(): WrBiome {
+    if (this.activeBiomeKey) return this.activeBiomeKey
+    if (this.isOutdoorSession) return 'jungle'
+    return 'redroom'
+  }
+
+  /** Biome palette:
+   *  - redroom : Twin-Peaks red room (bone + burgundy) — the default.
+   *  - jungle  : the outdoor lot as a bioluminescent night jungle.
+   *  - spectral: the billing-district Specters — a cold indigo/phosphor
+   *              archive, desaturated and haunted, distinct from both. */
   private biome() {
-    return this.isOutdoorSession
-      ? { bg: 0x050810, floorA: 0x0c1c28, floorB: 0x06121c, wallA: 0x123042, wallB: 0x0c2230,
+    switch (this.sessionBiomeKey) {
+      case 'jungle':
+        return { bg: 0x050810, floorA: 0x0c1c28, floorB: 0x06121c, wallA: 0x123042, wallB: 0x0c2230,
           ringOuter: 0xb48be0, ringInner: 0x2fe6d4, core: 0xb48be0,
           labelColor: '#d9c2f0', labelBg: '#08121acc',
           curtainOuter: 0x050810, curtainAccent: 0x123042, motes: [0x2fe6d4, 0x46f0a8, 0xb48be0] }
-      : { bg: 0x1a0608, floorA: 0xd8cfc4, floorB: 0x141014, wallA: 0x6a0d10, wallB: 0x4a0709,
+      case 'spectral':
+        return { bg: 0x080a14, floorA: 0xb8c2d4, floorB: 0x10131f, wallA: 0x2c2a5e, wallB: 0x1a1838,
+          ringOuter: 0x8a7bff, ringInner: 0x66f0e0, core: 0x8a7bff,
+          labelColor: '#c8c0ff', labelBg: '#0a0c18cc',
+          curtainOuter: 0x080a14, curtainAccent: 0x2c2a5e, motes: [0x8a7bff, 0x66f0e0, 0xb0c4ff] }
+      default:
+        return { bg: 0x1a0608, floorA: 0xd8cfc4, floorB: 0x141014, wallA: 0x6a0d10, wallB: 0x4a0709,
           ringOuter: 0xff3050, ringInner: 0x60d0ff, core: 0xff3050,
           labelColor: '#ff8090', labelBg: '#1a0608cc',
           curtainOuter: 0x1a0608, curtainAccent: 0x6a0d10, motes: [0xff3050, 0xff8090, 0xb18bd6] }
+    }
   }
 
   private buildMap() {
@@ -581,7 +625,7 @@ export class WaitingRoomScene extends Phaser.Scene {
           const px = x * TILE + TILE / 2
           const py = y * TILE + TILE / 2 - 6
           this.ticketText = this.add.text(px, py, 'NOW SERVING\n     ?', {
-            fontSize: '14px', fontFamily: 'monospace', color: '#ff3050',
+            fontSize: '14px', fontFamily: 'monospace', color: this.biome().labelColor,
           }).setOrigin(0.5).setDepth(5)
           counterFound = true
         }
