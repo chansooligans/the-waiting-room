@@ -224,8 +224,12 @@ export class HospitalScene extends Phaser.Scene {
   private miniMapHitZone?: Phaser.GameObjects.Zone
   private miniMapDim?: Phaser.GameObjects.Rectangle
   private miniMapCloseHint?: Phaser.GameObjects.Text
+  private miniMapExpandHint?: Phaser.GameObjects.Text
   private miniMapHint?: Phaser.GameObjects.Text
   private miniMapExpanded = false
+  // Once the player expands the map, they've learned the gesture — stop
+  // showing the "click to expand" affordance for the rest of the session.
+  private miniMapHintDismissed = false
   private lockedToast?: Phaser.GameObjects.Text
   private lockedToastTween?: Phaser.Tweens.Tween
   private uiCamera!: Phaser.Cameras.Scene2D.Camera
@@ -1297,6 +1301,22 @@ export class HospitalScene extends Phaser.Scene {
         color: '#c8a040',
       }).setOrigin(0.5, 0).setDepth(104).setVisible(false)
 
+    // Collapsed-mode affordance: tell the player the map is tappable.
+    // The hand cursor only signals this on desktop hover; this label
+    // makes it discoverable on touch too. Positioned + toggled in
+    // applyMiniMapLayout; a slow alpha pulse draws the eye without
+    // nagging.
+    this.miniMapExpandHint = this.add.text(0, 0, '⤢ click to expand', {
+      fontFamily: 'monospace', fontSize: '11px',
+      color: '#c8a040',
+      stroke: '#0e1116', strokeThickness: 3,
+    }).setOrigin(0.5, 0).setDepth(104)
+    this.tweens.add({
+      targets: this.miniMapExpandHint,
+      alpha: { from: 1, to: 0.5 },
+      duration: 1400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut',
+    })
+
     // Persistent next-step hint along the bottom edge inside the
     // minimap frame. Sources its text from LEVEL_ORIENTATION_HINTS
     // for the current level. Position + wrap width are recomputed in
@@ -1316,7 +1336,7 @@ export class HospitalScene extends Phaser.Scene {
       this.miniMapDim, this.miniMapBg, this.miniMapTiles,
       this.miniMapNpcMarker, this.miniMapPlayer,
       ...this.miniMapLabels, this.miniMapHitZone, this.miniMapCloseHint,
-      this.miniMapHint,
+      this.miniMapExpandHint, this.miniMapHint,
     ]
     if (this.lockedToast) miniMapObjs.push(this.lockedToast)
 
@@ -1390,6 +1410,16 @@ export class HospitalScene extends Phaser.Scene {
     this.miniMapDim?.setVisible(this.miniMapExpanded)
     this.miniMapCloseHint?.setVisible(this.miniMapExpanded)
 
+    // "Click to expand" affordance — just below the collapsed frame,
+    // centered; hidden once expanded (the close hint takes over).
+    if (this.miniMapExpandHint) {
+      this.miniMapExpandHint.setPosition(
+        this.miniMapX + totalW / 2,
+        this.miniMapY + totalH + 4,
+      )
+      this.miniMapExpandHint.setVisible(!this.miniMapExpanded && !this.miniMapHintDismissed)
+    }
+
     // Position + populate the persistent next-step hint anchored to
     // the bottom edge INSIDE the minimap frame (origin 0.5, 1 lets
     // the text grow upward as it wraps). Hidden in expanded mode
@@ -1432,6 +1462,7 @@ export class HospitalScene extends Phaser.Scene {
 
   private toggleMiniMapExpanded() {
     this.miniMapExpanded = !this.miniMapExpanded
+    if (this.miniMapExpanded) this.miniMapHintDismissed = true
     this.applyMiniMapLayout()
   }
 
