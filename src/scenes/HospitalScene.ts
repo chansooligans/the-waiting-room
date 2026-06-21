@@ -224,8 +224,13 @@ export class HospitalScene extends Phaser.Scene {
   private miniMapHitZone?: Phaser.GameObjects.Zone
   private miniMapDim?: Phaser.GameObjects.Rectangle
   private miniMapCloseHint?: Phaser.GameObjects.Text
+  private miniMapExpandHint?: Phaser.GameObjects.Text
   private miniMapHint?: Phaser.GameObjects.Text
   private miniMapExpanded = false
+  // Once the player expands the map, they've learned the gesture — stop
+  // showing the "click to expand" affordance for the rest of the session.
+  private miniMapHintDismissed = false
+  private miniMapMarkerPulsing = false
   private lockedToast?: Phaser.GameObjects.Text
   private lockedToastTween?: Phaser.Tweens.Tween
   private uiCamera!: Phaser.Cameras.Scene2D.Camera
@@ -1297,6 +1302,22 @@ export class HospitalScene extends Phaser.Scene {
         color: '#c8a040',
       }).setOrigin(0.5, 0).setDepth(104).setVisible(false)
 
+    // Collapsed-mode affordance: tell the player the map is tappable.
+    // The hand cursor only signals this on desktop hover; this label
+    // makes it discoverable on touch too. Positioned + toggled in
+    // applyMiniMapLayout; a slow alpha pulse draws the eye without
+    // nagging.
+    this.miniMapExpandHint = this.add.text(0, 0, '⤢ click to expand', {
+      fontFamily: 'monospace', fontSize: '11px',
+      color: '#c8a040',
+      stroke: '#0e1116', strokeThickness: 3,
+    }).setOrigin(0.5, 0).setDepth(104)
+    this.tweens.add({
+      targets: this.miniMapExpandHint,
+      alpha: { from: 1, to: 0.5 },
+      duration: 1400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut',
+    })
+
     // Persistent next-step hint along the bottom edge inside the
     // minimap frame. Sources its text from LEVEL_ORIENTATION_HINTS
     // for the current level. Position + wrap width are recomputed in
@@ -1316,7 +1337,7 @@ export class HospitalScene extends Phaser.Scene {
       this.miniMapDim, this.miniMapBg, this.miniMapTiles,
       this.miniMapNpcMarker, this.miniMapPlayer,
       ...this.miniMapLabels, this.miniMapHitZone, this.miniMapCloseHint,
-      this.miniMapHint,
+      this.miniMapExpandHint, this.miniMapHint,
     ]
     if (this.lockedToast) miniMapObjs.push(this.lockedToast)
 
@@ -1390,6 +1411,16 @@ export class HospitalScene extends Phaser.Scene {
     this.miniMapDim?.setVisible(this.miniMapExpanded)
     this.miniMapCloseHint?.setVisible(this.miniMapExpanded)
 
+    // "Click to expand" affordance — just below the collapsed frame,
+    // centered; hidden once expanded (the close hint takes over).
+    if (this.miniMapExpandHint) {
+      this.miniMapExpandHint.setPosition(
+        this.miniMapX + totalW / 2,
+        this.miniMapY + totalH + 4,
+      )
+      this.miniMapExpandHint.setVisible(!this.miniMapExpanded && !this.miniMapHintDismissed)
+    }
+
     // Position + populate the persistent next-step hint anchored to
     // the bottom edge INSIDE the minimap frame (origin 0.5, 1 lets
     // the text grow upward as it wraps). Hidden in expanded mode
@@ -1432,6 +1463,7 @@ export class HospitalScene extends Phaser.Scene {
 
   private toggleMiniMapExpanded() {
     this.miniMapExpanded = !this.miniMapExpanded
+    if (this.miniMapExpanded) this.miniMapHintDismissed = true
     this.applyMiniMapLayout()
   }
 
@@ -2078,21 +2110,38 @@ export class HospitalScene extends Phaser.Scene {
     const cell = this.miniMapCell
     const ox = this.miniMapX + this.miniMapPad
     const oy = this.miniMapY + this.miniMapPad
-    // Center of the target tile
+    // Center of the target tile. Draw the star relative to (0,0) and
+    // position the graphics there, so the pulse tween can scale it about
+    // its own center.
     const cx = ox + target.x * cell + cell / 2
     const cy = oy + target.y * cell + cell / 2
-    // 5-pointed star: outer radius slightly larger than a tile so it
-    // stands out clearly at collapsed scale (cell=6 → outerR=10).
-    const outerR = cell + 4
+    this.miniMapNpcMarker.setPosition(cx, cy)
+    // Big enough to read at the collapsed scale (cell can be as small as
+    // 2px). A dark halo + thick white outline make the red star pop
+    // against any tile color underneath (dark corridor or tan room).
+    const outerR = Math.max(9, cell + 6)
     const innerR = outerR * 0.42
     const pts: { x: number; y: number }[] = []
     for (let i = 0; i < 10; i++) {
       const a = (i * Math.PI / 5) - Math.PI / 2
       const r = i % 2 === 0 ? outerR : innerR
-      pts.push({ x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r })
+      pts.push({ x: Math.cos(a) * r, y: Math.sin(a) * r })
     }
-    this.miniMapNpcMarker.fillStyle(0xff3050, 1)
+    this.miniMapNpcMarker.fillStyle(0x000000, 0.4)
+    this.miniMapNpcMarker.fillCircle(0, 0, outerR + 3)
+    this.miniMapNpcMarker.fillStyle(0xff3a5c, 1)
     this.miniMapNpcMarker.fillPoints(pts, true)
+    this.miniMapNpcMarker.lineStyle(2, 0xffffff, 1)
+    this.miniMapNpcMarker.strokePoints(pts, true)
+    // Gentle pulse (added once) to draw the eye to the objective.
+    if (!this.miniMapMarkerPulsing) {
+      this.miniMapMarkerPulsing = true
+      this.tweens.add({
+        targets: this.miniMapNpcMarker,
+        scale: { from: 1, to: 1.35 },
+        duration: 650, yoyo: true, repeat: -1, ease: 'Sine.easeInOut',
+      })
+    }
   }
 
   /** Tile the mini-map quest marker should point at for this level. */
