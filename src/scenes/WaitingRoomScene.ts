@@ -308,6 +308,30 @@ export class WaitingRoomScene extends Phaser.Scene {
     this.playerTileX = this.pendingSpawnX ?? this.mapDef.playerStart.x
     this.playerTileY = this.pendingSpawnY ?? this.mapDef.playerStart.y
 
+    // Re-anchor if the descent originated outside the active obstacle's
+    // WR room. The WR only tiles `sessionBounds` (+ pad), so a descent
+    // tile outside it would drop the player into unbuilt void. This
+    // happens when the case-giver stands somewhere the WR doesn't render
+    // — e.g. the L4 Stoploss case-giver (Alex) now stands in the parking
+    // lot, well outside MAIN_HUB. Land the player one tile in from the
+    // obstacle (toward room-center, so it's open floor) instead.
+    if (this.sessionBounds && this.activeEncounterId) {
+      const b = this.sessionBounds
+      const inside =
+        this.playerTileX >= b.x && this.playerTileX < b.x + b.w &&
+        this.playerTileY >= b.y && this.playerTileY < b.y + b.h
+      if (!inside) {
+        const marker = OBSTACLES.find(m => m.encounterId === this.activeEncounterId)
+        if (marker) {
+          this.playerTileX = marker.tileX + Math.sign(Math.round((b.x + b.w / 2) - marker.tileX))
+          this.playerTileY = marker.tileY + Math.sign(Math.round((b.y + b.h / 2) - marker.tileY))
+        } else {
+          this.playerTileX = Math.floor(b.x + b.w / 2)
+          this.playerTileY = Math.floor(b.y + b.h / 2)
+        }
+      }
+    }
+
     // Deeper burgundy than the Hospital's warm dark — this is the
     // dramatic stage. Pure black with red highlights would feel too
     // much like a haunted house; #1a0608 reads as theatrical.
