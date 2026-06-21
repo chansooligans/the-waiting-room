@@ -475,6 +475,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     choices: [
       { text: '(Get the echo report from Records first.)',
         next: 'sam_l5_chart_hint',
+        effect: { markChartHinted: 'co_50' },
         condition: { chartNotPulled: 'co_50' } },
       { text: '(Bring the echo to the wraith.)',
         effect: { triggerDescent: { encounterId: 'co_50' } },

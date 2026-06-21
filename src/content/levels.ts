@@ -149,7 +149,17 @@ export const LEVELS: LevelDef[] = [
     concepts: ['medical_policy', 'fee_schedule', 'contract_terms'],
     encounters: ['co_50'],
     cases: ['case_wraith_walker'],
+    // Diane (payer_supervisor, Patient Services) gives the medical-
+    // necessity denial. The mini-map walks the player through the
+    // retrieval: Diane → Medical Records (pull Mr. Walker's echo) →
+    // back to Diane. Mirrors L5's chart-pull chain. See `questChain` +
+    // HospitalScene.updateMiniMapNpcMarker / CHART_PULL_BY_LEVEL[11].
     npcsActive: ['payer_supervisor'],
+    questChain: [
+      { kind: 'npc', npcId: 'payer_supervisor', label: 'Talk to Diane in Patient Services' },
+      { kind: 'chart', encounterId: 'co_50', label: "Pull Mr. Walker's echo in Medical Records" },
+      { kind: 'npc', npcId: 'payer_supervisor', label: 'Bring the echo back to Diane' },
+    ],
   },
   {
     id: 12,
