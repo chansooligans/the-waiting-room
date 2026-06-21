@@ -433,8 +433,8 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     // Three branches gated on chart state:
     //  - chart not yet pulled: "I'll grab the op-note first" + decline
     //  - chart pulled: descend immediately
-    // The chart-pull is a tile interaction inside Medical Records (any
-    // 'F' cabinet on L4); see HospitalScene.tryChartPull.
+    // The chart-pull is a tile interaction inside Medical Records — the
+    // single lit drawer (ACTIVE_CHART_CABINET); see HospitalScene.tryChartPull.
     choices: [
       { text: '(Pull the op-note first.)',
         next: 'pat_l4_chart_hint',
@@ -449,7 +449,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   pat_l4_chart_hint: {
     id: 'pat_l4_chart_hint',
     speaker: 'Pat',
-    text: "Right. Op-note's in Medical Records — east wing, third room down. The binders by the desk. Won't make sense without it.",
+    text: "Right. Op-note's in Medical Records — east wing. Look for the lit drawer, press E to slide it open and grab the chart. Won't make sense without it.",
     choices: [{ text: '(Step away.)' }],
   },
   pat_l4_intake_back: {
