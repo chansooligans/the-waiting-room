@@ -359,6 +359,7 @@ export class WaitingRoomScene extends Phaser.Scene {
     this.nearbyObstacle = null
 
     this.buildMap()
+    this.addOutdoorOvergrowth()
     this.placePlayer()
     this.addAtmosphere()
     this.addIntroCallbacks()
@@ -600,6 +601,81 @@ export class WaitingRoomScene extends Phaser.Scene {
           this.time.delayedCall(120, () => this.ticketText.setAlpha(1))
         },
       })
+    }
+  }
+
+  /** Procedural overgrowth for the outdoor jungle WR (no new art): ghost
+   *  car silhouettes at the real parking-lot car tiles, foliage creeping
+   *  off the slab edges, scattered moss, hanging vines, and glowing flora.
+   *  Drawn at depth 1-3 so it sits under the obstacle marker (4) + player. */
+  private addOutdoorOvergrowth() {
+    if (!this.isOutdoorSession || !this.sessionBounds) return
+    const b = this.sessionBounds
+    const R = Phaser.Math.RND
+    const DARK = 0x0a2417, MID = 0x16482e, DEEP = 0x0e3322, LEAF = 0x1f7a44
+    const TEAL = 0x2fe6d4, VIOLET = 0xb48be0
+    const x0 = b.x * TILE, x1 = (b.x + b.w) * TILE
+    const y0 = b.y * TILE, y1 = (b.y + b.h) * TILE
+
+    // Ghost cars at the actual car tiles ('1'/'2'/'3') — overgrown hulks.
+    const layout = this.mapDef.layout
+    for (let ty = b.y - 1; ty <= b.y + b.h; ty++) {
+      const row = layout[ty] || ''
+      for (let tx = b.x - 1; tx <= b.x + b.w; tx++) {
+        const ch = row[tx]
+        if (ch !== '1' && ch !== '2' && ch !== '3') continue
+        const cx = tx * TILE + TILE / 2, cy = ty * TILE + TILE / 2
+        const w = TILE * 1.5, h = TILE * 0.8
+        const g = this.add.graphics().setDepth(2)
+        g.fillStyle(0x08160d, 0.95); g.fillRoundedRect(cx - w / 2, cy - h / 2, w, h, 12)
+        g.fillStyle(DARK, 0.92); g.fillRoundedRect(cx - w * 0.32, cy - h * 0.78, w * 0.64, h * 0.62, 8)
+        g.fillStyle(R.pick([TEAL, VIOLET]), 0.4); g.fillRoundedRect(cx - w * 0.26, cy - h * 0.64, w * 0.5, h * 0.34, 5)
+        g.lineStyle(2, LEAF, 0.85)
+        for (let k = 0; k < 5; k++) {
+          const vx = cx - w / 2 + R.between(6, w - 6)
+          g.beginPath(); g.moveTo(vx, cy - h / 2)
+          g.lineTo(vx + R.between(-6, 6), cy + h / 2 + R.between(2, 10)); g.strokePath()
+        }
+        g.fillStyle(LEAF, 0.9)
+        for (let k = 0; k < 7; k++) g.fillCircle(cx - w / 2 + R.between(0, w), cy + h / 2 + R.between(-3, 8), R.between(2, 4))
+      }
+    }
+
+    // Foliage creeping in from the slab edges.
+    const edges: [number, number][] = []
+    for (let i = 0; i < 26; i++) {
+      edges.push([R.between(x0, x1), R.pick([y0, y1]) + R.between(-18, 18)])
+      edges.push([R.pick([x0, x1]) + R.between(-18, 18), R.between(y0, y1)])
+    }
+    for (const [ex, ey] of edges) {
+      const fg = this.add.graphics().setDepth(R.pick([1, 3]))
+      const base = R.pick([DARK, MID, DEEP, LEAF])
+      for (let k = 0, n = R.between(3, 6); k < n; k++) {
+        const r = R.between(10, 26)
+        fg.fillStyle(base, R.realInRange(0.45, 0.85))
+        fg.fillEllipse(ex + R.between(-16, 16), ey + R.between(-12, 12), r * 2, r * 1.4)
+      }
+      if (R.frac() < 0.4) { fg.fillStyle(R.pick([TEAL, VIOLET]), 0.9); fg.fillCircle(ex + R.between(-8, 8), ey + R.between(-8, 8), R.between(2, 4)) }
+    }
+
+    // Scattered moss on the slab.
+    for (let i = 0; i < 22; i++) {
+      const mg = this.add.graphics().setDepth(1)
+      mg.fillStyle(R.pick([MID, DEEP]), R.realInRange(0.18, 0.4))
+      mg.fillEllipse(R.between(x0, x1), R.between(y0, y1), R.between(20, 50), R.between(14, 34))
+    }
+
+    // Hanging vines from the top edge.
+    for (let i = 0; i < 8; i++) {
+      const vg = this.add.graphics().setDepth(3)
+      const vx = R.between(x0 + 20, x1 - 20), len = R.between(TILE, TILE * 3)
+      vg.lineStyle(2, LEAF, 0.8)
+      let yy = y0 - 10, xx = vx
+      vg.beginPath(); vg.moveTo(xx, yy)
+      for (let st = 0, steps = Math.floor(len / 12); st < steps; st++) { yy += 12; xx += R.between(-4, 4); vg.lineTo(xx, yy) }
+      vg.strokePath()
+      vg.fillStyle(LEAF, 0.85)
+      for (let st = 0; st < 4; st++) vg.fillCircle(vx + R.between(-6, 6), y0 - 10 + R.between(0, len), R.between(2, 4))
     }
   }
 
