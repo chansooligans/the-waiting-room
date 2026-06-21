@@ -172,6 +172,31 @@ interface NPCSprite {
  *  Press-E facing this tile opens the TipsTerminalScene. */
 const TIPS_TERMINAL_TILE = { x: 75, y: 101 }
 
+// The single Medical Records drawer that holds the level's active chart.
+// It's highlighted in-room and flagged on the mini-map so the player
+// knows exactly which cabinet to open (vs. the ~20 decoy binders).
+const ACTIVE_CHART_CABINET = { x: 57, y: 44 }
+
+// Current level -> the chart an op-note pull resolves. The pull only
+// fires at ACTIVE_CHART_CABINET; every other drawer is flavor only.
+const CHART_PULL_BY_LEVEL: Record<number, { encounterId: string; toast: string }> = {
+  // Bundling Beast (L5) — Sarah Kim's op-note. Part of the L5 mini-map
+  // quest chain: Pat (HIM) -> here -> back to Pat.
+  5: {
+    encounterId: 'co_97',
+    toast:
+      "You slide the drawer open and pull Sarah Kim's chart.\n" +
+      "Op-note clear: separate visit, modifier-25 was just never appended.",
+  },
+  // Medical Necessity Wraith (L11) — Mr. Walker's echo.
+  11: {
+    encounterId: 'co_50',
+    toast:
+      "You slide the drawer open and pull Mr. Walker's chart.\n" +
+      "Echo report: LVEF 28%. Right there in black ink.",
+  },
+}
+
 /** Collect every encounter id that gates a room (lockedUntilDefeated)
  *  so the dev "full map access" toggle can pretend they're all
  *  defeated and pop those rooms open. */
@@ -192,6 +217,8 @@ export class HospitalScene extends Phaser.Scene {
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
   private npcSprites: NPCSprite[] = []
   private interactPrompt!: Phaser.GameObjects.Text
+  private chartCabinetGlow?: Phaser.GameObjects.Graphics
+  private chartCabinetLabel?: Phaser.GameObjects.Text
   private nearbyNpc: NPCSprite | null = null
   private canMove = true
   private playerTileX = 0
@@ -317,6 +344,7 @@ export class HospitalScene extends Phaser.Scene {
     this.placeNPCs()
     this.setupInput()
     this.buildUI()
+    this.updateChartCabinetHighlight()
     this.buildHUD()
 
     this.cameras.main.startFollow(this.player, true, 0.1, 0.1)
@@ -1212,6 +1240,26 @@ export class HospitalScene extends Phaser.Scene {
       backgroundColor: '#1f1208',
       padding: { x: 8, y: 4 },
     }).setOrigin(0.5).setDepth(20).setVisible(false)
+
+    // Active-chart drawer highlight — a pulsing amber frame + bobbing
+    // tag drawn on the one lit Medical Records cabinet, so the player
+    // can see which binder holds the chart. Toggled by
+    // updateChartCabinetHighlight() (gated level + chart not pulled).
+    const gx = ACTIVE_CHART_CABINET.x * TILE
+    const gy = ACTIVE_CHART_CABINET.y * TILE
+    this.chartCabinetGlow = this.add.graphics().setDepth(6).setVisible(false)
+    this.chartCabinetGlow.fillStyle(0xf4d06f, 0.18)
+    this.chartCabinetGlow.fillRoundedRect(gx + 2, gy + 2, TILE - 4, TILE - 4, 6)
+    this.chartCabinetGlow.lineStyle(3, 0xf4d06f, 0.9)
+    this.chartCabinetGlow.strokeRoundedRect(gx + 2, gy + 2, TILE - 4, TILE - 4, 6)
+    this.tweens.add({ targets: this.chartCabinetGlow, alpha: 0.4,
+      duration: 800, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' })
+    this.chartCabinetLabel = this.add.text(gx + TILE / 2, gy - 8, '\u25bc records', {
+      fontSize: '14px', fontFamily: 'monospace', color: '#f4d06f',
+      backgroundColor: '#1f1208cc', padding: { x: 6, y: 3 },
+    }).setOrigin(0.5, 1).setDepth(20).setVisible(false)
+    this.tweens.add({ targets: this.chartCabinetLabel, y: gy - 14,
+      duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' })
   }
 
   private buildHUD() {
@@ -1597,28 +1645,15 @@ export class HospitalScene extends Phaser.Scene {
     // Some intake dialogue is reused after level-order reshuffles, so
     // keep legacy levels alongside the current runtime levels.
     const lvl = getState().currentLevel
-    const PULL_BY_LEVEL: Record<number, { encounterId: string; toast: string }> = {
-      // Bundling Beast (L5) — Sarah Kim's op-note. Part of the L5
-      // mini-map quest chain: Pat (HIM) → here → back to Pat.
-      5: {
-        encounterId: 'co_97',
-        toast:
-          "You pull Sarah Kim's chart.\n" +
-          "Op-note clear: separate visit, modifier-25 was just never appended.",
-      },
-      // Medical Necessity Wraith (L11) — Mr. Walker's echo.
-      11: {
-        encounterId: 'co_50',
-        toast:
-          "You pull Mr. Walker's chart.\n" +
-          "Echo report: LVEF 28%. Right there in black ink.",
-      },
-    }
-    const target = PULL_BY_LEVEL[lvl]
+    const target = CHART_PULL_BY_LEVEL[lvl]
     if (!target) {
-      // Player is poking binders on a non-gated level — show flavor
-      // but don't set any flag.
+      // Non-gated level — every drawer is just old binders.
       this.flashFlavorToast("Old binders. They smell like lawyers.")
+      return true
+    }
+    if (tx !== ACTIVE_CHART_CABINET.x || ty !== ACTIVE_CHART_CABINET.y) {
+      // Right room, wrong drawer — point them at the lit one.
+      this.flashFlavorToast("Not this drawer. The record you need is\nin the marked cabinet.")
       return true
     }
     const state = getState()
@@ -1632,6 +1667,7 @@ export class HospitalScene extends Phaser.Scene {
     state.chartsPulled[target.encounterId] = true
     saveGame()
     this.flashFlavorToast(target.toast)
+    this.updateChartCabinetHighlight()
     return true
   }
 
@@ -2151,9 +2187,8 @@ export class HospitalScene extends Phaser.Scene {
       const step = this.currentQuestStep(chain)
       if (!step) return null
       if (step.kind === 'chart') {
-        // Medical Records chart cabinet — center of the MED_RECORDS room
-        // (mirrors the bounds in tryChartPull: x 51..64, y 37..46).
-        return { x: 58, y: 42 }
+        // The one lit Medical Records drawer holding the chart.
+        return { x: ACTIVE_CHART_CABINET.x, y: ACTIVE_CHART_CABINET.y }
       }
       if (step.kind === 'npc' && step.npcId) {
         const ns = this.npcSprites.find(n => n.npc.id === step.npcId)
@@ -2200,12 +2235,47 @@ export class HospitalScene extends Phaser.Scene {
     }
 
     this.nearbyNpc = closest
-    this.interactPrompt.setVisible(!!closest)
     if (closest) {
+      this.interactPrompt.setText('[E] Talk')
       // Sprite origin is (0.5, 1), so sprite.y is the bottom edge.
       // Prompt sits a fixed gap above the top of the sprite.
       this.interactPrompt.setPosition(closest.sprite.x, closest.sprite.y - closest.sprite.displayHeight - 8)
+      this.interactPrompt.setVisible(true)
+      return
     }
+    // No NPC nearby — offer the chart drawer when the player is next to
+    // the lit cabinet and hasn't pulled the chart yet.
+    if (this.isAtActiveChartCabinet()) {
+      this.interactPrompt.setText('[E] Open drawer')
+      this.interactPrompt.setPosition(
+        ACTIVE_CHART_CABINET.x * TILE + TILE / 2,
+        ACTIVE_CHART_CABINET.y * TILE - 4,
+      )
+      this.interactPrompt.setVisible(true)
+      return
+    }
+    this.interactPrompt.setVisible(false)
+  }
+
+  /** True when there's an un-pulled active chart this level and the
+   *  player is standing adjacent to the lit drawer. */
+  private isAtActiveChartCabinet(): boolean {
+    const lvl = getState().currentLevel
+    const target = CHART_PULL_BY_LEVEL[lvl]
+    if (!target || getState().chartsPulled?.[target.encounterId]) return false
+    const dx = Math.abs(this.playerTileX - ACTIVE_CHART_CABINET.x)
+    const dy = Math.abs(this.playerTileY - ACTIVE_CHART_CABINET.y)
+    return dx <= 1 && dy <= 1
+  }
+
+  /** Show the drawer highlight only on a gated level whose chart the
+   *  player hasn't pulled yet. */
+  private updateChartCabinetHighlight() {
+    const lvl = getState().currentLevel
+    const target = CHART_PULL_BY_LEVEL[lvl]
+    const show = !!target && !getState().chartsPulled?.[target.encounterId]
+    this.chartCabinetGlow?.setVisible(show)
+    this.chartCabinetLabel?.setVisible(show)
   }
 
   private interact() {
