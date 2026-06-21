@@ -90,6 +90,11 @@ const PFS_BOUNDS          = { x: 40, y: 50, w: 16, h: 10 }
 // boss is bounded to AUDIT's new mirror; the WR layer auto-mirrors the
 // hospital's tilemap, so this is just a coord update.
 const AUDIT_BOUNDS        = { x: 4,  y: 100, w: 28, h: 10 }
+// Parking lot — the WR parallel of the OUTDOOR area. Focused on the
+// drive aisle where Alex (L4 Stoploss case-giver) stands, so the
+// player descends straight onto the platform. No perimeter walls in
+// this sub-region, so it reads as a lit slab in the bioluminescent jungle void.
+const OUTDOOR_BOUNDS      = { x: 12, y: 66, w: 24, h: 12 }
 
 const OBSTACLES: ObstacleMarker[] = [
   // Each obstacle is placed in the parallel layer of the room where
@@ -133,9 +138,13 @@ const OBSTACLES: ObstacleMarker[] = [
   // Obstacle dispatches to PrototypeIframeScene for these (the
   // encounter's `prototypeIframeUrl` field is the discriminator).
 
-  // MAIN HUB — Alex (L2 asp-wac, L4 stoploss).
+  // MAIN HUB — Alex (L2 asp-wac). L4 stoploss now descends to the
+  // parking-lot parallel (see PARKING LOT below).
   { tileX: 26, tileY: 7,  encounterId: 'catalog_asp_wac_apothecary',        bounds: MAIN_HUB_BOUNDS },
-  { tileX: 30, tileY: 7,  encounterId: 'catalog_stoploss_reckoner',         bounds: MAIN_HUB_BOUNDS },
+
+  // PARKING LOT (outdoor) — Alex steps out here at L4; his case's
+  // obstacle lives in the WR parallel of the lot, not Main Hub.
+  { tileX: 30, tileY: 72, encounterId: 'catalog_stoploss_reckoner',         bounds: OUTDOOR_BOUNDS },
 
   // REGISTRATION — Kim (L16 credentialing, L22 phantom-patient, L27 cob),
   //                Pat (L6 form-mirror, L7 outpatient-grouper) until L9.
@@ -229,6 +238,14 @@ const WR_TILES: Record<string, WrTileDef> = {
   // visually consistent if the player is ever near them.
   'S': { sprite: 'wr_floor', tint: 0x2a0608, solid: false, glow: 0xff3050 }, // stair landing — burgundy with red neon
   'O': { sprite: 'wr_floor', tint: 0x141014, solid: false }, // outdoor exit reads as void in WR
+  // Parking-lot chars (L4 Stoploss WR). Asphalt becomes teal-dark jungle
+  // floor; lampposts burn as teal bioluminescence. Cars / curb / stripes
+  // fall through to the checker floor. (Tints below double as fallbacks;
+  // the biome() palette drives the live look — see buildMap.)
+  ',': { sprite: 'wr_floor', tint: 0x0a1822, solid: false },
+  '4': { sprite: 'wr_floor', tint: 0x0a1822, solid: false, glow: 0x2fe6d4 },
+  '5': { sprite: 'wr_floor', tint: 0x0a1822, solid: false, glow: 0x2fe6d4 },
+  '6': { sprite: 'wr_floor', tint: 0x0a1822, solid: false, glow: 0x2fe6d4 },
 }
 
 function tileForChar(ch: string): WrTileDef {
@@ -335,7 +352,7 @@ export class WaitingRoomScene extends Phaser.Scene {
     // Deeper burgundy than the Hospital's warm dark — this is the
     // dramatic stage. Pure black with red highlights would feel too
     // much like a haunted house; #1a0608 reads as theatrical.
-    this.cameras.main.setBackgroundColor(0x1a0608)
+    this.cameras.main.setBackgroundColor(this.biome().bg)
     this.canMove = true
     this.floatingMotes = []
     this.obstacleSprites = []
@@ -451,6 +468,26 @@ export class WaitingRoomScene extends Phaser.Scene {
     })
   }
 
+  /** True when this WR session is the outdoor parking-lot parallel. */
+  private get isOutdoorSession(): boolean {
+    return this.sessionBounds === OUTDOOR_BOUNDS
+  }
+
+  /** Biome palette. The outdoor lot reads as a bioluminescent night
+   *  jungle (teal + violet on near-black); every other room keeps the
+   *  Twin-Peaks red room. */
+  private biome() {
+    return this.isOutdoorSession
+      ? { bg: 0x050810, floorA: 0x0c1c28, floorB: 0x06121c, wallA: 0x123042, wallB: 0x0c2230,
+          ringOuter: 0xb48be0, ringInner: 0x2fe6d4, core: 0xb48be0,
+          labelColor: '#d9c2f0', labelBg: '#08121acc',
+          curtainOuter: 0x050810, curtainAccent: 0x123042, motes: [0x2fe6d4, 0x46f0a8, 0xb48be0] }
+      : { bg: 0x1a0608, floorA: 0xd8cfc4, floorB: 0x141014, wallA: 0x6a0d10, wallB: 0x4a0709,
+          ringOuter: 0xff3050, ringInner: 0x60d0ff, core: 0xff3050,
+          labelColor: '#ff8090', labelBg: '#1a0608cc',
+          curtainOuter: 0x1a0608, curtainAccent: 0x6a0d10, motes: [0xff3050, 0xff8090, 0xb18bd6] }
+  }
+
   private buildMap() {
     const { width: mw, height: mh, layout } = this.mapDef
 
@@ -466,6 +503,7 @@ export class WaitingRoomScene extends Phaser.Scene {
     const y0 = this.sessionBounds ? Math.max(0,  this.sessionBounds.y - PAD) : 0
     const y1 = this.sessionBounds ? Math.min(mh, this.sessionBounds.y + this.sessionBounds.h + PAD) : mh
 
+    const bp = this.biome()
     for (let y = y0; y < y1; y++) {
       const row = layout[y] || ''
       for (let x = x0; x < x1; x++) {
@@ -480,14 +518,14 @@ export class WaitingRoomScene extends Phaser.Scene {
         // on every other tile. Walls + furniture get their fixed tints.
         if (ch === '.' || ch === 'h' || ch === 'c' || ch === 'P' || ch === 'w' ||
             ch === 'F' || ch === 'B' || ch === 'R' || ch === 'V' || ch === 'b' ||
-            ch === 'H' || ch === 'X' || ch === 'E') {
+            ch === 'H' || ch === 'X' || ch === 'E' || ch === ',') {
           const isBoneTile = (x + y) % 2 === 0
-          floor.setTint(isBoneTile ? 0xd8cfc4 : 0x141014)
+          floor.setTint(isBoneTile ? bp.floorA : bp.floorB)
         } else if (ch === 'W') {
           // Walls — alternating fold tint to give the curtain texture
           // even with a uniform sprite.
           const isFold = (x + y) % 2 === 0
-          floor.setTint(isFold ? 0x6a0d10 : 0x4a0709)
+          floor.setTint(isFold ? bp.wallA : bp.wallB)
         } else {
           floor.setTint(def.tint)
         }
@@ -578,11 +616,12 @@ export class WaitingRoomScene extends Phaser.Scene {
     // Floating data motes — replace the old papers with small
     // glowing dots that drift slowly. Cyberpunk-ish; the room's
     // air is thick with information that never resolves.
+    const bp = this.biome()
     for (let i = 0; i < 28; i++) {
       const mx = Phaser.Math.Between(2 * TILE, (this.mapDef.width - 2) * TILE)
       const my = Phaser.Math.Between(2 * TILE, (this.mapDef.height - 2) * TILE)
       const mote = this.add.graphics().setDepth(1)
-      const color = Phaser.Math.RND.pick([0xff3050, 0xff8090, 0xb18bd6])
+      const color = Phaser.Math.RND.pick(bp.motes)
       mote.fillStyle(color, Phaser.Math.FloatBetween(0.18, 0.42))
       mote.fillCircle(0, 0, Phaser.Math.FloatBetween(1.5, 3))
       mote.setPosition(mx, my)
@@ -611,12 +650,13 @@ export class WaitingRoomScene extends Phaser.Scene {
     // Edge curtains — narrow burgundy bars framing the camera.
     // Same idea as the prior pass but with a darker outer edge for
     // more theatrical dimensionality.
+    const cbp = this.biome()
     const curtain = this.add.graphics().setScrollFactor(0).setDepth(99)
     const cWidth = 44
-    curtain.fillStyle(0x1a0608, 0.7)
+    curtain.fillStyle(cbp.curtainOuter, 0.7)
     curtain.fillRect(0, 0, cWidth, vh)
     curtain.fillRect(vw - cWidth, 0, cWidth, vh)
-    curtain.fillStyle(0x6a0d10, 0.4)
+    curtain.fillStyle(cbp.curtainAccent, 0.4)
     curtain.fillRect(cWidth, 0, 6, vh)
     curtain.fillRect(vw - cWidth - 6, 0, 6, vh)
     // Top + bottom soft mask — gives the camera a letterbox-y
@@ -808,15 +848,16 @@ export class WaitingRoomScene extends Phaser.Scene {
 
       // Holographic encounter marker — magenta + cyan stack with
       // a flicker. Cyberpunk-ish; reads as glitch.
+      const bp = this.biome()
       const g = this.add.graphics().setDepth(4)
-      // Outer magenta ring
-      g.lineStyle(2, 0xff3050, 0.85)
+      // Outer ring
+      g.lineStyle(2, bp.ringOuter, 0.85)
       g.strokeCircle(px, py, 16)
-      // Cyan inner ring (offset slightly for chromatic aberration)
-      g.lineStyle(1, 0x60d0ff, 0.7)
+      // Inner ring (offset slightly for chromatic aberration)
+      g.lineStyle(1, bp.ringInner, 0.7)
       g.strokeCircle(px + 1, py - 1, 12)
-      // Solid magenta core
-      g.fillStyle(0xff3050, 0.45)
+      // Solid core
+      g.fillStyle(bp.core, 0.45)
       g.fillCircle(px, py, 5)
 
       // Pulse + tiny jitter — never quite still
@@ -827,8 +868,8 @@ export class WaitingRoomScene extends Phaser.Scene {
 
       const labelText = enc.archetype ?? enc.title
       const label = this.add.text(px, py - 48, labelText, {
-        fontSize: '24px', fontFamily: 'monospace', color: '#ff8090',
-        backgroundColor: '#1a0608cc', padding: { x: 12, y: 6 },
+        fontSize: '24px', fontFamily: 'monospace', color: bp.labelColor,
+        backgroundColor: bp.labelBg, padding: { x: 12, y: 6 },
         stroke: '#0e1116', strokeThickness: 3,
       }).setOrigin(0.5).setDepth(5)
 
