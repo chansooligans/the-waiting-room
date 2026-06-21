@@ -64,7 +64,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Once the 278 returns the auth number, amend Box 23 on the claim. Single-amend close.",
   ],
   9: [
-    "Anjali's in the lobby. A patient with no path to pay.",
+    "Yvette's at the eligibility counter. A patient with no path to pay (charity care).",
     "Charity care under §501(r). Financial assistance policy + presumptive eligibility screen.",
     "Patient-facing case. The system you're operating is the safety net.",
   ],

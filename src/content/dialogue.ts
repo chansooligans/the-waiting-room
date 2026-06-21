@@ -1154,13 +1154,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L9 — Jordan, Lighthouse (charity)
   jordan_lighthouse_intake: {
     id: 'jordan_lighthouse_intake',
-    speaker: 'Anjali',
+    speaker: 'Yvette',
     text: "A patient who can't pay. Walked into the ER three weeks ago with no insurance and no income above 200% FPL. We have §501(r) for exactly this; the application's open.",
     next: 'jordan_lighthouse_intake_2',
   },
   jordan_lighthouse_intake_2: {
     id: 'jordan_lighthouse_intake_2',
-    speaker: 'Anjali',
+    speaker: 'Yvette',
     text: "Can you walk the screen and presumptive eligibility check with him?",
     choices: [
       { text: '(Open the application.)',
@@ -1170,7 +1170,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   jordan_lighthouse_intake_back: {
     id: 'jordan_lighthouse_intake_back',
-    speaker: 'Anjali',
+    speaker: 'Yvette',
     text: "He's not going anywhere. He's been in this lobby longer than I have.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1601,7 +1601,7 @@ export const LEVEL_NPC_DIALOGUES: Record<number, Record<string, string>> = {
   6:   { records_clerk: 'pat_outpatient_surgery_intake' },
   7:   { jordan:   'jordan_no_show_intake' },
   8:   { martinez: 'martinez_gatekeeper_intake', sam: 'sam_l3_intake' },  // gatekeeper
-  9:   { anjali: 'jordan_lighthouse_intake' },
+  9:   { cashier: 'jordan_lighthouse_intake' },
   10:  { payer_rep: 'sam_gfe_intake' },
   11:  { payer_supervisor: 'sam_l5_intake' },  // wraith
   12:  { lab_tech: 'alex_l6_intake' },  // swarm

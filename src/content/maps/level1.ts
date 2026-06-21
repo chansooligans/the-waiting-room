@@ -1303,6 +1303,7 @@ export const LEVEL_1_MAP: MapDef = {
     { npcId: 'liana',            tileX: MAIN_HUB.x + 6,    tileY: MAIN_HUB.y + 5,    facing: 'down',  levels: [2] },
     { npcId: 'payer_supervisor', tileX: PATIENT_SVC.x + 4, tileY: PATIENT_SVC.y + 3, facing: 'right', levels: [11] },
     { npcId: 'dr_park',          tileX: HIM.x + 8,         tileY: HIM.y + 5,         facing: 'down',  levels: [24] },
+    { npcId: 'cashier',          tileX: ELIGIBILITY.x + 4, tileY: ELIGIBILITY.y + 2, facing: 'down',  levels: [9] },
     { npcId: 'alex', tileX: BILLING.x + 5, tileY: BILLING.y + 5,
       levels: [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32] },
 
