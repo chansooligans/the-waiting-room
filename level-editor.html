@@ -86,6 +86,20 @@
       transition: border-color 80ms, transform 80ms, opacity 80ms;
     }
     .card:hover { border-color: #3a4658; }
+    /* Skipped levels (not in ENABLED_LEVELS) — dimmed + muted accent so
+       the active flow reads at a glance. Still draggable + editable. */
+    .card.skipped {
+      opacity: 0.5;
+      background: #11141a;
+      border-style: dashed;
+    }
+    .card.skipped .pos { color: #5a6a7a; }
+    .card.skipped:hover { opacity: 0.85; }
+    .chip-skipped {
+      color: #ef5b7b;
+      background: rgba(239, 91, 123, 0.10);
+      border-color: #6b3742 !important;
+    }
     .card.dragging { opacity: 0.4; cursor: grabbing; }
     .card.drop-target-top { box-shadow: 0 -3px 0 0 #7ee2c1; }
     .card.drop-target-bot { box-shadow: 0 3px 0 0 #7ee2c1; }

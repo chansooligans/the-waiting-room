@@ -12,6 +12,7 @@
 // purpose is just to iterate on the narrative sequence.
 
 import { CASE_ORDER, type CaseEntry, type District } from '../content/case-order'
+import { isLevelEnabled } from '../content/levels'
 
 const DISTRICT_COLORS: Record<District, { fg: string; bg: string; border: string }> = {
   eligibility:    { fg: '#7ee2c1', bg: 'rgba(126, 226, 193, 0.10)', border: '#3a6b58' },
@@ -63,8 +64,14 @@ function renderCard(c: CaseEntry, i: number): string {
     : ''
   const diffColor = difficultyColor(c.difficulty)
   const diffChip = `<span class="chip-diff" style="color:${diffColor.fg};background:${diffColor.bg};border-color:${diffColor.border}" title="Difficulty: ${c.difficulty}/10">diff ${c.difficulty}</span>`
+  // Level slot i+1 — dim + tag the card when that slot is skipped in the
+  // game flow (ENABLED_LEVELS in levels.ts). The status follows the slot,
+  // not the case, so it stays meaningful while you drag-reorder.
+  const skipped = !isLevelEnabled(i + 1)
+  const skippedClass = skipped ? ' skipped' : ''
+  const skippedChip = skipped ? '<span class="chip-skipped">skipped</span>' : ''
   return `
-    <div class="card${dragging}${dropTop}${dropBot}" draggable="true" data-idx="${i}">
+    <div class="card${dragging}${dropTop}${dropBot}${skippedClass}" draggable="true" data-idx="${i}">
       <div class="grip" aria-label="drag to reorder">⋮⋮</div>
       <div class="pos">L${i + 1}</div>
       <div class="body">
@@ -74,6 +81,7 @@ function renderCard(c: CaseEntry, i: number): string {
         </div>
         <div class="gloss">${esc(c.gloss)}</div>
         <div class="chips">
+          ${skippedChip}
           ${diffChip}
           <span class="chip-district" style="color:${palette.fg};background:${palette.bg};border-color:${palette.border}">${esc(c.district)}</span>
           ${specChip}
@@ -165,6 +173,8 @@ function updateSummary() {
     byDistrict[c.district] = (byDistrict[c.district] ?? 0) + 1
   }
   const playable = state.order.filter(c => c.hasRuntimeSpec).length
+  const active = state.order.filter((_, i) => isLevelEnabled(i + 1)).length
+  const skipped = state.order.length - active
   const dChips = Object.entries(byDistrict)
     .map(([d, n]) => {
       const p = DISTRICT_COLORS[d as District]
@@ -173,6 +183,7 @@ function updateSummary() {
   summary.innerHTML = `
     <div class="sum-row">
       <strong>${state.order.length}</strong> levels
+      · <strong>${active}</strong> active${skipped ? ` · <span style="color:#ef5b7b">${skipped} skipped</span>` : ''}
       · <strong>${playable}</strong> in-game playable
       · ${dChips}
     </div>
