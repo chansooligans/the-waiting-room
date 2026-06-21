@@ -1613,7 +1613,7 @@ export const LEVEL_NPC_DIALOGUES: Record<number, Record<string, string>> = {
   17:  { pat:      'pat_cpt_licensure_intake' },
   18:  { sam:      'sam_l7_intake' },  // reaper
   19:  { cashier: 'jordan_l8_intake' },  // surprise-bill
-  20:  { dr_priya: 'alex_ob_perdiem_intake' },
+  20:  { liana: 'alex_340b_intake' },
   21:  { records_clerk: 'kim_phantom_patient_intake' },
   22:  { dr_priya: 'pat_risk_adj_intake' },
   23:  { dr_ethan: 'alex_chemo_bundle_intake' },
@@ -1623,7 +1623,7 @@ export const LEVEL_NPC_DIALOGUES: Record<number, Record<string, string>> = {
   27:  { payer_supervisor: 'alex_case_rate_intake' },
   28:  { payer_rep: 'sam_mrf_intake' },
   29:  { sam:      'sam_idr_intake' },
-  30:  { liana: 'alex_340b_intake' },
+  30:  { dr_priya: 'alex_ob_perdiem_intake' },
   31:  { compliance_officer: 'sam_hipaa_intake' },
   32:  { dana:     'dana_l10_intake' },  // boss
 

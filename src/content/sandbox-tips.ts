@@ -119,9 +119,9 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "OON provider and payer fight in IDR. Patient is out once cost-share is calculated correctly.",
   ],
   20: [
-    "Dr. Priya. OB per-diem with a C-section escalator.",
-    "OB per-diem contracts usually have escalators for cesarean delivery, NICU, multiples.",
-    "Check that the escalator triggered. Often a coding-side miss (procedure code didn't propagate to the per-diem rate calc).",
+    "Liana in the Auditorium. 340B rate clawback.",
+    "340B program lets eligible hospitals buy outpatient drugs at deep discount. After Becerra v. AHA, post-2023 reimbursement rules changed.",
+    "Check the drug's 340B eligibility + the date of service. Some clawbacks were retroactive; some are forward-looking.",
   ],
   21: [
     "Marisol in Medical Records. Two patients matched into the same demographic profile.",
@@ -169,9 +169,9 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Defend the math. QPA (Qualifying Payment Amount), historical rates, complexity factors. The closer your number is to QPA, the more often you win.",
   ],
   30: [
-    "Liana in the Cancer Center. 340B rate clawback.",
-    "340B program lets eligible hospitals buy outpatient drugs at deep discount. After Becerra v. AHA, post-2023 reimbursement rules changed.",
-    "Check the drug's 340B eligibility + the date of service. Some clawbacks were retroactive; some are forward-looking.",
+    "Dr. Priya in the Main Hub. OB per-diem with a C-section escalator.",
+    "OB per-diem contracts usually have escalators for cesarean delivery, NICU, multiples.",
+    "Check that the escalator triggered. Often a coding-side miss (procedure code didn't propagate to the per-diem rate calc).",
   ],
   31: [
     "Theo (compliance). A faxed PHI page went to the wrong number.",

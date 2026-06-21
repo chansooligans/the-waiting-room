@@ -671,7 +671,7 @@ export const LEVEL_ORIENTATION_HINTS: Record<number, string> = {
   17: 'Pat in HIM. AMA CPT licensing question.',
   18: 'Sam in Patient Services. The reaper has surfaced.',
   19: 'Yvette\'s at the PFS window — a surprise bill the patient never saw coming.',
-  20: 'Dr. Priya — OB per-diem with a C-section escalator.',
+  20: 'Liana\'s in the Auditorium — a 340B rate clawback. Take the lobby EAST door.',
   21: 'Marisol in Medical Records — an identity-matching collision.',
   22: 'Dr. Priya\'s in the parking lot — HCC capture review. Take the lobby EXIT.',
   23: 'Dr. Ethan in the Lecture Hall — chemo bundle short-paid.',
@@ -681,7 +681,7 @@ export const LEVEL_ORIENTATION_HINTS: Record<number, string> = {
   27: 'Diane in the Payer office — case-rate vs per-diem mismatch.',
   28: 'Theresa\'s in the parking lot — mapping a payer\'s MRF. Take the lobby EXIT.',
   29: 'Sam in Patient Services. An IDR submission.',
-  30: 'Liana in the Cancer Center — 340B rate clawback.',
+  30: 'Dr. Priya\'s in the Main Hub — OB per-diem with a C-section escalator.',
   31: 'Theo (compliance) — a faxed PHI page went to the wrong number.',
-  32: 'Dana is on the auditorium stage. The auditors have arrived; the room is full.',
+  32: 'Dana\'s at the head of the table in the 2F Audit room. The auditors have arrived.',
 }

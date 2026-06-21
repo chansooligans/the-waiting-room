@@ -251,14 +251,14 @@ export const LEVELS: LevelDef[] = [
   },
   {
     id: 20,
-    title: 'OB Per-Diem Specter',
-    subtitle: 'OB per-diem with C-section escalator — payer paid the base rate only.',
-    hospitalDescription: 'L&D billed a per-diem with the C-section escalator; the payer paid base only.',
-    waitingRoomDescription: 'A maternity ward where every clock runs at a different rate.',
+    title: '340B Specter',
+    subtitle: '340B-eligible drug paid at non-340B rate post-Becerra clawback.',
+    hospitalDescription: 'A 340B-eligible drug paid at the wrong rate. Becerra clawback territory.',
+    waitingRoomDescription: 'A pharmacy with two prices on every shelf. Both are correct.',
     concepts: [],
-    encounters: ['catalog_ob_perdiem_specter'],
+    encounters: ['catalog_three_forty_b_specter'],
     cases: [],
-    npcsActive: ['dr_priya'],
+    npcsActive: ['liana'],
   },
   {
     id: 21,
@@ -361,14 +361,14 @@ export const LEVELS: LevelDef[] = [
   },
   {
     id: 30,
-    title: '340B Specter',
-    subtitle: '340B-eligible drug paid at non-340B rate post-Becerra clawback.',
-    hospitalDescription: 'A 340B-eligible drug paid at the wrong rate. Becerra clawback territory.',
-    waitingRoomDescription: 'A pharmacy with two prices on every shelf. Both are correct.',
+    title: 'OB Per-Diem Specter',
+    subtitle: 'OB per-diem with C-section escalator — payer paid the base rate only.',
+    hospitalDescription: 'L&D billed a per-diem with the C-section escalator; the payer paid base only.',
+    waitingRoomDescription: 'A maternity ward where every clock runs at a different rate.',
     concepts: [],
-    encounters: ['catalog_three_forty_b_specter'],
+    encounters: ['catalog_ob_perdiem_specter'],
     cases: [],
-    npcsActive: ['liana'],
+    npcsActive: ['dr_priya'],
   },
   {
     id: 31,
@@ -409,7 +409,7 @@ export const LEVELS: LevelDef[] = [
 // else needs to change. Keep it sorted for readability; order doesn't matter
 // (ACTIVE_LEVELS sorts + dedupes).
 export const ENABLED_LEVELS: number[] = [
-  1, 2, 4, 5, 6, 8, 10, 14, 16, 17, 18, 19, 20, 23, 24, 25, 27, 28, 29, 30, 32,
+  1, 2, 4, 5, 6, 8, 10, 14, 16, 17, 18, 19, 20, 23, 24, 25, 27, 30, 32,
 ]
 
 /** The enabled level ids, sorted ascending and de-duped — the actual

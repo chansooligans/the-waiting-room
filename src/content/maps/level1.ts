@@ -695,7 +695,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
     // ===== Public-event rooms =====
     {
       id: 'auditorium',
-      lockedUntilLevel: 32,
+      lockedUntilLevel: 20,
       ...AUDITORIUM,
       // West door at offset 5 → world (30, 37) — pairs with lobby's
       // east door at (29, 37). They share adjacent wall columns; the
@@ -1248,14 +1248,13 @@ export const LEVEL_1_MAP: MapDef = {
     { npcId: 'jordan', tileX: MAIN_HUB.x + 9, tileY: MAIN_HUB.y + 5,
       levels: [1, 2] },
 
-    // Dana — pulled from L1-32 because her in-game NPC presence
+    // Dana — pulled from L1-31 because her in-game NPC presence
     // collided with the "Dana's notebook" briefing voice that runs
-    // across every Case. She returns at L33 (and only L33) standing
-    // on the auditorium stage where the boss intake plays out. The
-    // auditorium — a public-facing event room, full house — frames
-    // the audit as the company-wide reckoning it is, rather than
-    // a private back-office meeting.
-    { npcId: 'dana', tileX: AUDITORIUM.x + 17, tileY: AUDITORIUM.y + 4, facing: 'left',
+    // across every Case. She returns at L32 (and only L32) at the head
+    // of the table in the 2F Audit room, where the boss intake plays
+    // out — a closed-door conference-room reckoning rather than the
+    // old public auditorium stage.
+    { npcId: 'dana', tileX: AUDIT.x + 14, tileY: AUDIT.y + 6, facing: 'up',
       levels: [32] },
 
     // Kim — Registration counter (L3+, once the room unlocks).
@@ -1301,6 +1300,10 @@ export const LEVEL_1_MAP: MapDef = {
     // (home room locked / NPC filtered out). Placed in the case's
     // obstacle room so the descent spawns in-room.
     { npcId: 'liana',            tileX: MAIN_HUB.x + 6,    tileY: MAIN_HUB.y + 5,    facing: 'down',  levels: [2] },
+    // L20 (340B Specter) — Liana gives it from the Auditorium, in the
+    // aisle just inside the west door. Must precede her Cancer-Center
+    // ambient placement so it wins as the preferred placement at L20.
+    { npcId: 'liana',            tileX: AUDITORIUM.x + 8,  tileY: AUDITORIUM.y + 5,  facing: 'left',  levels: [20] },
     { npcId: 'payer_supervisor', tileX: PATIENT_SVC.x + 4, tileY: PATIENT_SVC.y + 3, facing: 'right', levels: [11] },
     { npcId: 'dr_park',          tileX: HIM.x + 8,         tileY: HIM.y + 5,         facing: 'down',  levels: [24] },
     { npcId: 'cashier',          tileX: PFS.x + 8,         tileY: PFS.y + 5,         facing: 'down',  levels: [19] },
@@ -1326,16 +1329,17 @@ export const LEVEL_1_MAP: MapDef = {
     //     gets a single one-line dialogue (see `dialogue.ts`). ===
 
     // Lobby — repositioned during the editor pass. Greta (flowers)
-    // is now on the east side mid-conversation; Mr. Beck is near
-    // the west wall; Officer Reyes covers the SW corner; Walter
-    // occupies the northern half.
+    // sits in the NE seating area, clear of the east door — the
+    // auditorium opens off that door (L20), so she can't stand on the
+    // approach tile anymore. Mr. Beck is near the west wall; Officer
+    // Reyes covers the SW corner; Walter occupies the northern half.
     { npcId: 'walter',         tileX: LOBBY.x + 20, tileY: LOBBY.y + 2, ambient: true },
     // Officer Reyes shifted one tile east of his old spot — the
     // 'O' exit-mat tile now sits at (LOBBY.x+1, LOBBY.y+4), and
     // having him on top of it would block the teleport. Faces
     // 'left' toward the door, watching who comes through.
     { npcId: 'officer_reyes',  tileX: LOBBY.x + 2,  tileY: LOBBY.y + 4, facing: 'left', ambient: true },
-    { npcId: 'flower_visitor', tileX: LOBBY.x + 24, tileY: LOBBY.y + 5, facing: 'left', ambient: true },
+    { npcId: 'flower_visitor', tileX: LOBBY.x + 22, tileY: LOBBY.y + 2, facing: 'down', ambient: true },
     // Elder patient gated [1-9] so he falls through to the
     // CANCER_CENTER infusion-bay placement at L10+.
     { npcId: 'elder_patient',  tileX: LOBBY.x + 5,  tileY: LOBBY.y + 3, ambient: true, levels: [1, 2, 3, 4, 5, 6, 7, 8] },

@@ -239,7 +239,7 @@ const LEVEL_PRESETS: LevelPreset[] = [
   { level: 17, label: 'L17 — CPT Licensure Mire'                , note: 'Pat · catalog'           , spawn: { x: 11, y: 55 } },
   { level: 18, label: 'L18 — Timely Filing Reaper'              , note: 'Sam · reaper'            , spawn: { x: 8, y: 21 } },
   { level: 19, label: 'L19 — Surprise Bill Specter'             , note: 'Yvette · PFS'            , spawn: { x: 48, y: 55 } },
-  { level: 20, label: 'L20 — OB Per-Diem Specter'               , note: 'Dr. Priya · Main Hub'          , spawn: { x: 29, y: 55 } },
+  { level: 20, label: 'L20 — 340B Specter'                      , note: 'Liana · Auditorium'             , spawn: { x: 35, y: 37 } },
   { level: 21, label: 'L21 — Phantom Patient'                   , note: 'Marisol · Med Records'           , spawn: { x: 22, y: 21 } },
   { level: 22, label: 'L22 — Risk Adjustment Hollow'            , note: 'Dr. Priya · parking lot' , spawn: { x: 8, y: 37 } },
   { level: 23, label: 'L23 — Chemo Bundle Specter'              , note: 'Dr. Ethan · Lecture Hall'          , spawn: { x: 29, y: 55 } },
@@ -249,9 +249,9 @@ const LEVEL_PRESETS: LevelPreset[] = [
   { level: 27, label: 'L27 — Case-Rate Specter'                 , note: 'Diane · Payer'          , spawn: { x: 29, y: 55 } },
   { level: 28, label: 'L28 — MRF Cartographer'                  , note: 'Theresa · parking lot'   , spawn: { x: 8, y: 37 } },
   { level: 29, label: 'L29 — IDR Crucible'                      , note: 'Sam · catalog'           , spawn: { x: 8, y: 21 } },
-  { level: 30, label: 'L30 — 340B Specter'                      , note: 'Liana · Cancer Ctr'          , spawn: { x: 29, y: 55 } },
+  { level: 30, label: 'L30 — OB Per-Diem Specter'               , note: 'Dr. Priya · Main Hub'         , spawn: { x: 31, y: 8 } },
   { level: 31, label: 'L31 — HIPAA Spider'                      , note: 'Theo · Compliance'           , spawn: { x: 8, y: 21 } },
-  { level: 32, label: 'L32 — The Quarterly Audit'               , note: 'Dana · boss'             , spawn: { x: 18, y: 105 } },
+  { level: 32, label: 'L32 — The Quarterly Audit'               , note: 'Dana · Audit Rm (2F)'        , spawn: { x: 18, y: 105 } },
 ]
 
 /** Hospital-scene room teleports. Each entry sets
@@ -308,7 +308,7 @@ const PRESET_DEFEAT_SEQUENCE = [
   'catalog_cpt_licensure_mire',         // L17  CPT Licensure Mire
   'co_29_reaper',                       // L18  Timely Filing Reaper
   'surprise_bill_specter',              // L19  Surprise Bill Specter
-  'catalog_ob_perdiem_specter',         // L20  OB Per-Diem Specter
+  'catalog_three_forty_b_specter',      // L20  340B Specter (swapped with L30)
   'catalog_phantom_patient',            // L21  Phantom Patient
   'catalog_risk_adj_hollow',            // L22  Risk Adjustment Hollow
   'catalog_chemo_bundle_specter',       // L23  Chemo Bundle Specter
@@ -318,7 +318,7 @@ const PRESET_DEFEAT_SEQUENCE = [
   'catalog_case_rate_specter',          // L27  Case-Rate Specter
   'catalog_mrf_cartographer',           // L28  MRF Cartographer
   'catalog_idr_crucible',               // L29  IDR Crucible
-  'catalog_three_forty_b_specter',      // L30  340B Specter
+  'catalog_ob_perdiem_specter',         // L30  OB Per-Diem Specter (swapped with L20)
   'catalog_hipaa_spider',               // L31  HIPAA Spider
   'boss_audit',                         // L32  The Quarterly Audit
 ]
