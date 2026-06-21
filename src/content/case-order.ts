@@ -5,20 +5,18 @@
 // this array, lets you drag-reorder, and emits a paste-back snippet
 // that you can drop back here.
 //
-// The current ordering preserves the existing L1-10 sequencing
-// (the cases that are already in-game playable, in their existing
-// level order) followed by the catalog-only cases grouped roughly
-// by district + archetype. Rearrange freely.
+// The ordering mirrors the live 32-level sequence in
+// `src/content/levels.ts` (one entry per level, same order). Keep the
+// two in sync when reordering. Rearrange freely, then paste back.
 //
 // Each entry carries enough metadata for the editor to render a
 // useful card: id, the human name, the archetype label, the district
 // (drives the chip color), whether a runtime puzzle spec exists, and
 // the legacy level the case sat on (if any).
 //
-// NOTE: once the ordering settles, a follow-up PR will regenerate
-// `src/content/levels.ts` from this array (one level per case). For
-// now, levels.ts still has its 10-entry shape; this file is just
-// the planning layer.
+// NOTE: levels.ts is now the runtime authority (32 entries). This
+// file is the planning/editor layer kept in lockstep with that order;
+// reorder here, then reconcile levels.ts to match.
 
 export type District = 'eligibility' | 'coding' | 'billing' | 'appeals' | 'release-valve'
 
@@ -107,24 +105,14 @@ export const CASE_ORDER: CaseEntry[] = [
     difficulty: 8,
   },
   {
-    id: "gatekeeper",
-    name: "Prior-Auth Gatekeeper",
-    archetype: "Gatekeeper",
-    district: "eligibility",
-    hasRuntimeSpec: true,
-    legacyLevel: 3,
-    gloss: "No auth on file for an MRI. Polite, immovable, fixable.",
-    difficulty: 3,
-  },
-  {
-    id: "form-mirror",
-    name: "Form Mirror",
-    archetype: "Mirror",
+    id: "bundle",
+    name: "Bundling Beast",
+    archetype: "Bundle",
     district: "coding",
-    hasRuntimeSpec: false,
-    legacyLevel: null,
-    gloss: "CMS-1500 vs UB-04 — which form does this service belong on?",
-    difficulty: 3,
+    hasRuntimeSpec: true,
+    legacyLevel: 4,
+    gloss: "CO-97 bundle. Modifier 25 + chart support for a separately identifiable E&M.",
+    difficulty: 4,
   },
   {
     id: "outpatient-surgery-grouper",
@@ -147,14 +135,14 @@ export const CASE_ORDER: CaseEntry[] = [
     difficulty: 3,
   },
   {
-    id: "bundle",
-    name: "Bundling Beast",
-    archetype: "Bundle",
-    district: "coding",
+    id: "gatekeeper",
+    name: "Prior-Auth Gatekeeper",
+    archetype: "Gatekeeper",
+    district: "eligibility",
     hasRuntimeSpec: true,
-    legacyLevel: 4,
-    gloss: "CO-97 bundle. Modifier 25 + chart support for a separately identifiable E&M.",
-    difficulty: 4,
+    legacyLevel: 3,
+    gloss: "No auth on file for an MRI. Polite, immovable, fixable.",
+    difficulty: 3,
   },
   {
     id: "lighthouse",
