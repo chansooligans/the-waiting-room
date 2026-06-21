@@ -517,17 +517,41 @@ export class WaitingRoomScene extends Phaser.Scene {
         return { bg: 0x050810, floorA: 0x0c1c28, floorB: 0x06121c, wallA: 0x123042, wallB: 0x0c2230,
           ringOuter: 0xb48be0, ringInner: 0x2fe6d4, core: 0xb48be0,
           labelColor: '#d9c2f0', labelBg: '#08121acc',
-          curtainOuter: 0x050810, curtainAccent: 0x123042, motes: [0x2fe6d4, 0x46f0a8, 0xb48be0] }
+          curtainOuter: 0x050810, curtainAccent: 0x123042, motes: [0x2fe6d4, 0x46f0a8, 0xb48be0],
+          objFrame: 0x123042, objMid: 0x0e2838, objDark: 0x0c2230, objAccent: 0x2fe6d4, glowAccent: 0x2fe6d4 }
       case 'spectral':
-        return { bg: 0x080a14, floorA: 0xb8c2d4, floorB: 0x10131f, wallA: 0x2c2a5e, wallB: 0x1a1838,
+        // Floor tints must be SATURATED (high-blue, low-red/green): the
+        // wr_floor base texture is dark (0x1a1e25) and setTint multiplies,
+        // so a desaturated light tint washes out to the same grey as the
+        // red room. Saturated blue survives the multiply and reads cold.
+        return { bg: 0x0a0d1c, floorA: 0x6f8cff, floorB: 0x0b1024, wallA: 0x3a3490, wallB: 0x241f5c,
           ringOuter: 0x8a7bff, ringInner: 0x66f0e0, core: 0x8a7bff,
           labelColor: '#c8c0ff', labelBg: '#0a0c18cc',
-          curtainOuter: 0x080a14, curtainAccent: 0x2c2a5e, motes: [0x8a7bff, 0x66f0e0, 0xb0c4ff] }
+          curtainOuter: 0x0a0d1c, curtainAccent: 0x3a3490, motes: [0x8a7bff, 0x66f0e0, 0xb0c4ff],
+          objFrame: 0x4a44b0, objMid: 0x322c78, objDark: 0x201b54, objAccent: 0x8a7bff, glowAccent: 0x66f0e0 }
       default:
         return { bg: 0x1a0608, floorA: 0xd8cfc4, floorB: 0x141014, wallA: 0x6a0d10, wallB: 0x4a0709,
           ringOuter: 0xff3050, ringInner: 0x60d0ff, core: 0xff3050,
           labelColor: '#ff8090', labelBg: '#1a0608cc',
-          curtainOuter: 0x1a0608, curtainAccent: 0x6a0d10, motes: [0xff3050, 0xff8090, 0xb18bd6] }
+          curtainOuter: 0x1a0608, curtainAccent: 0x6a0d10, motes: [0xff3050, 0xff8090, 0xb18bd6],
+          objFrame: 0x6a0d10, objMid: 0x4a0608, objDark: 0x2a0608, objAccent: 0xff3050, glowAccent: 0xff3050 }
+    }
+  }
+
+  /** Remap a tile's hardcoded furniture tint to the active biome's
+   *  equivalent slot, so props recolor with the room instead of staying
+   *  red. The four source values ARE the Red Room palette, so the
+   *  default biome is an identity remap (red room is unchanged). */
+  private remapObjTint(
+    c: number,
+    bp: { objFrame: number; objMid: number; objDark: number; objAccent: number },
+  ): number {
+    switch (c) {
+      case 0x6a0d10: return bp.objFrame   // furniture frame (chairs, counters, bulletins)
+      case 0x4a0608: return bp.objMid     // plants, beds
+      case 0x2a0608: return bp.objDark    // desks, cabinets, equipment
+      case 0xff3050: return bp.objAccent  // neon props (monitors, vending, terminals)
+      default: return c
     }
   }
 
@@ -590,7 +614,7 @@ export class WaitingRoomScene extends Phaser.Scene {
           // the override sprite's palette wouldn't be tuned for the
           // procedural-fallback tint.
           if (!meta?.sprite && def.objTint !== undefined) {
-            obj.setTint(def.objTint)
+            obj.setTint(this.remapObjTint(def.objTint, bp))
           }
           if (meta?.flipX) obj.setFlipX(true)
         }
@@ -599,10 +623,11 @@ export class WaitingRoomScene extends Phaser.Scene {
         // doors, vending. Drawn behind object so the object's silhouette
         // still reads.
         if (def.glow !== undefined) {
+          const glowColor = def.glow === 0xff3050 ? bp.glowAccent : def.glow
           const glow = this.add.graphics().setDepth(1)
-          glow.fillStyle(def.glow, 0.18)
+          glow.fillStyle(glowColor, 0.18)
           glow.fillCircle(px, py, TILE * 0.85)
-          glow.fillStyle(def.glow, 0.32)
+          glow.fillStyle(glowColor, 0.32)
           glow.fillCircle(px, py, TILE * 0.45)
           // Slow flicker on the glow — reads as bad fluorescent / neon.
           this.tweens.add({
@@ -813,7 +838,7 @@ export class WaitingRoomScene extends Phaser.Scene {
 
     this.engagePrompt = this.add.text(0, 0, '', {
       fontSize: '16px', fontFamily: 'monospace', color: '#f0d090',
-      backgroundColor: '#1a0608', padding: { x: 8, y: 4 },
+      backgroundColor: this.biome().labelBg, padding: { x: 8, y: 4 },
     }).setOrigin(0.5).setDepth(20).setVisible(false)
   }
 
