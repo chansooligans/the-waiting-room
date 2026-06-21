@@ -660,7 +660,7 @@ export const LEVEL_ORIENTATION_HINTS: Record<number, string> = {
   6:  'Marisol\'s in the parking lot — outpatient surgery grouper (APC). Take the lobby EXIT.',
   7:  'Jordan in Eligibility — a no-show fee policy call.',
   8:  'Martinez is in Prior Auth. CO-197 on an MRI.',
-  9:  'Anjali\'s in the lobby — a patient with no path to pay (charity care).',
+  9:  'Yvette\'s at the eligibility counter — a patient with no path to pay. Charity-care screen.',
   10: 'Theresa\'s in the parking lot — GFE vs bill. Take the lobby EXIT.',
   11: 'Diane in Patient Services — medical-necessity denial. Pull the Walker echo at the lit drawer first.',
   12: 'Roni in the Lab — NCCI edits as the claim swarms the clearinghouse.',

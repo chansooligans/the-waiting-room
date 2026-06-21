@@ -225,7 +225,7 @@ const LEVEL_PRESETS: LevelPreset[] = [
   { level: 6 , label: 'L6 — Outpatient Surgery Grouper'         , note: 'Marisol · parking lot'   , spawn: { x: 8, y: 37 } },
   { level: 7 , label: 'L7 — No-Show Bill'                       , note: 'Jordan · catalog'        , spawn: { x: 28, y: 27 } },
   { level: 8 , label: 'L8 — Prior-Auth Gatekeeper'              , note: 'Martinez · gatekeeper'   , spawn: { x: 44, y: 8 } },
-  { level: 9 , label: 'L9 — Lighthouse'                         , note: 'Anjali · lobby'        , spawn: { x: 28, y: 27 } },
+  { level: 9 , label: 'L9 — Lighthouse'                         , note: 'Yvette · Eligibility'        , spawn: { x: 28, y: 27 } },
   { level: 10, label: 'L10 — GFE Oracle'                        , note: 'Theresa · parking lot'   , spawn: { x: 8, y: 37 } },
   { level: 11, label: 'L11 — Medical Necessity Wraith'          , note: 'Diane · Patient Svc'            , spawn: { x: 8, y: 21 } },
   { level: 12, label: 'L12 — Documentation Sprite Swarm'        , note: 'Roni · Lab'            , spawn: { x: 29, y: 55 } },
