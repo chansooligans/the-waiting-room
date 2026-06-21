@@ -657,7 +657,7 @@ export const LEVEL_ORIENTATION_HINTS: Record<number, string> = {
   3:  'Find Kim at the Registration desk. Stale insurance card.',
   4:  'Alex stepped out over a stoploss case — take the lobby EXIT to the parking lot.',
   5:  'The south wing opens. Pat is in HIM / Coding — pull Sarah Kim\'s chart at Med Records, then bring it back.',
-  6:  'Pat in HIM. Outpatient surgery grouper — APC packaging.',
+  6:  'Pat at Registration. Outpatient surgery grouper — APC packaging.',
   7:  'Jordan in Eligibility — a no-show fee policy call.',
   8:  'Martinez is in Prior Auth. CO-197 on an MRI.',
   9:  'Jordan in Eligibility. A patient with no path to pay.',

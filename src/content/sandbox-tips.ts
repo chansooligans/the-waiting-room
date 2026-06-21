@@ -49,7 +49,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Pull Sarah Kim's op-note from Med Records first. Pat won't hand off until you've got it.",
   ],
   6: [
-    "Pat in HIM. Outpatient surgery grouper case — APC packaging.",
+    "Pat at Registration. Outpatient surgery grouper case — APC packaging.",
     "APC = Ambulatory Payment Classification. Bundles outpatient services into payment groups based on resource intensity.",
     "Status indicators drive packaging behavior. 'T' = significant procedure paid separately; 'N' = packaged into the primary service.",
   ],
