@@ -874,19 +874,58 @@ export class HospitalScene extends Phaser.Scene {
       activeNpcs.push('anjali')
     }
 
-    // Evict NPC sprites placed from a stale level-filtered placement.
-    // Example: Kim is placed in the lobby at L1 (levels:[1,2]); when
-    // the player reaches L3 she should move to Registration. Without
-    // this pass the lobby sprite persists, blocks the registration
-    // placement via placedSoFar, and the player descends from the lobby
-    // (wrong spawn tile → outside REGISTRATION_BOUNDS in the WR).
+    const defeatedSet = new Set(state.defeatedObstacles)
+
+    // A placement qualifies for the current level when its level filter,
+    // requiresDefeated gate, and ambient-or-active check all pass. The
+    // placement loop below uses the same three predicates; keep them in
+    // sync.
+    const placementQualifies = (p: { npcId: string; levels?: number[]; requiresDefeated?: string[]; ambient?: boolean }): boolean => {
+      if (p.levels && !p.levels.includes(state.currentLevel)) return false
+      if (p.requiresDefeated && !p.requiresDefeated.every(id => defeatedSet.has(id))) return false
+      if (!p.ambient && !activeNpcs.includes(p.npcId)) return false
+      return true
+    }
+
+    // Evict NPC sprites that are no longer at the NPC's preferred
+    // placement for the current level, so the placement loop below can
+    // re-place them at the right tile. The "preferred" placement is the
+    // earliest in array order that qualifies for the current level.
+    //
+    // Two cases this covers:
+    //  1. Stale level-filtered placement. Kim is placed in the lobby at
+    //     L1 (levels:[1,2]); when the player reaches L3 she should move
+    //     to Registration. Without this the lobby sprite persists, blocks
+    //     the registration placement via placedSoFar, and the player
+    //     descends from the lobby (wrong spawn tile → outside
+    //     REGISTRATION_BOUNDS in the WR).
+    //  2. Relocated case-giver whose other placement is ambient. Marisol
+    //     lives at Medical Records (ambient, no `levels`) but is the L6
+    //     giver out in the parking lot (levels:[6]). At L6 the parking-
+    //     lot placement is preferred (level-specific placements precede
+    //     ambient defaults in level1.ts); without eviction the ambient
+    //     sprite persists and the mini-map star points to Medical Records.
     const staleIds = new Set<string>()
     for (const ns of this.npcSprites) {
-      const src = this.mapDef.npcPlacements.find(
-        p => p.npcId === ns.npc.id && p.tileX === ns.tileX && p.tileY === ns.tileY
+      const preferred = this.mapDef.npcPlacements.find(
+        p => p.npcId === ns.npc.id && placementQualifies(p)
       )
-      if (src?.levels && !src.levels.includes(state.currentLevel)) {
-        staleIds.add(ns.npc.id)
+      if (preferred) {
+        // There's a qualifying placement: evict when the sprite isn't
+        // sitting at it, so the loop re-places at the preferred tile.
+        if (preferred.tileX !== ns.tileX || preferred.tileY !== ns.tileY) {
+          staleIds.add(ns.npc.id)
+        }
+      } else {
+        // No qualifying placement at this level. Evict if the sprite was
+        // placed from a now-stale level-filtered placement, so an NPC
+        // whose run has ended doesn't linger past its levels.
+        const src = this.mapDef.npcPlacements.find(
+          p => p.npcId === ns.npc.id && p.tileX === ns.tileX && p.tileY === ns.tileY
+        )
+        if (src?.levels && !src.levels.includes(state.currentLevel)) {
+          staleIds.add(ns.npc.id)
+        }
       }
     }
     if (staleIds.size > 0) {
@@ -908,17 +947,11 @@ export class HospitalScene extends Phaser.Scene {
     // makes placeNPCs idempotent + additive: new level → new NPCs
     // appear without rebuilding the whole roster.
     const placedSoFar = new Set<string>(this.npcSprites.map(n => n.npc.id))
-    const defeatedSet = new Set(state.defeatedObstacles)
     for (const p of this.mapDef.npcPlacements) {
       if (placedSoFar.has(p.npcId)) continue
-      if (p.levels && !p.levels.includes(state.currentLevel)) continue
-      // requiresDefeated — placement is gated until *all* listed
-      // encounters are in defeatedObstacles. Used for post-boss
-      // reveals (e.g. chris/adam in Turquoise Lounge).
-      if (p.requiresDefeated && !p.requiresDefeated.every(id => defeatedSet.has(id))) continue
-      // Ambient NPCs (background populace) bypass the activeNpcs
-      // filter — they're scenery, not story.
-      if (!p.ambient && !activeNpcs.includes(p.npcId)) continue
+      // Level filter, requiresDefeated gate (post-boss reveals like
+      // chris/adam in the Turquoise Lounge), and ambient-or-active check.
+      if (!placementQualifies(p)) continue
       const npc = NPCS[p.npcId]
       if (!npc) continue
       placedSoFar.add(p.npcId)
