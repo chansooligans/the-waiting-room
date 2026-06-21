@@ -593,7 +593,11 @@ function renderRecap(issueId: string): string {
 }
 
 function renderChecklist(): string {
-  const allDone = issues.every(i => state.resolvedIssues.has(i.id))
+  // The sign/commit button gates on the two *prerequisite* issues
+  // (itemize + estimate) — the same condition attemptSubmit enforces.
+  // Gating on all three would be circular: the third issue ('commit')
+  // is only resolved BY signing, so the button could never enable.
+  const canSubmit = state.resolvedIssues.has('itemize') && state.resolvedIssues.has('estimate')
   return `
     <section class="checklist">
       <div class="checklist-h">GFE DELIVERABLE · 3 issues to resolve</div>
@@ -611,7 +615,7 @@ function renderChecklist(): string {
         }).join('')}
       </ul>
       ${state.failedAttempts > 0 ? `<p class="fail-counter">Wrong picks so far: ${state.failedAttempts}.</p>` : ''}
-      <button class="btn submit ${allDone ? '' : 'disabled'}" data-action="submit" ${allDone ? '' : 'disabled'}>
+      <button class="btn submit ${canSubmit ? '' : 'disabled'}" data-action="submit" ${canSubmit ? '' : 'disabled'}>
         Sign GFE · Mercy commits to ${money(totalEstimate())} ±$${NSA_VARIANCE_CAP}
       </button>
     </section>
