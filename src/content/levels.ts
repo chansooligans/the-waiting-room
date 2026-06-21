@@ -127,7 +127,7 @@ export const LEVELS: LevelDef[] = [
     concepts: ['charity_care', '501r'],
     encounters: ['lighthouse_charity'],
     cases: [],
-    npcsActive: ['cashier'],
+    npcsActive: ['jordan'],
   },
   {
     id: 10,
@@ -237,7 +237,7 @@ export const LEVELS: LevelDef[] = [
     concepts: ['cost_share', 'deductible', 'coinsurance', 'copay', 'oop_max', 'nsa'],
     encounters: ['surprise_bill_specter'],
     cases: [],
-    npcsActive: ['jordan'],
+    npcsActive: ['cashier'],
   },
   {
     id: 20,
