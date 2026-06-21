@@ -1106,13 +1106,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // Pat, Outpatient Surgery Grouper (L6)
   pat_outpatient_surgery_intake: {
     id: 'pat_outpatient_surgery_intake',
-    speaker: 'Pat',
+    speaker: 'Marisol',
     text: "Outpatient surgery case where the APC grouper put a 'T' code into a packaged-N bundle. The line should pay separately; it isn't.",
     next: 'pat_outpatient_surgery_intake_2',
   },
   pat_outpatient_surgery_intake_2: {
     id: 'pat_outpatient_surgery_intake_2',
-    speaker: 'Pat',
+    speaker: 'Marisol',
     text: "Status indicators are the lever. Pull the chart, then run the grouper logic against it.",
     choices: [
       { text: '(Pull the case.)',
@@ -1122,7 +1122,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   pat_outpatient_surgery_intake_back: {
     id: 'pat_outpatient_surgery_intake_back',
-    speaker: 'Pat',
+    speaker: 'Marisol',
     text: "It's a quarterly issue. We'll see it again.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1178,13 +1178,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L10 — Sam, GFE Oracle
   sam_gfe_intake: {
     id: 'sam_gfe_intake',
-    speaker: 'Sam',
+    speaker: 'Theresa',
     text: "Patient says the bill came in $1,200 over their GFE. NSA dispute path opens at $400. They've already started the paperwork.",
     next: 'sam_gfe_intake_2',
   },
   sam_gfe_intake_2: {
     id: 'sam_gfe_intake_2',
-    speaker: 'Sam',
+    speaker: 'Theresa',
     text: "Itemize the GFE against the actual bill and find the gap.",
     choices: [
       { text: '(Take it.)',
@@ -1194,7 +1194,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   sam_gfe_intake_back: {
     id: 'sam_gfe_intake_back',
-    speaker: 'Sam',
+    speaker: 'Theresa',
     text: "Patient has 30 days to file. Don't make me chase you.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1250,13 +1250,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L16 — Alex, Carve-Out Phantom (NSA carve-out)
   alex_carveout_phantom_intake: {
     id: 'alex_carveout_phantom_intake',
-    speaker: 'Alex',
+    speaker: 'Dr. Ethan',
     text: "ER visit, facility in-network, anesthesiologist group OON. Patient got two bills — facility's fine, physician's a balance bill that NSA should be capping.",
     next: 'alex_carveout_phantom_intake_2',
   },
   alex_carveout_phantom_intake_2: {
     id: 'alex_carveout_phantom_intake_2',
-    speaker: 'Alex',
+    speaker: 'Dr. Ethan',
     text: "Start with cost-share, then route the OON ↔ payer fight to IDR.",
     choices: [
       { text: '(Take the case.)',
@@ -1266,7 +1266,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   alex_carveout_phantom_intake_back: {
     id: 'alex_carveout_phantom_intake_back',
-    speaker: 'Alex',
+    speaker: 'Dr. Ethan',
     text: "Patient escalated to the state AG once. Don't make that happen again.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1346,13 +1346,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L22 — Pat, Risk Adjustment Hollow
   pat_risk_adj_intake: {
     id: 'pat_risk_adj_intake',
-    speaker: 'Pat',
+    speaker: 'Dr. Priya',
     text: "Annual HCC capture — patient with documented chronic conditions last year, none captured this year. RAF score dropped by 0.8. Reimbursement follows.",
     next: 'pat_risk_adj_intake_2',
   },
   pat_risk_adj_intake_2: {
     id: 'pat_risk_adj_intake_2',
-    speaker: 'Pat',
+    speaker: 'Dr. Priya',
     text: "Pull the chart and see what's actually documented this year. Recapture what we can.",
     choices: [
       { text: '(Take the review.)',
@@ -1362,7 +1362,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   pat_risk_adj_intake_back: {
     id: 'pat_risk_adj_intake_back',
-    speaker: 'Pat',
+    speaker: 'Dr. Priya',
     text: "Year-end closes the capture window. Don't sleep on it.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1490,13 +1490,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L28 — Sam, MRF Cartographer
   sam_mrf_intake: {
     id: 'sam_mrf_intake',
-    speaker: 'Sam',
+    speaker: 'Theresa',
     text: "Contract dispute on a specialty drug. Payer says their negotiated rate is what they paid; provider says no. The MRF should settle it — if we can read it.",
     next: 'sam_mrf_intake_2',
   },
   sam_mrf_intake_2: {
     id: 'sam_mrf_intake_2',
-    speaker: 'Sam',
+    speaker: 'Theresa',
     text: "It's 8 GB of JSON. jq + grep. Find the rate for J-code 9120 and bring coffee.",
     choices: [
       { text: '(Open the MRF.)',
@@ -1506,7 +1506,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   sam_mrf_intake_back: {
     id: 'sam_mrf_intake_back',
-    speaker: 'Sam',
+    speaker: 'Theresa',
     text: "The file is updated monthly. Yours won't be the only one.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1598,29 +1598,29 @@ export const LEVEL_NPC_DIALOGUES: Record<number, Record<string, string>> = {
   3:   { kim:      'kim_l2_intake' },  // fog
   4:   { alex:     'alex_stoploss_intake' },
   5:   { pat:      'pat_l4_intake' },  // bundle
-  6:   { pat:      'pat_outpatient_surgery_intake' },
+  6:   { records_clerk: 'pat_outpatient_surgery_intake' },
   7:   { jordan:   'jordan_no_show_intake' },
   8:   { martinez: 'martinez_gatekeeper_intake', sam: 'sam_l3_intake' },  // gatekeeper
   9:   { jordan:   'jordan_lighthouse_intake' },
-  10:  { sam:      'sam_gfe_intake' },
+  10:  { payer_rep: 'sam_gfe_intake' },
   11:  { sam:      'sam_l5_intake' },  // wraith
   12:  { alex:     'alex_l6_intake' },  // swarm
   13:  { kim:      'kim_l9_intake' },  // doppelganger
   14:  { alex:     'alex_implant_carveout_intake' },
   15:  { kim:      'kim_credentialing_intake' },
-  16:  { alex:     'alex_carveout_phantom_intake' },
+  16:  { dr_ethan: 'alex_carveout_phantom_intake' },
   17:  { pat:      'pat_cpt_licensure_intake' },
   18:  { sam:      'sam_l7_intake' },  // reaper
   19:  { jordan:   'jordan_l8_intake' },  // surprise-bill
   20:  { alex:     'alex_ob_perdiem_intake' },
   21:  { kim:      'kim_phantom_patient_intake' },
-  22:  { pat:      'pat_risk_adj_intake' },
+  22:  { dr_priya: 'pat_risk_adj_intake' },
   23:  { alex:     'alex_chemo_bundle_intake' },
   24:  { pat:      'pat_two_midnight_intake' },
   25:  { alex:     'alex_specter_intake' },
   26:  { kim:      'kim_cob_cascade_intake' },
   27:  { alex:     'alex_case_rate_intake' },
-  28:  { sam:      'sam_mrf_intake' },
+  28:  { payer_rep: 'sam_mrf_intake' },
   29:  { sam:      'sam_idr_intake' },
   30:  { alex:     'alex_340b_intake' },
   31:  { sam:      'sam_hipaa_intake' },

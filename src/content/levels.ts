@@ -94,7 +94,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_outpatient_surgery_grouper'],
     cases: [],
-    npcsActive: ['pat'],
+    npcsActive: ['records_clerk'],
   },
   {
     id: 7,
@@ -138,7 +138,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_gfe_oracle'],
     cases: [],
-    npcsActive: ['sam'],
+    npcsActive: ['payer_rep'],
   },
   {
     id: 11,
@@ -204,7 +204,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_carveout_phantom'],
     cases: [],
-    npcsActive: ['alex'],
+    npcsActive: ['dr_ethan'],
   },
   {
     id: 17,
@@ -270,7 +270,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_risk_adj_hollow'],
     cases: [],
-    npcsActive: ['pat'],
+    npcsActive: ['dr_priya'],
   },
   {
     id: 23,
@@ -336,7 +336,7 @@ export const LEVELS: LevelDef[] = [
     concepts: [],
     encounters: ['catalog_mrf_cartographer'],
     cases: [],
-    npcsActive: ['sam'],
+    npcsActive: ['payer_rep'],
   },
   {
     id: 29,
