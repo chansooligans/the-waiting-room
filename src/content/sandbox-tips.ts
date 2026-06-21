@@ -64,7 +64,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Once the 278 returns the auth number, amend Box 23 on the claim. Single-amend close.",
   ],
   9: [
-    "Yvette's at the eligibility counter. A patient with no path to pay (charity care).",
+    "Jordan in Eligibility. A patient with no path to pay (charity care).",
     "Charity care under §501(r). Financial assistance policy + presumptive eligibility screen.",
     "Patient-facing case. The system you're operating is the safety net.",
   ],
@@ -114,7 +114,7 @@ export const LEVEL_GUIDANCE: Record<number, string[]> = {
     "Subscriber-ID typo is the most common reason a timely claim gets denied 'not on file.' Amend the ID + attach the 277CA evidence.",
   ],
   19: [
-    "Jordan is now at the PFS phone bank. Surprise-bill territory.",
+    "Yvette's at the PFS window. Surprise-bill territory.",
     "NSA caps patient cost-share to in-network levels for emergency + ancillary services at in-network facilities.",
     "OON provider and payer fight in IDR. Patient is out once cost-share is calculated correctly.",
   ],

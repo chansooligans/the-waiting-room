@@ -546,13 +546,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // === Level 8 — Jordan (PFS) hands off the surprise-bill specter ===
   jordan_l8_intake: {
     id: 'jordan_l8_intake',
-    speaker: 'Jordan',
+    speaker: 'Yvette',
     text: "Patient on the line — surprise bill from an out-of-network anesthesiologist. The procedure was at an in-network facility. NSA applies. Provider's billing it like it doesn't.",
     next: 'jordan_l8_intake_2',
   },
   jordan_l8_intake_2: {
     id: 'jordan_l8_intake_2',
-    speaker: 'Jordan',
+    speaker: 'Yvette',
     text: "I need someone to document the protections and push the IDR side before the bill hardens.",
     choices: [
       { text: '(Take the case.)',
@@ -562,7 +562,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   jordan_l8_intake_back: {
     id: 'jordan_l8_intake_back',
-    speaker: 'Jordan',
+    speaker: 'Yvette',
     text: "She's still on hold. She's been on hold a while.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1154,13 +1154,13 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   // L9 — Jordan, Lighthouse (charity)
   jordan_lighthouse_intake: {
     id: 'jordan_lighthouse_intake',
-    speaker: 'Yvette',
+    speaker: 'Jordan',
     text: "A patient who can't pay. Walked into the ER three weeks ago with no insurance and no income above 200% FPL. We have §501(r) for exactly this; the application's open.",
     next: 'jordan_lighthouse_intake_2',
   },
   jordan_lighthouse_intake_2: {
     id: 'jordan_lighthouse_intake_2',
-    speaker: 'Yvette',
+    speaker: 'Jordan',
     text: "Can you walk the screen and presumptive eligibility check with him?",
     choices: [
       { text: '(Open the application.)',
@@ -1170,7 +1170,7 @@ export const DIALOGUES: Record<string, DialogueNode> = {
   },
   jordan_lighthouse_intake_back: {
     id: 'jordan_lighthouse_intake_back',
-    speaker: 'Yvette',
+    speaker: 'Jordan',
     text: "He's not going anywhere. He's been in this lobby longer than I have.",
     choices: [{ text: '(Step away.)' }],
   },
@@ -1601,7 +1601,7 @@ export const LEVEL_NPC_DIALOGUES: Record<number, Record<string, string>> = {
   6:   { records_clerk: 'pat_outpatient_surgery_intake' },
   7:   { jordan:   'jordan_no_show_intake' },
   8:   { martinez: 'martinez_gatekeeper_intake', sam: 'sam_l3_intake' },  // gatekeeper
-  9:   { cashier: 'jordan_lighthouse_intake' },
+  9:   { jordan: 'jordan_lighthouse_intake' },
   10:  { payer_rep: 'sam_gfe_intake' },
   11:  { payer_supervisor: 'sam_l5_intake' },  // wraith
   12:  { lab_tech: 'alex_l6_intake' },  // swarm
@@ -1611,7 +1611,7 @@ export const LEVEL_NPC_DIALOGUES: Record<number, Record<string, string>> = {
   16:  { dr_ethan: 'alex_carveout_phantom_intake' },
   17:  { pat:      'pat_cpt_licensure_intake' },
   18:  { sam:      'sam_l7_intake' },  // reaper
-  19:  { jordan:   'jordan_l8_intake' },  // surprise-bill
+  19:  { cashier: 'jordan_l8_intake' },  // surprise-bill
   20:  { dr_priya: 'alex_ob_perdiem_intake' },
   21:  { records_clerk: 'kim_phantom_patient_intake' },
   22:  { dr_priya: 'pat_risk_adj_intake' },
