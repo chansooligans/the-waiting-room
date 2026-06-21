@@ -325,27 +325,25 @@ export class WaitingRoomScene extends Phaser.Scene {
     this.playerTileX = this.pendingSpawnX ?? this.mapDef.playerStart.x
     this.playerTileY = this.pendingSpawnY ?? this.mapDef.playerStart.y
 
-    // Re-anchor if the descent originated outside the active obstacle's
-    // WR room. The WR only tiles `sessionBounds` (+ pad), so a descent
-    // tile outside it would drop the player into unbuilt void. This
-    // happens when the case-giver stands somewhere the WR doesn't render
-    // — e.g. the L4 Stoploss case-giver (Alex) now stands in the parking
-    // lot, well outside MAIN_HUB. Land the player one tile in from the
-    // obstacle (toward room-center, so it's open floor) instead.
-    if (this.sessionBounds && this.activeEncounterId) {
-      const b = this.sessionBounds
-      const inside =
-        this.playerTileX >= b.x && this.playerTileX < b.x + b.w &&
-        this.playerTileY >= b.y && this.playerTileY < b.y + b.h
-      if (!inside) {
-        const marker = OBSTACLES.find(m => m.encounterId === this.activeEncounterId)
-        if (marker) {
-          this.playerTileX = marker.tileX + Math.sign(Math.round((b.x + b.w / 2) - marker.tileX))
-          this.playerTileY = marker.tileY + Math.sign(Math.round((b.y + b.h / 2) - marker.tileY))
-        } else {
-          this.playerTileX = Math.floor(b.x + b.w / 2)
-          this.playerTileY = Math.floor(b.y + b.h / 2)
-        }
+    // For a focused NPC-triggered descent, land next to THIS encounter's
+    // own obstacle marker — stepped one tile toward room-center so it's
+    // open floor — rather than the raw Hospital descent tile.
+    //
+    // Two reasons:
+    //  1. The WR only tiles `sessionBounds` (+ pad), so a descent tile
+    //     outside it would drop the player into unbuilt void — happens
+    //     whenever the case-giver stands outside the obstacle's room
+    //     (e.g. Alex in the parking lot for the L4 Stoploss case).
+    //  2. Several encounters share a room (the billing-district Specters
+    //     all sit in BILLING), so spawning on the giver's tile made every
+    //     one of them land in the same spot. Anchoring on each marker
+    //     gives every encounter a distinct spawn, right by its obstacle.
+    if (this.activeEncounterId) {
+      const marker = OBSTACLES.find(m => m.encounterId === this.activeEncounterId)
+      if (marker) {
+        const b = this.sessionBounds ?? { x: marker.tileX - 1, y: marker.tileY - 1, w: 3, h: 3 }
+        this.playerTileX = marker.tileX + Math.sign(Math.round((b.x + b.w / 2) - marker.tileX))
+        this.playerTileY = marker.tileY + Math.sign(Math.round((b.y + b.h / 2) - marker.tileY))
       }
     }
 
@@ -942,7 +940,11 @@ export class WaitingRoomScene extends Phaser.Scene {
         duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut',
       })
 
-      const labelText = enc.archetype ?? enc.title
+      // Prefer the encounter's specific title (e.g. "340B Specter")
+      // over its archetype ("Specter") — several encounters share an
+      // archetype, so the archetype alone made distinct obstacles read
+      // as the same generic "Specter" marker.
+      const labelText = enc.title ?? enc.archetype
       const label = this.add.text(px, py - 48, labelText, {
         fontSize: '24px', fontFamily: 'monospace', color: bp.labelColor,
         backgroundColor: bp.labelBg, padding: { x: 12, y: 6 },
