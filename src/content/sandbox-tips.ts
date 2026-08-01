@@ -195,9 +195,9 @@ export const ENCOUNTER_HINTS: Record<string, { name: string; level: number; hint
     name: "The Wrong Card (L1)",
     level: 1,
     hints: [
-      "Anjali handed her husband's insurance card at check-in. Different subscriber id than hers.",
-      "The 271 eligibility response shows her on the plan as a dependent under her own id (AET447821491).",
-      "Amend Box 1a to her id and resubmit. Single-issue case.",
+      "Anjali handed her husband's insurance card at check-in. Different member ID than hers.",
+      "The 271 eligibility response shows her on the plan as a dependent under her own member ID (AET447821491).",
+      "Amend Box 1a to her member ID and resubmit. Single-issue case.",
     ],
   },
   eligibility_fog: {

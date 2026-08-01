@@ -71,7 +71,7 @@ export const CASE_ORDER: CaseEntry[] = [
     district: "eligibility",
     hasRuntimeSpec: true,
     legacyLevel: 1,
-    gloss: "Anjali handed her husband's insurance card at check-in. Subscriber ID mismatch.",
+    gloss: "Anjali handed her husband's insurance card at check-in. Member ID mismatch.",
     difficulty: 1,
   },
   {

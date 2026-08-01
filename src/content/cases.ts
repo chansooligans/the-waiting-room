@@ -14,7 +14,7 @@ export const CASES: Record<string, PatientCase> = {
     level: 1,
     errors: [
       {
-        field: 'Subscriber ID',
+        field: 'Member ID',
         currentValue: 'XGP882401',
         correctValue: 'XGP882410',
         explanation: 'Transposed last two digits. The 270 eligibility response had the correct ID — always verify against the electronic response, not the card photocopy.',
@@ -101,7 +101,7 @@ export const CASES: Record<string, PatientCase> = {
 
   // Linked to encounter `intro_wrong_card` — the level-1 introductory puzzle.
   // Mrs. Patel handed in her husband's insurance card at registration. The
-  // claim went out under his subscriber id (which doesn't match her name on
+  // claim went out under his member ID (which doesn't match her name on
   // the payer's roster) and bounced as CO-31. One amend on Box 1a fixes it.
   case_intro_patel: {
     id: 'case_intro_patel',
@@ -116,10 +116,10 @@ export const CASES: Record<string, PatientCase> = {
     level: 1,
     errors: [
       {
-        field: 'Subscriber ID',
+        field: 'Member ID',
         currentValue: 'AET447821903', // husband's id
         correctValue: 'AET447821491',  // patient's actual id
-        explanation: "She handed over her husband's card at registration. Same plan, different subscriber id — the payer's roster lists him as the subscriber, her as a dependent under her own id.",
+        explanation: "She handed over her husband's card at registration. Same plan, different member ID — the payer's roster lists him as the subscriber, her as a dependent with her own member ID.",
       },
     ],
     claim: {
@@ -204,12 +204,12 @@ export const CASES: Record<string, PatientCase> = {
     formType: 'cms1500',
     level: 7,
     // The claim was rejected at the clearinghouse the first time it
-    // dropped (subscriber id transposed). That's why it's now bumping
+    // dropped (member id transposed). That's why it's now bumping
     // up against the timely-filing window. Catching it lets us refile
     // before the deadline closes.
     errors: [
       {
-        field: 'Subscriber ID',
+        field: 'Member ID',
         currentValue: 'AET882441293',
         correctValue: 'AET882441923',
         explanation: 'Last four digits transposed. The 277CA bounced this back the first three submissions — fixing it lets us refile inside the contractual filing window.',
@@ -294,16 +294,16 @@ export const CASES: Record<string, PatientCase> = {
     procedureCode: '99203',
     formType: 'cms1500',
     level: 2,
-    // Pre-fix in the hospital: the subscriber id on file is from her
+    // Pre-fix in the hospital: the member id on file is from her
     // old plan (before her job change). Running a 270 inquiry returns
     // the new id; transcribing it pre-submission means the claim drops
     // clean and the Fog never thickens.
     errors: [
       {
-        field: 'Subscriber ID',
+        field: 'Member ID',
         currentValue: 'ANT883112',
         correctValue: 'ANT772041',
-        explanation: 'Patient changed jobs; the card she handed over is from her former employer plan. The 270/271 returns the active subscriber id. Always trust the eligibility response over the card photocopy.',
+        explanation: 'Patient changed jobs; the card she handed over is from her former employer plan. The 270/271 returns the active member ID. Always trust the eligibility response over the card photocopy.',
       },
     ],
     claim: {
@@ -475,17 +475,17 @@ export const CASES: Record<string, PatientCase> = {
     procedureCode: '99213',
     formType: 'cms1500',
     level: 6,
-    // The original claim was rejected for a wrong subscriber id, fixed,
+    // The original claim was rejected for a wrong member id, fixed,
     // and resubmitted as a new 837P (frequency 1) instead of as a
     // replacement (frequency 7). The payer's adjudication system
     // flagged the resubmission as a duplicate. Catching the upstream
     // resubmission code grants the form-bridge buff for the Doppelgänger.
     errors: [
       {
-        field: 'Subscriber ID',
+        field: 'Member ID',
         currentValue: 'HUM712309',
         correctValue: 'HUM712390',
-        explanation: 'Subscriber id digits transposed on the original claim — that\'s why we resubmitted at all. Fixing it before submission means we never need a frequency-7 replacement, so the duplicate flag never trips.',
+        explanation: 'Member ID digits transposed on the original claim — that\'s why we resubmitted at all. Fixing it before submission means we never need a frequency-7 replacement, so the duplicate flag never trips.',
       },
     ],
     claim: {

@@ -12,9 +12,9 @@ import type { CaseRecap } from '../shared/prototype-base'
 
 export const CASE_RECAPS: Record<string, CaseRecap> = {
   'intro': {
-    oneLineRecap: "You amended Anjali Patel's claim to her own subscriber ID — the card she handed over at the counter was her husband's, the 837 went out under his ID, and the 271 eligibility response showed her on the plan as a dependent under her own ID all along.",
+    oneLineRecap: "You amended Anjali Patel's claim to her own member ID — the card she handed over at the counter was her husband's, the 837 went out under his ID, and the 271 eligibility response showed her on the plan as a dependent under her own ID all along.",
     keyConcepts: [
-      { term: 'Subscriber vs dependent', gist: 'On a family plan, the subscriber is the policyholder; spouses and children are dependents. Each member has their own subscriber ID. Boxes 1a (insured ID) and 4 (insured name) on the CMS-1500 must match the payer\'s roster for the patient — not the household.' },
+      { term: 'Subscriber vs dependent', gist: 'On a family plan, the subscriber is the policyholder; spouses and children are dependents. Each member has their own member ID. Boxes 1a (insured ID) and 4 (insured name) on the CMS-1500 must match the payer\'s roster for the patient — not the household.' },
       { term: '270/271 eligibility', gist: 'The X12 270 is the real-time "is this patient covered?" query; the 271 is the payer\'s response. Run it before the visit (or before resubmitting after a CO-31). It\'s the source of truth for member ID, plan, effective dates, and copay — not the photocopy of the card.' },
       { term: 'CO-31 (patient cannot be identified as our insured)', gist: 'Clerical denial: the demographic info on the claim doesn\'t match the payer\'s member record. Almost always fixed by amending Box 1a or the patient name to match the 271 response, then resubmitting. No appeal needed — just a clean correction.' },
       { term: 'Amending a field', gist: 'Open the disputed field on the claim, pick the value the chart + payer record actually support, resubmit. Most denials in your queue will be exactly this: a small thing, fixed cleanly, before it becomes someone\'s collections problem.' },

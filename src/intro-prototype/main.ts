@@ -9,10 +9,10 @@
 //     one picker, one correct answer.
 //   - The denial is clerical, not adversarial. Anjali handed her
 //     husband's Aetna card to the registrar at the ER counter —
-//     same plan, his subscriber id, not hers. The 837 went out
-//     under his id; Aetna's roster has her as a dependent under
-//     her own id, so it bounced CO-31 ("patient cannot be
-//     identified as our insured").
+//     same plan, his member ID, not hers. The 837 went out
+//     under his member ID; Aetna's roster has her as a dependent
+//     under her own member ID, so it bounced CO-31 ("patient
+//     cannot be identified as our insured").
 //
 // Why this is the opener: it's the clearest demo of the puzzle
 // loop (briefing → claim → amend → submit → victory), the hook is
@@ -49,7 +49,7 @@ interface GlossaryEntry {
 const issues: Issue[] = [
   {
     id: 'subscriber-id',
-    label: "Amend Box 1a — swap to Anjali's subscriber id, not her husband's.",
+    label: "Amend Box 1a — swap to Anjali's member ID, not her husband's.",
     recap: "The 271 eligibility response had her id (AET447821491) all along. The card photocopy lied — or rather, it was the wrong card. Box 1a now matches the payer's roster; the claim adjudicates clean on the next pass.",
     verb: 'amend',
   },
@@ -61,13 +61,13 @@ const subscriberOptions: AmendOption[] = [
     value: 'AET447821903',
     label: 'AET447821903 — PATEL, RAVI',
     support: 'current',
-    feedback: "What's currently on the claim. That's the husband's id; Aetna's roster has him as the subscriber, not Anjali. CO-31 again.",
+    feedback: "What's currently on the claim. That's the husband's member ID; Aetna's roster has him as the subscriber, not Anjali. CO-31 again.",
   },
   {
     value: 'AET447821491',
     label: 'AET447821491 — PATEL, ANJALI',
     support: 'correct',
-    feedback: "Matches the 271 response. Anjali is on the plan as a dependent under her own id; Box 1a now lines up with the payer's roster.",
+    feedback: "Matches the 271 response. Anjali is on the plan as a dependent under her own member ID; Box 1a now lines up with the payer's roster.",
   },
   {
     value: 'AET44782149',
@@ -83,15 +83,15 @@ const SUBSCRIBER_TRUTH = 'AET447821491'
 const glossary: Record<string, GlossaryEntry> = {
   'CMS-1500': {
     term: 'CMS-1500',
-    plain: "The standard claim form for professional / outpatient services. Numbered boxes; this encounter cares about Box 1a (insured's subscriber ID) — the field registration most often gets wrong when a family member's card gets handed over by mistake.",
+    plain: "The standard claim form for professional / outpatient services. Numbered boxes; this encounter cares about Box 1a (insured's member ID) — the field registration most often gets wrong when a family member's card gets handed over by mistake.",
   },
   'subscriber': {
     term: 'Subscriber vs dependent',
-    plain: "On a family plan, the subscriber is the policyholder; spouses and children are dependents. Each member has their own subscriber ID. Box 1a must carry the patient's own ID — not the household's, not whoever's card happened to be in the wallet.",
+    plain: "On a family plan, the subscriber is the policyholder; spouses and children are dependents. Each member has their own member ID. Box 1a must carry the patient's own member ID — not the household's, not whoever's card happened to be in the wallet.",
   },
   '271': {
     term: '271 (eligibility response)',
-    plain: "The payer's reply to a 270 eligibility inquiry. The 271 carries the official record — current plan, subscriber ID, dependent status, copay, network indicator. The 271 is the source of truth; the card photocopy is not.",
+    plain: "The payer's reply to a 270 eligibility inquiry. The 271 carries the official record — current plan, member ID, dependent status, copay, network indicator. The 271 is the source of truth; the card photocopy is not.",
   },
   'CO-31': {
     term: 'CO-31 (patient not identifiable)',
@@ -172,7 +172,7 @@ function renderHeader(): string {
           puzzle loop — one disputed field. Anjali
           handed her husband's ${term('CMS-1500', 'Aetna card')} to
           the registrar; the claim went out under
-          <em>his</em> ${term('subscriber', 'subscriber id')} and
+          <em>his</em> ${term('subscriber', 'member ID')} and
           bounced ${term('CO-31')}. Click Box 1a, pick her actual
           id from the ${term('271')} response, and submit. This is
           the shape of half the job. See the
@@ -197,9 +197,9 @@ function renderHospitalIntro(): string {
       <p>
         You pull up the file. The card she handed to the
         registrar was her husband's — same Aetna PPO, same family
-        group, but his subscriber id, not hers. The claim went
+        group, but his member ID, not hers. The claim went
         out under <em>his</em> name. Aetna's roster lists him as
-        the subscriber and her as a dependent with her own id.
+        the subscriber and her as a dependent with her own member ID.
         ${term('CO-31')} — "patient cannot be identified as our
         insured." Two minutes of work to fix.
       </p>
@@ -295,7 +295,7 @@ function renderClaim(): string {
         <div class="claim-grid">
           <div><b>Patient:</b> ${escape(claim.patient.name)} · ${escape(claim.patient.dob)}</div>
           <div class="${idStatus}-row">
-            <b>Box 1a · Subscriber ID:</b> ${idCellHtml}
+            <b>Box 1a · Member ID:</b> ${idCellHtml}
             ${idStatus === 'wrong' ? '<span class="dx-arrow" aria-hidden="true">⟶</span>' : ''}
           </div>
           <div><b>Insurer:</b> ${escape(claim.insured.name ?? '')} · Aetna PPO</div>
@@ -339,7 +339,7 @@ function renderClaim(): string {
           : `<button class="amend-callout" data-action="open-amend">
               <span class="amend-callout-arrow" aria-hidden="true">⟵</span>
               <span class="amend-callout-body">
-                <span class="amend-callout-main">✎ Subscriber ID disputed</span>
+                <span class="amend-callout-main">✎ Member ID disputed</span>
                 <span class="amend-callout-sub">CO-31. The 271 returned a different id. Click to amend.</span>
               </span>
             </button>`}
@@ -356,12 +356,12 @@ function renderAmendModal(): string {
       <div class="amend-modal">
         <button class="amend-modal-close" data-action="close-amend" aria-label="Close">×</button>
         <div class="amend-modal-h">
-          <span class="amend-tag">AMEND BOX 1A · SUBSCRIBER ID</span>
+          <span class="amend-tag">AMEND BOX 1A · MEMBER ID</span>
           <span class="amend-sub">Pick the value that matches the 271 response.</span>
         </div>
         <div class="amend-context">
           <strong>Aetna ${term('271')} response, ran just now:</strong>
-          subscriber ${escape(SUBSCRIBER_TRUTH)} (Patel, Anjali, dependent).
+          member ID ${escape(SUBSCRIBER_TRUTH)} (Patel, Anjali, dependent).
           The card on file is AET447821903 (Patel, Ravi).
           <span class="amend-context-aside">(currently on claim: <code>${escape(currentValue)}</code>)</span>
         </div>

@@ -5,7 +5,7 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     id: 'intro_wrong_card',
     title: 'The Wrong Card',
     description:
-      'Anjali handed her husband\'s card to the registrar. The claim went out under his subscriber id and bounced. One amend on Box 1a fixes it.',
+      'Anjali handed her husband\'s card to the registrar. The claim went out under his member ID and bounced. One amend on Box 1a fixes it.',
     surfaceSymptom: 'Patient cannot be identified as our insured',
     rootCause: 'patient',
     carcCode: 'CO-31',
@@ -20,7 +20,7 @@ export const ENCOUNTERS: Record<string, Encounter> = {
     caseId: 'case_intro_patel',
     highlightedBoxes: ['1a'],
     payerNote:
-      'Subscriber AET447821903 (PATEL, RAVI) — dependent ANJALI PATEL listed under separate subscriber id AET447821491. Resubmit with Box 1a corrected.',
+      'Subscriber AET447821903 (PATEL, RAVI) — dependent ANJALI PATEL listed under separate member ID AET447821491. Resubmit with Box 1a corrected.',
   },
   co_50: {
     id: 'co_50',
