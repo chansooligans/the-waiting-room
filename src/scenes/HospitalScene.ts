@@ -1134,10 +1134,26 @@ export class HospitalScene extends Phaser.Scene {
       return
     }
 
+    // Mobile autoplay gate — mirrors WaitingRoomScene.startRedRoomAmbience.
+    // All puzzle interaction while solving a case happens inside
+    // PrototypeIframeScene's <iframe>, whose clicks never reach this
+    // document's own unlock listeners (iframe events don't bubble to
+    // the parent document). If the sound manager is still marked
+    // locked by the time we wake back into Hospital, `play()` below
+    // silently queues instead of sounding — resuming only whenever
+    // the player's next top-level click/keypress happens to trigger
+    // Phaser's own unlock. Force it here instead of waiting on that.
+    const sm = this.sound as Phaser.Sound.BaseSoundManager & { locked?: boolean; unlock?: () => void }
+    if (sm.locked && typeof sm.unlock === 'function') {
+      sm.unlock()
+      debugEvent('hosp:sm-unlock')
+    }
+
     const key = pickNextTrack('hospital', tracks)
     if (!this.cache.audio.exists(key)) return
     const ambient = this.sound.add(key, { volume: 0, loop: true })
-    ambient.play()
+    const playResult = ambient.play()
+    debugEvent(`hosp:ambience-start ${key} play=${playResult} locked=${sm.locked} muted=${this.sound.mute}`)
     this.tweens.add({
       targets: ambient,
       volume: 0.35,
