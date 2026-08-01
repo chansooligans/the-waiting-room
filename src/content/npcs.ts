@@ -321,12 +321,11 @@ export const NPCS: Record<string, NPC> = {
     description: 'Med-tech, dark scrubs + glasses. Annotates her samples in three colors.',
   },
 
-  // === Round 5 — Data Sandbox (R&D team) and Turquoise Lounge.
+  // === Round 5 — Data Sandbox (R&D team).
   //     The Sandbox lives upstairs alongside Audit/Payer/Compliance;
   //     it's the team that ships the tools the rest of the hospital
-  //     pretends not to need. The Lounge is the partner-vendor break
-  //     room — Turquoise Health's two embedded staff. Sprites map to
-  //     NPC_SOURCES → contact-sheets npc21–26. ===
+  //     pretends not to need. Sprites map to NPC_SOURCES →
+  //     contact-sheets npc21–24. ===
   chansoo: {
     id: 'chansoo',
     name: 'Chansoo',
@@ -358,21 +357,5 @@ export const NPCS: Record<string, NPC> = {
     spriteKey: 'npc_monika',
     dialogueKey: 'monika_intro',
     description: 'Data scientist. Joins claim-adjudication tables five LEFT JOINs deep without flinching.',
-  },
-  chris: {
-    id: 'chris',
-    name: 'Chris',
-    department: 'Turquoise Health / Business',
-    spriteKey: 'npc_chris',
-    dialogueKey: 'chris_intro',
-    description: 'Business side of the partnership. Knows what every CFO in the region pays for an MRI.',
-  },
-  adam: {
-    id: 'adam',
-    name: 'Adam',
-    department: 'Turquoise Health / Engineering',
-    spriteKey: 'npc_adam',
-    dialogueKey: 'adam_intro',
-    description: 'Engineering side of the partnership. Diffs chargemasters across 4,000 hospitals in his sleep.',
   },
 }

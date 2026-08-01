@@ -50,8 +50,8 @@ export interface MapDef {
     levels?: number[]
     /** If set, this placement only spawns when *all* listed encounter ids
      *  appear in `state.defeatedObstacles`. Used for post-game / hidden
-     *  reveals (e.g. Chris + Adam in Turquoise Lounge appear only after
-     *  the player has beaten `boss_audit`). */
+     *  reveals (e.g. an NPC that only appears after the player has
+     *  beaten `boss_audit`). */
     requiresDefeated?: string[]
     /** Ambient NPCs (background populace — janitors, visitors, etc.)
      *  bypass the per-level `npcsActive` filter and appear regardless
@@ -160,7 +160,7 @@ export interface RoomDef {
    * appear in `state.defeatedObstacles`. Pairs with `lockedUntilLevel` —
    * if both are set, both gates must pass for the room to unlock.
    *
-   * Used for post-game / hidden rewards: e.g. Turquoise Lounge unlocks
+   * Used for post-game / hidden rewards: e.g. a room that unlocks
    * only after the player has beaten `boss_audit`.
    */
   lockedUntilDefeated?: string[]

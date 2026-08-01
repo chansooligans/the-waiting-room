@@ -76,6 +76,4 @@ export const NPC_SOURCES: Record<string, string> = {
   nicole:   'npc22_0', // Data Sandbox: blonde, navy cardigan + ID
   nick:     'npc23_0', // Data Sandbox: stubble, dark sweater + ID
   monika:   'npc24_0', // Data Sandbox: brunette, black turtleneck + lanyard
-  chris:    'npc25_0', // Turquoise Lounge: light-blue button-up
-  adam:     'npc26_0', // Turquoise Lounge: bearded balding, gray button-up
 }

@@ -43,9 +43,6 @@
 //     - LOUNGE_2F (staff break room east of Payer; mirrors the LAB's
 //             placement on 1F and gives the upstairs staff somewhere
 //             to take ten minutes without going downstairs)
-//     - TURQUOISE_LOUNGE (partner-vendor break room north of the
-//             trunk; converted hallway holding Turquoise Health's
-//             two embedded staff)
 //   Reached via 'S' teleport in Main Hub. Floor 2 is laid out as a
 //   separate region of the same big tilemap; teleport-tile pairs in
 //   MapDef.stairs handle the fade-and-snap.
@@ -177,12 +174,6 @@ const PAYER       = { x: 36, y: 100, w: 18, h: 10 } // Aetna/Anthem-equivalent o
 // downstairs. Sits east of PAYER along the same y as AUDIT/PAYER and
 // hooks into the 2F east-west trunk extended east past PAYER.
 const LOUNGE_2F   = { x: 56, y: 100, w: 12, h: 8  } // 2F staff lounge
-// Turquoise Lounge — partner-vendor break room for Turquoise Health's
-// two embedded staff (Chris on the business side, Adam on engineering).
-// Sits north of the trunk corridor in the empty band between
-// LANDING_2F and PAYER, so it reads as "we gave the partner team
-// their own space, but only just barely." Shallow but wide.
-const TURQUOISE_LOUNGE = { x: 38, y: 94, w: 22, h: 5 } // 20×3 interior
 const COMPLIANCE  = { x: 18, y: 113, w: 28, h: 10 } // HIPAA / binders / boss-prep
 
 // Door world-coords (used to plan corridor endpoints).
@@ -338,9 +329,9 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
       // can climb up to the Data Sandbox (the team's documentation
       // terminal) right around when the south wing opens for HIM
       // (bundle case). Other 2F rooms keep their own per-room locks
-      // (lounge2F L9, audit/payer L19, compliance L32,
-      // turquoiseLounge post-boss) so the upstairs map still
-      // phase-unlocks gradually. Locking the stairwell room itself
+      // (lounge2F L9, audit/payer L19, compliance L32) so the
+      // upstairs map still phase-unlocks gradually. Locking the
+      // stairwell room itself
       // (rather than the stair tile) reuses the existing
       // applyUnlocks plumbing.
       lockedUntilLevel: 8,
@@ -948,40 +939,6 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
       ],
     },
     {
-      id: 'turquoiseLounge',
-      ...TURQUOISE_LOUNGE,
-      // Post-game / hidden reveal. Stays locked through the whole
-      // main flow; opens after the player beats the audit boss,
-      // letting Chris + Adam (the Turquoise crew, partner-vendor
-      // side) appear as a "you finished the game" coda.
-      lockedUntilDefeated: ['boss_audit'],
-      // South door at offset 11 → world (49, 98). Just south of it
-      // is (49, 99) — already on the existing 2F trunk between
-      // AUDIT and PAYER, so no corridor extension is needed.
-      // Interior 20×3 (dx 0..19, dy 0..2); door entry stays open
-      // at interior dx=10 dy=2.
-      doors: [{ side: 'S', offset: 11 }],
-      // Vendor lounge — couches flanking a low coffee table on the
-      // middle row, fridge + espresso bar on the south wall, wall-
-      // mounted TV on the north. Wide and shallow on purpose: it's
-      // a converted hallway, not a real lounge.
-      items: [
-        // North wall: TV + plants.
-        { dx: 0, dy: 0, ch: 'P' },
-        { dx: 9, dy: 0, ch: 'B' },                                                           // wall-mounted TV
-        { dx: 19, dy: 0, ch: 'P' },
-        // Couch row — three on the west, three on the east, with a
-        // coffee table in the middle.
-        { dx: 2, dy: 1, ch: 'h' }, { dx: 3, dy: 1, ch: 'h' }, { dx: 4, dy: 1, ch: 'h' },
-        { dx: 9, dy: 1, ch: 'c' }, { dx: 10, dy: 1, ch: 'c' },                               // long coffee table
-        { dx: 15, dy: 1, ch: 'h' }, { dx: 16, dy: 1, ch: 'h' }, { dx: 17, dy: 1, ch: 'h' },
-        // South wall amenities (door entry at dx=10 dy=2 stays open).
-        { dx: 1, dy: 2, ch: 'V' },                                                           // espresso/snack vending
-        { dx: 5, dy: 2, ch: 'F' },                                                           // fridge / cabinets
-        { dx: 18, dy: 2, ch: 'w' },                                                          // water cooler
-      ],
-    },
-    {
       id: 'lounge2F',
       lockedUntilLevel: 8,
       ...LOUNGE_2F,
@@ -1142,8 +1099,7 @@ const { layout, tileMeta, rooms: BUILT_ROOMS } = buildMap({
       width: 1,
     },
     // East-west trunk on 2F at y=99 connecting AUDIT-N + PAYER-N +
-    // LOUNGE_2F-N doors, plus passing under TURQUOISE_LOUNGE's south
-    // door at (49, 98).
+    // LOUNGE_2F-N doors.
     {
       points: [
         [AUDIT.x + 22,                         AUDIT.y - 1],     // (26, 99)
@@ -1217,7 +1173,6 @@ export const LEVEL_1_MAP: MapDef = {
     { name: 'AUDIT CONFERENCE', shortName: 'AUD',  ...AUDIT },
     { name: 'PAYER OFFICE',     shortName: 'PAY',  ...PAYER },
     { name: 'STAFF LOUNGE 2F',  shortName: 'LN2',  ...LOUNGE_2F },
-    { name: 'TURQUOISE LOUNGE', shortName: 'TQ',   ...TURQUOISE_LOUNGE },
     { name: 'COMPLIANCE',       shortName: 'CMP',  ...COMPLIANCE },
   ],
   stairs: [
@@ -1413,18 +1368,6 @@ export const LEVEL_1_MAP: MapDef = {
     // and third microscope desks (interior dx=5, dy=2 — clear floor
     // tile), facing 'right' toward the desk + sample binders.
     { npcId: 'lab_tech', tileX: LAB.x + 6, tileY: LAB.y + 3, facing: 'right', ambient: true },
-
-    // Turquoise Lounge — partner-vendor break room. Chris and Adam
-    // standing on the couch row at dy=1; both default 'down' so
-    // they read as "facing the door / available to talk" rather
-    // than locked in a side conversation. Editor-confirmed pose:
-    // 2026-05-09. Gated behind the audit boss — the lounge is a
-    // post-game reveal, so they only appear once the player has
-    // beaten boss_audit (matches turquoiseLounge.lockedUntilDefeated).
-    { npcId: 'chris', tileX: TURQUOISE_LOUNGE.x + 7,  tileY: TURQUOISE_LOUNGE.y + 2,
-      ambient: true, requiresDefeated: ['boss_audit'] },
-    { npcId: 'adam',  tileX: TURQUOISE_LOUNGE.x + 14, tileY: TURQUOISE_LOUNGE.y + 2,
-      ambient: true, requiresDefeated: ['boss_audit'] },
 
     // 2026-05 cast pass — fill the late-game rooms (added in PR #217)
     // and the previously-unpopulated 1F break rooms / Prior Auth.
