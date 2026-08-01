@@ -27,6 +27,15 @@ function darken(hex: number, amt: number): number {
   )
 }
 
+/** Cheap deterministic string hash (djb2). Used so a fallback NPC
+ *  palette is stable across reloads instead of re-randomizing every
+ *  boot. */
+function hashString(s: string): number {
+  let h = 5381
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0
+  return h
+}
+
 // NPC_SOURCES extracted to ./npcSources so the map editor + sprite
 // library page can import it without dragging Phaser into their
 // bundles. Edit the mapping there.
@@ -509,6 +518,28 @@ export class BootScene extends Phaser.Scene {
         g.fillRect(15, 24, 3, 2) // bell
       }
       g.generateTexture(npc.key, 32, 32)
+      g.destroy()
+    }
+
+    // Coverage fallback for every OTHER npc id registered in
+    // NPC_SOURCES (the LoRA-art roster, cast well after the 12
+    // hand-tuned palettes above). Those 25+ NPCs have no curated
+    // procedural entry, so a single failed or slow PNG load left
+    // them rendering Phaser's stock "missing texture" black box
+    // instead of a character. This generates a readable placeholder
+    // for any of them whose real art didn't make it into the cache,
+    // picked deterministically from the id so a given NPC's fallback
+    // look is stable across reloads rather than re-randomizing.
+    const SKIN_TONES = [0xf5deb3, 0xc68642, 0xf0c8a0, 0x8d5524, 0xdeb887, 0xc8a070]
+    const HAIR_TONES = [0x2a2a2a, 0x1a1a1a, 0x8b4513, 0x4a2a0a, 0x6a3a1a, 0xc0c0c0, 0x808080, 0x5a5a5a, 0x3a3a3a, 0xc4a35a]
+    const SHIRT_TONES = [0x6da9e3, 0xa8d8a8, 0xd4a0d4, 0xf0a868, 0x6a6a6a, 0x4a4a7a, 0x2a4a6a, 0xb8d4e8, 0xe0a0a0, 0xa0d0c0]
+    for (const id of Object.keys(NPC_SOURCES)) {
+      const key = `npc_${id}`
+      if (this.textures.exists(key)) continue
+      const h = hashString(id)
+      const g = this.make.graphics({ x: 0, y: 0 })
+      this.drawCharacter(g, SHIRT_TONES[h % SHIRT_TONES.length], HAIR_TONES[(h >> 4) % HAIR_TONES.length], SKIN_TONES[(h >> 8) % SKIN_TONES.length])
+      g.generateTexture(key, 32, 32)
       g.destroy()
     }
   }

@@ -328,8 +328,18 @@ export class PrototypeIframeScene extends Phaser.Scene {
    *  losing the wake-
    *  handler's player + NPC visibility resets and forcing a 10k-tile
    *  rebuild on mobile. Falls back to scene.start for any return
-   *  scene that isn't sleeping. */
+   *  scene that isn't sleeping.
+   *
+   *  Special case: beating `boss_audit` (The Quarterly Audit, L32) is
+   *  the game's finale, so route to the ending/share screen instead
+   *  of back into Hospital. */
   private _transitionToReturn() {
+    if (this.caseCompleted && this.encounterId === 'boss_audit') {
+      debugEvent('return:Ending (finale)')
+      this.scene.stop()
+      this.scene.start('Ending')
+      return
+    }
     const sleeping = this.scene.isSleeping(this.returnScene)
     debugEvent(`return:${this.returnScene} sleeping=${sleeping}`)
     if (sleeping) {
@@ -341,7 +351,7 @@ export class PrototypeIframeScene extends Phaser.Scene {
   }
 
   private fadeOutRedRoomAmbience(durationMs: number) {
-    for (const key of ['red_room_1', 'red_room_2', 'red_room_3']) {
+    for (const key of ['red_room_1', 'red_room_2', 'red_room_3', 'red_room_4', 'red_room_5', 'red_room_6']) {
       const s = this.sound.get(key)
       if (!s || !s.isPlaying) continue
       this.tweens.add({

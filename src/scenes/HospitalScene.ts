@@ -267,20 +267,20 @@ export class HospitalScene extends Phaser.Scene {
   }
 
   preload() {
-    // Hospital ambience — Lynch-y / sci-fi melancholy. One is picked
+    // Hospital ambience — velvet-lounge melancholy. One is picked
     // at random in startHospitalAmbience after the intro song has
     // finished. Loaded here (not in BootScene) so the title doesn't
     // wait on ~12MB of music it doesn't need yet. Phaser's loader is
     // idempotent — if these were already cached on a prior visit,
     // the .load.audio call no-ops.
-    if (!this.cache.audio.exists('hospital_twin_peaks')) {
-      this.load.audio('hospital_twin_peaks', 'audio/hospital/twin_peaks.mp3')
+    if (!this.cache.audio.exists('hospital_velvet_1')) {
+      this.load.audio('hospital_velvet_1', 'audio/hospital/velvet_room_1.mp3')
     }
-    if (!this.cache.audio.exists('hospital_mulholland')) {
-      this.load.audio('hospital_mulholland', 'audio/hospital/mulholland_drive.mp3')
+    if (!this.cache.audio.exists('hospital_velvet_2')) {
+      this.load.audio('hospital_velvet_2', 'audio/hospital/velvet_room_2.mp3')
     }
-    if (!this.cache.audio.exists('hospital_blade_runner')) {
-      this.load.audio('hospital_blade_runner', 'audio/hospital/blade_runner_love.mp3')
+    if (!this.cache.audio.exists('hospital_velvet_3')) {
+      this.load.audio('hospital_velvet_3', 'audio/hospital/velvet_room_3.mp3')
     }
   }
 
@@ -297,7 +297,7 @@ export class HospitalScene extends Phaser.Scene {
     // unlocks at once. Useful for QA / map-redraw work without
     // grinding through level transitions.
     const effectiveLevel = state.devFullMapAccess ? 999 : state.currentLevel
-    // For the defeat-gated rooms (Turquoise Lounge etc.), pass the
+    // For the defeat-gated rooms, pass the
     // current defeated-obstacles list. devFullMapAccess pretends all
     // gated obstacles are defeated so post-game rooms open immediately.
     const effectiveDefeats = state.devFullMapAccess
@@ -949,8 +949,8 @@ export class HospitalScene extends Phaser.Scene {
     const placedSoFar = new Set<string>(this.npcSprites.map(n => n.npc.id))
     for (const p of this.mapDef.npcPlacements) {
       if (placedSoFar.has(p.npcId)) continue
-      // Level filter, requiresDefeated gate (post-boss reveals like
-      // chris/adam in the Turquoise Lounge), and ambient-or-active check.
+      // Level filter, requiresDefeated gate (post-boss reveals), and
+      // ambient-or-active check.
       if (!placementQualifies(p)) continue
       const npc = NPCS[p.npcId]
       if (!npc) continue
@@ -1122,7 +1122,7 @@ export class HospitalScene extends Phaser.Scene {
    * round-trip and the prior track is still going).
    */
   private startHospitalAmbience() {
-    const tracks = ['hospital_twin_peaks', 'hospital_mulholland', 'hospital_blade_runner']
+    const tracks = ['hospital_velvet_1', 'hospital_velvet_2', 'hospital_velvet_3']
     if (tracks.some(k => this.sound.get(k)?.isPlaying)) return
 
     const introSong = this.sound.get('intro_song')
@@ -1148,7 +1148,7 @@ export class HospitalScene extends Phaser.Scene {
   /** Fade out any hospital_* ambience that's playing globally. Used
    *  when leaving the Hospital (descent into the WR). */
   private fadeOutHospitalAmbience(durationMs: number) {
-    for (const key of ['hospital_twin_peaks', 'hospital_mulholland', 'hospital_blade_runner']) {
+    for (const key of ['hospital_velvet_1', 'hospital_velvet_2', 'hospital_velvet_3']) {
       const s = this.sound.get(key)
       if (!s || !s.isPlaying) continue
       this.tweens.add({
@@ -1769,11 +1769,13 @@ export class HospitalScene extends Phaser.Scene {
   /**
    * Intro callback — "gothic figures lurking in Mercy General" (intro
    * page7 cover). A handful of cloaked silhouettes drifting through
-   * the second-floor corridor; pulse alpha low so they read as just-
+   * the hospital's corridors; pulse alpha low so they read as just-
    * barely-visible, with a slow sway so they feel alive. Player walks
    * past / through them; depth is set below the player so the figures
-   * stay behind. Placed at fixed corridor tiles on 2F (the upstairs is
-   * thematically the part of the hospital where things "watch").
+   * stay behind. Originally 2F-only (the upstairs is thematically the
+   * part of the hospital where things "watch"), extended to a handful
+   * of 1F hallways too so the effect isn't gated behind reaching the
+   * second floor.
    */
   private addGothicSilhouettes() {
     const COORDS: Array<{ x: number; y: number }> = [
@@ -1781,6 +1783,11 @@ export class HospitalScene extends Phaser.Scene {
       { x: 37, y: 99 },  // 2F trunk corridor, east of landing
       { x: 34, y: 105 }, // long vertical corridor between AUDIT and PAYER
       { x: 34, y: 110 }, // same corridor, near COMPLIANCE
+      // 1F hallways.
+      { x: 14, y: 8 },   // west-wing corridor, between the bend and cafeteria
+      { x: 30, y: 49 },  // SW trough, between HIM and BILLING doors
+      { x: 50, y: 30 },  // east-wing trunk, between Pharmacy and Med Records
+      { x: 18, y: 45 },  // lobby-to-south-wing connector corridor
     ]
     for (const c of COORDS) {
       const px = c.x * TILE + TILE / 2

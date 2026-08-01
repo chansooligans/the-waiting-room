@@ -305,6 +305,9 @@ export class WaitingRoomScene extends Phaser.Scene {
   private obstacleSprites: ObstacleSprite[] = []
   private engagePrompt!: Phaser.GameObjects.Text
   private nearbyObstacle: ObstacleSprite | null = null
+  /** Distant doorway figure — fades out the moment the player gets
+   *  close, so it's never confrontable. See addGlimpsedSilhouette. */
+  private glimpsedSilhouette: { g: Phaser.GameObjects.Graphics; tileX: number; tileY: number; near: boolean } | null = null
 
   constructor() {
     super('WaitingRoom')
@@ -335,6 +338,15 @@ export class WaitingRoomScene extends Phaser.Scene {
     }
     if (!this.cache.audio.exists('red_room_3')) {
       this.load.audio('red_room_3', 'audio/wr/red_room_3.mp3')
+    }
+    if (!this.cache.audio.exists('red_room_4')) {
+      this.load.audio('red_room_4', 'audio/wr/red_room_4.mp3')
+    }
+    if (!this.cache.audio.exists('red_room_5')) {
+      this.load.audio('red_room_5', 'audio/wr/red_room_5.mp3')
+    }
+    if (!this.cache.audio.exists('red_room_6')) {
+      this.load.audio('red_room_6', 'audio/wr/red_room_6.mp3')
     }
   }
 
@@ -862,6 +874,12 @@ export class WaitingRoomScene extends Phaser.Scene {
    *     → a Patient-Services-mirror tile with an animated CMS-1500
    *       stand-in that types itself in then erases on a long loop.
    *
+   * Plus three later additions, same spirit (unattended bureaucracy
+   * going through the motions), not tied to a specific narration line:
+   *   → a self-filing cabinet (HIM-mirror), a self-running photocopier
+   *     (Billing-mirror), and a distant silhouette (Main Hub-mirror)
+   *     that fades out the moment the player approaches it.
+   *
    * These are WR-only. Each is placed at a fixed tile and rendered
    * at depth between floor and player. Player walks past / through.
    */
@@ -869,6 +887,9 @@ export class WaitingRoomScene extends Phaser.Scene {
     this.addFrozenTicket()
     this.addRingingPhone()
     this.addUnfillingForm()
+    this.addSelfFilingCabinet()
+    this.addSelfRunningPhotocopier()
+    this.addGlimpsedSilhouette()
   }
 
   /** Frozen ticket counter — partner to the cycling global ticketText.
@@ -974,6 +995,176 @@ export class WaitingRoomScene extends Phaser.Scene {
     }
     const scheduleNext = () => tickType()
     scheduleNext()
+  }
+
+  /** Self-filing cabinet — HIM-mirror (coding/filing dept). Three
+   *  drawer fronts, each independently sliding out and back on its
+   *  own staggered loop, as if someone were filing paperwork with
+   *  nobody at the desk. */
+  private addSelfFilingCabinet() {
+    const TX = 8, TY = 54 // HIM interior
+    const px = TX * TILE + TILE / 2
+    const py = TY * TILE + TILE / 2
+    const bp = this.biome()
+
+    const cabinet = this.add.graphics().setDepth(3)
+    cabinet.fillStyle(bp.objDark, 1)
+    cabinet.fillRect(-20, -30, 40, 60)
+    cabinet.lineStyle(1, bp.objFrame, 0.8)
+    cabinet.strokeRect(-20, -30, 40, 60)
+    cabinet.setPosition(px, py)
+
+    for (let i = 0; i < 3; i++) {
+      const dy = -22 + i * 18
+      const drawer = this.add.graphics().setDepth(4)
+      drawer.fillStyle(bp.objMid, 1)
+      drawer.fillRoundedRect(-17, dy, 34, 14, 2)
+      drawer.fillStyle(bp.objAccent, 0.8)
+      drawer.fillRect(-4, dy + 5, 8, 3) // handle
+      drawer.setPosition(px, py)
+
+      // Slides down out of the cabinet face, holds a beat, then
+      // retracts. repeatDelay staggers by drawer so they never all
+      // move in lockstep — reads as an ongoing, unattended process
+      // rather than a single synchronized gimmick.
+      this.tweens.add({
+        targets: drawer,
+        y: py + 9,
+        duration: 700,
+        yoyo: true,
+        hold: 500,
+        repeat: -1,
+        repeatDelay: Phaser.Math.Between(5000, 11000),
+        ease: 'Sine.easeInOut',
+        delay: i * 2200,
+      })
+    }
+  }
+
+  /** Self-running photocopier — Billing-mirror (claims paperwork
+   *  dept). Periodically sweeps a scan-bar across the glass, then
+   *  ejects a page that curls out and drifts to rest before
+   *  dissolving. Nobody's standing at it. */
+  private addSelfRunningPhotocopier() {
+    const TX = 26, TY = 54 // BILLING interior
+    const px = TX * TILE + TILE / 2
+    const py = TY * TILE + TILE / 2
+    const bp = this.biome()
+
+    const body = this.add.graphics().setDepth(3)
+    body.fillStyle(bp.objDark, 1)
+    body.fillRoundedRect(px - 22, py - 16, 44, 32, 3)
+    body.lineStyle(1, bp.objFrame, 0.8)
+    body.strokeRoundedRect(px - 22, py - 16, 44, 32, 3)
+    body.fillStyle(0x0a0608, 0.6)
+    body.fillRect(px - 18, py - 14, 36, 12)
+
+    const scanBar = this.add.graphics().setDepth(4).setAlpha(0)
+    scanBar.fillStyle(bp.glowAccent, 0.9)
+    scanBar.fillRect(-1, -6, 2, 12)
+
+    const runCycle = () => {
+      if (!this.scene.isActive()) return
+      scanBar.setPosition(px - 18, py - 8).setAlpha(0.9)
+      this.tweens.add({
+        targets: scanBar,
+        x: px + 18,
+        duration: 900,
+        ease: 'Sine.easeInOut',
+        onComplete: () => {
+          scanBar.setAlpha(0)
+          this.spawnEjectedPage(px, py)
+          this.time.delayedCall(Phaser.Math.Between(18000, 40000), runCycle)
+        },
+      })
+    }
+    this.time.delayedCall(Phaser.Math.Between(4000, 12000), runCycle)
+  }
+
+  /** One curling page ejected from the photocopier — drifts down and
+   *  out, holds a moment, then fades away. */
+  private spawnEjectedPage(px: number, py: number) {
+    const page = this.add.graphics().setDepth(5)
+    page.fillStyle(0xd8cfc4, 0.9)
+    page.fillRoundedRect(-10, -13, 20, 26, 2)
+    page.setPosition(px + 4, py - 20).setAlpha(0).setAngle(-8)
+    this.tweens.add({
+      targets: page,
+      alpha: 1,
+      y: py + 12,
+      angle: Phaser.Math.Between(10, 40),
+      duration: 1400,
+      ease: 'Cubic.easeIn',
+      onComplete: () => {
+        this.tweens.add({
+          targets: page,
+          alpha: 0,
+          duration: 900,
+          delay: 1200,
+          onComplete: () => page.destroy(),
+        })
+      },
+    })
+  }
+
+  /** Distant doorway figure — Main Hub-mirror, far corner. Ambient
+   *  low-alpha pulse like the gothic silhouettes, EXCEPT it actively
+   *  reacts to the player: the moment they get within a few tiles it
+   *  snaps to fully transparent, so it can never be looked at directly
+   *  up close — only glimpsed peripherally and gone by the time you
+   *  approach. See updateGlimpsedSilhouette, called from update(). */
+  private addGlimpsedSilhouette() {
+    const TX = 36, TY = 6 // Main Hub interior, NE corner (clear of the potted plants at x=23/34)
+    const px = TX * TILE + TILE / 2
+    const py = TY * TILE + TILE / 2
+    const bp = this.biome()
+    const g = this.add.graphics().setDepth(2)
+    g.fillStyle(0x000000, 1)
+    g.fillRoundedRect(-16, -22, 32, 54, 6)
+    g.fillCircle(0, -26, 9)
+    g.fillStyle(bp.ringInner, 0.9)
+    g.fillCircle(-3, -26, 1.4)
+    g.fillCircle(3, -26, 1.4)
+    g.setPosition(px, py)
+    g.setAlpha(0)
+    this.glimpsedSilhouette = { g, tileX: TX, tileY: TY, near: false }
+    this.startSilhouetteDrift()
+  }
+
+  /** (Re)starts the ambient low-alpha pulse for the glimpsed
+   *  silhouette. Called on init and again whenever the player walks
+   *  back out of proximity range. */
+  private startSilhouetteDrift() {
+    const s = this.glimpsedSilhouette
+    if (!s) return
+    this.tweens.add({
+      targets: s.g,
+      alpha: 0.22,
+      duration: Phaser.Math.Between(3000, 5000),
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut',
+      delay: Phaser.Math.Between(0, 2000),
+    })
+  }
+
+  /** Per-frame proximity check for the glimpsed silhouette — snaps it
+   *  to invisible the instant the player closes within 4 tiles, and
+   *  re-arms the ambient pulse once they back off. Called from
+   *  update(). */
+  private updateGlimpsedSilhouette() {
+    const s = this.glimpsedSilhouette
+    if (!s) return
+    const dist = Math.max(Math.abs(this.playerTileX - s.tileX), Math.abs(this.playerTileY - s.tileY))
+    const isNear = dist <= 4
+    if (isNear && !s.near) {
+      s.near = true
+      this.tweens.killTweensOf(s.g)
+      this.tweens.add({ targets: s.g, alpha: 0, duration: 450, ease: 'Sine.easeIn' })
+    } else if (!isNear && s.near) {
+      s.near = false
+      this.startSilhouetteDrift()
+    }
   }
 
   private placeObstacles() {
@@ -1088,7 +1279,7 @@ export class WaitingRoomScene extends Phaser.Scene {
     // the prototype scene. The WR fades ambience in over 2 s; if the
     // player engages quickly, scene.start kills that tween mid-fade
     // and the sound stays silent for the entire encounter session.
-    for (const key of ['red_room_1', 'red_room_2', 'red_room_3']) {
+    for (const key of ['red_room_1', 'red_room_2', 'red_room_3', 'red_room_4', 'red_room_5', 'red_room_6']) {
       const s = this.sound.get(key)
       if (s && s.isPlaying) {
         this.tweens.killTweensOf(s)
@@ -1153,6 +1344,7 @@ export class WaitingRoomScene extends Phaser.Scene {
     }
 
     this.checkObstacleProximity()
+    this.updateGlimpsedSilhouette()
   }
 
   /** Swap the player texture based on the direction they're moving. */
@@ -1162,7 +1354,7 @@ export class WaitingRoomScene extends Phaser.Scene {
    *  re-entering the WR while the previous track hasn't been faded
    *  out yet). */
   private startRedRoomAmbience() {
-    const keys = ['red_room_1', 'red_room_2', 'red_room_3']
+    const keys = ['red_room_1', 'red_room_2', 'red_room_3', 'red_room_4', 'red_room_5', 'red_room_6']
     // If a previous track is somehow still playing (slow tween
     // teardown from a prior session), tear it down now and continue.
     // The OLD code just returned, leaving a 'silent' state if the
@@ -1202,9 +1394,9 @@ export class WaitingRoomScene extends Phaser.Scene {
    *  from bleeding under the Red Room track. */
   private fadeOutHospitalLayerAudio(durationMs: number) {
     const keys = [
-      'hospital_twin_peaks',
-      'hospital_mulholland',
-      'hospital_blade_runner',
+      'hospital_velvet_1',
+      'hospital_velvet_2',
+      'hospital_velvet_3',
       'intro_song',
     ]
     for (const k of keys) {
