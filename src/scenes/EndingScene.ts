@@ -63,7 +63,7 @@ export class EndingScene extends Phaser.Scene {
     }).setOrigin(0.5)
 
     const gs = getState()
-    const recap = `${gs.defeatedObstacles.length} obstacles cleared · $${gs.resources.cash.toLocaleString()} recovered`
+    const recap = `${gs.defeatedObstacles.length} obstacles cleared`
     this.add.text(width / 2, 265, recap, {
       fontSize: '18px', fontFamily: 'monospace', color: '#8b95a5',
     }).setOrigin(0.5)
@@ -73,8 +73,7 @@ export class EndingScene extends Phaser.Scene {
     }).setOrigin(0.5)
 
     const targets: ShareTarget[] = [
-      { label: 'LinkedIn', color: '#7ee2c1', action: () => this.shareViaIntent(
-        `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(GAME_URL)}`) },
+      { label: 'LinkedIn', color: '#7ee2c1', action: () => this.shareToLinkedIn() },
       { label: 'Facebook', color: '#6da9e3', action: () => this.shareViaIntent(
         `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(GAME_URL)}&quote=${encodeURIComponent(SHARE_MESSAGE)}`) },
       { label: 'X', color: '#f0a868', action: () => this.shareViaIntent(
@@ -100,12 +99,27 @@ export class EndingScene extends Phaser.Scene {
       align: 'center', wordWrap: { width: width - 400 },
     }).setOrigin(0.5)
 
-    const backBtn = this.add.text(width / 2, height - 60, '[ BACK TO TITLE ]', {
+    const exploreBtn = this.add.text(width / 2, height - 60, '[ EXPLORE THE HOSPITAL ]', {
       fontSize: '22px', fontFamily: 'monospace', color: '#8b95a5',
     }).setOrigin(0.5).setInteractive({ useHandCursor: true })
-    backBtn.on('pointerover', () => backBtn.setColor('#ffffff'))
-    backBtn.on('pointerout', () => backBtn.setColor('#8b95a5'))
-    backBtn.on('pointerdown', () => this.scene.start('Title'))
+    exploreBtn.on('pointerover', () => exploreBtn.setColor('#ffffff'))
+    exploreBtn.on('pointerout', () => exploreBtn.setColor('#8b95a5'))
+    exploreBtn.on('pointerdown', () => this.exploreHospital())
+  }
+
+  /** Hospital was left sleeping (not stopped) when PrototypeIframeScene
+   *  routed here instead of waking it — mirrors the same sleeping-check
+   *  pattern PrototypeIframeScene._transitionToReturn uses, so the
+   *  player drops back into their exact pre-finale position and can
+   *  freely walk the hospital post-game instead of being dumped at
+   *  the title screen. */
+  private exploreHospital() {
+    if (this.scene.isSleeping('Hospital')) {
+      this.scene.stop()
+      this.scene.wake('Hospital')
+    } else {
+      this.scene.start('Hospital')
+    }
   }
 
   private shareViaIntent(url: string) {
@@ -118,6 +132,17 @@ export class EndingScene extends Phaser.Scene {
     navigator.clipboard?.writeText(`${SHARE_MESSAGE} ${GAME_URL}`).catch(() => {})
     this.showToast('Message copied — paste it into your Instagram post or Story')
     window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer')
+  }
+
+  /** LinkedIn's share-offsite dialog only accepts a `url` param and
+   *  builds its own preview from the page's Open Graph tags — it
+   *  hasn't honored any text-prefill param in years (anti-spam). Copy
+   *  the message to the clipboard first so it's one paste away once
+   *  the "Add a comment" box opens, same trick as Instagram above. */
+  private shareToLinkedIn() {
+    navigator.clipboard?.writeText(`${SHARE_MESSAGE} ${GAME_URL}`).catch(() => {})
+    this.showToast('Message copied — paste it into the LinkedIn post box')
+    this.shareViaIntent(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(GAME_URL)}`)
   }
 
   private showToast(message: string) {
