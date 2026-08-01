@@ -29,6 +29,10 @@ export const NPC_SOURCES: Record<string, string> = {
   sam:      'npc3_3',
   martinez: 'npc1_0',
   anjali:   'npc2_1',
+  // Reused by the L32 audit team (auditor_carl/chen/rivera/eddi in
+  // npcs.ts, via their own `spriteKey: 'npc_carl'` etc.) — these
+  // NPC_SOURCES keys just have to match the texture key spriteKey
+  // resolves to, not the npcs.ts `id`.
   carl:     'npc5_3',
   chen:     'npc2_2',
   rivera:   'npc3_0',
@@ -66,14 +70,4 @@ export const NPC_SOURCES: Record<string, string> = {
   bike_emt:           'npc17_2', // Outdoor (alt EMT, helmet + green jacket)
   dr_park:            'npc7_1',  // Main Hub: physician with glasses, white coat
   lab_tech:           'npc10_2', // West wing LAB: dark scrubs, glasses
-  // Round 5 — single-character sheets (npc21–26). Each sheet has
-  // exactly one character, so the slot row is always _0. The build
-  // script (process-npc-sheets.sh) re-shapes the python output into
-  // the canonical `npc<N>_0_<dir>.png` filename, regardless of
-  // whether the source sheet was a 4×1 strip (orange chroma) or
-  // a 2×2 grid (green chroma).
-  chansoo:  'npc21_0', // Data Sandbox: bearded glasses + dark coat
-  nicole:   'npc22_0', // Data Sandbox: blonde, navy cardigan + ID
-  nick:     'npc23_0', // Data Sandbox: stubble, dark sweater + ID
-  monika:   'npc24_0', // Data Sandbox: brunette, black turtleneck + lanyard
 }

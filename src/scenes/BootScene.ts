@@ -122,12 +122,14 @@ export class BootScene extends Phaser.Scene {
       this.load.image(`npc_${id}_up`,    `sprites/npcs-raw/${slot}_3.png`)
     }
 
-    // Hospital objects — LoRA-generated 64×64 transparent PNGs from
-    // the Object contact sheet (5 sheets × 16 cells = 80 total).
-    // 11 keys override existing procedural draws; the rest register
-    // new texture keys for future placement. makeHospitalTiles skips
-    // its procedural draw per-key when the loaded texture already
-    // claimed that key (same pattern as makeNPCSprites).
+    // Hospital objects — OBJECT_SOURCES is empty by design (see
+    // objectSources.ts): every object texture is pure procedural
+    // pixel art drawn at runtime in makeHospitalTiles below. This
+    // loop is a no-op today but stays wired up as the reintroduction
+    // path if PNG-backed object art ever comes back for a given key
+    // — makeHospitalTiles already skips its procedural draw per-key
+    // when a loaded texture claims that key first (same pattern as
+    // makeNPCSprites).
     for (const [key, slot] of Object.entries(OBJECT_SOURCES)) {
       this.load.image(key, `sprites/objects-raw/${slot}.png`)
     }
@@ -483,10 +485,10 @@ export class BootScene extends Phaser.Scene {
       { key: 'npc_martinez', shirt: 0xffffff, hair: 0x2a2a2a, skin: 0xc68642, accessory: 'stethoscope' },
       { key: 'npc_kim', shirt: 0xa8d8a8, hair: 0x1a1a1a, skin: 0xf0c8a0 },
       { key: 'npc_jordan', shirt: 0xd4a0d4, hair: 0x8b4513, skin: 0x8d5524 },
-      { key: 'npc_eddi', shirt: 0x808080, hair: 0x808080, skin: 0xb0b0b0 },
       { key: 'npc_pat', shirt: 0x3a3a6a, hair: 0xc0c0c0, skin: 0xf5deb3, accessory: 'glasses' },
       { key: 'npc_alex', shirt: 0x2a2a2a, hair: 0x4a2a0a, skin: 0xdeb887 },
       { key: 'npc_sam', shirt: 0xf0a868, hair: 0x6a3a1a, skin: 0xc68642 },
+      { key: 'npc_eddi', shirt: 0x808080, hair: 0x808080, skin: 0xb0b0b0 },
       { key: 'npc_carl', shirt: 0x6a6a6a, hair: 0x5a5a5a, skin: 0xf5deb3 },
       { key: 'npc_chen', shirt: 0x4a4a7a, hair: 0x1a1a1a, skin: 0xf0c8a0 },
       { key: 'npc_rivera', shirt: 0x2a4a6a, hair: 0x3a3a3a, skin: 0xc68642 },

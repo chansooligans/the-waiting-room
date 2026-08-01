@@ -17,8 +17,6 @@ import type { DialogueNode } from '../types'
 //                              (one-shot, no case handoff).
 //   ## AMBIENT_NPCS          — One-line scenery dialogues (Liana,
 //                              Marisol, Walter, Greta, Joe, etc.).
-//   ## SANDBOX_AND_LOUNGE    — Data Sandbox crew (Chansoo, Monika, Nick,
-//                              Nicole).
 //   ## CATALOG_INTAKES       — The 21 catalog-case intake dialogues
 //                              added during the 33-level migration.
 //   ## LEVEL_NPC_DIALOGUES   — Per-level override map at the bottom of
@@ -913,76 +911,6 @@ export const DIALOGUES: Record<string, DialogueNode> = {
     text: "Sorry, sorry — back wing's torn up. Billing, the phones, the lab, the lecture hall. Wiring, mostly. Ceiling tiles came down on Tuesday. Couple weeks and you'll be walking through here like nothing happened.",
   },
 
-  // ## SANDBOX_AND_LOUNGE ##
-  // === Round 5 — Data Sandbox (R&D) ===
-  chansoo_intro: {
-    id: 'chansoo_intro',
-    speaker: 'Chansoo',
-    text: "Pulling the denial regression. Cleanest signal from the dirtiest data — every reason code is a different kind of lie.",
-    next: 'chansoo_intro_2',
-  },
-  chansoo_intro_2: {
-    id: 'chansoo_intro_2',
-    speaker: 'Chansoo',
-    text: "Built a whole game about this once. Educational. People kept asking why it was scary. I said: have you read a denial letter? It's a horror genre. The denial letter invented the cliffhanger.",
-    next: 'chansoo_intro_3',
-  },
-  chansoo_intro_3: {
-    id: 'chansoo_intro_3',
-    speaker: 'Chansoo',
-    text: "If a model gets the right answer for the wrong reason, it's not the right answer. It's just expensive. Same goes for hospitals. Same goes for lunch.",
-  },
-  nicole_intro: {
-    id: 'nicole_intro',
-    speaker: 'Nicole',
-    text: "Spinning up a sandbox env. One environment per region, one schema per payer, all provisioned through code.",
-    next: 'nicole_intro_2',
-  },
-  nicole_intro_2: {
-    id: 'nicole_intro_2',
-    speaker: 'Nicole',
-    text: "My job is reliability. Customers don't see the platform when it works — they see it when it doesn't. So if we're doing our jobs, you've never thought about me. If you have, somebody woke me up at 2 a.m.",
-    next: 'nicole_intro_3',
-  },
-  nicole_intro_3: {
-    id: 'nicole_intro_3',
-    speaker: 'Nicole',
-    text: "Thing I'm proudest of from last quarter: we ingested eight billion new rate rows and three new payer formats and the customer-facing UI never blinked. Reliability isn't loud. But it's how trust gets built.",
-  },
-  nick_intro: {
-    id: 'nick_intro',
-    speaker: 'Nick',
-    text: "Price transparency PM. Five years ago this product category didn't exist. The federal rule shipped in 2021; we shipped our first version of the product a few months later.",
-    next: 'nick_intro_2',
-  },
-  nick_intro_2: {
-    id: 'nick_intro_2',
-    speaker: 'Nick',
-    text: "Half my job is translating. Hospitals and payers don't say 'I want a percentile breakdown of negotiated rates by CPT code.' They say 'I just want to know if I'm paying too much.' My job is to make the second question answerable with the first one.",
-    next: 'nick_intro_3',
-  },
-  nick_intro_3: {
-    id: 'nick_intro_3',
-    speaker: 'Nick',
-    text: "Best feature we shipped last year was a one-click 'show me the highest-leverage rate to renegotiate' button. CFOs use it. Procurement teams use it. First time I saw a hospital save real money from it, I went home early. Then I came back the next morning and started on the next one.",
-  },
-  monika_intro: {
-    id: 'monika_intro',
-    speaker: 'Monika',
-    text: "Joining claim adjudications to remit codes. Two LEFT JOINs deep and still finding nulls where the patient should be.",
-    next: 'monika_intro_2',
-  },
-  monika_intro_2: {
-    id: 'monika_intro_2',
-    speaker: 'Monika',
-    text: "A NULL is supposed to mean 'unknown.' In this dataset it means 'someone didn't finish a sentence.' Sometimes a registrar missed a checkbox. Sometimes the patient declined to answer. Sometimes the row exists for an audit reason and was never supposed to be queried. I have to guess every time.",
-    next: 'monika_intro_3',
-  },
-  monika_intro_3: {
-    id: 'monika_intro_3',
-    speaker: 'Monika',
-    text: "That's the job, honestly — guessing accurately about why somebody didn't write something down. Sounds depressing on paper. Most days it's just interesting.",
-  },
   dana_l10_intake_back: {
     id: 'dana_l10_intake_back',
     speaker: 'Dana',
