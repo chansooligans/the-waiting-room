@@ -351,7 +351,7 @@ export class PrototypeIframeScene extends Phaser.Scene {
   }
 
   private fadeOutRedRoomAmbience(durationMs: number) {
-    for (const key of ['red_room_1', 'red_room_2', 'red_room_3', 'red_room_4', 'red_room_5', 'red_room_6']) {
+    for (const key of ['red_room_1', 'red_room_2', 'red_room_3']) {
       const s = this.sound.get(key)
       if (!s || !s.isPlaying) continue
       this.tweens.add({

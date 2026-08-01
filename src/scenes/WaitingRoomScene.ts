@@ -331,36 +331,23 @@ export class WaitingRoomScene extends Phaser.Scene {
     // is idempotent so this is a no-op on subsequent entries that
     // re-use the cached audio.
     //
-    // Only the first two tracks are eager here. All six mp3s are
-    // ~5.7MB each (34MB total) — decoded PCM in memory is far bigger
-    // than that compressed size, and decoding all six at once on the
-    // very first descent was pushing memory-constrained mobile
-    // devices over the edge (the same class of crash buildMap's
-    // sessionBounds tiling below exists to prevent). The remaining
-    // four load lazily once the scene has settled — see
-    // loadRemainingRedRoomTracks, called from create().
+    // Capped at 3 tracks. This pool briefly grew to 6 (~34MB of mp3);
+    // decoded PCM in memory is far bigger than that compressed size,
+    // and decoding that much at once was crashing memory-constrained
+    // mobile devices. Staggering the load (2 eager + 4 lazy after a
+    // delay) only moved the crash to whenever the lazy batch decoded
+    // — the total resident memory was the same, just deferred. 3
+    // tracks matches Hospital's own pool size, which has never shown
+    // this problem.
     if (!this.cache.audio.exists('red_room_1')) {
       this.load.audio('red_room_1', 'audio/wr/red_room_1.mp3')
     }
     if (!this.cache.audio.exists('red_room_2')) {
       this.load.audio('red_room_2', 'audio/wr/red_room_2.mp3')
     }
-  }
-
-  /** Lazily decode the remaining four Red Room tracks a few seconds
-   *  after the scene has settled, so the memory spike from decoding
-   *  six ~5.7MB mp3s is spread out instead of landing all at once on
-   *  the first descent — the moment mobile is already under the most
-   *  pressure from Hospital's teardown + WR's own tile build. No-ops
-   *  once everything's cached (every visit after the first). */
-  private loadRemainingRedRoomTracks() {
-    const remaining = ['red_room_3', 'red_room_4', 'red_room_5', 'red_room_6']
-      .filter(k => !this.cache.audio.exists(k))
-    if (remaining.length === 0) return
-    for (const key of remaining) {
-      this.load.audio(key, `audio/wr/${key}.mp3`)
+    if (!this.cache.audio.exists('red_room_3')) {
+      this.load.audio('red_room_3', 'audio/wr/red_room_3.mp3')
     }
-    this.load.start()
   }
 
   create() {
@@ -429,12 +416,6 @@ export class WaitingRoomScene extends Phaser.Scene {
     // Both live on the global sound manager and would otherwise keep
     // playing under the WR ambience.
     this.fadeOutHospitalLayerAudio(900)
-
-    // Give the scene a few seconds to settle (tile build + camera
-    // fade-in) before decoding the other four Red Room tracks in the
-    // background — see loadRemainingRedRoomTracks for why this is
-    // staggered instead of eager.
-    this.time.delayedCall(5000, () => this.loadRemainingRedRoomTracks())
 
     // Red Room ambience — pick one of three tracks at random, loop
     // it, and fade in over 2s. The sound is on the global manager so
@@ -1298,7 +1279,7 @@ export class WaitingRoomScene extends Phaser.Scene {
     // the prototype scene. The WR fades ambience in over 2 s; if the
     // player engages quickly, scene.start kills that tween mid-fade
     // and the sound stays silent for the entire encounter session.
-    for (const key of ['red_room_1', 'red_room_2', 'red_room_3', 'red_room_4', 'red_room_5', 'red_room_6']) {
+    for (const key of ['red_room_1', 'red_room_2', 'red_room_3']) {
       const s = this.sound.get(key)
       if (s && s.isPlaying) {
         this.tweens.killTweensOf(s)
@@ -1373,7 +1354,7 @@ export class WaitingRoomScene extends Phaser.Scene {
    *  re-entering the WR while the previous track hasn't been faded
    *  out yet). */
   private startRedRoomAmbience() {
-    const keys = ['red_room_1', 'red_room_2', 'red_room_3', 'red_room_4', 'red_room_5', 'red_room_6']
+    const keys = ['red_room_1', 'red_room_2', 'red_room_3']
     // If a previous track is somehow still playing (slow tween
     // teardown from a prior session), tear it down now and continue.
     // The OLD code just returned, leaving a 'silent' state if the
@@ -1391,11 +1372,8 @@ export class WaitingRoomScene extends Phaser.Scene {
       sm.unlock()
       debugEvent('wr:sm-unlock')
     }
-    // Only offer tracks that have actually finished decoding — on a
-    // first descent the four lazy-loaded ones (see
-    // loadRemainingRedRoomTracks) may not have arrived yet, and
-    // picking one of those would just bail below with no ambience at
-    // all instead of falling back to whichever tracks ARE ready.
+    // Defensive: only offer tracks that actually finished decoding,
+    // in case a slow connection hasn't caught up with preload() yet.
     const loadedKeys = keys.filter(k => this.cache.audio.exists(k))
     if (loadedKeys.length === 0) {
       debugEvent('wr:audio-missing all')
